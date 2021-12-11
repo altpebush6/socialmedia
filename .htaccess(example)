@@ -1,0 +1,75 @@
+RewriteEngine On
+#hotlink belirttiğimiz içeriğin başka sitelerde kullanımını yasaklama
+#RewriteCond %{HTTP_REFERER} !^$
+#RewriteCond %{HTTP_REFERER} !^http://(www\.)sifirdanphp.site/.*$ [NC]
+#RewriteRule \.(gif|jpg|jpeg|png|bmp|zip|rar|mp3|mp4|xml|php|css|pdf)$ - [F]
+
+#siteniz www'lu veya www'suz olursa her iki koşulda da www'suz olana yönlendir
+#RewriteCond %{HTTP_HOST} ^sifirdanphp.site [NC, OR]
+#RewriteCond %{HTTP_HOST} ^www.sifirdanphp.site [NC]
+#RewriteRule ^(.*)$ http://sifirdanphp.site/$1 [L,R=301,NC]
+
+#siteniz  www'suz olursa  www'lu olana yönlendir
+#RewriteCond %{HTTP_HOST} ^sifirdanphp.site [NC]
+#RewriteRule ^(.*)$ http://www.sifirdanphp.site/$1 [L,R=301,NC]
+
+#sitenizi yeni sitenize yönlendirme
+#Redirect 301 / http://www.youtube.com [NC, L]
+
+#https olana yönlendirme
+#RewriteCond %{HTTPS} !on
+#RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+#Ana sayfa belirleme ve değiştirme
+#DirectoryIndex default.php [F]
+#Zararlı botları sitenize girişini yasaklama
+#RewriteCond %{HTTP_USER_AGENT} ^BlackWidow [OR]
+#RewriteCond %{HTTP_USER_AGENT} ^Bot mailto:craftbot@yahoo.com [OR]
+#RewriteCond %{HTTP_USER_AGENT} ^ChinaClaw [OR]
+#RewriteCond %{HTTP_USER_AGENT} ^Custo [OR]
+#RewriteCond %{HTTP_USER_AGENT} ^DISCo [OR]
+#RewriteCond %{HTTP_USER_AGENT} ^Download Demon [OR]
+#RewriteCond %{HTTP_USER_AGENT} ^eCatch
+#RewriteRule .* - [F]
+
+
+#sunucunuzda klasör içerisini listelenmesini engeller
+#Options -Indexes
+
+#upload klasörünüzde aşağ belirtilen uzantıların çalıştırılmasını engeller
+#AddHandler cgi-script .php .php2 .php3 .php4 .php5 .php6 .php7 .php8 .pl .py .js .jsp .asp .htm .html .shtml .sh .cgi
+#Options -ExecCGI
+
+#htaccess dosyası ve php ini dosyasının güvenliğini alma girişleri yasaklama
+#RewriteRule ^(php\.ini|\.htaccess) - [NC, F]
+
+#htaccess ip engelle ya da izin ver
+#deny from 124.23.0.1 yasaklar
+#allow from 127.0.0.1 izin verir
+
+#Kimlik doğrulaması yapılmadan siteye girilmesine engel ol
+#AuthType Basic
+#AuthName "Restricted Content"
+#AuthUserFile /home/sifirda1/public_html/.htpasswd
+#require valid-user
+
+ErrorDocument 403 http://www.sifirdanphp.site/403.html
+ErrorDocument 404 http://www.sifirdanphp.site/404.html
+
+#php uzantısını kullanmadan sayfaların açılmasını sağlar
+#RewriteCond %{REQUEST_FILENAME} !-f
+#RewriteRule ^([^\.]+)$ $1.php [NC,L]
+
+#index.php için özel isim belirleme
+#RewriteRule ^main index.php [NC, L]
+#RewriteRule ^custom default.php [NC, L]
+
+#index.php kısmını engelleme
+#RewriteCond %{THE_REQUEST} ^.*/index.php
+#RewriteRule ^(.*)index.php$ http://www.sifirdanphp.site/$1 [R=301,L]
+
+RewriteRule ^article/([0-9a-zA-Z-_]+)$ index.php?article=$1 [QSA,NC,L]
+RewriteRule ^article/([0-9a-zA-Z-_]+)/([0-9]+)/([0-9a-zA-Z-_]+)$ index.php?article=$1&ID=$2&name=$3 [NC,L]
+
+
+

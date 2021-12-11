@@ -1,0 +1,9 @@
+RewriteEngine On
+RewriteRule ^([0-9a-zA-Z-_]+)$  index.php?page=$1 [L,QSA]
+RewriteRule ^([0-9a-zA-Z-_]+)/([0-9a-zA-Z-_]+)$  index.php?page=$1&part=$2 [L,QSA]
+RewriteRule ^([0-9a-zA-Z-_]+)/([0-9a-zA-Z-_]+)/([0-9a-zA-Z-_]+)$  index.php?page=$1&part=$2&edit=$3 [L,QSA]
+
+ErrorDocument 404 http://localhost/aybu/socialmedia/404.php
+
+Options -Indexes
+ErrorDocument 403 http://localhost/aybu/socialmedia/403.php
