@@ -417,8 +417,8 @@ $message_count = $db->getColumnData("SELECT COUNT(*) FROM chatbox WHERE MessageT
                 <hr class="dropdown-divider">
               </li>
               <li class="dropdown-item text-center">
-                <img class="me-1 mb-1 rounded-3 shadow-sm" style="width:35px;height:20px;cursor:pointer" src="images/tr.png" onClick="ChangeLang('tr','<?= $page ?>','<?= $part ?>')" <?php echo ($language == 'tr' ? 'style="opacity:1"' : 'style="opacity:0.7"') ?>>
-                <img class="mb-1 rounded-3 shadow-sm" style="width:35px;height:20px;cursor:pointer" src="images/en.png" onClick="ChangeLang('en','<?= $page ?>','<?= $part ?>')" <?php echo ($language == 'en' ? 'style="opacity:1"' : 'style="opacity:0.7"') ?>>
+                <img class="me-1 mb-1 rounded-3 shadow-sm" style="width:35px;height:20px;cursor:pointer" src="images/tr.png" onClick="ChangeLang('tr','<?= $page ?>','<?= $part ?>','<?=$edit?>')" <?php echo ($language == 'tr' ? 'style="opacity:1"' : 'style="opacity:0.7"') ?>>
+                <img class="mb-1 rounded-3 shadow-sm" style="width:35px;height:20px;cursor:pointer" src="images/en.png" onClick="ChangeLang('en','<?= $page ?>','<?= $part ?>','<?=$edit?>')" <?php echo ($language == 'en' ? 'style="opacity:1"' : 'style="opacity:0.7"') ?>>
               </li>
               <li>
                 <hr class="dropdown-divider">

@@ -53,7 +53,7 @@ $NewsTime = preg_replace($pattern, ".", $NewsTime);
             </div>
             <div class="d-none d-md-block clearfix">
                 <img src="news_images/<?= $myNews->NewsImg ?>" class="rounded-3 me-3" style="width: 600px;float:left !important;">
-                <p class="fs-4 text-light" style="text-indent:15px;word-break:break-all;"><?= $myNews->NewsContent ?></p>
+                <p class="fs-4 text-light" style="text-indent:15px;-webkit-hyphens: auto !important;-moz-hyphens: auto !important;hyphens: auto !important;"><?= $myNews->NewsContent ?></p>
             </div>
         </div>
     </div>

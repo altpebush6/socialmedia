@@ -74,11 +74,11 @@ switch ($operation) {
           $msgName = $item->MessageImg;
 
           if ($msgName) {
-            $messageimage = '<img src="message_images/' . $msgName . '" class="rounded-2" width="250">';
+            $messageimage = '<img src="message_images/' . $msgName . '" class="rounded-2" style="width:250px;min-height:20vh;">';
             $result["message"] = '<li class="list-group-item bg-transparent p-4 py-1" style="border:none;" id="each_message_' . $item->MessageID . '" lastid="' . $item->MessageID . '">
                                     <div class="row">   
                                       <div class="col-2 p-0 col-lg-1 text-center me-lg-3">
-                                        <img src="images_profile/' . $getprofileimg . '"  class="rounded-circle" width="50" height="50">
+                                      <a href="http://localhost/aybu/socialmedia/' . $translates["profile"] . '/' . $personID . '"><img src="images_profile/' . $getprofileimg . '" class="rounded-circle" width="60" height="60"></a>
                                       </div>      
                                       <div class="col-10 d-flex justify-content-start p-0 text-start message-content-img">
                                         <a class="w-33" href="message_images/' . $msgName . '">' . $messageimage . '</a>
@@ -86,13 +86,14 @@ switch ($operation) {
                                         ' . messageTime($item->MessageAddTime) . '
                                         </span>
                                       </div>
+                                      <script>baguetteBox.run(\'.message-content-img\');</script>
                                     </div>
                                   </li>';
           } else {
             $result["message"] = '<li class="list-group-item bg-transparent p-4 py-1" style="border:none;" id="each_message_' . $item->MessageID . '" lastid="' . $item->MessageID . '">
                                   <div class="row">     
                                     <div class="col-2 col-lg-1 text-center p-0 me-2 me-md-3 me-lg-4">
-                                      <img src="images_profile/' . $getprofileimg . '"  class="rounded-circle" width="50" height="50">
+                                    <a href="http://localhost/aybu/socialmedia/' . $translates["profile"] . '/' . $personID . '"><img src="images_profile/' . $getprofileimg . '" class="rounded-circle" width="60" height="60"></a>
                                     </div>        
                                     <div class="col-2 p-0" style="width:auto;max-width:250px;min-width:75px;">
                                       <div class="row align-items-center bg-light text-dark rounded-3" style="height:100%;max-width:200px;">
@@ -272,11 +273,11 @@ switch ($operation) {
           $personNames = $db->getColumnData("SELECT MemberNames FROM members WHERE MemberID = ?", array($MessageFromID));
 
           if ($msgName) {
-            $messageimage = '<img src="message_images/' . $msgName . '" class="rounded-2" width="250">';
+            $messageimage = '<img src="message_images/' . $msgName . '" class="rounded-2" style="width:250px;min-height:20vh;">';
             $result["message"] = '<li class="list-group-item bg-transparent p-4 py-1 my-2" style="border:none;" id="each_message_' . $item->MessageID . '" lastid="' . $item->MessageID . '">
                                   <div class="row">   
                                     <div class="col-2 p-0 col-lg-1 text-center me-lg-3">
-                                      <img src="images_profile/' . $getprofileimg . '"  class="rounded-circle" width="50" height="50">
+                                    <a href="http://localhost/aybu/socialmedia/' . $translates["profile"] . '/' . $MessageFromID . '"><img src="images_profile/' . $getprofileimg . '" class="rounded-circle" width="60" height="60"></a>
                                     </div>      
                                     <div class="col-10 d-flex justify-content-start p-0 text-start message-content-img">
                                       <a class="w-33" href="message_images/' . $msgName . '">
@@ -287,13 +288,14 @@ switch ($operation) {
                                       ' . messageTime($item->MessageAddTime) . '
                                       </span>
                                     </div>
+                                    <script>baguetteBox.run(\'.message-content-img\');</script>
                                   </div>
                                 </li>';
           } else {
             $result["message"] = '<li class="list-group-item bg-transparent p-4 py-1 my-2" style="border:none;" id="each_message_' . $item->MessageID . '" lastid="' . $item->MessageID . '">
                                 <div class="row">     
                                   <div class="col-2 col-lg-1 text-center p-0 me-2 me-md-3 me-lg-4">
-                                    <img src="images_profile/' . $getprofileimg . '"  class="rounded-circle" width="50" height="50">
+                                  <a href="http://localhost/aybu/socialmedia/' . $translates["profile"] . '/' . $MessageFromID . '"><img src="images_profile/' . $getprofileimg . '" class="rounded-circle" width="60" height="60"></a>
                                   </div>        
                                   <div class="col-2 p-0" style="width:auto;max-width:250px;min-width:75px;">
                                     <div class="row align-items-center bg-light text-dark rounded-3" style="height:100%;max-width:200px;">
@@ -332,7 +334,7 @@ switch ($operation) {
                                         </div>
                                         <div class="col-10 px-3 ps-4 ps-md-5 ps-lg-4 ps-xl-5">
                                           <div class="row fs-5">
-                                            <div class="col-12 p-0 messenger-names">' . $GroupName . '</div>
+                                            <div class="col-12 p-0 messenger-names"><i class="fas fa-users" style="font-size: 17px;"></i> ' . $GroupName . '</div>
                                           </div>
                                           <div class="row">
                                             <div class="col-9 p-0 text-start person-content" id="content_' . $GroupID . '" style="opacity:0.5">
@@ -566,7 +568,7 @@ switch ($operation) {
                                           </div>
                                           <div class="col-10 px-3 ps-4 ps-md-5 ps-lg-4 ps-xl-5">
                                             <div class="row fs-5">
-                                              <div class="col-12 p-0 messenger-names">' . $groupname . '</div>
+                                              <div class="col-12 p-0 messenger-names"><i class="fas fa-users" style="font-size: 17px;"></i> ' . $groupname . '</div>
                                             </div>
                                             <div class="row">
                                               <div class="col-9 p-0 text-start person-content" id="content_' . $groupID . '" ' . $styletext . '>
@@ -777,7 +779,7 @@ switch ($operation) {
                                             </div>
                                             <div class="col-10 px-3 ps-4 ps-md-5 ps-lg-4 ps-xl-5">
                                               <div class="row fs-5">
-                                                <div class="col-12 p-0 messenger-names">' . $GroupName . '</div>
+                                                <div class="col-12 p-0 messenger-names"><i class="fas fa-users" style="font-size: 17px;"></i> ' . $GroupName . '</div>
                                               </div>
                                               <div class="row">
                                                 <div class="col-9 p-0 text-start person-content" id="content_' . $personID . '" style="opacity:0.5">
@@ -821,7 +823,7 @@ switch ($operation) {
         }
         $messagetime = $db->GetColumnData("SELECT MessageAddTime FROM messages WHERE MessageID = ?", array($sql));
 
-        $imgmsg = '<img src="' . $target . '"  class="rounded-2" width="250">';
+        $imgmsg = '<img src="' . $target . '"  class="rounded-2" style="width:250px;min-height:20vh;">';
 
         $result["imgMsg"] = '<li class="list-group-item bg-transparent p-4 py-1" style="border:none;" id="each_message_' . $sql . '" lastid="' . $sql . '">
                               <div class="row d-flex flex-row-reverse">   
@@ -838,6 +840,7 @@ switch ($operation) {
                                   ' . $tic . '
                                   </span>
                                 </div>
+                                <script>baguetteBox.run(\'.message-content-img\');</script>
                               </div>
                             </li>';
 
@@ -948,7 +951,7 @@ switch ($operation) {
 
         $messagetime = $db->GetColumnData("SELECT MessageAddTime FROM messages_group WHERE MessageID = ?", array($sql));
 
-        $imgmsg = '<img src="' . $target . '"  class="rounded-2" width="250">';
+        $imgmsg = '<img src="' . $target . '"  class="rounded-2" style="width:250px;min-height:20vh;">';
 
         $result["imgMsg"] = '<li class="list-group-item bg-transparent p-4 py-1" style="border:none;" id="each_message_' . $sql . '" lastid="' . $sql . '">
                                 <div class="row d-flex flex-row-reverse">   
@@ -962,6 +965,7 @@ switch ($operation) {
                                       ' . messageTime($messagetime) . '
                                     </span>
                                   </div>
+                                  <script>baguetteBox.run(\'.message-content-img\');</script>
                                 </div>
                               </li>';
 
@@ -985,7 +989,7 @@ switch ($operation) {
                                           </div>
                                           <div class="col-10 px-3 ps-4 ps-md-5 ps-lg-4 ps-xl-5">
                                             <div class="row fs-5">
-                                              <div class="col-12 p-0 messenger-names">' . $GroupName . '</div>
+                                              <div class="col-12 p-0 messenger-names"><i class="fas fa-users" style="font-size: 17px;"></i> ' . $GroupName . '</div>
                                             </div>
                                             <div class="row">
                                               <div class="col-9 p-0 text-start person-content" id="content_' . $personID . '" style="opacity:0.5">
@@ -1224,7 +1228,12 @@ switch ($operation) {
         } else {
           $groupimg = "noneimage.png";
         }
-        $addtogroups = $db->Insert("INSERT INTO all_groups SET GroupName = ?, GroupImage = ?, GroupCreator = ?, GroupMembers = ?, GroupExplanation = ?", array($groupname, $groupimg, $memberid, $GroupMembers, $groupexp));
+        $addtogroups = $db->Insert("INSERT INTO all_groups SET GroupName = ?,
+        GroupImage = ?,
+        GroupCreator = ?,
+        GroupAdmin = ?,
+        GroupMembers = ?,
+        GroupExplanation = ?", array($groupname, $groupimg, $memberid, $memberid, $GroupMembers, $groupexp));
         $addtochatbox = $db->Insert("INSERT INTO chatbox SET GroupID = ?, GroupMembers = ?", array($addtogroups, $GroupMembers));
         $result["success"] = $translates["grouphascreated"];
         $groupMessage = $user_name . " " . $translates["personcreatedgroup"];
@@ -1235,7 +1244,7 @@ switch ($operation) {
                                       </div>
                                       <div class="col-8 px-3 ps-4 ps-md-5 ps-lg-4 ps-xl-5">
                                         <div class="row fs-5">
-                                          <div class="col-12 p-0 messenger-names">' . $groupname . '</div>
+                                          <div class="col-12 p-0 messenger-names"><i class="fas fa-users" style="font-size: 17px;"></i> ' . $groupname . '</div>
                                         </div>
                                         <div class="row">
                                           <div class="col-12 p-0 text-start person-content" id="content_' . $addtogroups . '">
@@ -1247,6 +1256,91 @@ switch ($operation) {
                                       </div>
                                     </div>
                                   </a>';
+      }
+    }
+    echo json_encode($result);
+    break;
+
+  case 'changeDesc':
+    $newDesc = security("newDesc");
+    $groupID = security("groupID");
+    $db->Update("UPDATE all_groups SET GroupExplanation = ? WHERE GroupID = ?", array($newDesc, $groupID));
+    echo json_encode($result);
+    break;
+
+  case 'removeMember':
+    $groupID = security("groupID");
+    $personID = security("MemberID");
+    $newMembers  = "";
+    $allmembers = $db->getColumnData("SELECT GroupMembers FROM all_groups WHERE GroupID = ?", array($groupID));
+    $allmembers = explode(":", $allmembers);
+    $groupMembersNum = count($allmembers);
+    unset($allmembers[$groupMembersNum - 1]);
+    foreach ($allmembers as $eachmemberid) {
+      if ($eachmemberid != $personID) {
+        $newMembers .= $eachmemberid . ":";
+      }
+    }
+    $db->Update("UPDATE all_groups SET GroupMembers = ? WHERE GroupID = ?", array($newMembers, $groupID));
+    echo json_encode($result);
+    break;
+
+  case 'searchMember':
+    $groupID = security("groupID");
+    $searched_key = security("searchedKey");
+    $member_searched = $db->getDatas("SELECT * FROM members WHERE MemberNames LIKE '$searched_key%'");
+    foreach ($member_searched as $item) {
+      $memberID = $item->MemberID;
+      $isadmin = 0;
+      $amiadmin = 1;
+      $GroupMembers = $db->getColumnData("SELECT GroupMembers FROM all_groups WHERE GroupID = ?", array($groupID));
+      $GroupMembers = explode(":", $GroupMembers);
+      $groupMembersNum = count($GroupMembers);
+      unset($GroupMembers[$groupMembersNum - 1]);
+      foreach ($GroupMembers as $eachmemberid) {
+        if ($eachmemberid == $memberID) {
+          if ($item->MemberConfirm == 1) {
+            $person_photo = $db->getColumnData("SELECT Member_Profileimg FROM images WHERE MemberID = ?", array($memberID));
+            $gender = $db->getColumnData("SELECT MemberGender FROM members WHERE MemberID = ?", array($memberID));
+            if (is_null($person_photo)) {
+              if ($gender == 'Erkek') {
+                $person_photo = "profilemale.png";
+              } else {
+                $person_photo = "profilefemale.png";
+              }
+            }
+            $result["members"] .= '<div class="col-12 border py-2" id="groupMember_' . $memberID . '">
+                                      <div class="row">
+                                        <div class="col-2">
+                                          <img src="images_profile/' . $person_photo . '" style="width:50px;height:50px;" class="rounded-circle border">
+                                        </div>
+                                        <div class="col-5 m-0 p-0 d-flex justify-content-start align-items-center fs-5">
+                                          <span>' . $item->MemberNames . '</span>
+                                        </div>
+                                        <div class="col-4 p-0 m-0 me-2 d-flex align-items-center justify-content-end">';
+            $admins = $db->getColumnData("SELECT GroupAdmin FROM all_groups WHERE GroupID = ?", array($groupID));
+            $admins = explode(":", $admins);
+            foreach ($admins as $admin) {
+              if ($admin == $memberID) {
+                $isadmin = 1;
+              }
+            }
+            if ($isadmin) {
+              $result["members"] .= '<span class="p-1 me-2" style="color:green;border:1px solid green">' . $translates["gradmin"] . '</span>';
+            }
+            foreach ($admins as $admin) {
+              if ($admin == $memberid) {
+                $amiadmin = 1;
+              }
+            }
+            if ($amiadmin) {
+              $result["members"] .= '<button type="button" class="btn btn-sm btn-outline-danger removeMember" groupid="' . $groupID . '" memberid="' . $memberID . '"><i class="fas fa-user-slash"></i></button>';
+            }
+            $result["members"] .= '</div>
+                                      </div>
+                                    </div>';
+          }
+        }
       }
     }
     echo json_encode($result);

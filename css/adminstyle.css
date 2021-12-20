@@ -1,0 +1,51 @@
+.dashboard-item{
+    max-height: 80vh;
+    overflow-x: auto;
+}
+.editItem{
+    transition: 0.2s;
+    cursor: pointer;
+}
+.editItem:hover{
+    color:blue;
+}
+.delItem{
+    transition: 0.2s;
+    cursor: pointer;
+}
+.delItem:hover{
+    color:red;
+}
+.membertable{
+    max-height: 100vh !important;
+    overflow-y: auto !important;
+}
+.topic-item{
+    cursor:grab;
+}
+.deletetopic{
+    cursor: pointer;
+    transition: 0.2s;
+}
+.deletetopic:hover{
+    color:red;
+}
+.spinner {
+    margin-left: 2%;
+}
+
+.spinner svg {
+    width: 20px;
+    height: 20px;
+    animation: spinner 0.9s linear infinite;
+}
+
+@keyframes spinner {
+    from {
+        color: rgb(141, 141, 141);
+    }
+    to {
+        transform: rotate(360deg);
+        color: rgb(224, 224, 224);
+    }
+}

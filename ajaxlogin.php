@@ -32,12 +32,9 @@ switch ($operation) {
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       $email = security("getemail");
       $password = security("getpassword");
-      $result["sa"] = "1";
       if (empty($email) || empty($password)) {
         $result["error"] = $translates["emptyemailorpass"];
-        $result["sa"] .= "2";
       } else {
-        $result["sa"] .= "3";
         $password = md5($password);
 
         $isadmin = $db->getDatas("SELECT * FROM admins WHERE AdminEmail = ? AND AdminPassword = ? AND AdminConfirm = ?", array($email, $password, 1));
@@ -124,29 +121,6 @@ switch ($operation) {
                     if (!$contract) {
                       $result["error"] = $translates["confirmcontract"];
                     } else {
-                      $insertdata = $db->Insert("INSERT INTO members SET 
-                        MemberPass = ?,
-                        MemberEmail = ?,
-                        MemberName = ?,
-                        MemberLastName = ?,
-                        MemberNames = ?,
-                        MemberGender = ?,
-                        MemberConfirm = ?", array($password, $email, $name, $lastname, $names, $gender, 1));
-
-                      $insertinfo = $db->Insert("INSERT INTO memberabout SET MemberID = ?", array($insertdata));
-
-                      $insertdata2 = $db->Insert("INSERT INTO images SET
-                        MemberID = ?,
-                        Member_Profileimg = ?,
-                        Member_Coverimg = ?
-                        ", array($insertdata, null, null));
-
-                      $insertdata3 = $db->Insert("INSERT INTO memberresume SET
-                        MemberID = ?,
-                        ", array($insertdata));
-
-                      $result["success"] = $translates["successregistered"];
-
                       $result["MemberID"] = $insertdata;
                     } // if(empty($contract))
                   } // if(strlen($password)<8 or strlen($password)>20)
@@ -172,8 +146,19 @@ switch ($operation) {
 
   case 'completeReg':
     $MemberID = $_GET["MemberID"];
+    $school = security("MemberSchool");
     $faculty = security("MemberFaculty");
     $department = security("MemberDepartment");
+
+    $email = security("email");
+    $email = $email . "@ybu.edu.tr";
+    $password = security("password");
+    $password = md5($password);
+    $name = security("name");
+    $lastname = security("lastname");
+    $gender = security("gender");
+    $contract = security("contract");
+    $names = $name . " " . $lastname;
 
     $contact = security("contact");
     $pattern_contact = "/[^0-9 ]/";
@@ -203,11 +188,33 @@ switch ($operation) {
             if ($ishave_contact) {
               $result["error"] = $translates["hasnumber"];
             } else {
-              $updateinfo = $db->Update("UPDATE memberabout SET 
-              MemberFaculty = ?,
-              MemberDepartment = ?,
-              MemberPhone = ?,
-              MemberBirthday = ? WHERE MemberID = ?", array($faculty, $department, $contact, $birthday, $MemberID));
+              $insertdata = $db->Insert("INSERT INTO members SET 
+                MemberPass = ?,
+                MemberEmail = ?,
+                MemberName = ?,
+                MemberLastName = ?,
+                MemberNames = ?,
+                MemberGender = ?,
+                MemberConfirm = ?", array($password, $email, $name, $lastname, $names, $gender, 1));
+
+              $insertinfo = $db->Insert("INSERT INTO memberabout SET MemberID = ?,
+                MemberPhone = ?,
+                MemberBirthday = ?,
+                MemberUniversity = ?,
+                MemberFaculty = ?,
+                MemberDepartment = ?", array($insertdata, $contact, $birthday, $school, $faculty, $department));
+
+              $insertdata2 = $db->Insert("INSERT INTO images SET
+                MemberID = ?,
+                Member_Profileimg = ?,
+                Member_Coverimg = ?
+                ", array($insertdata, null, null));
+
+              $insertdata3 = $db->Insert("INSERT INTO memberresume SET
+                MemberID = ? ", array($insertdata));
+              $insertdata4 = $db->Insert("INSERT INTO memberbiography SET
+                MemberID = ? ", array($insertdata));
+
               $result["success"] = $translates["registered"];
             }
           }

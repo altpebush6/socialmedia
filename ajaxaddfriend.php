@@ -40,7 +40,7 @@ switch ($operation) {
     $removeFriend = $db->Delete("DELETE FROM friends WHERE FirstMemberID = ? AND SecondMemberID = ?", array($memberid, $friendid));
     $removeFriend = $db->Delete("DELETE FROM friends WHERE FirstMemberID = ? AND SecondMemberID = ?", array($friendid, $memberid));
     $result["success"] = "<button id='addFriendButton' onClick=\"FriendButton('add','" . $friendid . "')\"><i class='fas fa-user-plus'></i> Arkadaş Ekle</button>";
-    $addNotification = $db->Update("UPDATE notifications SET NotificationStatus = ? AND NotificationActiveness = ? WHERE OperationID = ?",array(0,0,$operationID));
+    $deletenoti = $db->Delete("DELETE FROM notifications WHERE OperationID = ?", array($operationID));
     echo json_encode($result);
     break;
 

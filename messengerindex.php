@@ -73,7 +73,7 @@
                   </div>
                   <div class="col-10 px-3 ps-4 ps-md-5 ps-lg-4 ps-xl-5">
                     <div class="row fs-5">
-                      <div class="col-12 p-0 messenger-names"><?= $groupName ?></div>
+                      <div class="col-12 p-0 messenger-names"><i class="fas fa-users" style="font-size: 17px;"></i> <?= $groupName ?></div>
                     </div>
                     <div class="row">
                       <div class="col-9 p-0 text-start person-content" id="content_<?= $groupID ?>" <?= $styleperson ?>>
@@ -346,7 +346,6 @@
       autoplay: 5000,
     })
   });
-
   baguetteBox.run('.message-content-img');
 
   function openEmojis() {

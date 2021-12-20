@@ -17,14 +17,31 @@ if (is_null($groupImage)) {
 }
 ?>
 <div class="row justify-content-center px-3">
-  <div class="row align-items-center justify-content-between mb-1 py-2 px-0 messenger-top">
+  <div class="row align-items-center justify-content-between py-2 px-0 messenger-top" data-bs-toggle="modal" data-bs-target="#groupinfo">
     <div class="col-8 mx-auto text-center">
       <img src="group_images/<?= $groupImage ?>" class="rounded-circle" width="60" height="60" id="chatpersonimg">
       <a class="text-light text-decoration-none fs-5" id="chatgroupname"><?= $group_name ?></a>
     </div>
   </div>
+  <div class="row align-items-center justify-content-between mb-1 py-1 px-0" style="overflow: hidden;height:5vh;border-bottom: 1px solid rgba(255, 255, 255, 0.5);">
+    <div class="col-8 mx-auto text-center text-dark">
+      <?php
+      $groupMembers = $db->getColumnData("SELECT GroupMembers FROM all_groups WHERE GroupID = ?", array($groupID));
+      $groupMembers = explode(":", $groupMembers);
+      $groupMembersNum = count($groupMembers);
+      unset($groupMembers[$groupMembersNum - 1]);
+      foreach ($groupMembers as $eachMember) {
+        $g_memberName = $db->getColumnData("SELECT MemberName FROM members WHERE MemberID = ?", array($eachMember));
+        $g_memberLastname = $db->getColumnData("SELECT MemberLastName FROM members WHERE MemberID = ?", array($eachMember));
+        if ($g_memberName) {
+          echo $g_memberName . " " . $g_memberLastname[0] . ", ";
+        }
+      }
+      ?>
+    </div>
+  </div>
   <div class="row m-0 p-0 pb-2 messenger-middle d-flex flex-column justify-content-betweeen" id="messages">
-    <ul class="list-group px-0 m-0" id="messages_container" style="height:49vh;overflow-y:auto">
+    <ul class="list-group px-0 m-0" id="messages_container" style="height:43vh;overflow-y:auto">
       <?php
       $texts = $db->getDatas("SELECT * FROM messages_group WHERE MessageStatus = ? AND GroupID = ? ORDER BY MessageAddTime", array(1, $groupID));
       foreach ($texts as $item) {
@@ -40,7 +57,7 @@ if (is_null($groupImage)) {
           }
         }
         if ($item->MessageImg) {
-          $imgmsg = '<img src="message_images/' . $item->MessageImg . '"  class="rounded-2" width="250">';
+          $imgmsg = '<img src="message_images/' . $item->MessageImg . '"  class="rounded-2" style="width:250px;min-height:20vh;">';
         }
         if ($MessageFrom == $memberid) {
           if ($item->MessageImg) {
@@ -83,11 +100,11 @@ if (is_null($groupImage)) {
             echo '<li class="list-group-item bg-transparent my-2 p-4 py-1" style="border:none;" id="each_message_' . $item->MessageID . '" lastid="' . $item->MessageID . '">
                             <div class="row">
                               <div class="col-2 p-0 col-lg-1 text-center me-lg-3">
-                                <img src="images_profile/' . $personImage . '"  class="rounded-circle" width="50" height="50">
+                              <a href="http://localhost/aybu/socialmedia/' . $translates["profile"] . '/' . $MessageFrom . '"><img src="images_profile/' . $getprofileimg . '" class="rounded-circle" width="60" height="60"></a>
                               </div>      
                               <div class="col-10 d-flex justify-content-start p-0 text-start message-content-img">
                                 <a class="w-33" href="message_images/' . $item->MessageImg . '">
-                                <div class="position-absolute bg-dark text-light m-1 p-1 rounded-2" style="font-size:13px;">'.$personNames.'</div>
+                                <div class="position-absolute bg-dark text-light m-1 p-1 rounded-2" style="font-size:13px;">' . $personNames . '</div>
                                 ' . $imgmsg . '
                                 </a>
                                 <span class="time-img text-light fs-6 m-2 p-1 align-self-end rounded-2 position-absolute" style="font-size: 13px !important;">
@@ -100,7 +117,7 @@ if (is_null($groupImage)) {
             echo '<li class="list-group-item bg-transparent my-2 p-4 py-1" style="border:none;" id="each_message_' . $item->MessageID . '" lastid="' . $item->MessageID . '">
                             <div class="row">
                               <div class="col-2 col-lg-1 text-center p-0 me-2 me-md-3 me-lg-4">
-                                <img src="images_profile/' . $personImage . '"  class="rounded-circle" width="50" height="50">
+                              <a href="http://localhost/aybu/socialmedia/' . $translates["profile"] . '/' . $MessageFrom . '"><img src="images_profile/' . $getprofileimg . '" class="rounded-circle" width="60" height="60"></a>
                               </div>        
                               <div class="col-10 p-0" style="width:auto;max-width:250px;min-width:75px;">
                                 <div class="row align-items-center bg-light text-dark rounded-3" style="height:100%;max-width:200px;">
@@ -145,6 +162,97 @@ if (is_null($groupImage)) {
           </div>
         </div>
       </form>
+    </div>
+  </div>
+</div>
+<!-- MODAL -->
+<div class="modal fade" id="groupinfo">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="infoGroupLabel"><?= $group_name ?></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <?php $group_exp = $db->getColumnData("SELECT GroupExplanation FROM all_groups WHERE GroupID = ?", array($groupID)); ?>
+      <div class="modal-header">
+        <div class="row w-100">
+          <div class="col-12 mb-1">
+            <label class="text-muted" style="font-size: 14px;"><?= $translates["groupexp"] ?></label>
+          </div>
+          <div class="col-10">
+            <span class="modal-title mx-auto" id="groupExp"><?= ($group_exp) ? $group_exp : $translates["nogroupexp"] ?></span>
+            <input type="text" class="form-control d-none" id="expInput" placeholder="<?= $translates["entergroupexp"] ?>">
+          </div>
+          <div class="col-2 m-0 p-0 text-end">
+            <i class="fas fa-marker editExp"></i>
+            <button type="button" class="btn btn-outline-success d-none" id="expBtn" groupid="<?= $groupID ?>"><?= $translates["save"] ?> <span class="spinner" id="spinnerExp"></span></button>
+          </div>
+        </div>
+      </div>
+      <div class="modal-body">
+        <div class="row mb-2">
+          <div class="col-12"><?= ($groupMembersNum - 1) . " kişi"; ?></div>
+        </div>
+        <div class="row mb-2">
+          <div class="input-group">
+            <input type="text" class="form-control" groupid="<?= $groupID ?>" placeholder="<?= $translates["entername"] ?>" id="groupMemberName" aria-describedby="basic-addon1">
+            <span class="input-group-text" id="basic-addon1"><i class="fas fa-search"></i></span>
+          </div>
+        </div>
+        <div class="row px-2" style="max-height: 40vh;overflow-x:hidden;overflow-y:auto;" id="groupMembers">
+          <?php foreach ($groupMembers as $eachMember) {
+            $isadmin = 0;
+            $memberNames = $db->getColumnData("SELECT MemberNames FROM members WHERE MemberID = ?", array($eachMember));
+            $memberImg = $db->getColumnData("SELECT Member_Profileimg FROM images WHERE MemberID = ?", array($eachMember));
+            if (is_null($memberImg)) {
+              if ($gender == 'Erkek') {
+                $memberImg = "profilemale.png";
+              } else {
+                $memberImg = "profilefemale.png";
+              }
+            }
+          ?>
+            <div class="col-12 border py-2" id="groupMember_<?= $eachMember ?>">
+              <div class="row">
+                <div class="col-2">
+                  <img src="images_profile/<?= $memberImg ?>" style="width:50px;height:50px;" class="rounded-circle border">
+                </div>
+                <div class="col-5 m-0 p-0 d-flex justify-content-start align-items-center fs-5">
+                  <span><?= $memberNames ?></span>
+                </div>
+                <div class="col-4 p-0 m-0 me-2 d-flex align-items-center justify-content-end">
+                  <?php
+                  $admins = $db->getColumnData("SELECT GroupAdmin FROM all_groups WHERE GroupID = ?", array($groupID));
+                  $admins = explode(":", $admins);
+                  foreach ($admins as $admin) {
+                    if ($admin == $eachMember) {
+                      $isadmin = 1;
+                    }
+                  }
+                  if ($isadmin) { ?>
+                    <span class="p-1 me-2" style="color:green;border:1px solid green"><?= $translates["gradmin"] ?></span>
+                  <?php }
+                  foreach ($admins as $admin) {
+                    if ($admin == $memberid) {
+                      $amiadmin = 1;
+                    }
+                  }
+                  if ($amiadmin) { ?>
+                    <button type="button" class="btn btn-sm btn-outline-danger removeMember" groupid="<?= $groupID ?>" memberid="<?= $eachMember ?>"><i class="fas fa-user-slash"></i></button>
+                  <?php } ?>
+                </div>
+              </div>
+            </div>
+          <?php } ?>
+        </div>
+      </div>
+      <div class="modal-footer text-end">
+        <?php
+        if ($amiadmin) { ?>
+          <button type="submit" id="delGroup" class="btn btn-dark w-33"><?= $translates["delgroup"] ?> <span class="spinner" id="spinnerdelGroup"></span></button>
+        <?php } ?>
+        <button type="submit" id="leaveGroup" class="btn btn-outline-danger w-33"><?= $translates["leavegroup"] ?> <span class="spinner" id="spinnerleaveGroup"></span></button>
+      </div>
     </div>
   </div>
 </div>

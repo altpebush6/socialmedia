@@ -494,4 +494,10 @@ switch ($operation) {
         $result["success"] = $jobs;
         echo json_encode($result);
         break;
+
+    case 'editBio':
+        $biography = security("biography");
+        $db->Update("UPDATE memberbiography SET Biography = ? WHERE MemberID = ?", array($biography, $memberid));
+        echo json_encode($result);
+        break;
 }

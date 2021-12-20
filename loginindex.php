@@ -135,6 +135,18 @@ require_once "languages/language_" . $language . ".php";
           <div class="row d-none" id="nextpart">
             <form method="post" id="form_informations" autocomplete="off">
               <div class="col-12 my-2">
+                <label for="name" class="form-label text-muted"><?= $translates["school"] . "*" ?></label>
+                <select name="MemberSchool" id="MemberSchool" class="form-select w-100 mx-auto">
+                  <option value="0" disabled selected><?= $translates["chooseauni"] ?></option>
+                  <?php
+                  $unis = $db->getDatas("SELECT * FROM universities");
+                  foreach ($unis as $uni) {
+                  ?>
+                    <option value="<?= $uni->UniversityID; ?>"><?= $uni->UniversityName; ?></option>
+                  <?php } ?>
+                </select>
+              </div>
+              <div class="col-12 my-2">
                 <label for="name" class="form-label text-muted"><?= $translates["faculty"] . "*" ?></label>
                 <select name="MemberFaculty" id="MemberFaculty" class="form-select w-100 mx-auto">
                   <option value="0" disabled selected><?= $translates["chooseafaculty"] ?></option>
@@ -171,7 +183,7 @@ require_once "languages/language_" . $language . ".php";
           <p id="result2"></p>
         </div>
         <div class="modal-footer text-center">
-          <button type="button" memberid="" class="shadow-sm btn btn-success w-100" id="register_btn"> <?= $translates["register"] ?> <span class="spinner" id="spinnerreg"></span></button>
+          <button type="button" memberid="" class="shadow-sm btn btn-success w-100" id="continue_reg"> <?= $translates["continue"] ?> <span class="spinner" id="spinnerreg"></span></button>
         </div>
       </div>
     </div>

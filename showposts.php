@@ -163,11 +163,11 @@ if ($counter > 0) {
       if ($i > 1) {
         $postfile = "PostFile" . $i;
         if ($post->$postfile) {
-          $result["state"] .= '<div class="col-12 my-2 ps-4 fs-6"><i class="fas fa-file-alt fa-2x"></i> <a class="text-light" href="">' . $post->$postfile . '</a></div>';
+          $result["state"] .= '<div class="col-12 my-2 ps-4 fs-6"><i class="fas fa-file-alt fa-2x"></i> <a class="text-light" href="http://localhost/aybu/socialmedia/' . $translates["home"] . '?download=' . $post->$postfile . '">' . $post->$postfile . '</a></div>';
         }
       } else {
         if ($post->PostFile) {
-          $result["state"] .= '<div class="col-12 my-2 ps-4 fs-6"><i class="fas fa-file-alt fa-2x"></i> <a class="text-light" href="">' . $post->PostFile . '</a></div>';
+          $result["state"] .= '<div class="col-12 my-2 ps-4 fs-6"><i class="fas fa-file-alt fa-2x"></i> <a class="text-light" href="http://localhost/aybu/socialmedia/' . $translates["home"] . '?download=' . $post->PostFile . '">' . $post->PostFile . '</a></div>';
         }
       }
     }
@@ -228,11 +228,11 @@ if ($counter > 0) {
       if ($i > 1) {
         $postfile = "PostFile" . $i;
         if ($item->$postfile) {
-          $result["state"] .= '<div class="col-12 text-light my-2 ps-4 fs-6"><i class="fas fa-file-alt fa-2x"></i> <a class="text-light" href="">' . $item->$postfile . '</a></div>';
+          $result["state"] .= '<div class="col-12 text-light my-2 ps-4 fs-6"><i class="fas fa-file-alt fa-2x"></i> <a class="text-light" href="http://localhost/aybu/socialmedia/' . $translates["home"] . '?download=' . $item->$postfile . '">' . $item->$postfile . '</a></div>';
         }
       } else {
         if ($item->PostFile) {
-          $result["state"] .= '<div class="col-12 text-light my-2 ps-4 fs-6"><i class="fas fa-file-alt fa-2x"></i> <a class="text-light" href="">' . $item->PostFile . '</a></div>';
+          $result["state"] .= '<div class="col-12 text-light my-2 ps-4 fs-6"><i class="fas fa-file-alt fa-2x"></i> <a class="text-light" href="http://localhost/aybu/socialmedia/' . $translates["home"] . '?download=' . $item->PostFile . '">' . $item->PostFile . '</a></div>';
         }
       }
     }

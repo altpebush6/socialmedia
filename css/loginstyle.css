@@ -1,0 +1,504 @@
+body{
+  background-image: linear-gradient(161deg, rgba(121, 121, 121, 0.02) 0%, rgba(121, 121, 121, 0.02) 16.667%,rgba(193, 193, 193, 0.02) 16.667%, rgba(193, 193, 193, 0.02) 33.334%,rgba(177, 177, 177, 0.02) 33.334%, rgba(177, 177, 177, 0.02) 50.001000000000005%,rgba(5, 5, 5, 0.02) 50.001%, rgba(5, 5, 5, 0.02) 66.668%,rgba(229, 229, 229, 0.02) 66.668%, rgba(229, 229, 229, 0.02) 83.33500000000001%,rgba(211, 211, 211, 0.02) 83.335%, rgba(211, 211, 211, 0.02) 100.002%),linear-gradient(45deg, rgba(223, 223, 223, 0.02) 0%, rgba(223, 223, 223, 0.02) 14.286%,rgba(70, 70, 70, 0.02) 14.286%, rgba(70, 70, 70, 0.02) 28.572%,rgba(109, 109, 109, 0.02) 28.572%, rgba(109, 109, 109, 0.02) 42.858%,rgba(19, 19, 19, 0.02) 42.858%, rgba(19, 19, 19, 0.02) 57.144%,rgba(180, 180, 180, 0.02) 57.144%, rgba(180, 180, 180, 0.02) 71.42999999999999%,rgba(63, 63, 63, 0.02) 71.43%, rgba(63, 63, 63, 0.02) 85.71600000000001%,rgba(87, 87, 87, 0.02) 85.716%, rgba(87, 87, 87, 0.02) 100.002%),linear-gradient(337deg, rgba(142, 142, 142, 0.02) 0%, rgba(142, 142, 142, 0.02) 20%,rgba(164, 164, 164, 0.02) 20%, rgba(164, 164, 164, 0.02) 40%,rgba(203, 203, 203, 0.02) 40%, rgba(203, 203, 203, 0.02) 60%,rgba(228, 228, 228, 0.02) 60%, rgba(228, 228, 228, 0.02) 80%,rgba(54, 54, 54, 0.02) 80%, rgba(54, 54, 54, 0.02) 100%),linear-gradient(314deg, rgba(187, 187, 187, 0.02) 0%, rgba(187, 187, 187, 0.02) 12.5%,rgba(170, 170, 170, 0.02) 12.5%, rgba(170, 170, 170, 0.02) 25%,rgba(214, 214, 214, 0.02) 25%, rgba(214, 214, 214, 0.02) 37.5%,rgba(187, 187, 187, 0.02) 37.5%, rgba(187, 187, 187, 0.02) 50%,rgba(190, 190, 190, 0.02) 50%, rgba(190, 190, 190, 0.02) 62.5%,rgba(6, 6, 6, 0.02) 62.5%, rgba(6, 6, 6, 0.02) 75%,rgba(206, 206, 206, 0.02) 75%, rgba(206, 206, 206, 0.02) 87.5%,rgba(171, 171, 171, 0.02) 87.5%, rgba(171, 171, 171, 0.02) 100%),linear-gradient(300deg, rgba(243, 243, 243, 0.01) 0%, rgba(243, 243, 243, 0.01) 12.5%,rgba(209, 209, 209, 0.01) 12.5%, rgba(209, 209, 209, 0.01) 25%,rgba(179, 179, 179, 0.01) 25%, rgba(179, 179, 179, 0.01) 37.5%,rgba(3, 3, 3, 0.01) 37.5%, rgba(3, 3, 3, 0.01) 50%,rgba(211, 211, 211, 0.01) 50%, rgba(211, 211, 211, 0.01) 62.5%,rgba(151, 151, 151, 0.01) 62.5%, rgba(151, 151, 151, 0.01) 75%,rgba(16, 16, 16, 0.01) 75%, rgba(16, 16, 16, 0.01) 87.5%,rgba(242, 242, 242, 0.01) 87.5%, rgba(242, 242, 242, 0.01) 100%),linear-gradient(6deg, rgba(31, 31, 31, 0.02) 0%, rgba(31, 31, 31, 0.02) 20%,rgba(193, 193, 193, 0.02) 20%, rgba(193, 193, 193, 0.02) 40%,rgba(139, 139, 139, 0.02) 40%, rgba(139, 139, 139, 0.02) 60%,rgba(14, 14, 14, 0.02) 60%, rgba(14, 14, 14, 0.02) 80%,rgba(122, 122, 122, 0.02) 80%, rgba(122, 122, 122, 0.02) 100%),linear-gradient(279deg, rgba(190, 190, 190, 0.02) 0%, rgba(190, 190, 190, 0.02) 14.286%,rgba(160, 160, 160, 0.02) 14.286%, rgba(160, 160, 160, 0.02) 28.572%,rgba(23, 23, 23, 0.02) 28.572%, rgba(23, 23, 23, 0.02) 42.858%,rgba(60, 60, 60, 0.02) 42.858%, rgba(60, 60, 60, 0.02) 57.144%,rgba(149, 149, 149, 0.02) 57.144%, rgba(149, 149, 149, 0.02) 71.42999999999999%,rgba(4, 4, 4, 0.02) 71.43%, rgba(4, 4, 4, 0.02) 85.71600000000001%,rgba(50, 50, 50, 0.02) 85.716%, rgba(50, 50, 50, 0.02) 100.002%),linear-gradient(109deg, rgba(124, 124, 124, 0.03) 0%, rgba(124, 124, 124, 0.03) 12.5%,rgba(61, 61, 61, 0.03) 12.5%, rgba(61, 61, 61, 0.03) 25%,rgba(187, 187, 187, 0.03) 25%, rgba(187, 187, 187, 0.03) 37.5%,rgba(207, 207, 207, 0.03) 37.5%, rgba(207, 207, 207, 0.03) 50%,rgba(206, 206, 206, 0.03) 50%, rgba(206, 206, 206, 0.03) 62.5%,rgba(118, 118, 118, 0.03) 62.5%, rgba(118, 118, 118, 0.03) 75%,rgba(89, 89, 89, 0.03) 75%, rgba(89, 89, 89, 0.03) 87.5%,rgba(96, 96, 96, 0.03) 87.5%, rgba(96, 96, 96, 0.03) 100%),linear-gradient(329deg, rgba(35, 35, 35, 0.02) 0%, rgba(35, 35, 35, 0.02) 20%,rgba(246, 246, 246, 0.02) 20%, rgba(246, 246, 246, 0.02) 40%,rgba(118, 118, 118, 0.02) 40%, rgba(118, 118, 118, 0.02) 60%,rgba(245, 245, 245, 0.02) 60%, rgba(245, 245, 245, 0.02) 80%,rgba(140, 140, 140, 0.02) 80%, rgba(140, 140, 140, 0.02) 100%),linear-gradient(90deg, hsl(314,0%,31%),hsl(314,0%,31%));
+}
+/*LOGIN PART
+.login{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 20px;
+  background: white;
+  width: 40%;
+  box-shadow: 5px 5px 10px black;
+  margin-right: 5%;
+}
+.login h2{
+  margin:8% 0;
+  font-family: 'RocknRoll One', sans-serif;
+}
+.email, .password{
+  padding: 0;
+  width: 80%;
+  border: 1px solid gray;
+  border-radius: 5px;
+  height: 5vh;
+  line-height: 5vh;
+  box-shadow: 2px 2px 4px black;
+}
+.email{
+  margin-bottom: 5%;
+}
+.email input{
+  width: 100%;
+  height: 100%;
+  border: none;                      
+  outline: none;
+  font-size: 20px;
+  font-family: 'Roboto', sans-serif;
+}
+.password input{
+  width: 85%;
+  height: 100%;
+  border: none;                          
+  outline: none;
+  font-size: 20px;
+  font-family: 'Roboto', sans-serif;
+  margin-left: -4%;
+  margin-right: 3%;
+  border-right: 1px solid gray;
+}
+.showhide{
+  cursor: pointer;
+  width: 20px;
+  height:14px;
+  border-radius: 500px;
+  font-size: 18px;
+}
+.result{
+  width: 75%;
+}
+.result div{
+  width: 100%;
+  padding: 3%;
+  border-radius: 5px;
+  text-align: center;
+  font-size: 17px;
+  animation: shake 0.5s;
+  animation-iteration-count: 0.1s;
+}
+.result div i{
+  margin-right: 1%;
+}
+@keyframes shake {
+  0% { transform: translate(1px, 1px) }
+  10% { transform: translate(-1px, -1px) }
+  20% { transform: translate(-1px, 0px) }
+  30% { transform: translate(1px, 1px) }
+  40% { transform: translate(1px, -1px) }
+  50% { transform: translate(-1px, 1px) }
+  60% { transform: translate(-1px, 1px) }
+  70% { transform: translate(1px, 1px) }
+  80% { transform: translate(-1px, -1px) }
+  90% { transform: translate(1px, 1px) }
+  100% { transform: translate(1px, -1px) }
+}
+
+.loginbutton{
+  width: 80%;
+  height: 5vh;
+  margin-bottom: 5%;
+  font-size: 18px;
+  background-color: #0077ff;
+  outline: none;                         
+  border: 1px solid #0040ff;
+  transition: 0.5s;
+  color: white;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: 'Noto Sans', sans-serif;
+  box-shadow: 3px 3px 5px #0040ff;
+}
+.login input[type="submit"]:hover{
+  background-color: #0040ff;
+}
+.under-login{
+  width: 80%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.under-login span:first-of-type{
+  font-size: 20px;
+  padding:0% 4%;
+}
+.language-flag{
+  display: flex;
+  align-items: center;
+}
+.language-flag img:first-of-type{
+  margin-right: 5%;
+}
+.language-flag img{
+  opacity: 0.7;
+  width: 30px;
+  height: 18px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+.login a{
+  text-decoration: none;
+  color: #248aff;
+  font-family: 'Noto Sans', sans-serif;
+}
+.login a:hover{
+  text-decoration: underline;
+}
+.login hr{
+  width: 60%;
+  margin: 5% 0;
+}
+.register{
+  background-color: #00a131;
+  border:1px solid #00601d;
+  transition: 0.2s;
+  height: 6vh;
+  line-height: 6vh;
+  color: white;                       
+  font-weight: bold;
+  font-size: 18px;
+  font-family: 'Noto Sans', sans-serif;
+  cursor: pointer;
+  box-shadow: 3px 3px 5px #00601d;
+  border-radius: 5px;
+  margin-bottom: 5%;
+  width: 80%;
+}
+.register:hover{
+  background-color: #00601d;
+}
+
+.info{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.info img{
+  width: 150px;
+  height: 150px;
+  border-radius: 50000px;
+  box-shadow: 6px 6px 5px black;
+}
+.info p{
+  width: 50%;
+  font-size: 18px;
+  font-family: 'Noto Sans', sans-serif;
+  color: #00bbff;
+}
+.registercontainer{
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.3s;
+}
+.registerpart{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  border-radius: 10px;
+  padding: 0 2%;
+  font-size: 16px;
+  font-family: 'Roboto', sans-serif;
+  width: 28%;
+}
+.closeicon{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  position: relative;
+  top: 20px;
+  right: 0px;
+  color: #515151;
+  cursor: pointer;
+}
+.closeicon i{
+  font-size: 24px;
+}
+.registerpart h2{
+  width: 100%;
+  margin-bottom: 1%;
+}
+.registerpart hr{
+  width: 60%;
+  margin-bottom: 4%;
+}
+.name{
+  width: 90%;
+  margin-left: 5%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.namelabels{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+}
+.namelabels label{
+  width: 50%;
+  text-align: start;
+  color: #515151;
+  font-size: 14px;
+  margin-bottom: 1%;
+}
+.namelabels label:first-of-type{
+  margin-right: 5%;
+}
+.nameinputs{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+}
+.nameinputs input{
+  width: 50%;
+  height: 5vh;
+  border-radius: 5px;
+  border: 1px solid gray;
+  outline: none;
+  padding-left:2%;
+}
+.nameinputs input:first-of-type{
+  margin-right: 5%;
+}
+.emailreg, .passwordreg{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+  margin-left: 5%;
+  text-align: start;
+  margin-top: 3%;
+}
+.emailreg{
+  width: 90%;
+}
+.emailinputs{
+  display: flex;
+  flex-direction: row;
+}
+.registeremail{
+  width:50%;
+  height: 5vh;
+  border-radius: 5px;
+  border: 1px solid gray;
+  outline: none;
+  padding-left:2%;
+  margin-right: 5%;
+}
+.emaillabel, .passwordlabel{
+  width:100%;
+  color: #515151;
+  font-size: 14px;
+  margin-bottom: 1%;
+  text-align: start;
+}
+.passwordreg div{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 5vh;
+  border-radius: 5px;
+  border: 1px solid gray;
+  outline: none;
+  width: 100%;
+}
+.registerpassword{
+  border:none;
+  outline: none;
+  height: 4.3vh;
+  border-right: 1px solid gray;
+  width: 90%;
+  margin-right: 2%;
+  padding-left: 2%;
+}
+
+.birthdaylabel, .genderlabel{
+  width: 88%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  margin-top: 5%;
+  font-size: 14px;
+  color: #515151;
+  margin-left: 5%;
+}
+.birthday{
+  width: 90%;
+  margin-top: 1%;
+  height: 5vh;
+  border-radius: 5px;
+  border: 1px solid gray;
+  outline: none;
+  padding-left:2%;
+}
+.gender{
+  margin-top: 1%;
+  width: 90%;
+  display: flex;
+  flex-direction: row;
+  justify-content:flex-start;
+  margin-left: 5%;
+}
+.gender input{
+  height: 5vh;
+  border-radius: 5px;
+  border: 1px solid gray;
+  outline: none;
+  padding-left:2%;
+}
+.man , .woman{
+  width: 50%;
+  border: 1px solid gray;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  height: 5vh;
+}
+.man{
+  margin-right: 5%;
+}
+.agreement{
+  width: 100%;
+  display: flex;
+  margin: 5% 0% 5% 5%;
+  text-align: left;
+}
+.agreement input{
+  margin: 1% 1% 1% 0%;
+}
+.agreement label{
+  width: 90%;
+}
+.registererrormessageon i{
+ margin-right: 1%;
+ margin-bottom: 1%;
+}
+.registererrormessageon{
+  width:90%;
+  margin-left: 5%;
+  margin-bottom: 5%;
+  color: red;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  background-color: rgba(255, 0, 0, 0.4);
+  border-radius: 5px;
+}
+.registererrormessageon p{
+  width: 100%;
+}
+.registererrormessageoff{
+  display: none;
+}
+.registersuccessmessageon{
+  width:90%;
+  margin-left: 5%;
+  margin-bottom: 5%;
+  color: green;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  background-color: rgba(0, 255, 0, 0.4);
+  border-radius: 5px;
+}
+.registersuccessmessageon i{
+  margin-right: 1%;
+  margin-bottom: 1%;
+ }
+.registerbutton{
+  width: 90%;
+  margin-bottom: 6%;
+  background-color: #00a131;
+  border:1px solid #00601d;
+  transition: 0.5s;
+  height: 5vh;
+  line-height: 4vh;
+  color: white;                      
+  font-weight: bold;
+  font-size: 18px;
+  font-family: 'Noto Sans', sans-serif;
+  cursor: pointer;
+  box-shadow: 3px 3px 5px #00601d;
+}
+.registerbutton:hover{
+  background-color: #00601d;
+}
+.spinner{
+  margin-left: 2%;
+}
+.spinner svg{
+  width:15px;
+  height:15px;
+  animation: spinner 1s linear infinite;
+}
+.forgotpass-container{
+  width: 500px;
+  padding: 5%;
+  border:1px solid rgba(0, 0, 0, 0.4);
+  box-shadow: 1px 1px 10px 5px rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 5px;
+}
+.forgotpass-container h1{
+  width: 100%;
+  margin-bottom: 6%;
+  font-size: 25px;
+  letter-spacing: 1px;
+  text-shadow:rgba(0, 0, 0,0.5) 2px 2px 1px;
+}
+.forgotpass-container form{
+  width: 100%;
+}
+.sbmt-btn{
+  width: 100%;
+}
+.sbmt-btn button{
+  width: 100%;
+  margin-top: 5%;
+  background-color: #00a131;
+  border:1px solid #00601d;
+  transition: 0.5s;
+  height: 5vh;
+  line-height: 4vh;
+  color: white;                        
+  font-weight: bold;
+  font-size: 18px;
+  font-family: 'Noto Sans', sans-serif;
+  cursor: pointer;
+  box-shadow: 3px 3px 5px #00601d;
+}
+.sbmt-btn button:hover{
+  background-color: #00601d;
+}
+.emailforgot, .passforgot{
+  margin:0;
+  width: 100%;
+  margin-bottom: 5%;
+}
+.emailforgot label, .passforgot label{
+  font-size: 18px;
+}
+.emailinputsforgot, .passinputforgot{
+  width: 100%;
+  margin: 0%;
+  border-radius: 3px;
+  height: 5vh;
+  
+}
+.emailinputsforgot input, .passinputforgot{
+  background: rgba(255, 255, 255, 0.7);
+}
+.passinputforgot{
+  margin-bottom: 5%;
+}
+*/

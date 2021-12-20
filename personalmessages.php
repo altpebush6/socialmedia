@@ -46,7 +46,7 @@ if (is_null($getprofileimg)) {
                     $tic = '<i class="fas fa-check"></i>';
                 }
                 if ($item->MessageImg) {
-                    $imgmsg = '<img src="message_images/' . $item->MessageImg . '"  class="rounded-2" width="250">';
+                    $imgmsg = '<img src="message_images/' . $item->MessageImg . '"  class="rounded-2" style="width:250px;min-height:20vh;">';
                 }
                 if ($item->MessageFromID == $memberid) {
                     if ($item->MessageImg) {
@@ -93,7 +93,7 @@ if (is_null($getprofileimg)) {
                         echo '<li class="list-group-item bg-transparent p-4 py-1" style="border:none;" id="each_message_' . $item->MessageID . '" lastid="' . $item->MessageID . '">
                             <div class="row">   
                               <div class="col-2 p-0 col-lg-1 text-center me-lg-3">
-                                <img src="images_profile/' . $getprofileimg . '"  class="rounded-circle" width="50" height="50">
+                              <a href="http://localhost/aybu/socialmedia/' . $translates["profile"] . '/'.$item->MessageFromID.'"><img src="images_profile/' . $getprofileimg . '" class="rounded-circle" width="60" height="60"></a>
                               </div>      
                               <div class="col-10 d-flex justify-content-start p-0 text-start message-content-img">
                                 <a class="w-33" href="message_images/' . $item->MessageImg . '">' . $imgmsg . '</a>
@@ -107,7 +107,7 @@ if (is_null($getprofileimg)) {
                         echo '<li class="list-group-item bg-transparent p-4 py-1" style="border:none;" id="each_message_' . $item->MessageID . '" lastid="' . $item->MessageID . '">
                             <div class="row">     
                               <div class="col-2 col-lg-1 text-center p-0 me-2 me-md-3 me-lg-4">
-                                <img src="images_profile/' . $getprofileimg . '"  class="rounded-circle" width="50" height="50">
+                                <a href="http://localhost/aybu/socialmedia/' . $translates["profile"] . '/'.$item->MessageFromID.'"><img src="images_profile/' . $getprofileimg . '" class="rounded-circle" width="60" height="60"></a>
                               </div>        
                               <div class="col-2 p-0" style="width:auto;max-width:250px;min-width:75px;">
                                 <div class="row align-items-center bg-light text-dark rounded-3" style="height:100%">

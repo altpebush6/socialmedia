@@ -84,8 +84,18 @@ if ($part) {
       </div>
     </div>
   </div>
-  <div class="row justify-content-center bg-navbar">
+  <div class="row justify-content-center">
+    <div class="col-3 text-center text-light py-2 fs-4 bg-navbar-name" style="border-top-left-radius:20px !important;border-top-right-radius:20px !important;"><?= $user_name . " " . $user_lastname ?></div>
+  </div>
+  <div class="row justify-content-center bg-navbar" style="border-radius: 10px;">
     <div class="col-4 text-center p-3 fs-5 text-light d-flex align-items-center justify-content-center" style="border-right:1px solid gray;">
+      <?php if (!$part or $memberid == $part) { ?>
+        <a href="javascript:void(0)" class="text-decoration-none text-light" data-bs-toggle="modal" data-bs-target="#bioModal"><?= $translates["editbio"] ?></a>
+      <?php } else { ?>
+        <a class="text-decoration-none text-light" href="http://localhost/aybu/socialmedia/<?= $translates["messages"] ?>/<?= $part ?>"><i class="fab fa-facebook-messenger me-1"></i> Mesaj</a>
+      <?php } ?>
+    </div>
+    <div class="col-4 text-center p-3 fs-4 text-light d-flex align-items-center justify-content-center">
       <?php if (!$part or $memberid == $part) { ?>
         <span class="text-center text-light"><?= $translates["yourprofile"] ?></span>
       <?php } else { ?>
@@ -108,9 +118,6 @@ if ($part) {
         </div>
       <?php } ?>
     </div>
-    <div class="col-4 text-center p-3 fs-4 text-light d-flex align-items-center justify-content-center">
-      <?= $user_name . " " . $user_lastname ?>
-    </div>
     <div class="col-4 p-3 fs-5 text-light d-flex align-items-center justify-content-center" style="border-left:1px solid gray;">
       <?php if (!$part or ($memberid == $part)) { ?>
         <a href="http://localhost/aybu/socialmedia/<?= $translates["friends"] ?>" class="text-center text-decoration-none text-light"><?= $translates["friendstitle"] . "(" . $friend_count . ")" ?></a>
@@ -119,6 +126,20 @@ if ($part) {
       <?php } ?>
     </div>
   </div>
+  <?php
+  if ($part) {
+    $memberBio = $db->getColumnData("SELECT Biography FROM memberbiography WHERE MemberID = ?", array($part));
+  } else {
+    $memberBio = $db->getColumnData("SELECT Biography FROM memberbiography WHERE MemberID = ?", array($memberid));
+  }
+  if ($memberBio) { ?>
+
+    <div class="row justify-content-center">
+      <div class="col-3 text-center text-light py-2 fs-4 bg-navbar-name" style="border-bottom-left-radius:20px !important;border-bottom-right-radius:20px !important;">
+        <span class="fs-6"><?= $memberBio ?></span>
+      </div>
+    </div>
+  <?php } ?>
   <?php
   if (($isfriend or $isfriend2) or !$part or ($memberid == $part)) {
     $memberClubs = $db->getDatas("SELECT * FROM clubmembers WHERE MemberID = ? AND Activeness = ?", array($memberid, 1));
@@ -221,6 +242,12 @@ if ($part) {
                     break;
                   case 'MemberUniversity':
                     $value = $db->getColumnData("SELECT UniversityName FROM universities WHERE UniversityID = ?", array($value));
+                    break;
+                  case 'MemberFaculty':
+                    $value = $db->getColumnData("SELECT FacultyName FROM faculties_$language WHERE FacultyID = ?", array($value));
+                    break;
+                  case 'MemberDepartment':
+                    $value = $db->getColumnData("SELECT DepartmentName FROM departments_$language WHERE DepartmentID = ?", array($value));
                     break;
                   case 'MemberCountry':
                     $value = $db->getColumnData("SELECT CountryName FROM countries WHERE CountryID = ?", array($value));
@@ -391,7 +418,28 @@ if ($part) {
     </div>
   </div>
 </div>
-
+<!-- BIYOGRAFI -->
+<div class="modal fade" id="bioModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="bioLabel"><?= $translates["editbio"] ?></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form method="post" id="form_bio" autocomplete="off">
+          <div class="form-floating">
+            <textarea class="form-control" placeholder="Leave a comment here" id="biography" name="biography" style="height: 100px"><?=$memberBio?></textarea>
+            <label for="biography"><?= $translates["bio"] ?></label>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" id="submitBio"><?= $translates["save"] ?> <span id="spinnerbio"></span></button>
+      </div>
+    </div>
+  </div>
+</div>
 <script type="text/javascript">
   $(function() {
     $('.owl-carousel').owlCarousel({
