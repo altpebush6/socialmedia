@@ -334,7 +334,14 @@ switch ($operation) {
                                         </div>
                                         <div class="col-10 px-3 ps-4 ps-md-5 ps-lg-4 ps-xl-5">
                                           <div class="row fs-5">
-                                            <div class="col-12 p-0 messenger-names"><i class="fas fa-users" style="font-size: 17px;"></i> ' . $GroupName . '</div>
+                                          <div class="col-12 p-0 messenger-names" id="chatbox_name_' . $GroupID . '"><i class="fas fa-users" style="font-size: 17px;"></i> ';
+                                          if($GroupName){
+                                            $result["conversationtrue"] .= $GroupName;
+                                          }else{
+                                            $result["conversationtrue"] .= $translates["anonymousgrp"];
+                                          }
+                                            $result["conversationtrue"] .= '</div>
+                                            
                                           </div>
                                           <div class="row">
                                             <div class="col-9 p-0 text-start person-content" id="content_' . $GroupID . '" style="opacity:0.5">
@@ -568,7 +575,13 @@ switch ($operation) {
                                           </div>
                                           <div class="col-10 px-3 ps-4 ps-md-5 ps-lg-4 ps-xl-5">
                                             <div class="row fs-5">
-                                              <div class="col-12 p-0 messenger-names"><i class="fas fa-users" style="font-size: 17px;"></i> ' . $groupname . '</div>
+                                            <div class="col-12 p-0 messenger-names" id="chatbox_name_' . $groupID . '"><i class="fas fa-users" style="font-size: 17px;"></i> ';
+                                            if($groupname){
+                                              $result["conversationtrue"] .= $groupname;
+                                            }else{
+                                              $result["conversationtrue"] .= $translates["anonymousgrp"];
+                                            }
+                                              $result["conversationtrue"] .= '</div>
                                             </div>
                                             <div class="row">
                                               <div class="col-9 p-0 text-start person-content" id="content_' . $groupID . '" ' . $styletext . '>
@@ -779,7 +792,13 @@ switch ($operation) {
                                             </div>
                                             <div class="col-10 px-3 ps-4 ps-md-5 ps-lg-4 ps-xl-5">
                                               <div class="row fs-5">
-                                                <div class="col-12 p-0 messenger-names"><i class="fas fa-users" style="font-size: 17px;"></i> ' . $GroupName . '</div>
+                                                <div class="col-12 p-0 messenger-names" id="chatbox_name_' . $groupID . '"><i class="fas fa-users" style="font-size: 17px;"></i> ';
+                                              if($GroupName){
+                                                $result["conversationtrue"] .= $GroupName;
+                                              }else{
+                                                $result["conversationtrue"] .= $translates["anonymousgrp"];
+                                              }
+                                                $result["conversationtrue"] .= '</div>
                                               </div>
                                               <div class="row">
                                                 <div class="col-9 p-0 text-start person-content" id="content_' . $personID . '" style="opacity:0.5">
@@ -989,7 +1008,13 @@ switch ($operation) {
                                           </div>
                                           <div class="col-10 px-3 ps-4 ps-md-5 ps-lg-4 ps-xl-5">
                                             <div class="row fs-5">
-                                              <div class="col-12 p-0 messenger-names"><i class="fas fa-users" style="font-size: 17px;"></i> ' . $GroupName . '</div>
+                                            <div class="col-12 p-0 messenger-names" id="chatbox_name_' . $groupID . '"><i class="fas fa-users" style="font-size: 17px;"></i> ';
+                                            if($GroupName){
+                                              $result["conversationtrue"] .= $GroupName;
+                                            }else{
+                                              $result["conversationtrue"] .= $translates["anonymousgrp"];
+                                            }
+                                              $result["conversationtrue"] .= '</div>
                                             </div>
                                             <div class="row">
                                               <div class="col-9 p-0 text-start person-content" id="content_' . $personID . '" style="opacity:0.5">
@@ -1231,9 +1256,9 @@ switch ($operation) {
         $addtogroups = $db->Insert("INSERT INTO all_groups SET GroupName = ?,
         GroupImage = ?,
         GroupCreator = ?,
-        GroupAdmin = ?,
+        GroupAdmins = ?,
         GroupMembers = ?,
-        GroupExplanation = ?", array($groupname, $groupimg, $memberid, $memberid, $GroupMembers, $groupexp));
+        GroupExplanation = ?", array($groupname, $groupimg, $memberid, $memberid . ":", $GroupMembers, $groupexp));
         $addtochatbox = $db->Insert("INSERT INTO chatbox SET GroupID = ?, GroupMembers = ?", array($addtogroups, $GroupMembers));
         $result["success"] = $translates["grouphascreated"];
         $groupMessage = $user_name . " " . $translates["personcreatedgroup"];
@@ -1244,7 +1269,13 @@ switch ($operation) {
                                       </div>
                                       <div class="col-8 px-3 ps-4 ps-md-5 ps-lg-4 ps-xl-5">
                                         <div class="row fs-5">
-                                          <div class="col-12 p-0 messenger-names"><i class="fas fa-users" style="font-size: 17px;"></i> ' . $groupname . '</div>
+                                        <div class="col-12 p-0 messenger-names" id="chatbox_name_' . $addtogroups . '"><i class="fas fa-users" style="font-size: 17px;"></i> ';
+                                        if($groupname){
+                                          $result["groupcontact"] .= $groupname;
+                                        }else{
+                                          $result["groupcontact"] .= $translates["anonymousgrp"];
+                                        }
+                                          $result["groupcontact"] .= '</div>
                                         </div>
                                         <div class="row">
                                           <div class="col-12 p-0 text-start person-content" id="content_' . $addtogroups . '">
@@ -1268,10 +1299,18 @@ switch ($operation) {
     echo json_encode($result);
     break;
 
+  case 'changeName':
+    $newName = security("newName");
+    $groupID = security("groupID");
+    $db->Update("UPDATE all_groups SET GroupName = ? WHERE GroupID = ?", array($newName, $groupID));
+    echo json_encode($result);
+    break;
+
   case 'removeMember':
     $groupID = security("groupID");
     $personID = security("MemberID");
     $newMembers  = "";
+    $newAdmins  = "";
     $allmembers = $db->getColumnData("SELECT GroupMembers FROM all_groups WHERE GroupID = ?", array($groupID));
     $allmembers = explode(":", $allmembers);
     $groupMembersNum = count($allmembers);
@@ -1281,7 +1320,43 @@ switch ($operation) {
         $newMembers .= $eachmemberid . ":";
       }
     }
-    $db->Update("UPDATE all_groups SET GroupMembers = ? WHERE GroupID = ?", array($newMembers, $groupID));
+    $alladmins = $db->getColumnData("SELECT GroupAdmins FROM all_groups WHERE GroupID = ?", array($groupID));
+    $alladmins = explode(":", $alladmins);
+    $groupAdminsNum = count($alladmins);
+    unset($alladmins[$groupAdminsNum - 1]);
+    foreach ($alladmins as $eachadminid) {
+      if ($eachadminid != $personID) {
+        $newAdmins .= $eachadminid . ":";
+      }
+    }
+    $db->Update("UPDATE all_groups SET GroupAdmins = ?, GroupMembers = ? WHERE GroupID = ?", array($newAdmins, $newMembers, $groupID));
+    $result["newNum"] = ($groupMembersNum - 2) . " " . $translates["people"];
+    echo json_encode($result);
+    break;
+
+  case 'demoteMember':
+    $groupID = security("groupID");
+    $personID = security("MemberID");
+    $newAdmins = "";
+    $alladmins = $db->getColumnData("SELECT GroupAdmins FROM all_groups WHERE GroupID = ?", array($groupID));
+    $alladmins = explode(":", $alladmins);
+    $groupAdminsNum = count($alladmins);
+    unset($alladmins[$groupAdminsNum - 1]);
+    foreach ($alladmins as $eachadminid) {
+      if ($eachadminid != $personID) {
+        $newAdmins .= $eachadminid . ":";
+      }
+    }
+    $db->Update("UPDATE all_groups SET GroupAdmins = ? WHERE GroupID = ?", array($newAdmins,  $groupID));
+    echo json_encode($result);
+    break;
+
+  case 'promoteMember':
+    $groupID = security("groupID");
+    $personID = security("MemberID");
+    $alladmins = $db->getColumnData("SELECT GroupAdmins FROM all_groups WHERE GroupID = ?", array($groupID));
+    $alladmins = $alladmins .  $personID . ":";
+    $db->Update("UPDATE all_groups SET GroupAdmins = ? WHERE GroupID = ?", array($alladmins,  $groupID));
     echo json_encode($result);
     break;
 
@@ -1317,8 +1392,8 @@ switch ($operation) {
                                         <div class="col-5 m-0 p-0 d-flex justify-content-start align-items-center fs-5">
                                           <span>' . $item->MemberNames . '</span>
                                         </div>
-                                        <div class="col-4 p-0 m-0 me-2 d-flex align-items-center justify-content-end">';
-            $admins = $db->getColumnData("SELECT GroupAdmin FROM all_groups WHERE GroupID = ?", array($groupID));
+                                        <div class="col-5 p-0 m-0 pe-3 d-flex align-items-center justify-content-end">';
+            $admins = $db->getColumnData("SELECT GroupAdmins FROM all_groups WHERE GroupID = ?", array($groupID));
             $admins = explode(":", $admins);
             foreach ($admins as $admin) {
               if ($admin == $memberID) {
@@ -1326,15 +1401,22 @@ switch ($operation) {
               }
             }
             if ($isadmin) {
-              $result["members"] .= '<span class="p-1 me-2" style="color:green;border:1px solid green">' . $translates["gradmin"] . '</span>';
+              $result["members"] .= '<span class="p-1 rounded-1" style="color:green;border:1px solid green;font-size:12px" id="admin_' . $memberID . '">' . $translates["gradmin"] . '</span>';
+              if ($memberID != $memberid) {
+                $result["members"] .= '<button type="button" class="btn btn-sm ms-2 btn-outline-warning demoteMember" id="division_' . $memberID . '" groupid="' . $groupID . '" memberid="' . $memberID . '"><i class="fas fa-angle-double-down px-1"></i></button>';
+              }
+            } else {
+              if ($memberID != $memberid) {
+                $result["members"] .= '<button type="button" class="btn btn-sm ms-2 btn-outline-success promoteMember" id="division_' . $memberID . '" groupid="' . $groupID . '" memberid="' . $memberID . '"><i class="fas fa-angle-double-up px-1"></i></button>';
+              }
             }
             foreach ($admins as $admin) {
               if ($admin == $memberid) {
                 $amiadmin = 1;
               }
             }
-            if ($amiadmin) {
-              $result["members"] .= '<button type="button" class="btn btn-sm btn-outline-danger removeMember" groupid="' . $groupID . '" memberid="' . $memberID . '"><i class="fas fa-user-slash"></i></button>';
+            if ($amiadmin && $memberID != $memberid) {
+              $result["members"] .= '<button type="button" class="btn btn-sm ms-2 btn-outline-danger removeMember" groupid="' . $groupID . '" memberid="' . $memberID . '"><i class="fas fa-user-slash"></i></button>';
             }
             $result["members"] .= '</div>
                                       </div>
@@ -1343,6 +1425,77 @@ switch ($operation) {
         }
       }
     }
+    echo json_encode($result);
+    break;
+
+  case 'searchallMembers':
+    $groupID = security("groupID");
+    $searched_key = security("searchedKey");
+    $member_searched = $db->getDatas("SELECT * FROM members WHERE MemberNames LIKE '$searched_key%' AND MemberConfirm = ? ORDER BY MemberName", array(1));
+    foreach ($member_searched as $item) {
+      $memberID = $item->MemberID;
+      $isMember = 0;
+      $GroupMembers = $db->getColumnData("SELECT GroupMembers FROM all_groups WHERE GroupID = ?", array($groupID));
+      $GroupMembers = explode(":", $GroupMembers);
+      foreach ($GroupMembers as $eachmemberid) {
+        if ($eachmemberid == $memberID) {
+          $isMember = 1;
+        }
+      }
+      if (!$isMember) {
+        $person_photo = $db->getColumnData("SELECT Member_Profileimg FROM images WHERE MemberID = ?", array($memberID));
+        $gender = $db->getColumnData("SELECT MemberGender FROM members WHERE MemberID = ?", array($memberID));
+        $memberNames = $item->MemberNames;
+        if (is_null($person_photo)) {
+          if ($gender == 'Erkek') {
+            $person_photo = "profilemale.png";
+          } else {
+            $person_photo = "profilefemale.png";
+          }
+        }
+        $result["members"] .= '<div class="col-11 mx-auto border m-0 py-2" id="allMembers_' . $memberID . '">
+                                <div class="row">
+                                  <div class="col-2">
+                                    <img src="images_profile/' . $person_photo . '" style="width:50px;height:50px;" class="rounded-circle border">
+                                  </div>
+                                  <div class="col-7 m-0 p-0 d-flex justify-content-start align-items-center fs-5">
+                                    <span>' . $memberNames . '</span>
+                                  </div>
+                                  <div class="col-3 d-flex justify-content-end align-items-center">
+                                    <div class="border d-flex justify-content-center align-items-center text-success addMemberIcon" id="operation_' . $memberID . '" memberid="' . $memberID . '" groupid="' . $groupID . '">
+                                      <i class="fas fa-plus" id="icon_' . $memberID . '"></i>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>';
+      }
+    }
+    echo json_encode($result);
+    break;
+
+  case 'addMember':
+    $groupID = security("groupID");
+    $personID = security("MemberID");
+    $GroupMembers = $db->getColumnData("SELECT GroupMembers FROM all_groups WHERE GroupID = ?", array($groupID));
+    $GroupMembers = $GroupMembers . $personID . ":";
+    $GroupMembers = $db->Update("UPDATE all_groups SET GroupMembers = ? WHERE GroupID = ?", array($GroupMembers, $groupID));
+    echo json_encode($result);
+    break;
+
+  case 'removeMember':
+    $groupID = security("groupID");
+    $personID = security("MemberID");
+    $newMembers = "";
+    $allmembers = $db->getColumnData("SELECT GroupMembers FROM all_groups WHERE GroupID = ?", array($groupID));
+    $allmembers = explode(":", $allmembers);
+    $groupMembersNum = count($allmembers);
+    unset($allmembers[$groupMembersNum - 1]);
+    foreach ($allmembers as $eachmemberid) {
+      if ($eachmemberid != $personID) {
+        $newMembers .= $eachmemberid . ":";
+      }
+    }
+    $db->Update("UPDATE all_groups SET GroupAdmins = ? WHERE GroupID = ?", array($newMembers,  $groupID));
     echo json_encode($result);
     break;
 }

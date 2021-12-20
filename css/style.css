@@ -291,13 +291,24 @@ body {
 .messenger-top:hover{
     background: rgba(255, 255, 255, 0.1);
 }
-.editExp{
+.editExp, .editgroupName{
     cursor: pointer;
     transition: 0.2s;
     opacity: 0.7;
 }
-.editExp:hover{
+.editExp:hover, .editgroupName:hover{
     opacity: 1;
+}
+.addMemberIcon, .removeMemberIcon{
+    width: 40px;
+    height:40px;
+    border-radius:35px;
+    cursor:pointer;
+    transition: 0.2s;
+}
+.addMemberIcon:hover, .removeMemberIcon:hover{
+    background-color: #198754;
+    color:white !important;
 }
 /*NOTIFICATION*/
 

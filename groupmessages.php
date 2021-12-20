@@ -20,7 +20,7 @@ if (is_null($groupImage)) {
   <div class="row align-items-center justify-content-between py-2 px-0 messenger-top" data-bs-toggle="modal" data-bs-target="#groupinfo">
     <div class="col-8 mx-auto text-center">
       <img src="group_images/<?= $groupImage ?>" class="rounded-circle" width="60" height="60" id="chatpersonimg">
-      <a class="text-light text-decoration-none fs-5" id="chatgroupname"><?= $group_name ?></a>
+      <a class="text-light text-decoration-none fs-5" id="chatgroupname"><?= $group_name ? $group_name : $translates["anonymousgrp"] ?></a>
     </div>
   </div>
   <div class="row align-items-center justify-content-between mb-1 py-1 px-0" style="overflow: hidden;height:5vh;border-bottom: 1px solid rgba(255, 255, 255, 0.5);">
@@ -170,8 +170,19 @@ if (is_null($groupImage)) {
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="infoGroupLabel"><?= $group_name ?></h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="row w-100">
+          <div class="col-12 mb-1">
+            <label class="text-muted" style="font-size: 14px;"><?= $translates["groupname"] ?></label>
+          </div>
+          <div class="col-10">
+            <span class="modal-title mx-auto" id="groupName"><?= $group_name ? $group_name : $translates["anonymousgrp"] ?></span>
+            <input type="text" class="form-control d-none" id="groupNameInput" placeholder="<?= $translates["entergroupname"] ?>">
+          </div>
+          <div class="col-2 m-0 p-0 text-end">
+            <i class="fas fa-marker editgroupName"></i>
+            <button type="button" class="btn btn-outline-success d-none" id="nameBtn" groupid="<?= $groupID ?>"><?= $translates["save"] ?> <span class="spinner" id="spinnerName"></span></button>
+          </div>
+        </div>
       </div>
       <?php $group_exp = $db->getColumnData("SELECT GroupExplanation FROM all_groups WHERE GroupID = ?", array($groupID)); ?>
       <div class="modal-header">
@@ -191,15 +202,19 @@ if (is_null($groupImage)) {
       </div>
       <div class="modal-body">
         <div class="row mb-2">
-          <div class="col-12"><?= ($groupMembersNum - 1) . " kişi"; ?></div>
+          <div class="col-12" id="groupMemberNum"><?= ($groupMembersNum - 1) . " " . $translates["people"] ?></div>
+        </div>
+        <div class="mb-3 mt-2 d-flex flex-row justify-content-center align-items-center">
+          <i class="fas fa-user-plus btn btn-success d-flex justify-content-center align-items-center me-2" data-bs-toggle="modal" data-bs-target="#addMember" style="width: 35px;height: 35px;border-radius:25px;font-size:13px"></i>
+          <label class="text-success fs-5" style="cursor: pointer;font-weight: 600;" data-bs-toggle="modal" data-bs-target="#addMember"><?= $translates["addmember"] ?></label>
         </div>
         <div class="row mb-2">
           <div class="input-group">
             <input type="text" class="form-control" groupid="<?= $groupID ?>" placeholder="<?= $translates["entername"] ?>" id="groupMemberName" aria-describedby="basic-addon1">
-            <span class="input-group-text" id="basic-addon1"><i class="fas fa-search"></i></span>
+            <span class="input-group-text" id="searchMembers"><i class="fas fa-search"></i></span>
           </div>
         </div>
-        <div class="row px-2" style="max-height: 40vh;overflow-x:hidden;overflow-y:auto;" id="groupMembers">
+        <div class="row px-2 d-block" style="height: 35vh;overflow-x:hidden;overflow-y:auto;" id="groupMembers">
           <?php foreach ($groupMembers as $eachMember) {
             $isadmin = 0;
             $memberNames = $db->getColumnData("SELECT MemberNames FROM members WHERE MemberID = ?", array($eachMember));
@@ -220,9 +235,9 @@ if (is_null($groupImage)) {
                 <div class="col-5 m-0 p-0 d-flex justify-content-start align-items-center fs-5">
                   <span><?= $memberNames ?></span>
                 </div>
-                <div class="col-4 p-0 m-0 me-2 d-flex align-items-center justify-content-end">
+                <div class="col-5 p-0 m-0 pe-3 d-flex align-items-center justify-content-end" id="memberOperations_<?= $eachMember ?>">
                   <?php
-                  $admins = $db->getColumnData("SELECT GroupAdmin FROM all_groups WHERE GroupID = ?", array($groupID));
+                  $admins = $db->getColumnData("SELECT GroupAdmins FROM all_groups WHERE GroupID = ?", array($groupID));
                   $admins = explode(":", $admins);
                   foreach ($admins as $admin) {
                     if ($admin == $eachMember) {
@@ -230,16 +245,24 @@ if (is_null($groupImage)) {
                     }
                   }
                   if ($isadmin) { ?>
-                    <span class="p-1 me-2" style="color:green;border:1px solid green"><?= $translates["gradmin"] ?></span>
-                  <?php }
+                    <span class="p-1 rounded-1" style="color:green;border:1px solid green;font-size:12px" id="admin_<?= $eachMember ?>"><?= $translates["gradmin"] ?></span>
+                    <?php if ($eachMember != $memberid) { ?>
+                      <button type="button" class="btn btn-sm ms-2 btn-outline-warning demoteMember" id="division_<?= $eachMember ?>" groupid="<?= $groupID ?>" memberid="<?= $eachMember ?>"><i class="fas fa-angle-double-down px-1"></i></button>
+                    <?php }
+                  } else {
+                    if ($eachMember != $memberid) {  ?>
+                      <button type="button" class="btn btn-sm ms-2 btn-outline-success promoteMember" id="division_<?= $eachMember ?>" groupid="<?= $groupID ?>" memberid="<?= $eachMember ?>"><i class="fas fa-angle-double-up px-1"></i></button>
+                    <?php }
+                  }
                   foreach ($admins as $admin) {
                     if ($admin == $memberid) {
                       $amiadmin = 1;
                     }
                   }
-                  if ($amiadmin) { ?>
-                    <button type="button" class="btn btn-sm btn-outline-danger removeMember" groupid="<?= $groupID ?>" memberid="<?= $eachMember ?>"><i class="fas fa-user-slash"></i></button>
+                  if ($amiadmin && $eachMember != $memberid) { ?>
+                    <button type="button" class="btn btn-sm ms-2 btn-outline-danger removeMember" groupid="<?= $groupID ?>" memberid="<?= $eachMember ?>"><i class="fas fa-user-slash"></i></button>
                   <?php } ?>
+
                 </div>
               </div>
             </div>
@@ -256,3 +279,73 @@ if (is_null($groupImage)) {
     </div>
   </div>
 </div>
+<div class="modal fade" id="addMember" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content bg-light">
+      <div class="modal-header">
+        <h5 class="modal-title"><?= $translates["addmember"] ?></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row mb-2">
+          <div class="input-group">
+            <input type="text" class="form-control" groupid="<?= $groupID ?>" placeholder="<?= $translates["entername"] ?>" id="allMembersName">
+            <span class="input-group-text" id="searchMembers"><i class="fas fa-search"></i></span>
+          </div>
+          <div class="row m-0 p-0 mt-2 d-block" style="height: 60vh;overflow-x:hidden;overflow-y:auto;" id="allMembers">
+            <?php
+            $allmembers = $db->getDatas("SELECT * FROM members WHERE MemberConfirm = ? ORDER BY MemberName", array(1));
+            foreach ($allmembers as $eachMember) {
+              $isMember = 0;
+              $eachmemberID = $eachMember->MemberID;
+              $allGroupMembers = $db->getColumnData("SELECT GroupMembers FROM all_groups WHERE GroupID = ?", array($groupID));
+              $allGroupMembers = explode(":", $allGroupMembers);
+              foreach ($allGroupMembers as $groupMember) {
+                if ($eachmemberID == $groupMember) {
+                  $isMember = 1;
+                }
+              }
+              if (!$isMember) {
+                $memberNames = $db->getColumnData("SELECT MemberNames FROM members WHERE MemberID = ?", array($eachmemberID));
+                $memberImg = $db->getColumnData("SELECT Member_Profileimg FROM images WHERE MemberID = ?", array($eachmemberID));
+                if (is_null($memberImg)) {
+                  if ($gender == 'Erkek') {
+                    $memberImg = "profilemale.png";
+                  } else {
+                    $memberImg = "profilefemale.png";
+                  }
+                }
+            ?>
+                <div class="col-11 mx-auto border m-0 py-2" id="allMembers_<?= $eachmemberID ?>">
+                  <div class="row">
+                    <div class="col-2">
+                      <img src="images_profile/<?= $memberImg ?>" style="width:50px;height:50px;" class="rounded-circle border">
+                    </div>
+                    <div class="col-7 m-0 p-0 d-flex justify-content-start align-items-center fs-5">
+                      <span><?= $memberNames ?></span>
+                    </div>
+                    <div class="col-3 d-flex justify-content-end align-items-center">
+                      <div class="border d-flex justify-content-center align-items-center text-success addMemberIcon" id="operation_<?= $eachmemberID ?>" memberid="<?= $eachmemberID ?>" groupid="<?= $groupID ?>">
+                        <i class="fas fa-plus" id="icon_<?= $eachmemberID ?>"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            <?php }
+            } ?>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" id="reloadPage"><?= $translates["reload"] ?></button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  $(function() {
+    $("#reloadPage").on("click", function() {
+      location.reload();
+    });
+  });
+</script>

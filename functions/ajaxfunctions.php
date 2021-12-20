@@ -1770,6 +1770,12 @@
     $("#groupExp").addClass("d-none");
     $(".editExp").addClass("d-none");
   });
+  $(".editgroupName").on("click", function() {
+    $("#groupNameInput").removeClass("d-none");
+    $("#nameBtn").removeClass("d-none");
+    $("#groupName").addClass("d-none");
+    $(".editgroupName").addClass("d-none");
+  });
 
   $("#expBtn").on("click", function() {
     $("#spinnerExp").html('<i class="fas fa-spinner fa-spin"></i>');
@@ -1791,10 +1797,44 @@
         $("#expBtn").addClass("d-none");
         $("#groupExp").removeClass("d-none");
         $(".editExp").removeClass("d-none");
+        if (newDesc == "") {
+          newDesc = '<?= $translates["nogroupexp"] ?>'
+        }
         $("#groupExp").html(newDesc);
       }
     });
   });
+
+  $("#nameBtn").on("click", function() {
+    $("#spinnerName").html('<i class="fas fa-spinner fa-spin"></i>');
+    $("#nameBtn").prop("disabled", true);
+    var newName = $("#groupNameInput").val();
+    var groupID = $("#nameBtn").attr("groupid");
+    $.ajax({
+      type: "POST",
+      url: SITE_URL + "/socialmedia/ajaxmessages.php?operation=changeName",
+      dataType: "JSON",
+      data: {
+        'newName': newName,
+        'groupID': groupID
+      },
+      success: function(result) {
+        $("#spinnerName").html('');
+        $("#nameBtn").prop("disabled", false);
+        $("#groupNameInput").addClass("d-none");
+        $("#nameBtn").addClass("d-none");
+        $("#groupName").removeClass("d-none");
+        $(".editgroupName").removeClass("d-none");
+        if (newName == "") {
+          newName = '<?= $translates["anonymousgrp"] ?>'
+        }
+        $("#chatgroupname").html(newName);
+        $("#chatbox_name_" + groupID).html('<i class="fas fa-users" style="font-size: 17px;"></i> ' + newName);
+        $("#groupName").html(newName);
+      }
+    });
+  });
+
 
   $("#groupMemberName").on("keyup", function() {
     var searchedKey = $(this).val();
@@ -1813,6 +1853,23 @@
     });
   });
 
+  $("#allMembersName").on("keyup", function() {
+    var searchedKey = $(this).val();
+    var groupID = $(this).attr("groupid");
+    $.ajax({
+      type: "POST",
+      url: SITE_URL + "/socialmedia/ajaxmessages.php?operation=searchallMembers",
+      data: {
+        "searchedKey": searchedKey,
+        "groupID": groupID
+      },
+      dataType: "JSON",
+      success: function(result) {
+        $("#allMembers").html(result.members);
+      }
+    });
+  });
+
   $("#groupMembers").on("click", ".removeMember", function() {
     var MemberID = $(this).attr("memberid");
     var groupID = $(this).attr("groupid");
@@ -1826,6 +1883,91 @@
       },
       success: function(result) {
         $("#groupMember_" + MemberID).remove();
+        $("#groupMemberNum").html(result.newNum);
+      }
+    });
+  });
+
+  $("#groupMembers").on("click", ".demoteMember", function() {
+    var MemberID = $(this).attr("memberid");
+    var groupID = $(this).attr("groupid");
+    $.ajax({
+      type: "POST",
+      url: SITE_URL + "/socialmedia/ajaxmessages.php?operation=demoteMember",
+      dataType: "JSON",
+      data: {
+        'MemberID': MemberID,
+        'groupID': groupID
+      },
+      success: function(result) {
+        $("#division_" + MemberID).html('<i class="fas fa-angle-double-up px-1"></i>');
+        $("#division_" + MemberID).removeClass('btn-outline-warning');
+        $("#division_" + MemberID).addClass('promoteMember');
+        $("#division_" + MemberID).addClass('btn-outline-success');
+        $("#division_" + MemberID).removeClass('demoteMember');
+        $("#admin_" + MemberID).remove();
+      }
+    });
+  });
+
+  $("#groupMembers").on("click", ".promoteMember", function() {
+    var MemberID = $(this).attr("memberid");
+    var groupID = $(this).attr("groupid");
+    $.ajax({
+      type: "POST",
+      url: SITE_URL + "/socialmedia/ajaxmessages.php?operation=promoteMember",
+      dataType: "JSON",
+      data: {
+        'MemberID': MemberID,
+        'groupID': groupID
+      },
+      success: function(result) {
+        $("#division_" + MemberID).html('<i class="fas fa-angle-double-down px-1"></i>');
+        $("#division_" + MemberID).removeClass('btn-outline-success');
+        $("#division_" + MemberID).addClass('btn-outline-warning');
+        $("#division_" + MemberID).addClass('demoteMember');
+        $("#division_" + MemberID).removeClass('promoteMember');
+        $("#memberOperations_" + MemberID).prepend('<span class="p-1 rounded-1" style="color:green;border:1px solid green;font-size:12px" id="admin_' + MemberID + '"><?= $translates["gradmin"] ?></span>');
+      }
+    });
+  });
+
+  $("#allMembers").on("click", ".addMemberIcon", function() {
+    var MemberID = $(this).attr("memberid");
+    var groupID = $(this).attr("groupid");
+    $.ajax({
+      type: "POST",
+      url: SITE_URL + "/socialmedia/ajaxmessages.php?operation=addMember",
+      dataType: "JSON",
+      data: {
+        'MemberID': MemberID,
+        'groupID': groupID
+      },
+      success: function(result) {
+        $("#icon_" + MemberID).removeClass('fa-plus');
+        $("#icon_" + MemberID).addClass('fa-check');
+        $("#operation_" + MemberID).removeClass("addMemberIcon");
+        $("#operation_" + MemberID).addClass("removeMemberIcon");
+      }
+    });
+  });
+
+  $("#allMembers").on("click", ".removeMemberIcon", function() {
+    var MemberID = $(this).attr("memberid");
+    var groupID = $(this).attr("groupid");
+    $.ajax({
+      type: "POST",
+      url: SITE_URL + "/socialmedia/ajaxmessages.php?operation=removeMember",
+      dataType: "JSON",
+      data: {
+        'MemberID': MemberID,
+        'groupID': groupID
+      },
+      success: function(result) {
+        $("#icon_" + MemberID).removeClass('fa-check');
+        $("#icon_" + MemberID).addClass('fa-plus');
+        $("#operation_" + MemberID).removeClass("removeMemberIcon");
+        $("#operation_" + MemberID).addClass("addMemberIcon");
       }
     });
   });

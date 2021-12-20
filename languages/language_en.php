@@ -375,5 +375,9 @@ $translates = array(
     "entername" => "Enter user's name",
     "delgroup" => "Delete group",
     "leavegroup" => "Leave group",
-    "gradmin" => "Group Admin"
+    "gradmin" => "Group Admin",
+    "people" => "People",
+    "anonymousgrp" => "Anonymous Group",
+    "addmember" => "Add Member to Group",
+    "reload" => "Reload"
 );

@@ -378,5 +378,9 @@ $translates = array(
     "entername" => "Kullanıcının adını giriniz",
     "delgroup" => "Grubu sil",
     "leavegroup" => "Gruptan ayrıl",
-    "gradmin" => "Grup Yöneticisi"
+    "gradmin" => "Grup Yöneticisi",
+    "people" => "Kişi",
+    "anonymousgrp" => "İsimsiz Grup",
+    "addmember" => "Gruba Kullanıcı Ekle",
+    "reload" => "Yenile"
 );

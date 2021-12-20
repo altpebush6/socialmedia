@@ -223,7 +223,7 @@ $message_count = $db->getColumnData("SELECT COUNT(*) FROM chatbox WHERE MessageT
   <!--NAVBARs-->
   <nav class="navbar navbar-expand-md px-3 navbar-light fixed-top bg-light rounded-1" id="navbar">
     <div class="container-fluid">
-      <a class="navbar-brand text-light" href="http://localhost/aybu/socialmedia/<?= $translates["home"] ?>" style="font-family: 'Merriweather', serif;"> <img src="images/ybu_logo.png" height="60"><?= $user_name . " " . $user_lastname; ?> DEĞİŞİKLİK</a>
+      <a class="navbar-brand text-light" href="http://localhost/aybu/socialmedia/<?= $translates["home"] ?>" style="font-family: 'Merriweather', serif;"> <img src="images/ybu_logo.png" height="60"><?= $user_name . " " . $user_lastname; ?></a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
