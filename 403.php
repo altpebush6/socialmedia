@@ -30,6 +30,6 @@ if($SS->isHave("Language")){
 </svg>
 </use>
 <h1>403</h1>
-<h2><?=$translates["403message"]?></h2>
+<h2><?=$translates["403message"]?>DEĞİŞTİRDİM</h2>
 </body>
 </html>
