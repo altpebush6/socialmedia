@@ -392,7 +392,7 @@
                     <input type="hidden" id="current_sec" currentsec="first_sec">
                     <button type="button" id="back_btn" class="btn btn-danger w-25 d-none"><?= $translates["back"] ?> <span class="spinner" id="spinnerback"></span></button>
                     <button type="button" id="continue_btn" class="btn btn-success w-100"><?= $translates["continue"] ?> <span class="spinner" id="spinnercontinue"></span></button>
-                    <button type="submit" id="createEvent_btn" class="btn btn-primary w-70 d-none"><?= $translates["createtheevent"] ?> <span class="spinner" id="spinnercreateEvent"></span></button>
+                    <button type="submit" id="createEvent_btn" class="btn btn-primary w-70 d-none" operation="createEvent" eventid="0"><?= $translates["createtheevent"] ?> <span class="spinner" id="spinnercreateEvent"></span></button>
                 </div>
                 </form>
             </div>

@@ -322,6 +322,7 @@ $translates = array(
     "eventcategory" => "Etkinlik Kategorisi",
     "selectCategory" => "Kategori Seçiniz",
     "eventhascreated" => "Etkinlik oluşturuldu. Yayınlanması için onaylanmasını bekleyiniz.",
+    "eventhasedited" => "Etkinlik başarıyla değiştirildi.",
     "joinedtoevent" => "Etkinliğe Katıldın",
     "jointoevent" => "Etkinliğe Katıl",
     "organizer" => "Organizatör",
@@ -382,5 +383,6 @@ $translates = array(
     "people" => "Kişi",
     "anonymousgrp" => "İsimsiz Grup",
     "addmember" => "Gruba Kullanıcı Ekle",
-    "reload" => "Yenile"
+    "reload" => "Yenile",
+    "editevent" => "Etkinliği Düzenle"
 );

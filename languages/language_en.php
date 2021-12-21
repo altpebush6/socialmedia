@@ -319,6 +319,7 @@ $translates = array(
     "eventcategory" => "Event Category",
     "selectCategory" => "Select a Category",
     "eventhascreated" => "Event has been created. Wait for approval for publication.",
+    "eventhasedited" => "Event has been edited successfully",
     "joinedtoevent" => "You have joined to event",
     "jointoevent" => "Join to Event",
     "organizer" => "Organizer",
@@ -379,5 +380,6 @@ $translates = array(
     "people" => "People",
     "anonymousgrp" => "Anonymous Group",
     "addmember" => "Add Member to Group",
-    "reload" => "Reload"
+    "reload" => "Reload",
+    "editevent" => "Edit Event"
 );

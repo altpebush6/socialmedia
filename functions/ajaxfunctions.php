@@ -1609,6 +1609,7 @@
     e.preventDefault();
     $("#spinnercreateEvent").html('<i class="fas fa-spinner fa-spin"></i>');
     $("#createEvent_btn").prop("disabled", true);
+    var Operation = $("#createEvent_btn").attr("operation");
     var Datas = new FormData(this);
     Datas.append("eventHeader", $("#eventHeader").val());
     Datas.append("eventCategory", $("#eventCategory").val());
@@ -1621,6 +1622,7 @@
     Datas.append("emailAddress", $("#emailAddress").val());
     Datas.append("phoneNum", $("#phoneNum").val());
     Datas.append("pricing", $("#pricing").val());
+    Datas.append("eventID", $("#createEvent_btn").attr("eventid"));
 
     var imagePath = $("#eventImg").val();
     var imageallowedExtensions = /(\.jpg|\.jpeg|\.png|\.jfif)$/i;
@@ -1634,7 +1636,7 @@
     } else {
       $.ajax({
         type: "post",
-        url: SITE_URL + "/socialmedia/ajaxevents.php?operation=createEvent",
+        url: SITE_URL + "/socialmedia/ajaxevents.php?operation=" + Operation,
         data: Datas,
         dataType: "json",
         contentType: false,
@@ -1652,6 +1654,11 @@
             $("#footer_result").addClass("p-3");
             $("#result").addClass("bg-success text-light p-3 w-100 mb-0 mx-auto text-center rounded-3");
             $("#result").html(result.success);
+            if (Operation == 'editEvent') {
+              setTimeout(function() {
+                window.location.href = SITE_URL + "/socialmedia/<?= $translates["events"] ?>/" + result.newlink;
+              }, 1000);
+            }
           }
         }
       });

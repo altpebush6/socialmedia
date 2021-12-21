@@ -5,6 +5,7 @@ if (!isset($_SESSION)) {
 require_once "functions/routing.php";
 require_once "functions/security.php";
 require_once "classes/AllClasses.php";
+require_once "functions/seolink.php";
 
 if (empty($_SERVER["HTTP_X_REQUESTED_WITH"]) or strtolower($_SERVER["HTTP_X_REQUESTED_WITH"]) != 'xmlhttprequest') {
     header("Location: http://localhost/aybu/socialmedia/404.php");
@@ -78,6 +79,7 @@ switch ($operation) {
         echo json_encode($result);
         break;
 
+    case "editEvent":
     case "createEvent":
         $eventHeader = security("eventHeader");
         $eventCategory = security("eventCategory");
@@ -90,6 +92,7 @@ switch ($operation) {
         $emailAddress = security("emailAddress");
         $phoneNum = security("phoneNum");
         $pricing = security("pricing");
+        $eventID = security("eventID");
         $eventImage = $_FILES['eventImg']['name'];
 
         if ($noCity == "true") {
@@ -143,22 +146,39 @@ switch ($operation) {
                                 }
                                 move_uploaded_file($_FILES['eventImg']['tmp_name'], $target);
 
-                                $createEvent = $db->Insert("INSERT INTO events SET
-                                                            EventHeader = ?,
-                                                            EventImage = ?,
-                                                            EventCategory = ?,
-                                                            EventSchool = ?,
-                                                            EventCity = ?,
-                                                            EventPlace = ?,
-                                                            EventDateTime = ?,
-                                                            EventParticipant = ?,
-                                                            EventPrice = ?,
-                                                            EventExplanation = ?,
-                                                            EventOrganizer = ?,
-                                                            OrganizerEmail = ?,
-                                                            OrganizerPhone = ?,
-                                                            EventStatus = ?", array($eventHeader, $eventImage, $eventCategory, $eventSchool, $eventCity, $eventPlace, $eventDate, 0, $pricing, $explanation, $memberid, $emailAddress, $phoneNum, 0));
-                                $result["success"] = $translates["eventhascreated"];
+                                if ($operation == 'createEvent') {
+                                    $createEvent = $db->Insert("INSERT INTO events SET
+                                    EventHeader = ?,
+                                    EventImage = ?,
+                                    EventCategory = ?,
+                                    EventSchool = ?,
+                                    EventCity = ?,
+                                    EventPlace = ?,
+                                    EventDateTime = ?,
+                                    EventParticipant = ?,
+                                    EventPrice = ?,
+                                    EventExplanation = ?,
+                                    EventOrganizer = ?,
+                                    OrganizerEmail = ?,
+                                    OrganizerPhone = ?,
+                                    EventStatus = ?", array($eventHeader, $eventImage, $eventCategory, $eventSchool, $eventCity, $eventPlace, $eventDate, 0, $pricing, $explanation, $memberid, $emailAddress, $phoneNum, 0));
+                                    $result["success"] = $translates["eventhascreated"];
+                                } else if ($operation == 'editEvent') {
+                                    $editEvent = $db->Update("UPDATE events SET
+                                    EventHeader = ?,
+                                    EventImage = ?,
+                                    EventCategory = ?,
+                                    EventSchool = ?,
+                                    EventCity = ?,
+                                    EventPlace = ?,
+                                    EventDateTime = ?,
+                                    EventPrice = ?,
+                                    EventExplanation = ?,
+                                    OrganizerEmail = ?,
+                                    OrganizerPhone = ? WHERE EventID = ?", array($eventHeader, $eventImage, $eventCategory, $eventSchool, $eventCity, $eventPlace, $eventDate, $pricing, $explanation, $emailAddress, $phoneNum, $eventID));
+                                    $result["success"] = $translates["eventhasedited"];
+                                    $result["newlink"] = seolink($eventHeader) . "-" . $eventID;
+                                }
                             } //if (!preg_match($pattern3, $phoneNum))
                         } //if (!(strlen($phoneNum) == 10 || strlen($phoneNum) == 11))
                     } // if (preg_match($phonepattern, $phoneNum))
