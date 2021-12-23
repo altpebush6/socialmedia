@@ -158,6 +158,49 @@ if ($part) {
           </div>
         </div>
       </div>
+    <?php }
+    $memberEvents = $db->getDatas("SELECT * FROM eventparticipants WHERE MemberID = ?", array($memberid));
+    if ($memberEvents) { ?>
+      <div class="container my-5">
+        <div class="row">
+          <div class="col-12 mb-2" style="border-bottom: 1px solid rgba(46, 46, 46, 0.2);">
+            <h2 class="header text-light text-center" style="font-family: 'Libre Baskerville', serif;"><?= $translates["joinedevents"] ?></h2>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="mt-4 ps-events owl-carousel owl-theme d-flex justify-content-center" id="containerevents">
+              <?php foreach ($memberEvents as $eachEvent) {
+                $event = $db->getData("SELECT * FROM events WHERE EventID = ?", array($eachEvent->EventID)); ?>
+                <div class="pe-5">
+                  <div class="row border rounded-3 each-event" style="width:500px;height:26vh;overflow:hidden;">
+                    <div class="col-5 m-0 p-0">
+                      <img src="events_images/<?= $event->EventImage ?>" class="w-100 rounded-3" style="height:100%">
+                    </div>
+                    <div class="col-7 view-event justify-content-center align-items-center" style="display: none;">
+                      <a class="btn btn-outline-light" href="http://localhost/aybu/socialmedia/<?= $translates["events"] ?>/<?= seolink($event->EventHeader) . "-" . $event->EventID ?>"><?= $translates["viewevent"] ?></a>
+                    </div>
+                    <div class="col-7 py-2 event-infos">
+                      <div style="height:19vh;">
+                        <div class="col-12 p-0">
+                          <h4><?= $event->EventHeader ?></h4>
+                        </div>
+                        <div class="col-12 p-0 cuttheline">~<?= $db->getColumnData("SELECT UniversityName FROM universities WHERE UniversityID = ?", array($event->EventSchool)) ?></div>
+                        <div class="col-12 p-0 cuttheline">~<?= $db->getColumnData("SELECT CityName FROM cities WHERE CityID = ?", array($event->EventCity)) ?></div>
+                        <div class="col-12 p-0 cuttheline">~<?= $event->EventDateTime ?></div>
+                        <div class="col-12 p-0 cuttheline">~<?= $event->EventParticipant ?> <?= $translates["participant"] ?></div>
+                      </div>
+                      <div class="p-0 fs-3 text-end text-light" style="height:2vh;">
+                        <?= ($event->EventPrice == 0 ? $translates['free'] : $event->EventPrice . "₺") ?>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              <?php } ?>
+            </div>
+          </div>
+        </div>
+      </div>
     <?php } ?>
     <div class="container my-4">
       <div class="row">
@@ -429,7 +472,7 @@ if ($part) {
       <div class="modal-body">
         <form method="post" id="form_bio" autocomplete="off">
           <div class="form-floating">
-            <textarea class="form-control" placeholder="Leave a comment here" id="biography" name="biography" style="height: 100px"><?=$memberBio?></textarea>
+            <textarea class="form-control" placeholder="Leave a comment here" id="biography" name="biography" style="height: 100px"><?= $memberBio ?></textarea>
             <label for="biography"><?= $translates["bio"] ?></label>
           </div>
         </form>

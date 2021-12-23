@@ -384,5 +384,6 @@ $translates = array(
     "anonymousgrp" => "İsimsiz Grup",
     "addmember" => "Gruba Kullanıcı Ekle",
     "reload" => "Yenile",
-    "editevent" => "Etkinliği Düzenle"
+    "editevent" => "Etkinliği Düzenle",
+    "joinedevents" => "Kullanıcının Katılacağı Etkinlikler"
 );

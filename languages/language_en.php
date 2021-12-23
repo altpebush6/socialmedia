@@ -381,5 +381,6 @@ $translates = array(
     "anonymousgrp" => "Anonymous Group",
     "addmember" => "Add Member to Group",
     "reload" => "Reload",
-    "editevent" => "Edit Event"
+    "editevent" => "Edit Event",
+    "joinedevents" => "Events User Will Attend"
 );
