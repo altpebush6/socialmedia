@@ -115,7 +115,7 @@ foreach ($posts as $item) {
     $diff_post = calculateTime($post_time);
 ?>
     <div class="container my-5 px-0 px-md-4" id="<?= $post_ID ?>">
-      <div class="border rounded-1 p-3 col-md-10 mx-auto offset-md-1 py-4 post">
+      <div class="border p-3 col-md-10 mx-auto offset-md-1 py-4 post" style="border-radius: 15px;box-shadow:1px 1px 2px 2px gray">
         <div class="row mb-3">
           <div class="col-10">
             <a href="http://localhost/aybu/socialmedia/<?= $translates['profile'] ?>/<?= $postMemberID ?>">
@@ -451,4 +451,53 @@ foreach ($posts as $item) {
     </div>
 <?php
   }
-} ?>
+}
+$event = $db->getData("SELECT * FROM events WHERE EventPremium = ?", array(1));
+$eventOrganizer = $db->getData("SELECT * FROM members WHERE MemberID = ?", array($event->EventOrganizerID));
+$event_profile_photo = $db->getColumnData("SELECT Member_Profileimg FROM images WHERE MemberID = ?", array($event->EventOrganizerID));
+$organizerGender = $db->getColumnData("SELECT MemberGender FROM members WHERE MemberID = ?", array($event->EventOrganizerID));
+
+if (is_null($event_profile_photo)) {
+  if ($organizerGender == 'Erkek') {
+    $event_profile_photo = "profilemale.png";
+  } else {
+    $event_profile_photo = "profilefemale.png";
+  }
+}
+$eventHeader = $event->EventHeader;
+?>
+<div class="container my-5 px-0 px-md-4" id="<?= $event->EventID ?>">
+  <div class="border rounded-1 p-3 col-md-10 mx-auto offset-md-1 py-4 post">
+    <div class="row mb-3">
+      <div class="col-12">
+        <a href="http://localhost/aybu/socialmedia/<?= $translates['profile'] ?>/<?= $eventOrganizer->MemberID ?>">
+          <div class="row justify-content-center">
+            <div class="col-2 text-center">
+              <a href="http://localhost/aybu/socialmedia/<?= $translates['profile'] ?>/<?= $eventOrganizer->MemberID ?>">
+                <img src="images_profile/<?= $event_profile_photo; ?>" class="rounded-circle" width="50" height="50">
+              </a>
+            </div>
+            <div class="col-10 p-0 pe-5 d-flex align-items-center justify-content-end fs-5">
+              <a class="text-decoration-none text-light" href="http://localhost/aybu/socialmedia/<?= $translates['profile'] ?>/<?= $eventOrganizer->MemberID ?>">
+                <?= $eventOrganizer->MemberNames ?>
+              </a>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+    <div class="text-light text-break fs-6 eventmiddle_<?= $event->EventID ?>" style="user-select:text" id="eventmiddle_<?= $event->EventID ?>">
+      <span id="event_header_<?= $event->EventID ?>" class="ps-4 fs-4 my-3 text-center <?php echo ($eventHeader ? "d-block" : "d-none") ?>"><?= $eventHeader ?></span>
+      <div class="d-flex flex-row p-0 m-0">
+        <div class="row w-100 ps-4" id="event_image_<?= $event->EventID ?>">
+          <a href="events_images/<?= $event->EventImage ?>" class="col-12 pe-1">
+            <img src="events_images/<?= $event->EventImage ?>" style="width:100%;border-radius:5px;margin-top:15px;">
+          </a>
+          <script>
+            baguetteBox.run('.eventmiddle_<?= $event->EventID ?>');
+          </script>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

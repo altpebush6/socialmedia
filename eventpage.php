@@ -105,7 +105,7 @@ if ($myEvent->EventOrganizerID == $memberid) {
                 </div>
                 <?php if ($isOrganizer) {
                     if ($myEvent->EventPremium) { ?>
-                        <div class="col-12 my-3 mb-2 ms-0 ps-1 pe-4 mx-auto proBtn">
+                        <div class="col-12 my-3 mb-2 ms-0 ps-1 pe-4 mx-auto">
                             <button type="button" class="btn btn-warning ms-2 w-100" style="box-shadow: 0px 0px 2px 1px #fff;">Premium Etkinlik <i class="fas fa-check"></i></button>
                         </div> <?php } else { ?>
                         <div class="col-12 my-3 mb-2 ms-0 ps-1 pe-4 mx-auto proBtn">
