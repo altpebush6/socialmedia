@@ -103,6 +103,16 @@ if ($myEvent->EventOrganizerID == $memberid) {
                     } ?>
                     <button type="button" class="btn btn-dark w-25"><?= $myEvent->EventPrice ?>₺</button>
                 </div>
+                <?php if ($isOrganizer) {
+                    if ($myEvent->EventPremium) { ?>
+                        <div class="col-12 my-3 mb-2 ms-0 ps-1 pe-4 mx-auto proBtn">
+                            <button type="button" class="btn btn-warning ms-2 w-100" style="box-shadow: 0px 0px 2px 1px #fff;">Premium Etkinlik <i class="fas fa-check"></i></button>
+                        </div> <?php } else { ?>
+                        <div class="col-12 my-3 mb-2 ms-0 ps-1 pe-4 mx-auto proBtn">
+                            <button type="button" class="btn btn-warning ms-2 w-100" style="box-shadow: 0px 0px 2px 1px #fff;" id="getPremium" eventid="<?= $myEvent->EventID ?>">Premium Al <i class="far fa-star"></i><span class="spinner" id="spinnerProEvent"></span></button>
+                        </div>
+                <?php }
+                        } ?>
                 <div class="col-12 mt-1">
                     <div class="text-light form-text"><?= $translates["contactorganizer"] ?></div>
                 </div>

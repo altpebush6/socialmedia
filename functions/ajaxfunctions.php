@@ -1711,6 +1711,26 @@
     });
   });
 
+  $("#getPremium").on("click", function() {
+    $("#spinnerProEvent").html('<i class="fas fa-spinner fa-spin"></i>');
+    $("#getPremium").prop("disabled", true);
+    var EventID = $(this).attr("eventid");
+    $.ajax({
+      type: "POST",
+      url: SITE_URL + "/socialmedia/ajaxevents.php?operation=getPremium",
+      data: {
+        "EventID": EventID
+      },
+      dataType: "JSON",
+      success: function(result) {
+        $("#spinnerProEvent").html("");
+        $("#getPremium").prop("disabled", false);
+        $("#getPremium").html('Premium Etkinlik <i class="fas fa-check"></i>');
+        $(this).attr("id","");
+      }
+    });
+
+  });
   //Biografi
   $("#submitBio").on("click", function() {
     $("#spinnerbio").html('<i class="fas fa-spinner fa-spin"></i>');

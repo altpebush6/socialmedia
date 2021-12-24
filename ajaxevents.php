@@ -208,4 +208,10 @@ switch ($operation) {
         $result["newNumber"] = $newParticipantNum;
         echo json_encode($result);
         break;
+
+    case 'getPremium':
+        $EventID = security("EventID");
+        $getPremium = $db->Update("UPDATE events SET EventPremium = ? WHERE EventID = ?", array(1, $EventID));
+        echo json_encode($result);
+        break;
 }

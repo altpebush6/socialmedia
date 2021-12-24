@@ -45,16 +45,21 @@ body {
 }
 
 @keyframes shake {
-    10%, 90% {
+    10%,
+    90% {
         transform: translate3d(-1px, 0, 0);
     }
-    20%, 80% {
+    20%,
+    80% {
         transform: translate3d(1px, 0, 0);
     }
-    30%, 50%, 70% {
+    30%,
+    50%,
+    70% {
         transform: translate3d(-1px, 0, 0);
     }
-    40%, 60% {
+    40%,
+    60% {
         transform: translate3d(1px, 0, 0);
     }
 }
@@ -114,7 +119,8 @@ body {
     background: rgba(255, 255, 255, 0.048);
 }
 
-.friend-container, .messanger-container {
+.friend-container,
+.messanger-container {
     border: 3px solid white;
     background: rgba(255, 255, 255, 0.3);
 }
@@ -159,7 +165,8 @@ body {
     text-overflow: ellipsis;
 }
 
-.messenger-top, .messenger-middle {
+.messenger-top,
+.messenger-middle {
     border-bottom: 1px solid rgba(255, 255, 255, 0.5);
 }
 
@@ -167,7 +174,8 @@ body {
     background: rgba(33, 37, 41, 0.7);
 }
 
-.del-msg, .del-img {
+.del-msg,
+.del-img {
     opacity: 0;
     visibility: hidden;
     transition: 0.3s;
@@ -282,34 +290,47 @@ body {
     background-color: rgba(0, 68, 133, 0.9);
     color: white;
 }
+
+
 /* MESSENGER */
 
-.messenger-top{
+.messenger-top {
     transition: 0.4s;
     cursor: pointer;
 }
-.messenger-top:hover{
+
+.messenger-top:hover {
     background: rgba(255, 255, 255, 0.1);
 }
-.editExp, .editgroupName{
+
+.editExp,
+.editgroupName {
     cursor: pointer;
     transition: 0.2s;
     opacity: 0.7;
 }
-.editExp:hover, .editgroupName:hover{
+
+.editExp:hover,
+.editgroupName:hover {
     opacity: 1;
 }
-.addMemberIcon, .removeMemberIcon{
+
+.addMemberIcon,
+.removeMemberIcon {
     width: 40px;
-    height:40px;
-    border-radius:35px;
-    cursor:pointer;
+    height: 40px;
+    border-radius: 35px;
+    cursor: pointer;
     transition: 0.2s;
 }
-.addMemberIcon:hover, .removeMemberIcon:hover{
+
+.addMemberIcon:hover,
+.removeMemberIcon:hover {
     background-color: #198754;
-    color:white !important;
+    color: white !important;
 }
+
+
 /*NOTIFICATION*/
 
 .dropdown-nav-content {
@@ -471,7 +492,8 @@ body {
     z-index: 5;
 }
 
-.order, .organizer {
+.order,
+.organizer {
     position: fixed;
     background: rgba(0, 0, 0, 0.5);
     right: 0px;
@@ -559,4 +581,22 @@ body {
 
 .profile-cv:hover .cv-edit {
     opacity: 1;
+}
+
+.proBtn button {
+    position: relative;
+    color: #f5f5f5;
+    font-weight: bold;
+    display: block;
+    text-align: center;
+    border-radius: 10px;
+    text-decoration: none;
+    background-image: linear-gradient(115deg, #4fcf70, #fad648, #a767e5, #12bcfe, #44ce7b);
+    animation: rotate 2.4s linear infinite;
+}
+
+@keyframes rotate {
+    100% {
+        filter: hue-rotate(-360deg)
+    }
 }
