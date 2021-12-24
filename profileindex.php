@@ -142,7 +142,11 @@ if ($part) {
   <?php } ?>
   <?php
   if (($isfriend or $isfriend2) or !$part or ($memberid == $part)) {
-    $memberClubs = $db->getDatas("SELECT * FROM clubmembers WHERE MemberID = ? AND Activeness = ?", array($memberid, 1));
+    if ($part) {
+      $memberClubs = $db->getDatas("SELECT * FROM clubmembers WHERE MemberID = ? AND Activeness = ?", array($part, 1));
+    } else {
+      $memberClubs = $db->getDatas("SELECT * FROM clubmembers WHERE MemberID = ? AND Activeness = ?", array($memberid, 1));
+    }
     if ($memberClubs) {
   ?>
       <div class="container mt-4">
@@ -159,7 +163,11 @@ if ($part) {
         </div>
       </div>
     <?php }
-    $memberEvents = $db->getDatas("SELECT * FROM eventparticipants WHERE MemberID = ?", array($memberid));
+    if ($part) {
+      $memberEvents = $db->getDatas("SELECT * FROM eventparticipants WHERE MemberID = ?", array($part));
+    } else {
+      $memberEvents = $db->getDatas("SELECT * FROM eventparticipants WHERE MemberID = ?", array($memberid));
+    }
     if ($memberEvents) { ?>
       <div class="container my-5">
         <div class="row">
