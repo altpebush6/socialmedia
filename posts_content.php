@@ -41,7 +41,7 @@ foreach ($posts as $item) {
   $diff_post = calculateTime($post_time);
 ?>
   <div class="container my-5 px-0 px-md-4" id="postid_<?= $post_ID ?>">
-    <div class="border rounded-1 p-3 col-md-10 offset-md-1 py-4 post">
+    <div class="border p-3 col-md-10 offset-md-1 py-4 post" style="border-radius: 15px;">
       <div class="row mb-3">
         <div class="col-10">
           <a href="">

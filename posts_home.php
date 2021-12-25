@@ -12,7 +12,7 @@ if ($part) {
 <?php } ?>
 
 <div class="container py-4 px-0 px-md-4">
-  <div class="create-post border rounded-1 col-md-10 offset-md-1 py-4 ">
+  <div class="create-post border col-md-10 offset-md-1 py-4" style="border-radius: 15px;">
     <form id="form_posting" method="post" enctype="multipart/form-data" class="px-3">
       <div class="row">
         <h3 class="header text-center mb-3 create-post-header" style="font-family: 'Lora', serif;"><?= $translates["createpost"] ?></h3>
@@ -115,7 +115,7 @@ foreach ($posts as $item) {
     $diff_post = calculateTime($post_time);
 ?>
     <div class="container my-5 px-0 px-md-4" id="<?= $post_ID ?>">
-      <div class="border p-3 col-md-10 mx-auto offset-md-1 py-4 post" style="border-radius: 15px;box-shadow:1px 1px 2px 2px gray">
+      <div class="border p-3 col-md-10 mx-auto offset-md-1 py-4 post" style="border-radius: 15px;">
         <div class="row mb-3">
           <div class="col-10">
             <a href="http://localhost/aybu/socialmedia/<?= $translates['profile'] ?>/<?= $postMemberID ?>">
@@ -466,28 +466,11 @@ if (is_null($event_profile_photo)) {
 }
 $eventHeader = $event->EventHeader;
 ?>
-<div class="container my-5 px-0 px-md-4" id="<?= $event->EventID ?>">
-  <div class="border rounded-1 p-3 col-md-10 mx-auto offset-md-1 py-4 post">
-    <div class="row mb-3">
-      <div class="col-12">
-        <a href="http://localhost/aybu/socialmedia/<?= $translates['profile'] ?>/<?= $eventOrganizer->MemberID ?>">
-          <div class="row justify-content-center">
-            <div class="col-2 text-center">
-              <a href="http://localhost/aybu/socialmedia/<?= $translates['profile'] ?>/<?= $eventOrganizer->MemberID ?>">
-                <img src="images_profile/<?= $event_profile_photo; ?>" class="rounded-circle" width="50" height="50">
-              </a>
-            </div>
-            <div class="col-10 p-0 pe-5 d-flex align-items-center justify-content-end fs-5">
-              <a class="text-decoration-none text-light" href="http://localhost/aybu/socialmedia/<?= $translates['profile'] ?>/<?= $eventOrganizer->MemberID ?>">
-                <?= $eventOrganizer->MemberNames ?>
-              </a>
-            </div>
-          </div>
-        </a>
-      </div>
-    </div>
-    <div class="text-light text-break fs-6 eventmiddle_<?= $event->EventID ?>" style="user-select:text" id="eventmiddle_<?= $event->EventID ?>">
-      <span id="event_header_<?= $event->EventID ?>" class="ps-4 fs-4 my-3 text-center <?php echo ($eventHeader ? "d-block" : "d-none") ?>"><?= $eventHeader ?></span>
+<div class="container-event my-5 px-0 px-md-4">
+  <div class="border offset-md-1 col-md-10 mx-auto p-3 bg-dark mx-auto py-4 post eventPre" style="border-radius: 15px;">
+    <div class="ribbon"><span>GOLD</span></div>
+    <div class="text-light text-break fs-5 eventmiddle_<?= $event->EventID ?>" style="user-select:text" id="eventmiddle_<?= $event->EventID ?>">
+      <h6 id="event_header_<?= $event->EventID ?>" class="ps-4 my-3 fs-2 text-center eventHeader <?php echo ($eventHeader ? "d-block" : "d-none") ?>"><?= $eventHeader ?></h6>
       <div class="d-flex flex-row p-0 m-0">
         <div class="row w-100 ps-4" id="event_image_<?= $event->EventID ?>">
           <a href="events_images/<?= $event->EventImage ?>" class="col-12 pe-1">

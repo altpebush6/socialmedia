@@ -95,7 +95,7 @@
       </a>
     <?php } ?>
   </ul>
-<!-- MOBİL KONULAR -->
+  <!-- MOBİL KONULAR -->
   <ul class="list-group rounded-1 mb-3 mt-5" style="max-height: 40vh;overflow-y:auto;">
     <?php
     $topics = $db->getDatas("SELECT * FROM topics WHERE TopicActive = ? ORDER BY TopicOrder ASC", array(1));

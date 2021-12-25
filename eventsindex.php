@@ -200,7 +200,8 @@
             foreach ($all_events as $event) {
             ?>
                 <div class="col-4 my-3 pe-5">
-                    <div class="row border rounded-3 each-event" style="height:26vh;overflow:hidden;">
+                    <div class="row rounded-3 each-event <?= $event->EventPremium ? 'eventPre' : 'border' ?>" style="height:26vh;overflow:hidden;">
+                        <div class="ribbon"><span>GOLD</span></div>
                         <div class="col-5 m-0 p-0">
                             <img src="events_images/<?= $event->EventImage ?>" class="w-100 rounded-3" style="height:100%">
                         </div>
