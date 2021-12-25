@@ -5,6 +5,7 @@ if (!isset($_SESSION)) {
 require_once "functions/routing.php";
 require_once "functions/security.php";
 require_once "classes/AllClasses.php";
+require_once "functions/seolink.php";
 require_once "functions/time.php";
 
 if (empty($_SERVER["HTTP_X_REQUESTED_WITH"]) or strtolower($_SERVER["HTTP_X_REQUESTED_WITH"]) != 'xmlhttprequest') {
@@ -24,6 +25,7 @@ require_once "languages/language_" . $language . ".php";
 $result = array();
 
 $id = security("id");
+$eventid = security("eventid");
 $part = security("part");
 $memberid = $SS->get("MemberID");
 $from = $_GET["From"];
@@ -39,6 +41,7 @@ foreach ($memberFriends2 as $friend2) {
 }
 
 if ($from == "Home") {
+  $newEvent = $db->getData("SELECT * FROM events WHERE EventID < $eventid AND EventPremium = ?", array(1));
   if (!$part) {
     $posts = $db->getDatas("SELECT * FROM posts WHERE PostID < $id AND PostActive = ? ORDER BY PostAddTime DESC LIMIT 3", array(1));
   } else {
@@ -109,7 +112,7 @@ if ($counter > 0) {
     }
 
     $result["state"] .= '<div class="container my-5 px-0 px-md-4" id="' . $post->PostID . '">
-                                <div class="border rounded-1 p-3 col-md-10 offset-md-1 py-4 post">
+                                <div class="border p-3 col-md-10 offset-md-1 py-4 post" style="border-radius: 15px;">
                                     <div class="row mb-3">
                                         <div class="col-10">
                                             <a href="http://localhost/aybu/socialmedia/' . $translates['profile'] . '/' . $post->MemberID . '">
@@ -425,5 +428,39 @@ if ($counter > 0) {
 } else {
   $result["state"] = "empty";
 }
+// EVENT PART
+if ($newEvent) {
+  $eventOrganizer = $db->getData("SELECT * FROM members WHERE MemberID = ?", array($newEvent->EventOrganizerID));
+  $event_profile_photo = $db->getColumnData("SELECT Member_Profileimg FROM images WHERE MemberID = ?", array($newEvent->EventOrganizerID));
+  $organizerGender = $db->getColumnData("SELECT MemberGender FROM members WHERE MemberID = ?", array($newEvent->EventOrganizerID));
 
+  if (is_null($event_profile_photo)) {
+    if ($organizerGender == 'Erkek') {
+      $event_profile_photo = "profilemale.png";
+    } else {
+      $event_profile_photo = "profilefemale.png";
+    }
+  }
+  $eventHeader = $newEvent->EventHeader;
+  $result["state"] .= '<a class="text-decoration-none" href="http://localhost/aybu/socialmedia/' . $translates["events"] . '/' . seolink($eventHeader) . "-" . $newEvent->EventID . '">
+                        <div class="container-event my-5 px-0 px-md-4" eventid="' . $newEvent->EventID . '">
+                            <div class="border offset-md-1 col-md-10 mx-auto p-3 bg-dark mx-auto py-4 post eventPre" style="border-radius: 15px;">
+                              <div class="ribbon"><span>GOLD</span></div>
+                              <div class="text-light text-break fs-5 eventmiddle_' . $newEvent->EventID . '" style="user-select:text" id="eventmiddle_' . $newEvent->EventID . '">
+                                <h6 id="event_header_' . $newEvent->EventID . '" class="ps-4 my-3 fs-2 text-center eventHeader d-block">' . $eventHeader . '</h6>
+                                <div class="d-flex flex-row p-0 m-0">
+                                  <div class="row w-100 ps-4" id="event_image_' . $newEvent->EventID . '">
+                                    <a href="events_images/' . $newEvent->EventImage . '" class="col-12 pe-1">
+                                      <img src="events_images/' . $newEvent->EventImage . '" style="width:100%;border-radius:5px;margin-top:15px;">
+                                    </a>
+                                    <script>
+                                      baguetteBox.run(".eventmiddle_' . $newEvent->EventID . '");
+                                    </script>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          </a>';
+}
 echo json_encode($result);

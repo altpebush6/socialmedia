@@ -17,11 +17,13 @@
       if (scrolltop > differance && activeness == 'active') {
         activeness = 'inactive';
         var id = $("#posts_container .container:last").attr("id");
+        var eventid = $("#posts_container .container-event:last").attr("eventid");
         $.ajax({
           type: "post",
           url: "http://localhost/aybu/socialmedia/showposts.php?From=Home",
           data: {
             "id": id,
+            "eventid": eventid,
             "part": Part
           },
           dataType: "json",

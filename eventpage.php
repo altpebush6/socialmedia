@@ -106,10 +106,10 @@ if ($myEvent->EventOrganizerID == $memberid) {
                 <?php if ($isOrganizer) {
                     if ($myEvent->EventPremium) { ?>
                         <div class="col-12 my-3 mb-2 ms-0 ps-1 pe-4 mx-auto">
-                            <button type="button" class="btn ms-2 w-100 rounded-3 proBtn text-dark">Premium Etkinlik <i class="fas fa-check"></i></button>
+                            <button type="button" class="btn ms-2 w-100 rounded-3 proBtn text-light">Premium Etkinlik <i class="fas fa-check"></i></button>
                         </div> <?php } else { ?>
                         <div class="col-12 my-3 mb-2 ms-0 ps-1 pe-4 mx-auto">
-                            <button type="button" class="btn ms-2 w-100 rounded-3 proBtn text-dark" id="getPremium" eventid="<?= $myEvent->EventID ?>">Premium Al <i class="far fa-star"></i><span class="spinner" id="spinnerProEvent"></span></button>
+                            <button type="button" class="btn ms-2 w-100 rounded-3 proBtn text-light" id="getPremium" eventid="<?= $myEvent->EventID ?>">Premium Al <i class="far fa-star"></i><span class="spinner" id="spinnerProEvent"></span></button>
                         </div>
                 <?php }
                         } ?>

@@ -452,7 +452,7 @@ foreach ($posts as $item) {
 <?php
   }
 }
-$event = $db->getData("SELECT * FROM events WHERE EventPremium = ?", array(1));
+$event = $db->getData("SELECT * FROM events WHERE EventPremium = ? ORDER BY EventID DESC", array(1));
 $eventOrganizer = $db->getData("SELECT * FROM members WHERE MemberID = ?", array($event->EventOrganizerID));
 $event_profile_photo = $db->getColumnData("SELECT Member_Profileimg FROM images WHERE MemberID = ?", array($event->EventOrganizerID));
 $organizerGender = $db->getColumnData("SELECT MemberGender FROM members WHERE MemberID = ?", array($event->EventOrganizerID));
@@ -466,21 +466,23 @@ if (is_null($event_profile_photo)) {
 }
 $eventHeader = $event->EventHeader;
 ?>
-<div class="container-event my-5 px-0 px-md-4">
-  <div class="border offset-md-1 col-md-10 mx-auto p-3 bg-dark mx-auto py-4 post eventPre" style="border-radius: 15px;">
-    <div class="ribbon"><span>GOLD</span></div>
-    <div class="text-light text-break fs-5 eventmiddle_<?= $event->EventID ?>" style="user-select:text" id="eventmiddle_<?= $event->EventID ?>">
-      <h6 id="event_header_<?= $event->EventID ?>" class="ps-4 my-3 fs-2 text-center eventHeader <?php echo ($eventHeader ? "d-block" : "d-none") ?>"><?= $eventHeader ?></h6>
-      <div class="d-flex flex-row p-0 m-0">
-        <div class="row w-100 ps-4" id="event_image_<?= $event->EventID ?>">
-          <a href="events_images/<?= $event->EventImage ?>" class="col-12 pe-1">
-            <img src="events_images/<?= $event->EventImage ?>" style="width:100%;border-radius:5px;margin-top:15px;">
-          </a>
-          <script>
-            baguetteBox.run('.eventmiddle_<?= $event->EventID ?>');
-          </script>
+<a class="text-decoration-none" href="http://localhost/aybu/socialmedia/<?= $translates["events"] ?>/<?= seolink($event->EventHeader) . "-" . $event->EventID ?>">
+  <div class="container-event my-5 px-0 px-md-4" eventid="<?= $event->EventID ?>">
+    <div class="border offset-md-1 col-md-10 mx-auto p-3 bg-dark mx-auto py-4 post eventPre" style="border-radius: 15px;">
+      <div class="ribbon"><span>GOLD</span></div>
+      <div class="text-light text-break fs-5 eventmiddle_<?= $event->EventID ?>" style="user-select:text" id="eventmiddle_<?= $event->EventID ?>">
+        <h6 id="event_header_<?= $event->EventID ?>" class="ps-4 my-3 fs-2 text-center eventHeader d-block"><?= $eventHeader ?></h6>
+        <div class="d-flex flex-row p-0 m-0">
+          <div class="row w-100 ps-4" id="event_image_<?= $event->EventID ?>">
+            <a href="events_images/<?= $event->EventImage ?>" class="col-12 pe-1">
+              <img src="events_images/<?= $event->EventImage ?>" style="width:100%;border-radius:5px;margin-top:15px;">
+            </a>
+            <script>
+              baguetteBox.run('.eventmiddle_<?= $event->EventID ?>');
+            </script>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
+</a>
