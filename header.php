@@ -229,17 +229,25 @@ $message_count = $db->getColumnData("SELECT COUNT(*) FROM chatbox WHERE MessageT
       </button>
       <div class="collapse navbar-collapse ps-md-4" id="navbarSupportedContent">
         <form class="d-flex mx-auto ps-md-5" method="post">
-          <input class="form-control me-2 ms-md-5" type="text" name="search_person" id="search_person" autocomplete="off" placeholder="<?= $translates["search_friend"] ?>">
-          <a href="" id="searchfriendicon" class="btn btn-outline-light" type="button">Search</a>
+          <input class="form-control me-2 ms-md-5 shadow" type="text" name="search_person" id="search_person" autocomplete="off" placeholder="<?= $translates["search_friend"] ?>">
+          <a href="" id="searchfriendicon" class="btn btn-outline-light shadow" type="button">Search</a>
         </form>
         <ul class="navbar-nav mt-3 mt-md-0">
           <?php
           $list = $db->getDatas("SELECT * FROM navbar_$language LIMIT 4");
           foreach ($list as $items) {
             if ($page == $items->NavLink) {
-              echo '<li class="nav-item my-2 my-md-auto mx-auto mx-md-2 d-flex justify-content-center"> <a class="nav-link text-light rounded-circle text-center" style="width:40px;height:40px;background:rgba(0, 0, 0, 0.39)" href="http://localhost/aybu/socialmedia/' . $items->NavLink . '">' . $items->NavIcon . '</a><a href="http://localhost/aybu/socialmedia/' . $items->NavLink . '" class="text-decoration-none ms-2 mt-2 d-md-none nav-name text-light">' . $items->NavName . '</a></li><hr>';
+              echo '<li class="nav-item my-2 my-md-auto mx-auto mx-md-2 d-flex justify-content-center"> 
+                      <a class="nav-link text-light shadow-lg rounded-circle text-center" style="width:40px;height:40px;background:rgba(0, 0, 0, 0.39)" href="http://localhost/aybu/socialmedia/' . $items->NavLink . '">' . $items->NavIcon . '</a>
+                      <a href="http://localhost/aybu/socialmedia/' . $items->NavLink . '" class="text-decoration-none ms-2 mt-2 d-md-none nav-name text-light">' . $items->NavName . '</a>
+                    </li>
+                    <hr>';
             } else {
-              echo '<li class="nav-item my-2 my-md-auto mx-auto mx-md-2 d-flex justify-content-center"> <a class="nav-link text-dark bg-light rounded-circle text-center" style="width:40px;height:40px" href="http://localhost/aybu/socialmedia/' . $items->NavLink . '">' . $items->NavIcon . '</a><a href="http://localhost/aybu/socialmedia/' . $items->NavLink . '" class="text-decoration-none ms-2 mt-2 d-md-none nav-name"> ' . $items->NavName . '</a> </li><hr>';
+              echo '<li class="nav-item my-2 my-md-auto mx-auto mx-md-2 d-flex justify-content-center"> 
+                      <a class="nav-link text-dark bg-light shadow rounded-circle text-center" style="width:40px;height:40px" href="http://localhost/aybu/socialmedia/' . $items->NavLink . '">' . $items->NavIcon . '</a>
+                      <a href="http://localhost/aybu/socialmedia/' . $items->NavLink . '" class="text-decoration-none ms-2 mt-2 d-md-none nav-name"> ' . $items->NavName . '</a> 
+                    </li>
+                    <hr>';
             }
           }
 
@@ -257,7 +265,7 @@ $message_count = $db->getColumnData("SELECT COUNT(*) FROM chatbox WHERE MessageT
             $navAnimate = '';
           }
           echo '<li class="nav-item dropdown d-none d-md-flex my-2 my-md-auto mx-auto mx-md-2 d-flex justify-content-center">
-                    <a id="notiDropdown" role="button" data-bs-toggle="dropdown" class="nav-link text-dark rounded-circle text-center ' . $navAnimate . '" style="width:40px;height:40px;background:#f8f9fa;" href="#" onClick="deleteNotis()">' . $Notiicon . '</a>
+                    <a id="notiDropdown" role="button" data-bs-toggle="dropdown" class="nav-link text-dark rounded-circle shadow text-center ' . $navAnimate . '" style="width:40px;height:40px;background:#f8f9fa;" href="#" onClick="deleteNotis()">' . $Notiicon . '</a>
                     <span class="d-none d-md-block position-absolute top-0 mt-1 start-85 translate-middle p-0 bg-noti border border-light rounded-circle text-light text-center" id="noti_count" style="line-height:30px;width:30px;height:30px;font-size:14px;">' . $countnoti . '</span><hr>';
 
           ?>
@@ -431,7 +439,7 @@ $message_count = $db->getColumnData("SELECT COUNT(*) FROM chatbox WHERE MessageT
     </div>
   </nav>
   <div class="d-none d-md-block row mx-auto fixed-top justify-content-center" style="width:900px;margin-top: 86px;">
-    <div class="list-group col-6 mx-auto" id="search_result">
+    <div class="list-group col-6 mx-auto shadow p-0" id="search_result">
 
     </div>
   </div>

@@ -16,12 +16,12 @@ if (is_null($getprofileimg)) {
 }
 
 ?>
-<div class="row justify-content-center px-3">
-    <div class="row align-items-center justify-content-between mb-1 py-2 px-0 messenger-top">
+<div class="row justify-content-center ps-3 pe-1">
+    <div class="row align-items-center justify-content-between mb-1 py-2 px-0 messenger-top shadow">
         <!--Mesajlaşma üst bölme-->
         <div class="col-8 mx-auto text-center">
             <img src="images_profile/<?= $getprofileimg ?>" class="rounded-circle" width="60" height="60" id="chatpersonimg">
-            <a class="text-light text-decoration-none fs-5" href="http://localhost/aybu/socialmedia/<?= $translates['profile'] ?>/<?= $part ?>" id="chatpersonname"><?= $name_lastname ?></a>
+            <a class="text-dark text-decoration-none fs-5" href="http://localhost/aybu/socialmedia/<?= $translates['profile'] ?>/<?= $part ?>" id="chatpersonname"><?= $name_lastname ?></a>
         </div>
         <div class="d-none">
             <input type="text" name="" value="" placeholder="<?= $translates["searchinmessages"] ?>">
@@ -57,11 +57,11 @@ if (is_null($getprofileimg)) {
                               </div>      
                               <div class="col-10 d-flex justify-content-end p-0 text-end message-content-img">
                                 <a class="w-33" href="message_images/' . $item->MessageImg . '">' . $imgmsg . '</a>
-                                <span class="time-img text-light fs-6 m-2 p-1 align-self-start rounded-2 position-absolute" style="font-size: 13px !important;">
+                                <span class="time-img text-dark fs-6 m-2 p-1 align-self-start rounded-2 position-absolute" style="font-size: 13px !important;">
                                 <i class="fas fa-trash text-danger fs-6 del-img" onClick=\'DeleteMessage("deletemessage","' . $item->MessageID . '")\'></i>
                                 ' . messageTime($item->MessageAddTime) . '
                                 </span>
-                                <span class="seentic time-img text-light m-2 p-1 align-self-end rounded-2 position-absolute" style="font-size: 9px !important;">
+                                <span class="seentic time-img text-dark m-2 p-1 align-self-end rounded-2 position-absolute" style="font-size: 9px !important;">
                                 ' . $tic . '
                                 </span>
                               </div>
@@ -71,11 +71,11 @@ if (is_null($getprofileimg)) {
                         echo '<li class="list-group-item bg-transparent p-4 py-1" style="border:none;" id="each_message_' . $item->MessageID . '" lastid="' . $item->MessageID . '">
                             <div class="row d-flex flex-row-reverse"> 
                               <div class="col-2 col-xl-1 ms-md-1 ms-xl-2 p-0 text-center d-flex justify-content-center align-items-center">
-                                <img src="images_profile/' . $profile_photo . '"  class="rounded-circle" width="50" height="50">
+                                <img src="images_profile/' . $profile_photo . '"  class="rounded-circle shadow-lg" width="50" height="50">
                               </div>        
                               <div class="p-2 text-end msg-container" style="width:auto;max-width:250px;min-width:75px;">
                                 <div class="me-2 del-msg"><i class="fas fa-trash position-absolute text-danger mt-2" onClick=\'DeleteMessage("deletemessage","' . $item->MessageID . '")\'></i></div>
-                                  <div class="d-flex text-start flex-column row align-items-center bg-light text-dark rounded-3 d-flex flex-row flex-nowrap" style="height:100%">
+                                  <div class="d-flex text-start shadow flex-column row align-items-center bg-light text-dark rounded-3 d-flex flex-row flex-nowrap" style="height:100%">
                                     <div class="p-0 w-100" style="width:auto;max-width:200px;">
                                       <p class="m-0 py-1 px-2 fs-6 text-break">' . $item->MessageText . '</p>
                                     </div>
@@ -97,7 +97,7 @@ if (is_null($getprofileimg)) {
                               </div>      
                               <div class="col-10 d-flex justify-content-start p-0 text-start message-content-img">
                                 <a class="w-33" href="message_images/' . $item->MessageImg . '">' . $imgmsg . '</a>
-                                <span class="time-img text-light fs-6 m-2 p-1 align-self-end rounded-2 position-absolute" style="font-size: 13px !important;">
+                                <span class="time-img text-dark fs-6 m-2 p-1 align-self-end rounded-2 position-absolute" style="font-size: 13px !important;">
                                 ' . messageTime($item->MessageAddTime) . '
                                 </span>
                               </div>
@@ -107,10 +107,12 @@ if (is_null($getprofileimg)) {
                         echo '<li class="list-group-item bg-transparent p-4 py-1" style="border:none;" id="each_message_' . $item->MessageID . '" lastid="' . $item->MessageID . '">
                             <div class="row">     
                               <div class="col-2 col-lg-1 text-center p-0 me-2 me-md-3 me-lg-4">
-                                <a href="http://localhost/aybu/socialmedia/' . $translates["profile"] . '/'.$item->MessageFromID.'"><img src="images_profile/' . $getprofileimg . '" class="rounded-circle" width="60" height="60"></a>
+                                <a href="http://localhost/aybu/socialmedia/' . $translates["profile"] . '/'.$item->MessageFromID.'">
+                                  <img src="images_profile/' . $getprofileimg . '" class="rounded-circle shadow-lg" width="60" height="60">
+                                </a>
                               </div>        
                               <div class="col-2 p-0" style="width:auto;max-width:250px;min-width:75px;">
-                                <div class="row align-items-center bg-light text-dark rounded-3" style="height:100%">
+                                <div class="row align-items-center bg-light text-dark rounded-3 shadow" style="height:100%">
                                   <div class="p-0 w-100" style="width:auto;max-width:200px;">
                                     <p class="m-0 py-1 px-2 fs-6 text-break">' . $item->MessageText . '</p>
                                   </div>

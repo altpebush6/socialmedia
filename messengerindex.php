@@ -1,9 +1,9 @@
-<div class="container messanger-container mt-md-5">
+<div class="container messanger-container mt-md-5 shadow-lg ps-0">
   <div class="row m-0 p-0" style="min-height: 65vh;">
-    <div class="col-12 col-md-5 col-xl-3">
+    <div class="col-12 col-md-5 col-xl-3 shadow">
       <div class="row justify-content-center py-3">
         <div class="col-12 text-end">
-          <button type="button" class="btn btn-sm btn-outline-light" data-bs-toggle="modal" data-bs-target="#creategroup"><?= $translates["creategroup"] ?></button>
+          <button type="button" class="btn btn-sm btn-outline-dark" data-bs-toggle="modal" data-bs-target="#creategroup"><?= $translates["creategroup"] ?></button>
         </div>
         <div class="col-12 text-center">
           <img src="images_profile/<?= $profile_photo; ?>" class="rounded-circle" width="100" height="100">
@@ -16,8 +16,8 @@
           <?php
 
           $chatpersons = $db->getDatas("SELECT * FROM chatbox
-                                        WHERE MessageStatus = 1 AND (MessageFromID = $memberid OR MessageToID = $memberid OR GroupMembers LIKE '%$memberid%')
-                                        ORDER BY LastTime DESC");
+                    WHERE MessageStatus = 1 AND (MessageFromID = $memberid OR MessageToID = $memberid OR GroupMembers LIKE '%$memberid%')
+                    ORDER BY LastTime DESC");
           ?>
           <div class="col-12 text-center mt-0 mb-2">
             <input class="form-control w-100 mx-auto srchfriend" autocomplete="off" type="text" id="srchformsg" name="srchformsg" placeholder="<?= $translates["searchformessage"] ?>">
@@ -51,7 +51,7 @@
                 if (!in_array($memberid, $messageHasRead) && $groupID != $edit && $memberid != $whosemessage) {
                   $styleperson = "style='opacity:1'";
                 } else {
-                  $styleperson =  "style='opacity:0.5'";
+                  $styleperson = "style='opacity:0.5'";
                 }
               }
 
@@ -66,7 +66,7 @@
 
           ?>
 
-              <a class="text-light text-decoration-none" id="person_<?= $groupID ?>" href="http://localhost/aybu/socialmedia/<?= $translates['messages'] ?>/<?= $translates["group"] ?>/<?= $groupID ?>" <?php echo ($groupID == $part ? "style='background:rgba(255, 255, 255, 0.2)'" : "style=''") ?>>
+              <a class="text-dark text-decoration-none" id="person_<?= $groupID ?>" href="http://localhost/aybu/socialmedia/<?= $translates['messages'] ?>/<?= $translates["group"] ?>/<?= $groupID ?>" <?php echo ($groupID == $part ? "style='background:rgba(255, 255, 255, 0.2)'" : "style=''") ?>>
                 <div class="row my-2 justify-content-center align-items-center">
                   <div class="col-2 text-center">
                     <img src="group_images/<?= $groupimg ?>" class="rounded-circle" width="60" height="60">
@@ -98,7 +98,7 @@
               }
               $getprofileimg = $db->getColumnData("SELECT Member_Profileimg FROM images WHERE MemberID = ?", array($personID));
               $ChatPersonName = $db->getColumnData("SELECT MemberName FROM members WHERE MemberID = ?", array($personID));
-              $ChatPersonLastName  = $db->getColumnData("SELECT MemberLastName FROM members WHERE MemberID = ?", array($personID));
+              $ChatPersonLastName = $db->getColumnData("SELECT MemberLastName FROM members WHERE MemberID = ?", array($personID));
               if (is_null($getprofileimg)) {
                 if ($gender == 'Erkek') {
                   $getprofileimg = "profilemale.png";
@@ -110,16 +110,16 @@
               $name_lastname = $ChatPersonName . " " . $ChatPersonLastName;
 
               $messageID = $db->GetColumnData("SELECT MessageID FROM messages
-                                              WHERE MessageStatus = 1 AND ((MessageFromID = $memberid AND MessageToID = $personID) OR (MessageFromID = $personID AND MessageToID = $memberid))
-                                              ORDER BY MessageAddTime DESC");
+                       WHERE MessageStatus = 1 AND ((MessageFromID = $memberid AND MessageToID = $personID) OR (MessageFromID = $personID AND MessageToID = $memberid))
+                       ORDER BY MessageAddTime DESC");
 
               $messageText = $db->getColumnData("SELECT MessageText FROM messages WHERE MessageID = ?", array($messageID));
               $messageImg = $db->getColumnData("SELECT MessageImg FROM messages WHERE MessageID = ?", array($messageID));
 
-              $whosemessage =  $db->GetColumnData("SELECT MessageFromID FROM messages WHERE MessageID = ?", array($messageID));
+              $whosemessage = $db->GetColumnData("SELECT MessageFromID FROM messages WHERE MessageID = ?", array($messageID));
 
               $messagetime = $db->GetColumnData("SELECT MessageAddTime FROM messages
-                                              WHERE MessageID = ? AND MessageStatus = ?", array($messageID, 1));
+                       WHERE MessageID = ? AND MessageStatus = ?", array($messageID, 1));
 
               if ($whosemessage != $memberid) {
                 $messageHasRead = $info->MessageHasRead;
@@ -144,7 +144,7 @@
               if (($messageHasRead == 0) && ($personID != $part)) {
                 $styleperson = "style='opacity:1'";
               } else {
-                $styleperson =  "style='opacity:0.5'";
+                $styleperson = "style='opacity:0.5'";
               }
 
               $time = $db->getColumnData("SELECT MemberTime FROM members WHERE MemberID = ?", array($personID));
@@ -163,7 +163,7 @@
 
               $resultcontent = $fromwho . ": " . $messageText . $tic;
             ?>
-              <a class="text-light text-decoration-none" id="person_<?= $personID ?>" href="http://localhost/aybu/socialmedia/<?= $translates['messages'] ?>/<?= $personID ?>" <?php echo ($personID == $part ? "style='background:rgba(255, 255, 255, 0.2)'" : "style=''") ?>>
+              <a class="text-dark text-decoration-none" id="person_<?= $personID ?>" href="http://localhost/aybu/socialmedia/<?= $translates['messages'] ?>/<?= $personID ?>" <?php echo ($personID == $part ? "style='background:rgba(255, 255, 255, 0.2)'" : "style=''") ?>>
                 <div class="row my-2 justify-content-center align-items-center">
                   <div class="col-2 text-center">
                     <img src="images_profile/<?= $getprofileimg ?>" class="rounded-circle" width="60" height="60">
@@ -200,13 +200,13 @@
             <h2 class="mt-2 mb-4"><?= $user_name . ', ' . $translates["sayhifriend"] ?></h2>
           </div>
 
-          <div class="col-10 col-md-8 border text-center" style="max-height:35vh;overflow-y:auto;box-shadow: 1px 1px 5px 1px black;">
+          <div class="col-10 col-md-8 border text-center shadow-lg" style="max-height:35vh;overflow-y:auto;">
             <?php
 
             $members = $db->getDatas("SELECT * FROM members ORDER BY MemberTime DESC");
             $personFriends = $db->getDatas("SELECT * FROM friends WHERE (FirstMemberID = ? OR SecondMemberID = ?) AND FriendRequest = ?", array($memberid, $memberid, 1));
             if (empty($personFriends)) {
-              $nofriend = '<p class="no-friend text-light fs-4 mt-3" style=\'font-family: "Roboto Slab", serif;\'>' . $translates["nofriend"] . '</p>';
+              $nofriend = '<p class="no-friend fs-4 mt-3" style=\'font-family: "Roboto Slab", serif;\'>' . $translates["nofriend"] . '</p>';
             }
             echo $nofriend;
 
@@ -235,7 +235,7 @@
                   $result = "style='color:rgb(204, 1, 1)'";
                 }
             ?>
-                <a href="http://localhost/aybu/socialmedia/<?= $translates['messages'] ?>/<?= $FriendID ?>" class="text-decoration-none text-light py-2 d-flex flex-row justify-content-between align-items-center border-bottom persons_sayhi">
+                <a href="http://localhost/aybu/socialmedia/<?= $translates['messages'] ?>/<?= $FriendID ?>" class="text-dark text-decoration-none py-2 d-flex flex-row justify-content-between align-items-center border-bottom persons_sayhi">
                   <div class="d-flex flex-row align-items-center">
                     <img src="images_profile/<?= $friendimg ?>" class="rounded-circle mx-2" width="50" height="50">
                     <h5 class="mx-2"><?= $friendnames ?></h5>

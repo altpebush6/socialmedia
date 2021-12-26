@@ -224,11 +224,11 @@
           success: function(result) {
             $("#searchfriendicon").attr("href", "http://localhost/aybu/socialmedia/<?= $translates['searchfriend'] ?>/" + result.key + "");
             if (!result.data) {
-              $("#search_result").html("<a class='list-group-item' href='#'><?= $translates["noresult"] ?></a>");
+              $("#search_result").html("<a class='list-group-item text-dark' href='#'><?= $translates["noresult"] ?></a>");
             } else {
               $("#search_result").html(result.data);
               if (result.total >= 2) {
-                $("#search_result").append("<a class='list-group-item' href='http://localhost/aybu/socialmedia/<?= $translates['searchfriend'] ?>/" + result.key + "'><?= $translates['showmore'] ?></a>");
+                $("#search_result").append("<a class='list-group-item text-dark' href='http://localhost/aybu/socialmedia/<?= $translates['searchfriend'] ?>/" + result.key + "'><?= $translates['showmore'] ?></a>");
               }
             }
           }

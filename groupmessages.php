@@ -16,15 +16,13 @@ if (is_null($groupImage)) {
   $groupImage = "noneimage.png";
 }
 ?>
-<div class="row justify-content-center px-3">
-  <div class="row align-items-center justify-content-between py-2 px-0 messenger-top" data-bs-toggle="modal" data-bs-target="#groupinfo">
+<div class="row justify-content-center ps-3 pe-1">
+  <div class="row align-items-center justify-content-between py-2 px-0 messenger-top shadow" data-bs-toggle="modal" data-bs-target="#groupinfo">
     <div class="col-8 mx-auto text-center">
       <img src="group_images/<?= $groupImage ?>" class="rounded-circle" width="60" height="60" id="chatpersonimg">
-      <a class="text-light text-decoration-none fs-5" id="chatgroupname"><?= $group_name ? $group_name : $translates["anonymousgrp"] ?></a>
+      <a class="text-dark text-decoration-none fs-5" id="chatgroupname"><?= $group_name ? $group_name : $translates["anonymousgrp"] ?></a>
     </div>
-  </div>
-  <div class="row align-items-center justify-content-between mb-1 py-1 px-0" style="overflow: hidden;height:5vh;border-bottom: 1px solid rgba(255, 255, 255, 0.5);">
-    <div class="col-8 mx-auto text-center text-dark">
+    <div class="col-8 mx-auto mt-1 pt-2 border-top text-center text-dark">
       <?php
       $groupMembers = $db->getColumnData("SELECT GroupMembers FROM all_groups WHERE GroupID = ?", array($groupID));
       $groupMembers = explode(":", $groupMembers);
@@ -68,7 +66,7 @@ if (is_null($groupImage)) {
                               </div>      
                               <div class="col-10 d-flex justify-content-end p-0 text-end message-content-img">
                                 <a class="w-33" href="message_images/' . $item->MessageImg . '">' . $imgmsg . '</a>
-                                <span class="time-img text-light fs-6 m-2 p-1 align-self-start rounded-2 position-absolute" style="font-size: 13px !important;">
+                                <span class="time-img text-dark fs-6 m-2 p-1 align-self-start rounded-2 position-absolute" style="font-size: 13px !important;">
                                 <i class="fas fa-trash text-danger fs-6 del-img" onClick=\'DeleteMessage("deletemessage_group","' . $item->MessageID . '")\'></i>
                                 ' . messageTime($item->MessageAddTime) . '
                                 </span>
@@ -79,11 +77,11 @@ if (is_null($groupImage)) {
             echo '<li class="list-group-item bg-transparent my-2 p-4 py-1" style="border:none;" id="each_message_' . $item->MessageID . '" lastid="' . $item->MessageID . '">
                             <div class="row d-flex flex-row-reverse"> 
                               <div class="col-2 col-xl-1 ms-md-1 ms-xl-2 p-0 text-center d-flex justify-content-center align-items-center">
-                                <img src="images_profile/' . $profile_photo . '"  class="rounded-circle" width="50" height="50">
+                                <img src="images_profile/' . $profile_photo . '"  class="rounded-circle shadow-lg" width="50" height="50">
                               </div>        
                               <div class="p-2 text-end msg-container" style="width:auto;max-width:250px;min-width:75px;">
                                 <div class="me-2 del-msg"><i class="fas fa-trash position-absolute text-danger mt-2" onClick=\'DeleteMessage("deletemessage_group","' . $item->MessageID . '")\'></i></div>
-                                  <div class="d-flex text-start flex-column row align-items-center bg-light text-dark rounded-3 d-flex flex-row flex-nowrap" style="height:100%;max-width:200px;">
+                                  <div class="d-flex text-start flex-column shadow row align-items-center bg-light text-dark rounded-3 d-flex flex-row flex-nowrap" style="height:100%;max-width:200px;">
                                     <div class="p-0 w-100" style="width:auto;max-width:200px;">
                                       <p class="m-0 py-1 px-2 fs-6 text-break">' . $item->MessageText . '</p>
                                     </div>
@@ -100,7 +98,9 @@ if (is_null($groupImage)) {
             echo '<li class="list-group-item bg-transparent my-2 p-4 py-1" style="border:none;" id="each_message_' . $item->MessageID . '" lastid="' . $item->MessageID . '">
                             <div class="row">
                               <div class="col-2 p-0 col-lg-1 text-center me-lg-3">
-                              <a href="http://localhost/aybu/socialmedia/' . $translates["profile"] . '/' . $MessageFrom . '"><img src="images_profile/' . $getprofileimg . '" class="rounded-circle" width="60" height="60"></a>
+                              <a href="http://localhost/aybu/socialmedia/' . $translates["profile"] . '/' . $MessageFrom . '">
+                                <img src="images_profile/' . $getprofileimg . '" class="rounded-circle shadow-lg" width="60" height="60">
+                              </a>
                               </div>      
                               <div class="col-10 d-flex justify-content-start p-0 text-start message-content-img">
                                 <a class="w-33" href="message_images/' . $item->MessageImg . '">
@@ -117,10 +117,12 @@ if (is_null($groupImage)) {
             echo '<li class="list-group-item bg-transparent my-2 p-4 py-1" style="border:none;" id="each_message_' . $item->MessageID . '" lastid="' . $item->MessageID . '">
                             <div class="row">
                               <div class="col-2 col-lg-1 text-center p-0 me-2 me-md-3 me-lg-4">
-                              <a href="http://localhost/aybu/socialmedia/' . $translates["profile"] . '/' . $MessageFrom . '"><img src="images_profile/' . $getprofileimg . '" class="rounded-circle" width="60" height="60"></a>
+                              <a href="http://localhost/aybu/socialmedia/' . $translates["profile"] . '/' . $MessageFrom . '">
+                                <img src="images_profile/' . $getprofileimg . '" class="rounded-circle shadow-lg" width="60" height="60">
+                              </a>
                               </div>        
                               <div class="col-10 p-0" style="width:auto;max-width:250px;min-width:75px;">
-                                <div class="row align-items-center bg-light text-dark rounded-3" style="height:100%;max-width:200px;">
+                                <div class="row align-items-center shadow bg-light text-dark rounded-3" style="height:100%;max-width:200px;">
                                   <div class="p-0 w-100" style="width:auto;">
                                     <p class="m-0 px-2 text-break bg-dark text-light border-bottom" style="font-size:13px;padding-bottom:1px;padding-top:1px;border-top-left-radius:0.3rem;border-top-right-radius:0.3rem;">' . $personNames . '</p>
                                     <p class="m-0 py-1 px-2 fs-6 text-break">' . $item->MessageText . '</p>
