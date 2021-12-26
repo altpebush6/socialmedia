@@ -85,7 +85,7 @@
       $Clubinfo = $db->getData("SELECT * FROM clubs WHERE ClubID = ?", array($myClub->ClubID));
       $clubname = $Clubinfo->ClubName;
     ?>
-      <a class="list-group-item py-3 text-center bg-transparent fs-5 text-light text-decoration-none topics" href="http://localhost/aybu/socialmedia/<?= $translates["clubs"] ?>/<?= $Clubinfo->ClubID ?>">
+      <a class="list-group-item py-3 text-center bg-transparent fs-5 text-decoration-none topics" href="http://localhost/aybu/socialmedia/<?= $translates["clubs"] ?>/<?= $Clubinfo->ClubID ?>">
         <div class="row">
           <div class="col-2">
             <img src="club_images/<?= $Clubinfo->ClubImg ?>" class="rounded-circle" style="width:50px;height:50px;border:1px solid rgba(255, 255, 255, 0.788);">
@@ -102,24 +102,24 @@
     <?php
     $topics = $db->getDatas("SELECT * FROM topics WHERE TopicActive = ? ORDER BY TopicOrder ASC", array(1));
     foreach ($topics as $topic) { ?>
-      <a class="list-group-item py-3 text-center bg-transparent text-light text-decoration-none topics" href="http://localhost/aybu/socialmedia/<?= $translates["home"] ?>/<?= $topic->TopicLink ?>"><?= $topic->TopicName ?></a>
+      <a class="list-group-item py-3 text-center bg-transparent text-decoration-none topics" href="http://localhost/aybu/socialmedia/<?= $translates["home"] ?>/<?= $topic->TopicLink ?>"><?= $topic->TopicName ?></a>
     <?php } ?>
   </ul>
 </div>
 
 <div class="container-fluid p-0 d-md-block">
   <div class="row p-0 m-0">
-    <div class="col-2 p-0 m-0 border-end d-none d-md-block" style="height:100%;position:fixed" id="topics_wide">
-      <h2 class="text-center p-3 text-light" style="font-size:27px;font-family: 'Nanum Gothic', sans-serif;"><i>Konular</i></h2>
+    <div class="col-2 p-0 m-0 border-end d-none d-md-block shadow" style="height:100%;position:fixed" id="topics_wide">
+      <h2 class="text-center p-3 " style="font-size:27px;font-family: 'Nanum Gothic', sans-serif;"><i><?= $translates["topics"] ?></i></h2>
       <ul class="list-group rounded-1 w-100 p-0 m-0" style="height: 31vh;overflow-y:auto;">
         <?php
         $topics = $db->getDatas("SELECT * FROM topics WHERE TopicActive = ? ORDER BY TopicOrder ASC", array(1));
         foreach ($topics as $topic) { ?>
-          <a class="list-group-item py-3 text-center bg-transparent fs-5 text-light text-decoration-none topics" href="http://localhost/aybu/socialmedia/<?= $translates["home"] ?>/<?= $topic->TopicLink ?>"><?= $topic->TopicName ?></a>
+          <a class="list-group-item py-3 text-center bg-transparent fs-5 text-decoration-none topics" href="http://localhost/aybu/socialmedia/<?= $translates["home"] ?>/<?= $topic->TopicLink ?>"><?= $topic->TopicName ?></a>
         <?php } ?>
       </ul>
-      <hr class="text-light mt-4">
-      <h2 class="text-center p-3 text-light" style="font-size:27px;font-family: 'Nanum Gothic', sans-serif;"><i>Kulüpler</i></h2>
+      <hr class=" mt-4">
+      <h2 class="text-center p-3 " style="font-size:27px;font-family: 'Nanum Gothic', sans-serif;"><i><?= $translates["Clubs"] ?></i></h2>
       <ul class="list-group rounded-1 w-100 p-0" style="height: 31vh;overflow-y:auto;">
         <?php
         $myClubs = $db->getDatas("SELECT * FROM clubmembers WHERE MemberID = ? AND Activeness = ?", array($memberid, 1));
@@ -127,7 +127,7 @@
           $Clubinfo = $db->getData("SELECT * FROM clubs WHERE ClubID = ?", array($myClub->ClubID));
           $clubname = $Clubinfo->ClubName;
         ?>
-          <a class="list-group-item py-3 text-center bg-transparent fs-5 text-light text-decoration-none topics" href="http://localhost/aybu/socialmedia/<?= $translates["clubs"] ?>/<?= $Clubinfo->ClubID ?>">
+          <a class="list-group-item py-3 text-center bg-transparent fs-5 text-decoration-none topics" href="http://localhost/aybu/socialmedia/<?= $translates["clubs"] ?>/<?= $Clubinfo->ClubID ?>">
             <div class="row">
               <div class="col-2">
                 <img src="club_images/<?= $Clubinfo->ClubImg ?>" class="rounded-circle" style="width:50px;height:50px;border:1px solid rgba(255, 255, 255, 0.788);">
@@ -144,9 +144,11 @@
     <div class="col-12 col-md-8 m-0 px-md-5" id="posts_container">
       <?php require_once "posts_home.php" ?>
     </div>
-    <div class="col-12 col-md-8 m-0 px-md-5 loadposts w-100 d-none justify-content-center mb-5"><i class="mx-auto fas fa-circle-notch fa-3x fa-spin text-navbar"></i></div>
-    <div class="col-2 offset-md-10 p-0 border-start justify-content-center d-none d-md-block news-section">
-      <h2 class="text-center p-4 text-light" style="font-family: 'Nanum Gothic', sans-serif;"><i><?= $translates["news"] ?></i></h2>
+    <div class="col-12 col-md-8 m-0 px-md-5 loadposts w-100 d-none justify-content-center mb-5">
+      <i class="mx-auto fas fa-circle-notch fa-3x fa-spin text-navbar"></i>
+    </div>
+    <div class="col-2 offset-md-10 p-0 border-start justify-content-center d-none d-md-block news-section shadow">
+      <h2 class="text-center p-4 " style="font-family: 'Nanum Gothic', sans-serif;"><i><?= $translates["news"] ?></i></h2>
       <div class="row justify-content-center">
         <?php
         $news = $db->getDatas("SELECT * FROM news WHERE NewsActiveness = ? ORDER BY NewsOrder ASC", array(1));
@@ -157,12 +159,12 @@
           }
         ?>
           <div class="col-10 text-center">
-            <div class="card m-0 mb-4">
+            <div class="card m-0 mb-4 shadow">
               <img src="news_images/<?= $new->NewsImg ?>" class="card-img-top">
               <div class="card-body">
                 <h5 class="card-title" style="user-select:text;"><?= $new->NewsHeader ?></h5>
                 <p class="card-text text-start" style="user-select:text;font-size:13px;text-align: justify;"><?= $new->NewsSummarize ?></p>
-                <a href="http://localhost/aybu/socialmedia/<?= $translates["News"] ?>/<?= seolink($new->NewsHeader) . "-" . $new->NewsID ?>" class="btn btn-primary btn-sm"><?= $translates["viewnews"] ?></a>
+                <a href="http://localhost/aybu/socialmedia/<?= $translates["News"] ?>/<?= seolink($new->NewsHeader) . "-" . $new->NewsID ?>" class="btn btn-sm text-light" style="background-color:#5a49e3;"><?= $translates["viewnews"] ?></a>
               </div>
             </div>
           </div>
@@ -250,7 +252,7 @@
       $("#edit_post_files_" + PostID).html('');
       let i = 0;
       while (this.files[i]) {
-        $("#edit_post_files_" + PostID).append('<div class="col-12 my-2 ps-4 fs-6"><i class="fas fa-file-alt fa-2x text-light"></i> <a class="text-light" href="">' + this.files[i]["name"] + '</a> </div>');
+        $("#edit_post_files_" + PostID).append('<div class="col-12 my-2 ps-4 fs-6"><i class="fas fa-file-alt fa-2x "></i> <a class="" href="">' + this.files[i]["name"] + '</a> </div>');
         i++;
       }
       if (window.URL.createObjectURL(this.files[4])) {

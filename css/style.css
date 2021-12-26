@@ -4,7 +4,7 @@ body {
     user-select: none;
     overflow-x: hidden;
     opacity: 0.5;
-    background-image: linear-gradient(330deg, rgba(225, 225, 225, 0.05) 0%, rgba(225, 225, 225, 0.05) 33.333%, rgba(114, 114, 114, 0.05) 33.333%, rgba(114, 114, 114, 0.05) 66.666%, rgba(52, 52, 52, 0.05) 66.666%, rgba(52, 52, 52, 0.05) 99.999%), linear-gradient(66deg, rgba(181, 181, 181, 0.05) 0%, rgba(181, 181, 181, 0.05) 33.333%, rgba(27, 27, 27, 0.05) 33.333%, rgba(27, 27, 27, 0.05) 66.666%, rgba(251, 251, 251, 0.05) 66.666%, rgba(251, 251, 251, 0.05) 99.999%), linear-gradient(225deg, rgba(98, 98, 98, 0.05) 0%, rgba(98, 98, 98, 0.05) 33.333%, rgba(222, 222, 222, 0.05) 33.333%, rgba(222, 222, 222, 0.05) 66.666%, rgba(228, 228, 228, 0.05) 66.666%, rgba(228, 228, 228, 0.05) 99.999%), linear-gradient(90deg, rgb(28, 20, 63), rgb(40, 160, 253));
+    background-color: #efefef !important;
 }
 
 ::-webkit-scrollbar {
@@ -13,7 +13,7 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-    background: linear-gradient(transparent 0.5%, rgba(58, 0, 255, 0.9), rgba(0, 20, 255, 0.9), rgba(0, 58, 255, 0.9));
+    background: linear-gradient(transparent 0.5%, #5a49e3, #6657df, #5a49e3);
     border-radius: 10px;
 }
 
@@ -87,10 +87,6 @@ body {
     resize: none;
 }
 
-.form-control-plaintext::placeholder {
-    color: #f8f9fa !important;
-}
-
 .create-post {
     background: rgba(255, 255, 255, 0.048);
 }
@@ -104,10 +100,6 @@ body {
     transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
 }
 
-.create-comment::placeholder {
-    color: #f8f9fa !important;
-}
-
 .create-comment:focus {
     background: rgba(255, 255, 255, 0.65) !important;
 }
@@ -117,7 +109,7 @@ body {
 }
 
 .icon-edit:hover {
-    color: #023c92;
+    color: #5a49e3;
 }
 
 .post {
@@ -154,11 +146,6 @@ body {
 .srchfriend {
     background: rgba(255, 255, 255, 0.3) !important;
 }
-
-.srchfriend::placeholder {
-    color: white !important;
-}
-
 .person-box {
     height: 40vh !important;
     overflow-y: auto;
@@ -222,7 +209,7 @@ body {
 }
 
 .edit-info:hover {
-    color: #0d6efd !important;
+    color: #5a49e3 !important;
 }
 
 .delacc {
@@ -292,7 +279,7 @@ body {
 }
 
 .dropdown-post:hover .dropbtn {
-    background-color: rgba(0, 68, 133, 0.9);
+    background-color: #5a49e3;
     color: white;
 }
 
@@ -607,7 +594,8 @@ body {
     z-index: -1;
     animation: steam 20s linear infinite;
 }
- @keyframes steam {
+
+@keyframes steam {
     0% {
         background-position: 0 0;
     }
@@ -619,7 +607,7 @@ body {
     100% {
         background-position: 0 0;
     }
-} 
+}
 
 .proBtn button:after {
     filter: blur(50px);

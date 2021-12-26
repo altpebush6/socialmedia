@@ -152,8 +152,7 @@ switch ($operation) {
           $file_tmp_name = $_FILES['edit_file_upload']["tmp_name"][$filecounter];
           move_uploaded_file($file_tmp_name, $target);
           $result["newFiles"] .= '<div class="col-12 my-2 ps-4 fs-6">
-          <i class="fas fa-file-alt fa-2x text-light"></i>
-          <a class="text-light" href="">' . $filesnames[$filecounter] . '</a>
+          <a class="text-dark"><i class="text-dark fas fa-file-alt fa-2x"></i> ' . $filesnames[$filecounter] . '</a>
           </div>';
           $filecounter += 1;
         }
@@ -264,7 +263,7 @@ switch ($operation) {
     $postid = $_POST['PostID'];
     $insert_like = $db->Insert("INSERT INTO postlike SET PostID = ?, MemberID = ?", array($postid, $id));
     $count_like = $db->getColumnData("SELECT COUNT(*) FROM postlike WHERE PostID = ?", array($postid));
-    $result["like"] = "<a class='text-info text-decoration-none' onClick=\"Like('decreaseLike','" . $postid . "')\">
+    $result["like"] = "<a class='text-decoration-none' onClick=\"Like('decreaseLike','" . $postid . "')\" style='color:#5a49e3'>
                           <i class='far fa-thumbs-down' style='cursor:pointer;'></i>
                           <label style='cursor:pointer;'> " . $translates['dislikepost'] . " (" . $count_like . ")</label>
                         </a>";
@@ -276,7 +275,7 @@ switch ($operation) {
     $postid = $_POST['PostID'];
     $decrease_like = $db->Delete("DELETE FROM postlike WHERE PostID = ? AND MemberID = ?", array($postid, $id));
     $count_like = $db->getColumnData("SELECT COUNT(*) FROM postlike WHERE PostID = ?", array($postid));
-    $result["like"] = "<a class='text-decoration-none text-light' onClick=\"Like('increaseLike','" . $postid . "')\">
+    $result["like"] = "<a class='text-decoration-none text-dark' onClick=\"Like('increaseLike','" . $postid . "')\">
                           <i class='far fa-thumbs-up' style='cursor:pointer;'></i>
                           <label style='cursor:pointer;'> " . $translates['likepost'] . " (" . $count_like . ")</label>
                         </a>";
@@ -317,7 +316,7 @@ switch ($operation) {
       $comment_time = $db->getColumnData("SELECT CommentAddTime FROM postcomments WHERE CommentID = ?", array($insert_comment));
       $diff_comment = calculateTime($comment_time);
 
-      $result["comment"] = '<div class="row align-items-center text-light px-3 py-1" id="each_comment_' . $insert_comment . '">
+      $result["comment"] = '<div class="row align-items-center text-dark px-3 py-1" id="each_comment_' . $insert_comment . '">
                                 <div class="col-1 p-0 pt-2 d-flex align-items-start justify-content-start">     
                                   <a href="http://localhost/aybu/socialmedia/' . $translates['profile'] . '/' . $id . '">
                                     <img src="images_profile/' . $comment_profile_photo . '" class="rounded-circle" width="40" height="40">       
@@ -325,7 +324,7 @@ switch ($operation) {
                                 </div>  
                                 <div class="col-9 ps-3 p-md-0">
                                   <div class="col-12">
-                                    <a class="text-light text-decoration-none text-start" href="http://localhost/aybu/socialmedia/' . $translates['profile'] . '/' . $id . '">
+                                    <a class="text-dark text-decoration-none text-start" href="http://localhost/aybu/socialmedia/' . $translates['profile'] . '/' . $id . '">
                                       <small>' . $comment_name . ' ' . $comment_lastname . ' - ' . $diff_comment . '</small>
                                     </a>
                                   </div>
@@ -337,7 +336,7 @@ switch ($operation) {
                                           <input autocomplete="off" class="create-comment form-control form-control-sm rounded-3" type="text" maxlength="100" value="' . $comment_text . '" name="edittedcomment_' . $insert_comment . '" id="edittedcomment_' . $insert_comment . '" placeholder="' . $translates["saysth"] . '">
                                         </div>
                                         <div class="col-1 p-0 m-0">
-                                          <button type="button" class="btn btn-outline-light btn-sm rounded-3" onClick=\'CommentOperate("editComment","' . $postid . '","' . $insert_comment . '")\'>
+                                          <button type="button" style="border:1px solid #3b3b3b" class="btn btn-sm rounded-3" onClick=\'CommentOperate("editComment","' . $postid . '","' . $insert_comment . '")\'>
                                             <i class="far fa-paper-plane"></i>
                                           </button>
                                         </div>

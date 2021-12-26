@@ -7,12 +7,12 @@ if ($part) {
 ?>
 
 
-  <h1 class="header text-light text-center my-5 header-part"><u><?= $topicName ?></u></h1>
+  <h1 class="header text-center my-5 header-part"><u><?= $topicName ?></u></h1>
 
 <?php } ?>
 
 <div class="container py-4 px-0 px-md-4">
-  <div class="create-post border col-md-10 offset-md-1 py-4" style="border-radius: 15px;">
+  <div class="create-post border col-md-10 offset-md-1 py-4 bg-light shadow" style="border-radius: 15px;">
     <form id="form_posting" method="post" enctype="multipart/form-data" class="px-3">
       <div class="row">
         <h3 class="header text-center mb-3 create-post-header" style="font-family: 'Lora', serif;"><?= $translates["createpost"] ?></h3>
@@ -24,21 +24,21 @@ if ($part) {
         <div class="col-10">
           <?php if ($part) { ?>
             <input type="hidden" value="<?= $part ?>" name="post_part" id="post_part">
-            <textarea class="form-control-plaintext text-light" name="text_post" id="text_post" rows="4" cols="80" maxlength="250" placeholder="<?= "#" . $topicLink ?>"></textarea>
+            <textarea class="form-control-plaintext " name="text_post" id="text_post" rows="4" cols="80" maxlength="250" placeholder="<?= "#" . $topicLink ?>"></textarea>
           <?php } else { ?>
-            <textarea class="form-control-plaintext text-light" name="text_post" id="text_post" rows="4" cols="80" maxlength="250" placeholder="<?= $translates["sharesth"] ?>"></textarea>
+            <textarea class="form-control-plaintext " name="text_post" id="text_post" rows="4" cols="80" maxlength="250" placeholder="<?= $translates["sharesth"] ?>"></textarea>
           <?php } ?>
           <div class="ps-2 d-flex flex-row" id="review_part" style="overflow:auto;">
             <img id="posting_img" class="mb-3 me-2 rounded-3 w-45">
-            <div id="review_more" class="rounded-3 w-25 mb-3 text-light fs-1 border d-none justify-content-center align-items-center" style="background: rgba(0,0,0,0.4);"></div>
+            <div id="review_more" class="rounded-3 w-25 mb-3 fs-1 border d-none justify-content-center align-items-center" style="background: rgba(0,0,0,0.4);"></div>
           </div>
-          <div class="ps-2 my-3 d-flex flex-row text-light" id="reviewfile_part" style="overflow:auto;">
+          <div class="ps-2 my-3 d-flex flex-row " id="reviewfile_part" style="overflow:auto;">
             <span class="pt-1" id="posting_file"></span>
           </div>
-          <div class="p-2 text-light border my-3 w-75 d-none" id="warn_file"></div>
+          <div class="p-2 border my-3 w-75 d-none" id="warn_file"></div>
         </div>
       </div>
-      <div class="row border-top border-bottom py-3 text-light">
+      <div class="row border-top border-bottom py-3 ">
         <div class="col-6 fs-5"><?= $translates["addyourpost"] ?></div>
         <div class="col-6 text-end pe-3">
           <input class="d-none" type="file" name="files[]" id="file_upload" accept=".doc,.docx,.pdf" multiple>
@@ -49,7 +49,7 @@ if ($part) {
       </div>
       <div class="row mt-3">
         <div class="col-10 mx-auto">
-          <button type="submit" class="btn btn-primary w-100 rounded-3 border fs-5" name="submitpost" id="submitpost"><?= $translates["shareit"] ?> <span class="spinner" id="spinnershare"></span></button>
+          <button type="submit" class="btn w-100 rounded-3 border fs-5 text-light shadow" name="submitpost" id="submitpost" style="background-color: #5a49e3;"><?= $translates["shareit"] ?> <span class="spinner" id="spinnershare"></span></button>
         </div>
       </div>
     </form>
@@ -115,7 +115,7 @@ foreach ($posts as $item) {
     $diff_post = calculateTime($post_time);
 ?>
     <div class="container my-5 px-0 px-md-4" id="<?= $post_ID ?>">
-      <div class="border p-3 col-md-10 mx-auto offset-md-1 py-4 post" style="border-radius: 15px;">
+      <div class="border p-3 col-md-10 mx-auto offset-md-1 py-4 post bg-light shadow" style="border-radius: 15px;">
         <div class="row mb-3">
           <div class="col-10">
             <a href="http://localhost/aybu/socialmedia/<?= $translates['profile'] ?>/<?= $postMemberID ?>">
@@ -126,7 +126,7 @@ foreach ($posts as $item) {
                   </a>
                 </div>
                 <div class="col-10 ps-3 p-md-0 ">
-                  <a class="text-decoration-none text-light" href="http://localhost/aybu/socialmedia/<?= $translates['profile'] ?>/<?= $postMemberID ?>">
+                  <a class="text-decoration-none text-dark" href="http://localhost/aybu/socialmedia/<?= $translates['profile'] ?>/<?= $postMemberID ?>">
                     <?= $post_user_name . " " . $post_user_lastname . "<br><small>" . $diff_post . "</small>"; ?>
                   </a>
                 </div>
@@ -135,7 +135,7 @@ foreach ($posts as $item) {
           </div>
           <div class="col-2">
             <div class="dropdown-post">
-              <button class="dropbtn btn btn-primary rounded-circle"><i class="fas fa-ellipsis-h"></i></button>
+              <button class="dropbtn btn rounded-circle" style="background-color: #5a49e3;"><i class="fas fa-ellipsis-h text-light"></i></button>
               <div class="dropdown-content" style="width:220px;">
                 <?php if ($item->MemberID == $memberid) { ?>
                   <a href="javascript:void(0)" onClick="OpenEditPost('<?= $post_ID ?>','<?= $post_text ?>')"><i class="far fa-edit"></i> <?= $translates["editpost"] ?></a>
@@ -155,7 +155,7 @@ foreach ($posts as $item) {
           </div>
         </div>
         <!-- Gönderi Metin, Belge veya Resmi -->
-        <div class="text-light text-break fs-6 postmiddle_<?= $post_ID ?>" style="user-select:text" id="postmiddle_<?= $post_ID ?>">
+        <div class=" text-break fs-6 postmiddle_<?= $post_ID ?>" style="user-select:text" id="postmiddle_<?= $post_ID ?>">
           <span id="post_text_<?= $post_ID ?>" class="ps-4 my-3 <?php echo ($post_text ? "d-block" : "d-none") ?>"><?php echo ($post_topic ? $texthashtag . " " . $post_text : $post_text) ?></span>
           <div class="row d-flex flex-column ps-3" id="post_files_<?= $post_ID ?>">
 
@@ -165,11 +165,11 @@ foreach ($posts as $item) {
               if ($i > 1) {
                 $postfile = "PostFile" . $i;
                 if ($item->$postfile) {
-                  echo '<div class="col-12 my-2 ps-4 fs-6"><a class="text-light" href="http://localhost/aybu/socialmedia/' . $translates["home"] . '?download=' . $item->$postfile . '"><i class="fas fa-file-alt fa-2x"></i> ' . $item->$postfile . '</a></div>';
+                  echo '<div class="col-12 my-2 ps-4 fs-6"><a class="text-dark" href="http://localhost/aybu/socialmedia/' . $translates["home"] . '?download=' . $item->$postfile . '"><i class="fas fa-file-alt fa-2x"></i> ' . $item->$postfile . '</a></div>';
                 }
               } else {
                 if ($item->PostFile) {
-                  echo '<div class="col-12 my-2 ps-4 fs-6"><a class="text-light" href="http://localhost/aybu/socialmedia/' . $translates["home"] . '?download=' . $item->PostFile . '"><i class="fas fa-file-alt fa-2x"></i> ' . $item->PostFile . '</a></div>';
+                  echo '<div class="col-12 my-2 ps-4 fs-6"><a class="text-dark" href="http://localhost/aybu/socialmedia/' . $translates["home"] . '?download=' . $item->PostFile . '"><i class="fas fa-file-alt fa-2x"></i> ' . $item->PostFile . '</a></div>';
                 }
               }
             }
@@ -230,7 +230,7 @@ foreach ($posts as $item) {
         <!-- Gönderi Düzenleme -->
         <div class="d-none" id="addpartul_<?= $post_ID ?>">
           <form id='form_edit<?= $post_ID ?>' class='form_edit' idsi="<?= $post_ID ?>" method='post' enctype='multipart/form-data'>
-            <input autocomplete="off" type='text' class="form-control-plaintext text-light" name='edittedtext' id='edittedtext_<?= $post_ID ?>' value='<?= $post_text ?>' class='posttext-input' style="margin-bottom:5%;width:100%;padding-left: 2%;">
+            <input autocomplete="off" type='text' class="form-control-plaintext " name='edittedtext' id='edittedtext_<?= $post_ID ?>' value='<?= $post_text ?>' class='posttext-input' style="margin-bottom:5%;width:100%;padding-left: 2%;">
             <div class="row d-flex flex-column ps-3" id="edit_post_files_<?= $post_ID ?>">
 
               <?php
@@ -239,11 +239,11 @@ foreach ($posts as $item) {
                 if ($i > 1) {
                   $postfile = "PostFile" . $i;
                   if ($item->$postfile) {
-                    echo '<div class="col-12 text-light my-2 ps-4 fs-6"><i class="fas fa-file-alt fa-2x"></i> <a class="text-light" href="">' . $item->$postfile . '</a></div>';
+                    echo '<div class="col-12 my-2 ps-4 fs-6 text-dark"><a class="text-dark text-decoration*none" href=""><i class="fas fa-file-alt fa-2x"></i> ' . $item->$postfile . '</a></div>';
                   }
                 } else {
                   if ($item->PostFile) {
-                    echo '<div class="col-12 text-light my-2 ps-4 fs-6"><i class="fas fa-file-alt fa-2x"></i> <a class="text-light" href="">' . $item->PostFile . '</a></div>';
+                    echo '<div class="col-12 my-2 ps-4 fs-6 text-dark"><a class="text-dark text-decoration*none" href=""><i class="fas fa-file-alt fa-2x"></i> ' . $item->PostFile . '</a></div>';
                   }
                 }
               }
@@ -253,9 +253,9 @@ foreach ($posts as $item) {
             </div>
             <div class="ps-2 d-flex flex-row" id="review_part_edit_<?= $post_ID ?>" style="overflow:auto;">
               <img id="posting_img_edit_<?= $post_ID ?>" class="mb-3 me-2 rounded-3 w-45">
-              <div id="review_more_edit_<?= $post_ID ?>" class="rounded-3 w-25 mb-3 text-light fs-1 border d-none justify-content-center align-items-center" style="background: rgba(0,0,0,0.4);"></div>
+              <div id="review_more_edit_<?= $post_ID ?>" class="rounded-3 w-25 mb-3 fs-1 border d-none justify-content-center align-items-center" style="background: rgba(0,0,0,0.4);"></div>
             </div>
-            <div class="p-2 text-light border my-3 w-75 d-none" id="warn_file_edit_<?= $post_ID ?>"></div>
+            <div class="p-2 border my-3 w-75 d-none" id="warn_file_edit_<?= $post_ID ?>"></div>
             <div class="d-flex flex-row edit_post_images_<?= $post_ID ?>" id="edit_post_images_<?= $post_ID ?>">
               <div class="row">
                 <?php if (!is_null($post_img)) {
@@ -305,7 +305,7 @@ foreach ($posts as $item) {
                 </script>
               </div>
             </div>
-            <div class="row border-top border-bottom py-3 text-light">
+            <div class="row border-top border-bottom py-3 ">
               <div class="col-6 fs-7"><?= $translates["addyourpost"] ?></div>
               <div class="col-6 text-end">
                 <input class="d-none edit_file_upload" postid="<?= $post_ID ?>" type="file" name="edit_file_upload[]" id="edit_file_upload<?= $post_ID ?>" accept=.doc,.docx,.pdf multiple>
@@ -316,32 +316,32 @@ foreach ($posts as $item) {
             </div>
             <div class="row my-3">
               <div class="col-10 mx-auto">
-                <button type="submit" class="btn btn-primary w-100 rounded-3 border fs-5 saveedit" name='saveedit' id='saveedit<?= $post_ID ?>'><?= $translates["shareit"] ?> <span class="spinner" id="spinnershare"></span></button>
+                <button type="submit" class="btn w-100 rounded-3 border fs-5 saveedit text-light shadow" style="background-color: #5a49e3;" name='saveedit' id='saveedit<?= $post_ID ?>'><?= $translates["shareit"] ?> <span class="spinner" id="spinnershare"></span></button>
               </div>
             </div>
           </form>
         </div>
         <!-- Gönderi Beğeni Yorum -->
         <div class="row py-2 mt-2" id="likecomment_<?= $post_ID ?>">
-          <div class="col-6 text-center text-light border-end" id="like_<?= $post_ID ?>">
+          <div class="col-6 text-center border-end" id="like_<?= $post_ID ?>">
             <?php
             $is_liked = $db->getColumnData("SELECT * FROM postlike WHERE PostID = ? AND MemberID = ? ", array($post_ID, $memberid));
             $count_like = $db->getColumnData("SELECT COUNT(*) FROM postlike WHERE PostID = ?", array($post_ID));
             $count_comment = $db->getColumnData("SELECT COUNT(*) FROM postcomments WHERE PostID = ? AND CommentActive = ?", array($post_ID, 1));
             if (empty($is_liked)) { ?>
-              <a class="text-decoration-none text-light" onClick="Like('increaseLike','<?= $post_ID ?>')">
+              <a class="text-decoration-none text-dark" onClick="Like('increaseLike','<?= $post_ID ?>')">
                 <i class="far fa-thumbs-up" style="cursor:pointer;"></i>
                 <label style="cursor:pointer;"> <?= $translates["likepost"] ?> (<?= $count_like ?>)</label>
               </a>
             <?php } else { ?>
-              <a class="text-info text-decoration-none" onClick="Like('decreaseLike','<?= $post_ID ?>')">
+              <a class="text-info text-decoration-none text-dark" onClick="Like('decreaseLike','<?= $post_ID ?>')">
                 <i class="far fa-thumbs-down" style="cursor:pointer;"></i>
                 <label style="cursor:pointer;"> <?= $translates["dislikepost"] ?> (<?= $count_like ?>)</label>
               </a>
             <?php } ?>
           </div>
 
-          <div class="col-6 text-center text-light" id="comment_<?= $post_ID ?>">
+          <div class="col-6 text-center " id="comment_<?= $post_ID ?>">
             <a onClick="openComments(<?= $post_ID ?>)">
               <i class="far fa-comment-alt" style="cursor:pointer;"></i>
               <label style="cursor:pointer;" id="comment_label_<?= $post_ID ?>"> <?= $translates["commentpost"] ?> (<?= $count_comment ?>)</label>
@@ -358,7 +358,7 @@ foreach ($posts as $item) {
                   <input class="create-comment form-control form-control-sm rounded-3" type="text" maxlength="100" name="text_<?= $post_ID ?>" id="text_<?= $post_ID ?>" placeholder="<?= $translates["saysth"] ?>">
                 </div>
                 <div class="col-1 p-0 m-0">
-                  <button type="button" class="btn btn-outline-light btn-sm rounded-3" name="submittext_<?= $post_ID ?>" id="submittext_<?= $post_ID ?>" onClick="Comment('sharecomment','<?= $post_ID ?>')">
+                  <button type="button" class="btn btn-sm rounded-3" name="submittext_<?= $post_ID ?>" id="submittext_<?= $post_ID ?>" onClick="Comment('sharecomment','<?= $post_ID ?>')" style="border:1px solid #3b3b3b">
                     <i class="far fa-paper-plane"></i>
                   </button>
                 </div>
@@ -367,7 +367,7 @@ foreach ($posts as $item) {
           </div>
         </div>
         <!-- Gönderi Yorumları -->
-        <div class="row p-2 justify-content-center" style="display:none;user-select:text" id="comments_<?= $post_ID ?>">
+        <div class="row p-2 justify-content-center text-dark" style="display:none;user-select:text" id="comments_<?= $post_ID ?>">
           <?php
           $comments = $db->getDatas("SELECT * FROM postcomments WHERE PostID = ? AND CommentActive = ?", array($post_ID, 1));
           foreach ($comments as $postinfo) {
@@ -385,7 +385,7 @@ foreach ($posts as $item) {
               }
             }
           ?>
-            <div class="row text-light px-3 py-1 mt-md-2" id="each_comment_<?= $comment_ID ?>">
+            <div class="row px-3 py-1 mt-md-2" id="each_comment_<?= $comment_ID ?>">
               <div class="col-1 p-0 pt-2 d-flex align-items-start justify-content-start">
                 <a href="http://localhost/aybu/socialmedia/<?= $translates['profile'] ?>/<?= $postinfo->MemberID ?>">
                   <img src="images_profile/<?= $comment_profile_photo; ?>" class="rounded-circle" width="40" height="40">
@@ -393,7 +393,7 @@ foreach ($posts as $item) {
               </div>
               <div class="col-9 ps-4 p-md-0">
                 <div class="col-12">
-                  <a class="text-light text-decoration-none" href="http://localhost/aybu/socialmedia/<?= $translates['profile'] ?>/<?= $postinfo->MemberID ?>">
+                  <a class="text-decoration-none text-dark" href="http://localhost/aybu/socialmedia/<?= $translates['profile'] ?>/<?= $postinfo->MemberID ?>">
                     <small>
                       <!-- İsim - süre -->
                       <?php
@@ -416,7 +416,7 @@ foreach ($posts as $item) {
                         <input autocomplete="off" class="create-comment form-control form-control-sm rounded-3" type="text" maxlength="100" value="<?= $commentText ?>" name="edittedcomment_<?= $comment_ID ?>" id="edittedcomment_<?= $comment_ID ?>" placeholder="<?= $translates["saysth"] ?>">
                       </div>
                       <div class="col-1 p-0 m-0">
-                        <button type="button" class="btn btn-outline-light btn-sm rounded-3" onClick="CommentOperate('editComment','<?= $post_ID ?>','<?= $comment_ID ?>')">
+                        <button type="button" class="btn text-dark btn-sm rounded-3" onClick="CommentOperate('editComment','<?= $post_ID ?>','<?= $comment_ID ?>')" style="border:1px solid #3b3b3b">
                           <i class="far fa-paper-plane"></i>
                         </button>
                       </div>
@@ -452,7 +452,7 @@ foreach ($posts as $item) {
 <?php
   }
 }
-$event = $db->getData("SELECT * FROM events WHERE EventPremium = ? ORDER BY EventID DESC", array(1));
+$event = $db->getData("SELECT * FROM events WHERE EventPremium = ? AND EventStatus = ? ORDER BY EventID DESC", array(1,1));
 $eventOrganizer = $db->getData("SELECT * FROM members WHERE MemberID = ?", array($event->EventOrganizerID));
 $event_profile_photo = $db->getColumnData("SELECT Member_Profileimg FROM images WHERE MemberID = ?", array($event->EventOrganizerID));
 $organizerGender = $db->getColumnData("SELECT MemberGender FROM members WHERE MemberID = ?", array($event->EventOrganizerID));
@@ -466,14 +466,14 @@ if (is_null($event_profile_photo)) {
 }
 $eventHeader = $event->EventHeader;
 ?>
-<a class="text-decoration-none" href="http://localhost/aybu/socialmedia/<?= $translates["events"] ?>/<?= seolink($event->EventHeader) . "-" . $event->EventID ?>">
-  <div class="container-event my-5 px-0 px-md-4" eventid="<?= $event->EventID ?>">
-    <div class="border offset-md-1 col-md-10 mx-auto p-3 bg-dark mx-auto py-4 post eventPre" style="border-radius: 15px;">
+<a class="text-decoration-none d-none" href="http://localhost/aybu/socialmedia/<?= $translates["events"] ?>/<?= seolink($event->EventHeader) . "-" . $event->EventID ?>">
+  <div class="container-event my-5 px-0 px-md-4 d-none" eventid="<?= $event->EventID ?>">
+    <div class="border offset-md-1 col-md-10 mx-auto p-3 bg-dark mx-auto py-4 post eventPre shadow" style="border-radius: 15px;">
       <div class="ribbon"><span>GOLD</span></div>
-      <div class="text-light text-break fs-5 eventmiddle_<?= $event->EventID ?>" style="user-select:text" id="eventmiddle_<?= $event->EventID ?>">
+      <div class=" text-break fs-5 eventmiddle_<?= $event->EventID ?>" style="user-select:text" id="eventmiddle_<?= $event->EventID ?>">
         <h6 id="event_header_<?= $event->EventID ?>" class="ps-4 my-3 fs-2 text-center eventHeader d-block"><?= $eventHeader ?></h6>
         <div class="d-flex flex-row p-0 m-0">
-          <div class="row w-100 ps-4" id="event_image_<?= $event->EventID ?>">
+          <div class="row w-100 ps-4 mb-3" id="event_image_<?= $event->EventID ?>">
             <a href="events_images/<?= $event->EventImage ?>" class="col-12 pe-1">
               <img src="events_images/<?= $event->EventImage ?>" style="width:100%;border-radius:5px;margin-top:15px;">
             </a>

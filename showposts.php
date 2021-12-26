@@ -41,7 +41,7 @@ foreach ($memberFriends2 as $friend2) {
 }
 
 if ($from == "Home") {
-  $newEvent = $db->getData("SELECT * FROM events WHERE EventID < $eventid AND EventPremium = ?", array(1));
+  $newEvent = $db->getData("SELECT * FROM events WHERE EventID < $eventid AND EventStatus = ? AND EventPremium = ? ORDER BY EventID DESC", array(1, 1));
   if (!$part) {
     $posts = $db->getDatas("SELECT * FROM posts WHERE PostID < $id AND PostActive = ? ORDER BY PostAddTime DESC LIMIT 3", array(1));
   } else {
@@ -112,32 +112,32 @@ if ($counter > 0) {
     }
 
     $result["state"] .= '<div class="container my-5 px-0 px-md-4" id="' . $post->PostID . '">
-                                <div class="border p-3 col-md-10 offset-md-1 py-4 post" style="border-radius: 15px;">
-                                    <div class="row mb-3">
-                                        <div class="col-10">
-                                            <a href="http://localhost/aybu/socialmedia/' . $translates['profile'] . '/' . $post->MemberID . '">
-                                                <div class="row justify-content-center">
-                                                    <div class="col-2 text-end">
-                                                        <a href="http://localhost/aybu/socialmedia/' . $translates['profile'] . '/' . $post->MemberID . '">
-                                                            <img src="images_profile/' . $post_profile_photo . '" class="rounded-circle" width="50" height="50">
-                                                        </a>
-                                                    </div>
-                                                    <div class="col-10 ps-3 p-md-0 ">
-                                                        <a class="text-decoration-none text-light" href="http://localhost/aybu/socialmedia/' . $translates['profile'] . '/' . $post->MemberID . '">
-                                                            ' . $post_user_name . " " . $post_user_lastname . "<br><small>" . $diff_post . "</small>" . '
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    <div class="col-2">
-                                <div class="dropdown-post">
-                                    <button class="dropbtn btn btn-primary rounded-circle"><i class="fas fa-ellipsis-h"></i></button>
-                                    <div class="dropdown-content" style="width:220px;">';
+                <div class="border p-3 col-md-10 offset-md-1 py-4 post bg-light shadow" style="border-radius: 15px;">
+                  <div class="row mb-3">
+                    <div class="col-10">
+                      <a href="http://localhost/aybu/socialmedia/' . $translates['profile'] . '/' . $post->MemberID . '">
+                        <div class="row justify-content-center">
+                          <div class="col-2 text-end">
+                            <a href="http://localhost/aybu/socialmedia/' . $translates['profile'] . '/' . $post->MemberID . '">
+                              <img src="images_profile/' . $post_profile_photo . '" class="rounded-circle" width="50" height="50">
+                            </a>
+                          </div>
+                          <div class="col-10 ps-3 p-md-0 ">
+                            <a class="text-decoration-none text-dark" href="http://localhost/aybu/socialmedia/' . $translates['profile'] . '/' . $post->MemberID . '">
+                              ' . $post_user_name . " " . $post_user_lastname . "<br><small>" . $diff_post . "</small>" . '
+                            </a>
+                          </div>
+                        </div>
+                      </a>
+                    </div>
+                  <div class="col-2">
+                <div class="dropdown-post">
+                  <button class="dropbtn btn rounded-circle" style="background-color: #5a49e3;"><i class="fas fa-ellipsis-h text-light"></i></button>
+                  <div class="dropdown-content" style="width:220px;">';
 
     if ($postMemberID == $memberid) {
       $result["state"] .= '<a href="javascript:void(0)" onClick=\'OpenEditPost("' . $post->PostID . '","' . $post->PostText . '")\'><i class="far fa-edit"></i> ' . $translates["editpost"] . '</a>
-                                                             <a href="javascript:void(0)" onClick=\'DeletePost("deletepost","' . $memberid . '","' . $post->PostID . '")\'><i class="far fa-trash-alt"> ' . $translates["deletepost"] . '</i></a>';
+                               <a href="javascript:void(0)" onClick=\'DeletePost("deletepost","' . $memberid . '","' . $post->PostID . '")\'><i class="far fa-trash-alt"> ' . $translates["deletepost"] . '</i></a>';
     } elseif ($clubpresident) {
       $result["state"] .= '<a href="javascript:void(0)" onClick=\'DeletePost("deletepost","' . $memberid . '","' . $post->PostID . '")\'><i class="far fa-trash-alt"> ' . $translates["deletepost"] . '</i></a>';
     } else {
@@ -149,11 +149,11 @@ if ($counter > 0) {
       }
     }
     $result["state"] .= '</div>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="text-light d-flex flex-column text-break fs-6 postmiddle_' . $post->PostID . '" style="user-select:text" id="postmiddle_' . $post->PostID . '">
-                                <span id="post_text_' . $post->PostID . '" class="ps-4 my-3">';
+                 </div>
+                </div>
+               </div>
+               <div class=" d-flex flex-column text-break fs-6 postmiddle_' . $post->PostID . '" style="user-select:text" id="postmiddle_' . $post->PostID . '">
+                <span id="post_text_' . $post->PostID . '" class="ps-4 my-3">';
     if ($post_topic) {
       $result["state"] .= $texthashtag . ' ' . $post->PostText;
     } else {
@@ -166,191 +166,191 @@ if ($counter > 0) {
       if ($i > 1) {
         $postfile = "PostFile" . $i;
         if ($post->$postfile) {
-          $result["state"] .= '<div class="col-12 my-2 ps-4 fs-6"><i class="fas fa-file-alt fa-2x"></i> <a class="text-light" href="http://localhost/aybu/socialmedia/' . $translates["home"] . '?download=' . $post->$postfile . '">' . $post->$postfile . '</a></div>';
+          $result["state"] .= '<div class="col-12 my-2 ps-4 fs-6"><a class="text-dark" href="http://localhost/aybu/socialmedia/' . $translates["home"] . '?download=' . $post->$postfile . '"><i class="fas fa-file-alt fa-2x"></i> ' . $post->$postfile . '</a></div>';
         }
       } else {
         if ($post->PostFile) {
-          $result["state"] .= '<div class="col-12 my-2 ps-4 fs-6"><i class="fas fa-file-alt fa-2x"></i> <a class="text-light" href="http://localhost/aybu/socialmedia/' . $translates["home"] . '?download=' . $post->PostFile . '">' . $post->PostFile . '</a></div>';
+          $result["state"] .= '<div class="col-12 my-2 ps-4 fs-6"><a class="text-dark" href="http://localhost/aybu/socialmedia/' . $translates["home"] . '?download=' . $post->PostFile . '"><i class="fas fa-file-alt fa-2x"></i> ' . $post->PostFile . '</a></div>';
         }
       }
     }
     $result["state"] .= '</div><div class="d-flex flex-row p-0 m-0">
-        <div class="row w-100 ps-4" id="post_images_' . $post->PostID . '">';
+    <div class="row w-100 ps-4" id="post_images_' . $post->PostID . '">';
     if (!is_null($post_img)) {
       switch ($img_counter) {
         case 1:
           $result["state"] .= '<a href="post_images/' . $post_img . '" class="col-12">
-                                  <img src="post_images/' . $post_img . '" style="width:100%;border-radius:5px;margin-top:15px;">
-                                </a>';
+                 <img src="post_images/' . $post_img . '" style="width:100%;border-radius:5px;margin-top:15px;">
+                </a>';
           break;
         case 2:
           $result["state"] .= '<a href="post_images/' . $post_img . '" class="col-6 pe-1">
-                                  <img src="post_images/' . $post_img . '" style="width:100%;border-radius:5px;margin-top:15px;">
-                                </a>
-                                <a href="post_images/' . $post_img2 . '" class="col-6 pe-1">
-                                  <img src="post_images/' . $post_img2 . '" style="width:100%;border-radius:5px;margin-top:15px;">
-                                </a>';
+                 <img src="post_images/' . $post_img . '" style="width:100%;border-radius:5px;margin-top:15px;">
+                </a>
+                <a href="post_images/' . $post_img2 . '" class="col-6 pe-1">
+                 <img src="post_images/' . $post_img2 . '" style="width:100%;border-radius:5px;margin-top:15px;">
+                </a>';
           break;
         case 3:
           $result["state"] .= '<a href="post_images/' . $post_img . '" class="col-6 pe-1">
-                                  <img src="post_images/' . $post_img . '" style="width:100%;border-radius:5px;margin-top:15px;">
-                                </a>
-                                <a href="post_images/' . $post_img2 . '" class="col-6 pe-1">
-                                  <img src="post_images/' . $post_img2 . '" style="width:100%;border-radius:5px;margin-top:15px;">
-                                </a>
-                                <a href="post_images/' . $post_img3 . '" class="col-6 pe-1">
-                                  <img src="post_images/' . $post_img3 . '" style="width:100%;border-radius:5px;margin-top:15px;">
-                                </a>';
+                 <img src="post_images/' . $post_img . '" style="width:100%;border-radius:5px;margin-top:15px;">
+                </a>
+                <a href="post_images/' . $post_img2 . '" class="col-6 pe-1">
+                 <img src="post_images/' . $post_img2 . '" style="width:100%;border-radius:5px;margin-top:15px;">
+                </a>
+                <a href="post_images/' . $post_img3 . '" class="col-6 pe-1">
+                 <img src="post_images/' . $post_img3 . '" style="width:100%;border-radius:5px;margin-top:15px;">
+                </a>';
           break;
         case 4:
           $result["state"] .= '<a href="post_images/' . $post_img . '" class="col-6 pe-1">
-                                  <img src="post_images/' . $post_img . '" style="width:100%;border-radius:5px;margin-top:15px;">
-                                </a>
-                                <a href="post_images/' . $post_img2 . '" class="col-6 ps-1">
-                                  <img src="post_images/' . $post_img2 . '" style="width:100%;border-radius:5px;margin-top:15px;">
-                                </a>
-                                <a href="post_images/' . $post_img3 . '" class="col-6 pe-1">
-                                  <img src="post_images/' . $post_img3 . '" style="width:100%;border-radius:5px;margin-top:15px;">
-                                </a>
-                                <a href="post_images/' . $post_img4 . '" class="col-6 ps-1">
-                                  <img src="post_images/' . $post_img4 . '" style="width:100%;border-radius:5px;margin-top:15px;">
-                                </a>';
+                 <img src="post_images/' . $post_img . '" style="width:100%;border-radius:5px;margin-top:15px;">
+                </a>
+                <a href="post_images/' . $post_img2 . '" class="col-6 ps-1">
+                 <img src="post_images/' . $post_img2 . '" style="width:100%;border-radius:5px;margin-top:15px;">
+                </a>
+                <a href="post_images/' . $post_img3 . '" class="col-6 pe-1">
+                 <img src="post_images/' . $post_img3 . '" style="width:100%;border-radius:5px;margin-top:15px;">
+                </a>
+                <a href="post_images/' . $post_img4 . '" class="col-6 ps-1">
+                 <img src="post_images/' . $post_img4 . '" style="width:100%;border-radius:5px;margin-top:15px;">
+                </a>';
           break;
       }
     }
 
     $result["state"] .= '<script>
-                            baguetteBox.run(".postmiddle_' . $post->PostID . '");
-                          </script></div></div></div>
-                                <div class="d-none" id="addpartul_' . $post->PostID . '">
-                                  <form id="form_edit' . $post->PostID . '" class="form_edit" idsi="' . $post->PostID . '" method="post" enctype="multipart/form-data">
-                                    <input autocomplete="off" type="text" class="form-control-plaintext text-light" name="edittedtext" id="edittedtext_' . $post->PostID . '" value="' . $post->PostText . '" class="posttext-input" style="width:100%;padding-left: 2%;">';
+              baguetteBox.run(".postmiddle_' . $post->PostID . '");
+             </script></div></div></div>
+                <div class="d-none" id="addpartul_' . $post->PostID . '">
+                 <form id="form_edit' . $post->PostID . '" class="form_edit" idsi="' . $post->PostID . '" method="post" enctype="multipart/form-data">
+                  <input autocomplete="off" type="text" class="form-control-plaintext " name="edittedtext" id="edittedtext_' . $post->PostID . '" value="' . $post->PostText . '" class="posttext-input" style="width:100%;padding-left: 2%;">';
     $result["state"] .= '<div class="row d-flex flex-column ps-3" id="edit_post_files_' . $post->PostID . '">';
 
     for ($i = 1; $i < 5; $i++) {
       if ($i > 1) {
         $postfile = "PostFile" . $i;
         if ($item->$postfile) {
-          $result["state"] .= '<div class="col-12 text-light my-2 ps-4 fs-6"><i class="fas fa-file-alt fa-2x"></i> <a class="text-light" href="http://localhost/aybu/socialmedia/' . $translates["home"] . '?download=' . $item->$postfile . '">' . $item->$postfile . '</a></div>';
+          $result["state"] .= '<div class="col-12 text-dark my-2 ps-4 fs-6"> <a class="text-dark" href="http://localhost/aybu/socialmedia/' . $translates["home"] . '?download=' . $item->$postfile . '"><i class="fas fa-file-alt fa-2x"></i> ' . $item->$postfile . '</a></div>';
         }
       } else {
         if ($item->PostFile) {
-          $result["state"] .= '<div class="col-12 text-light my-2 ps-4 fs-6"><i class="fas fa-file-alt fa-2x"></i> <a class="text-light" href="http://localhost/aybu/socialmedia/' . $translates["home"] . '?download=' . $item->PostFile . '">' . $item->PostFile . '</a></div>';
+          $result["state"] .= '<div class="col-12 text-dark my-2 ps-4 fs-6"> <a class="text-dark" href="http://localhost/aybu/socialmedia/' . $translates["home"] . '?download=' . $item->PostFile . '"><i class="fas fa-file-alt fa-2x"></i> ' . $item->PostFile . '</a></div>';
         }
       }
     }
 
 
     $result["state"] .= '</div><div class="ps-2 d-flex flex-row" id="review_part_edit_' . $post->PostID . '" style="overflow:auto;">
-                                      <img id="posting_img_edit_' . $post->PostID . '" class="mb-3 me-2 rounded-3 w-45">
-                                      <div id="review_more_edit_' . $post->PostID . '" class="rounded-3 w-25 mb-3 text-light fs-1 border d-none justify-content-center align-items-center" style="background: rgba(0,0,0,0.4);"></div>
-                                    </div>
-                                    <div class="p-2 text-light border my-3 w-75 d-none" id="warn_file_edit_' . $post->PostID . '"></div>
-                                    <div class="d-flex flex-row edit_post_images_' . $post->PostID . '" id="edit_post_images_' . $post->PostID . '">
-                                      <div class="row">';
+                   <img id="posting_img_edit_' . $post->PostID . '" class="mb-3 me-2 rounded-3 w-45">
+                   <div id="review_more_edit_' . $post->PostID . '" class="rounded-3 w-25 mb-3  fs-1 border d-none justify-content-center align-items-center" style="background: rgba(0,0,0,0.4);"></div>
+                  </div>
+                  <div class="p-2  border my-3 w-75 d-none" id="warn_file_edit_' . $post->PostID . '"></div>
+                  <div class="d-flex flex-row edit_post_images_' . $post->PostID . '" id="edit_post_images_' . $post->PostID . '">
+                   <div class="row">';
     if (!is_null($post_img)) {
       switch ($img_counter) {
         case 1:
           $result["state"] .= '<a href="post_images/' . $post_img . '" class="col-12">
-                                  <img src="post_images/' . $post_img . '" style="width:100%;border-radius:5px;margin-top:15px;">
-                                </a>';
+                 <img src="post_images/' . $post_img . '" style="width:100%;border-radius:5px;margin-top:15px;">
+                </a>';
           break;
         case 2:
           $result["state"] .= '<a href="post_images/' . $post_img . '" class="col-6 pe-1">
-                                  <img src="post_images/' . $post_img . '" style="width:100%;border-radius:5px;margin-top:15px;">
-                                </a>
-                                  <a href="post_images/' . $post_img2 . '" class="col-6 pe-1">
-                                <img src="post_images/' . $post_img2 . '" style="width:100%;border-radius:5px;margin-top:15px;">
-                                </a>';
+                 <img src="post_images/' . $post_img . '" style="width:100%;border-radius:5px;margin-top:15px;">
+                </a>
+                 <a href="post_images/' . $post_img2 . '" class="col-6 pe-1">
+                <img src="post_images/' . $post_img2 . '" style="width:100%;border-radius:5px;margin-top:15px;">
+                </a>';
           break;
         case 3:
           $result["state"] .= '<a href="post_images/' . $post_img . '" class="col-6 pe-1">
-                                  <img src="post_images/' . $post_img . '" style="width:100%;border-radius:5px;margin-top:15px;">
-                                </a>
-                                <a href="post_images/' . $post_img2 . '" class="col-6 pe-1">
-                                  <img src="post_images/' . $post_img2 . '" style="width:100%;border-radius:5px;margin-top:15px;">
-                                </a>
-                                <a href="post_images/' . $post_img3 . '" class="col-6 pe-1">
-                                  <img src="post_images/' . $post_img3 . '" style="width:100%;border-radius:5px;margin-top:15px;">
-                                </a>';
+                 <img src="post_images/' . $post_img . '" style="width:100%;border-radius:5px;margin-top:15px;">
+                </a>
+                <a href="post_images/' . $post_img2 . '" class="col-6 pe-1">
+                 <img src="post_images/' . $post_img2 . '" style="width:100%;border-radius:5px;margin-top:15px;">
+                </a>
+                <a href="post_images/' . $post_img3 . '" class="col-6 pe-1">
+                 <img src="post_images/' . $post_img3 . '" style="width:100%;border-radius:5px;margin-top:15px;">
+                </a>';
           break;
         case 4:
           $result["state"] .= '<a href="post_images/' . $post_img . '" class="col-6 pe-1">
-                                  <img src="post_images/' . $post_img . '" style="width:100%;border-radius:5px;margin-top:15px;">
-                                </a>
-                                <a href="post_images/' . $post_img2 . '" class="col-6 ps-1">
-                                  <img src="post_images/' . $post_img2 . '" style="width:100%;border-radius:5px;margin-top:15px;">
-                                </a>
-                                <a href="post_images/' . $post_img3 . '" class="col-6 pe-1">
-                                  <img src="post_images/' . $post_img3 . '" style="width:100%;border-radius:5px;margin-top:15px;">
-                                </a>
-                                <a href="post_images/' . $post_img4 . '" class="col-6 ps-1">
-                                  <img src="post_images/' . $post_img4 . '" style="width:100%;border-radius:5px;margin-top:15px;">
-                                </a>';
+                 <img src="post_images/' . $post_img . '" style="width:100%;border-radius:5px;margin-top:15px;">
+                </a>
+                <a href="post_images/' . $post_img2 . '" class="col-6 ps-1">
+                 <img src="post_images/' . $post_img2 . '" style="width:100%;border-radius:5px;margin-top:15px;">
+                </a>
+                <a href="post_images/' . $post_img3 . '" class="col-6 pe-1">
+                 <img src="post_images/' . $post_img3 . '" style="width:100%;border-radius:5px;margin-top:15px;">
+                </a>
+                <a href="post_images/' . $post_img4 . '" class="col-6 ps-1">
+                 <img src="post_images/' . $post_img4 . '" style="width:100%;border-radius:5px;margin-top:15px;">
+                </a>';
           break;
       }
     }
     $result["state"] .= '<script>
-                            baguetteBox.run(".edit_post_images_' . $post->PostID . '");
-                          </script></div></div>
-                                    <div class="row border-top border-bottom py-3 text-light">
-                                      <div class="col-6 fs-7">' . $translates["addyourpost"] . '</div>
-                                      <div class="col-6 text-end">
-                                        <input class="d-none edit_file_upload" postid="' . $post->PostID . '" type="file" name="edit_file_upload[]" id="edit_file_upload' . $post->PostID . '" accept=.doc,.docx,.pdf multiple>
-                                        <label for="edit_file_upload' . $post->PostID . '" style="cursor:pointer;" class="me-3"><i class="fas fa-file-upload" style="font-size:21px"></i></label>
-                                        <input class="d-none edit_image_upload" postid="' . $post->PostID . '" type="file" name="edit_image_upload[]" id="edit_image_upload' . $post->PostID . '" accept=image/x-png,image/gif,image/jpeg multiple>
-                                        <label for="edit_image_upload' . $post->PostID . '" style="cursor:pointer;"><i class="fas fa-images" style="font-size:21px"></i></label>
-                                      </div>
-                                    </div>
-                                    <div class="row my-3">
-                                      <div class="col-10 mx-auto">
-                                        <button type="submit" class="btn btn-primary w-100 rounded-3 border fs-5 saveedit" name="saveedit" id="saveedit' . $post->PostID . '">' . $translates["shareit"] . ' <span class="spinner" id="spinnershare"></span></button>
-                                      </div>
-                                    </div>
-                                  </form>
-                                </div>
-                                <div class="row py-2 mt-2" id="likecomment_' . $post->PostID . '">
-                                  <div class="col-6 text-center text-light border-end" id="like_' . $post->PostID . '">';
+              baguetteBox.run(".edit_post_images_' . $post->PostID . '");
+             </script></div></div>
+                  <div class="row border-top border-bottom py-3 ">
+                   <div class="col-6 fs-7">' . $translates["addyourpost"] . '</div>
+                   <div class="col-6 text-end">
+                    <input class="d-none edit_file_upload" postid="' . $post->PostID . '" type="file" name="edit_file_upload[]" id="edit_file_upload' . $post->PostID . '" accept=.doc,.docx,.pdf multiple>
+                    <label for="edit_file_upload' . $post->PostID . '" style="cursor:pointer;" class="me-3"><i class="fas fa-file-upload" style="font-size:21px"></i></label>
+                    <input class="d-none edit_image_upload" postid="' . $post->PostID . '" type="file" name="edit_image_upload[]" id="edit_image_upload' . $post->PostID . '" accept=image/x-png,image/gif,image/jpeg multiple>
+                    <label for="edit_image_upload' . $post->PostID . '" style="cursor:pointer;"><i class="fas fa-images" style="font-size:21px"></i></label>
+                   </div>
+                  </div>
+                  <div class="row my-3">
+                   <div class="col-10 mx-auto">
+                    <button type="submit" class="btn w-100 rounded-3 border fs-5 saveedit shadow text-light" style="background-color:#5a49e3" name="saveedit" id="saveedit' . $post->PostID . '">' . $translates["shareit"] . ' <span class="spinner" id="spinnershare"></span></button>
+                   </div>
+                  </div>
+                 </form>
+                </div>
+                <div class="row py-2 mt-2" id="likecomment_' . $post->PostID . '">
+                 <div class="col-6 text-center  border-end" id="like_' . $post->PostID . '">';
     $is_liked = $db->getColumnData("SELECT * FROM postlike WHERE PostID = ? AND MemberID = ? ", array($post->PostID, $memberid));
     $count_like = $db->getColumnData("SELECT COUNT(*) FROM postlike WHERE PostID = ?", array($post->PostID));
     $count_comment = $db->getColumnData("SELECT COUNT(*) FROM postcomments WHERE PostID = ? AND CommentActive = ?", array($post->PostID, 1));
     if (empty($is_liked)) {
-      $result["state"] .= '<a class="text-decoration-none text-light" onClick=\'Like("increaseLike","' . $post->PostID . '")\'>
-                                        <i class="far fa-thumbs-up" style="cursor:pointer;"></i>
-                                        <label style="cursor:pointer;"> ' . $translates["likepost"] . ' (' . $count_like . ')</label>
-                                      </a>';
+      $result["state"] .= '<a class="text-decoration-none text-dark" onClick=\'Like("increaseLike","' . $post->PostID . '")\'>
+                    <i class="far fa-thumbs-up" style="cursor:pointer;"></i>
+                    <label style="cursor:pointer;"> ' . $translates["likepost"] . ' (' . $count_like . ')</label>
+                   </a>';
     } else {
-      $result["state"] .= '<a class="text-info text-decoration-none" onClick=\'Like("decreaseLike","' . $post->PostID . '")\'>
-                                        <i class="far fa-thumbs-down" style="cursor:pointer;"></i>
-                                        <label style="cursor:pointer;"> ' . $translates["dislikepost"] . ' (' . $count_like . ')</label>
-                                      </a>';
+      $result["state"] .= '<a class="text-info text-decoration-none text-dark" onClick=\'Like("decreaseLike","' . $post->PostID . '")\'>
+                    <i class="far fa-thumbs-down" style="cursor:pointer;"></i>
+                    <label style="cursor:pointer;"> ' . $translates["dislikepost"] . ' (' . $count_like . ')</label>
+                   </a>';
     }
     $result["state"] .= '</div>
-                                  <div class="col-6 text-center text-light" id="comment_' . $post->PostID . '">
-                                    <a onClick="openComments(' . $post->PostID . ')">
-                                      <i class="far fa-comment-alt" style="cursor:pointer;"></i>
-                                      <label style="cursor:pointer;" id="comment_label_' . $post->PostID . '"> ' . $translates["commentpost"] . ' (' . $count_comment . ')</label>
-                                    </a>
-                                  </div>
-                                </div>
-                                <div class="row align-items-center p-3 border-top border-bottom" style="display:none" id="postcomment_' . $post->PostID . '">
-                                  <div class="col-1"><img src="images_profile/' . $profile_photo . '" class="rounded-circle" width="40" height="40"></div>
-                                  <div class="col-11 ps-4 ps-md-2">
-                                    <form method="post" id="form_comment_' . $post->PostID . '">
-                                      <div class="row align-items-center">
-                                        <div class="col-11 text-center">
-                                          <input class="create-comment form-control form-control-sm rounded-3" type="text" maxlength="100" name="text_' . $post->PostID . '" id="text_' . $post->PostID . '" placeholder="' . $translates["saysth"] . '">
-                                        </div>
-                                        <div class="col-1 p-0 m-0">
-                                          <button type="button" class="btn btn-outline-light btn-sm rounded-3" name="submittext_' . $post->PostID . '" id="submittext_' . $post->PostID . '" onClick=\'Comment("sharecomment","' . $post->PostID . '")\'>
-                                            <i class="far fa-paper-plane"></i>
-                                          </button>
-                                        </div>
-                                      </div>
-                                    </form>
-                                  </div>
-                                </div>
-                                <div class="row p-2 justify-content-center" style="display:none;user-select:text" id="comments_' . $post->PostID . '">';
+                 <div class="col-6 text-center " id="comment_' . $post->PostID . '">
+                  <a onClick="openComments(' . $post->PostID . ')">
+                   <i class="far fa-comment-alt" style="cursor:pointer;"></i>
+                   <label style="cursor:pointer;" id="comment_label_' . $post->PostID . '"> ' . $translates["commentpost"] . ' (' . $count_comment . ')</label>
+                  </a>
+                 </div>
+                </div>
+                <div class="row align-items-center p-3 border-top border-bottom text-dark" style="display:none" id="postcomment_' . $post->PostID . '">
+                 <div class="col-1"><img src="images_profile/' . $profile_photo . '" class="rounded-circle" width="40" height="40"></div>
+                 <div class="col-11 ps-4 ps-md-2">
+                  <form method="post" id="form_comment_' . $post->PostID . '">
+                   <div class="row align-items-center">
+                    <div class="col-11 text-center">
+                     <input class="create-comment form-control form-control-sm rounded-3" type="text" maxlength="100" name="text_' . $post->PostID . '" id="text_' . $post->PostID . '" placeholder="' . $translates["saysth"] . '">
+                    </div>
+                    <div class="col-1 p-0 m-0">
+                     <button type="button" class="btn btn-sm rounded-3" style="border:1px solid #3b3b3b" name="submittext_' . $post->PostID . '" id="submittext_' . $post->PostID . '" onClick=\'Comment("sharecomment","' . $post->PostID . '")\'>
+                      <i class="far fa-paper-plane"></i>
+                     </button>
+                    </div>
+                   </div>
+                  </form>
+                 </div>
+                </div>
+                <div class="row p-2 justify-content-center" style="display:none;user-select:text" id="comments_' . $post->PostID . '">';
     $allcomments = $db->getDatas("SELECT * FROM postcomments WHERE PostID = ? AND CommentActive = ?", array($postID, 1));
     foreach ($allcomments as $postinfo) {
       $comment_ID = $postinfo->CommentID;
@@ -366,16 +366,16 @@ if ($counter > 0) {
           $comment_profile_photo = "profilefemale.png";
         }
       }
-      $result["state"] .= '<div class="row text-light px-3 py-1 mt-md-2" id="each_comment_' . $comment_ID . '">
-                                      <div class="col-1 p-0 pt-2 d-flex align-items-start justify-content-start">
-                                        <a href="http://localhost/aybu/socialmedia/' . $translates['profile'] . '/' . $postinfo->MemberID . '">
-                                          <img src="images_profile/' . $comment_profile_photo . '" class="rounded-circle" width="40" height="40">
-                                        </a>
-                                      </div>
-                                      <div class="col-9 ps-4 p-md-0">
-                                        <div class="col-12">
-                                          <a class="text-light text-decoration-none" href="http://localhost/aybu/socialmedia/' . $translates['profile'] . '/' . $postinfo->MemberID . '">
-                                            <small>';
+      $result["state"] .= '<div class="row  px-3 py-1 mt-md-2" id="each_comment_' . $comment_ID . '">
+                   <div class="col-1 p-0 pt-2 d-flex align-items-start justify-content-start">
+                    <a href="http://localhost/aybu/socialmedia/' . $translates['profile'] . '/' . $postinfo->MemberID . '">
+                     <img src="images_profile/' . $comment_profile_photo . '" class="rounded-circle" width="40" height="40">
+                    </a>
+                   </div>
+                   <div class="col-9 ps-4 p-md-0">
+                    <div class="col-12">
+                     <a class=" text-decoration-none text-dark" href="http://localhost/aybu/socialmedia/' . $translates['profile'] . '/' . $postinfo->MemberID . '">
+                      <small>';
       $comment_name = $db->getColumnData("SELECT MemberName FROM members WHERE MemberID = $postinfo->MemberID");
       $comment_lastname = $db->getColumnData("SELECT MemberLastName FROM members WHERE MemberID = $postinfo->MemberID");
       $result["state"] .= $comment_name . ' ' . $comment_lastname . ' - ';
@@ -383,31 +383,31 @@ if ($counter > 0) {
       $comment_time = $postinfo->CommentAddTime;
       $diff_comment = calculateTime($comment_time);
       $result["state"] .= $diff_comment . '
-                                            </small>
-                                          </a>
-                                        </div>
-                                        <div class="col-12 text-break">
-                                          <p class="m-0" id="comment_text_' . $comment_ID . '">' . $commentText . '</p>
-                                          <form class="d-none" method="post" id="form_editcomment_' . $comment_ID . '">
-                                            <div class="row align-items-center">
-                                              <div class="col-10 text-center">
-                                                <input autocomplete="off" class="create-comment form-control form-control-sm rounded-3" type="text" maxlength="100" value="' . $commentText . '" name="edittedcomment_' . $comment_ID . '" id="edittedcomment_' . $comment_ID . '" placeholder="' . $translates["saysth"] . '">
-                                              </div>
-                                              <div class="col-1 p-0 m-0">
-                                                <button type="button" class="btn btn-outline-light btn-sm rounded-3" onClick=\'CommentOperate("editComment","' . $post->PostID . '","' . $comment_ID . '")\'>
-                                                  <i class="far fa-paper-plane"></i>
-                                                </button>
-                                              </div>
-                                            </div>
-                                          </form>
-                                        </div>
-                                      </div>
-                                      <div class="col-2 text-end p-0">';
+                      </small>
+                     </a>
+                    </div>
+                    <div class="col-12 text-break">
+                     <p class="m-0" id="comment_text_' . $comment_ID . '">' . $commentText . '</p>
+                     <form class="d-none" method="post" id="form_editcomment_' . $comment_ID . '">
+                      <div class="row align-items-center">
+                       <div class="col-10 text-center">
+                        <input autocomplete="off" class="create-comment form-control form-control-sm rounded-3" type="text" maxlength="100" value="' . $commentText . '" name="edittedcomment_' . $comment_ID . '" id="edittedcomment_' . $comment_ID . '" placeholder="' . $translates["saysth"] . '">
+                       </div>
+                       <div class="col-1 p-0 m-0">
+                        <button type="button" class="btn text-dark btn-sm rounded-3" style="border:1px solid #3b3b3b" onClick=\'CommentOperate("editComment","' . $post->PostID . '","' . $comment_ID . '")\'>
+                         <i class="far fa-paper-plane"></i>
+                        </button>
+                       </div>
+                      </div>
+                     </form>
+                    </div>
+                   </div>
+                   <div class="col-2 text-end p-0">';
       if ($postinfo->MemberID == $memberid) {
         $result["state"] .= '<small>
-                                            <i class="icon-edit fas fa-pencil-alt me-2" style="cursor:pointer;" id="editComment" onClick=\'OpenEditComment("' . $comment_ID . '","' . $post->PostID . '")\'></i>
-                                            <i class="icon-delete fas fa-trash-alt" style="cursor:pointer;" id="deleteComment" onClick=\'CommentOperate("deleteComment","' . $post->PostID . '","' . $comment_ID . '")\'></i>
-                                          </small>';
+                      <i class="icon-edit fas fa-pencil-alt me-2" style="cursor:pointer;" id="editComment" onClick=\'OpenEditComment("' . $comment_ID . '","' . $post->PostID . '")\'></i>
+                      <i class="icon-delete fas fa-trash-alt" style="cursor:pointer;" id="deleteComment" onClick=\'CommentOperate("deleteComment","' . $post->PostID . '","' . $comment_ID . '")\'></i>
+                     </small>';
       } else {
         $result["state"] .= '<small id="Report_Comment_' . $comment_ID . '">';
         $diduRep = $db->getData("SELECT * FROM reports_comments WHERE ReporterID = ? AND ReportedID = ?", array($memberid, $comment_ID));
@@ -419,17 +419,16 @@ if ($counter > 0) {
         $result["state"] .= '</small>';
       }
       $result["state"] .= '</div>
-                                    </div>';
+                  </div>';
     }
     $result["state"] .= '</div>
-                              </div>
-                            </div>';
+               </div>
+              </div>';
   }
-} else {
-  $result["state"] = "empty";
 }
 // EVENT PART
-if ($newEvent) {
+$randomNum = rand(0,3);
+if ($newEvent && $counter == 3 && $randomNum) {
   $eventOrganizer = $db->getData("SELECT * FROM members WHERE MemberID = ?", array($newEvent->EventOrganizerID));
   $event_profile_photo = $db->getColumnData("SELECT Member_Profileimg FROM images WHERE MemberID = ?", array($newEvent->EventOrganizerID));
   $organizerGender = $db->getColumnData("SELECT MemberGender FROM members WHERE MemberID = ?", array($newEvent->EventOrganizerID));
@@ -443,24 +442,24 @@ if ($newEvent) {
   }
   $eventHeader = $newEvent->EventHeader;
   $result["state"] .= '<a class="text-decoration-none" href="http://localhost/aybu/socialmedia/' . $translates["events"] . '/' . seolink($eventHeader) . "-" . $newEvent->EventID . '">
-                        <div class="container-event my-5 px-0 px-md-4" eventid="' . $newEvent->EventID . '">
-                            <div class="border offset-md-1 col-md-10 mx-auto p-3 bg-dark mx-auto py-4 post eventPre" style="border-radius: 15px;">
-                              <div class="ribbon"><span>GOLD</span></div>
-                              <div class="text-light text-break fs-5 eventmiddle_' . $newEvent->EventID . '" style="user-select:text" id="eventmiddle_' . $newEvent->EventID . '">
-                                <h6 id="event_header_' . $newEvent->EventID . '" class="ps-4 my-3 fs-2 text-center eventHeader d-block">' . $eventHeader . '</h6>
-                                <div class="d-flex flex-row p-0 m-0">
-                                  <div class="row w-100 ps-4" id="event_image_' . $newEvent->EventID . '">
-                                    <a href="events_images/' . $newEvent->EventImage . '" class="col-12 pe-1">
-                                      <img src="events_images/' . $newEvent->EventImage . '" style="width:100%;border-radius:5px;margin-top:15px;">
-                                    </a>
-                                    <script>
-                                      baguetteBox.run(".eventmiddle_' . $newEvent->EventID . '");
-                                    </script>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          </a>';
+            <div class="container-event my-5 px-0 px-md-4" eventid="' . $newEvent->EventID . '">
+              <div class="border offset-md-1 col-md-10 mx-auto p-3 bg-dark mx-auto py-4 post eventPre bg-light shadow" style="border-radius: 15px;">
+               <div class="ribbon"><span>GOLD</span></div>
+               <div class=" text-break fs-5 eventmiddle_' . $newEvent->EventID . '" style="user-select:text" id="eventmiddle_' . $newEvent->EventID . '">
+                <h6 id="event_header_' . $newEvent->EventID . '" class="ps-4 my-3 fs-2 text-center eventHeader d-block">' . $eventHeader . '</h6>
+                <div class="d-flex flex-row p-0 m-0">
+                 <div class="row w-100 ps-4 mb-3" id="event_image_' . $newEvent->EventID . '">
+                  <a href="events_images/' . $newEvent->EventImage . '" class="col-12 pe-1">
+                   <img src="events_images/' . $newEvent->EventImage . '" style="width:100%;border-radius:5px;margin-top:15px;">
+                  </a>
+                  <script>
+                   baguetteBox.run(".eventmiddle_' . $newEvent->EventID . '");
+                  </script>
+                 </div>
+                </div>
+               </div>
+              </div>
+             </div>
+             </a>';
 }
 echo json_encode($result);
