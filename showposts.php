@@ -132,7 +132,7 @@ if ($counter > 0) {
                     </div>
                   <div class="col-2">
                 <div class="dropdown-post">
-                  <button class="dropbtn btn rounded-circle" style="background-color: #5a49e3;"><i class="fas fa-ellipsis-h text-light"></i></button>
+                  <button class="dropbtn btn rounded-circle btn-post"><i class="fas fa-ellipsis-h text-light"></i></button>
                   <div class="dropdown-content" style="width:220px;">';
 
     if ($postMemberID == $memberid) {

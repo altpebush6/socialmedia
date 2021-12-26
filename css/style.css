@@ -92,7 +92,16 @@ body {
 }
 
 .create-post-header {
-    color: rgba(30, 9, 65, 0.856);
+    color: #5a49e3;
+}
+
+.btn-post {
+    background-color: #5a49e3 !important;
+    transition: 0.1s;
+}
+
+.btn-post:hover {
+    background-color: #4335b1 !important;
 }
 
 .create-comment {
@@ -146,6 +155,7 @@ body {
 .srchfriend {
     background: rgba(255, 255, 255, 0.3) !important;
 }
+
 .person-box {
     height: 40vh !important;
     overflow-y: auto;
@@ -271,7 +281,8 @@ body {
 }
 
 .dropdown-content a:hover {
-    background-color: #f1f1f1
+    background-color: #f1f1f1;
+    color: #5a49e3;
 }
 
 .dropdown-post:hover .dropdown-content {
@@ -447,14 +458,15 @@ body {
 
 .removeMemberDiv {
     cursor: pointer;
-    background: #f8f9fa !important;
+    background: #fff !important;
     width: 30px !important;
     height: 30px !important;
     transition: 0.2s;
 }
 
 .removeMemberDiv:hover {
-    background: #dc3545 !important;
+    background: #5a49e3 !important;
+    color: #fff !important;
 }
 
 .addedfriend:hover .removeaddedfriend {

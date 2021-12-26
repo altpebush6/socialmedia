@@ -270,7 +270,7 @@ switch ($operation) {
         $memberNames = $db->getColumnData("SELECT MemberNames FROM members WHERE MemberID = ?", array($ClubMemberID));
         $result["member"] = '<div class="d-flex flex-column justify-content-between mx-1 item carousel-div text-center friend-box" style="background-image: url(\'images_profile/' . $memberimg . '\');" id="clubMember_' . $ClubMemberID . '">
                                  <div class="row justify-content-end">
-                                    <button class="col-3 m-0 p-0 text-center bg-light text-danger d-flex justify-content-center align-items-center rounded-circle removeMemberDiv me-2 opt_dropdown dropbtn" memid="' . $ClubMemberID . '"><i class="fas fa-ellipsis-h"></i></button>
+                                    <button class="col-3 m-0 p-0 text-center text-dark d-flex justify-content-center align-items-center rounded-circle removeMemberDiv me-2 opt_dropdown dropbtn" memid="' . $ClubMemberID . '"><i class="fas fa-ellipsis-h"></i></button>
                                     <div class="dropdown-content rounded-2 mt-4 px-0" style="display:none;width:280px;font-size:15px" id="opt_dropbox_' . $ClubMemberID . '">
                                         <a href="javascript:void(0)" class="w-100 px-0 deductMember" clubmemberid="' . $ClubMemberID . '"><i class="fas fa-angle-double-down text-danger"></i> ' . $translates["deduct"] . '</a>
                                         <a href="javascript:void(0)" class="w-100 px-0 removeMember" clubmemberid="' . $ClubMemberID . '"><i class="fas fa-user-slash text-danger"></i> ' . $translates["removefromclub"] . '</a>
@@ -290,7 +290,7 @@ switch ($operation) {
         $memberNames = $db->getColumnData("SELECT MemberNames FROM members WHERE MemberID = ?", array($ClubMemberID));
         $result["member"] = '<div class="d-flex flex-column justify-content-between mx-1 item carousel-div text-center friend-box" style="background-image: url(\'images_profile/'. $memberimg .'\');" id="clubMember_'. $ClubMemberID .'">
                                 <div class="row justify-content-end">
-                                    <button class="col-3 m-0 p-0 text-center bg-light text-danger d-flex justify-content-center align-items-center rounded-circle removeMemberDiv me-2 opt_dropdown dropbtn" memid="'. $ClubMemberID .'"><i class="fas fa-ellipsis-h"></i></button>
+                                    <button class="col-3 m-0 p-0 text-center text-dark d-flex justify-content-center align-items-center rounded-circle removeMemberDiv me-2 opt_dropdown dropbtn" memid="'. $ClubMemberID .'"><i class="fas fa-ellipsis-h"></i></button>
                                     <div class="dropdown-content rounded-2 mt-4 px-0" style="display:none;width:280px;font-size:15px" id="opt_dropbox_'. $ClubMemberID .'">
                                         <a href="javascript:void(0)" class="w-100 px-0 promoteMember" clubmemberid="'. $ClubMemberID .'"><i class="fas fa-angle-double-up text-success"></i> '. $translates["promotetoman"] .'</a>
                                         <a href="javascript:void(0)" class="w-100 px-0 removeMember" clubmemberid="'. $ClubMemberID .'"><i class="fas fa-user-slash text-danger"></i> '. $translates["removefromclub"] .'</a>

@@ -49,7 +49,7 @@ if ($part) {
       </div>
       <div class="row mt-3">
         <div class="col-10 mx-auto">
-          <button type="submit" class="btn w-100 rounded-3 border fs-5 text-light shadow" name="submitpost" id="submitpost" style="background-color: #5a49e3;"><?= $translates["shareit"] ?> <span class="spinner" id="spinnershare"></span></button>
+          <button type="submit" class="btn w-100 rounded-3 border fs-5 text-light shadow btn-post" name="submitpost" id="submitpost"><?= $translates["shareit"] ?> <span class="spinner" id="spinnershare"></span></button>
         </div>
       </div>
     </form>
@@ -135,7 +135,7 @@ foreach ($posts as $item) {
           </div>
           <div class="col-2">
             <div class="dropdown-post">
-              <button class="dropbtn btn rounded-circle" style="background-color: #5a49e3;"><i class="fas fa-ellipsis-h text-light"></i></button>
+              <button class="dropbtn btn rounded-circle btn-post"><i class="fas fa-ellipsis-h text-light"></i></button>
               <div class="dropdown-content" style="width:220px;">
                 <?php if ($item->MemberID == $memberid) { ?>
                   <a href="javascript:void(0)" onClick="OpenEditPost('<?= $post_ID ?>','<?= $post_text ?>')"><i class="far fa-edit"></i> <?= $translates["editpost"] ?></a>
@@ -316,7 +316,7 @@ foreach ($posts as $item) {
             </div>
             <div class="row my-3">
               <div class="col-10 mx-auto">
-                <button type="submit" class="btn w-100 rounded-3 border fs-5 saveedit text-light shadow" style="background-color: #5a49e3;" name='saveedit' id='saveedit<?= $post_ID ?>'><?= $translates["shareit"] ?> <span class="spinner" id="spinnershare"></span></button>
+                <button type="submit" class="btn w-100 rounded-3 border fs-5 saveedit text-light shadow btn-post" name='saveedit' id='saveedit<?= $post_ID ?>'><?= $translates["shareit"] ?> <span class="spinner" id="spinnershare"></span></button>
               </div>
             </div>
           </form>

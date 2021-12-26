@@ -1252,6 +1252,13 @@
   });
 
   //Kulüp Events
+  function changeShdw(changeTo) {
+    $("#posts_container-tab").removeClass("shadow");
+    $("#events-tab").removeClass("shadow");
+    $("#members-tab").removeClass("shadow");
+    $("#" + changeTo).addClass("shadow");
+  }
+
   $("#form_event").on("submit", function(e) {
     e.preventDefault();
     $("#spinnerevent").html('<i class="fas fa-spinner fa-spin"></i>');
@@ -1726,7 +1733,7 @@
         $("#spinnerProEvent").html("");
         $("#getPremium").prop("disabled", false);
         $("#getPremium").html('Premium Etkinlik <i class="fas fa-check"></i>');
-        $(this).attr("id","");
+        $(this).attr("id", "");
       }
     });
 
