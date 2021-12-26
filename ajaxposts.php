@@ -336,7 +336,7 @@ switch ($operation) {
                                           <input autocomplete="off" class="create-comment form-control form-control-sm rounded-3" type="text" maxlength="100" value="' . $comment_text . '" name="edittedcomment_' . $insert_comment . '" id="edittedcomment_' . $insert_comment . '" placeholder="' . $translates["saysth"] . '">
                                         </div>
                                         <div class="col-1 p-0 m-0">
-                                          <button type="button" style="border:1px solid #3b3b3b" class="btn btn-sm rounded-3" onClick=\'CommentOperate("editComment","' . $postid . '","' . $insert_comment . '")\'>
+                                          <button type="button" class="btn btn-outline-dark btn-sm rounded-3" onClick=\'CommentOperate("editComment","' . $postid . '","' . $insert_comment . '")\'>
                                             <i class="far fa-paper-plane"></i>
                                           </button>
                                         </div>

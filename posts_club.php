@@ -1,5 +1,5 @@
 <div class="container py-4 px-0 px-md-4">
-  <div class="create-post border col-md-10 offset-md-1 py-4 " style="border-radius: 15px;">
+  <div class="create-post shadow border col-md-10 offset-md-1 py-4 bg-light" style="border-radius: 15px;">
     <form id="form_posting" method="post" enctype="multipart/form-data" class="px-3">
       <div class="row">
         <h3 class="header text-center mb-3 create-post-header" style="font-family: 'Lora', serif;"><?= $translates["createpost"] ?></h3>
@@ -31,7 +31,7 @@
       </div>
       <div class="row mt-3">
         <div class="col-10 mx-auto">
-          <button type="submit" class="btn w-100 shadow text-light rounded-3 border fs-5 btn-post" name="submitpost" id="submitpost"><?= $translates["shareit"] ?> <span class="spinner" id="spinnershare"></span></button>
+          <button type="submit" class="btn w-100 shadow rounded-3 border fs-5 btn-post" name="submitpost" id="submitpost"><?= $translates["shareit"] ?> <span class="spinner" id="spinnershare"></span></button>
         </div>
       </div>
     </form>
@@ -85,7 +85,7 @@ foreach ($posts as $item) {
   $diff_post = calculateTime($post_time);
 ?>
   <div class="container my-5 px-0 px-md-4" id="<?= $post_ID ?>">
-    <div class="border p-3 col-md-10 offset-md-1 py-4 post" style="border-radius: 15px;">
+    <div class="border shadow bg-light p-3 col-md-10 offset-md-1 py-4 post" style="border-radius: 15px;">
       <div class="row mb-3">
         <div class="col-10">
           <a href="http://localhost/aybu/socialmedia/<?= $translates['profile'] ?>/<?= $postMemberID ?>">

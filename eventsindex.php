@@ -26,7 +26,7 @@
 
 ?>
     <div class="categorize">
-        <div class="row w-100 m-0 p-0 text-light">
+        <div class="row w-100 m-0 p-0 text-dark">
             <div class="col-12">
                 <div class="row">
                     <div class="col-12 mt-2">
@@ -36,7 +36,7 @@
                     <form name="form_categorize" id="form_categorize" method="post">
                         <div class="col-12">
                             <h6></h6>
-                            <input type="text" id="search_school" class="form-control form-control-sm w-100 bg-transparent text-light" placeholder="<?= $translates["schoolname"] ?>">
+                            <input type="text" id="search_school" class="form-control form-control-sm w-100 bg-transparent text-dark" placeholder="<?= $translates["schoolname"] ?>">
                         </div>
                         <div class="col-12 mt-1">
                             <ul class="list-group border m-0" style="max-height: 20vh;overflow-y:auto;overflow-x:hidden;min-height: 144px;" id="all_schools">
@@ -57,7 +57,7 @@
                                         }
                                     }
                                 ?>
-                                    <li class="list-group-item bg-transparent text-light m-0 p-2">
+                                    <li class="list-group-item bg-transparent text-dark m-0 p-2">
                                         <div class="row pe-3">
                                             <div class="col-2">
                                                 <input type="checkbox" class="form-check-input me-4 selectuni" id="<?= $university->UniversityID ?>" <?= $ischecked ?> style="cursor:pointer;">
@@ -90,7 +90,7 @@
         </div>
     </div>
     <div class="order">
-        <div class="row w-100 m-0 p-0 text-light">
+        <div class="row w-100 m-0 p-0 text-dark">
             <div class="col-12">
                 <div class="row">
                     <div class="col-12 mt-2">
@@ -117,13 +117,13 @@
         <!-- BUTONLAR -->
         <div class="row">
             <div class="col-4 text-start">
-                <button type="button" id="toggle_categorize" class="btn btn-outline-light"><?= $translates["togglecat"] ?></button>
+                <button type="button" id="toggle_categorize" class="btn btn-outline-theme"><?= $translates["togglecat"] ?></button>
             </div>
             <div class="col-4 text-center">
                 <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#createEvent"><?= $translates["createevent"] ?></button>
             </div>
             <div class="col-4 text-end">
-                <button type="button" id="toggle_order" class="btn btn-outline-light"><?= $translates["toggleorder"] ?></button>
+                <button type="button" id="toggle_order" class="btn btn-outline-theme"><?= $translates["toggleorder"] ?></button>
             </div>
         </div>
         <!-- ETKİNLİK KATEGORİLERİ -->
@@ -141,13 +141,13 @@
                     ?>
                         <a href="http://localhost/aybu/socialmedia/<?= $translates["events"] ?>?pageNum=<?= $pageNum ?>&category=<?= $eachcategory->CategoryID . $uni . $price . $order ?>" class="item each_category border p-4 rounded-1 d-flex flex-column jusitfy-content-center align-items-center text-decoration-none">
                             <?= $categoryIcon ?>
-                            <span class="fs-4 text-light mt-2 category_names"><?= $categoryName ?></span>
+                            <span class="fs-4 text-dark mt-2 category_names"><?= $categoryName ?></span>
                         </a>
                     <?php } ?>
                 </div>
             </div>
         </div>
-        <hr class="my-4 text-light">
+        <hr class="my-4 text-dark">
         <!-- ETKİNLİKLER -->
         <div class="row mt-4 ps-events">
             <?php
@@ -218,7 +218,7 @@
                                 <div class="col-12 p-0 cuttheline">~<?= $event->EventDateTime ?></div>
                                 <div class="col-12 p-0 cuttheline">~<?= $event->EventParticipant ?> <?= $translates["participant"] ?></div>
                             </div>
-                            <div class="p-0 fs-3 text-end text-light" style="height:2vh;">
+                            <div class="p-0 fs-3 text-end text-dark" style="height:2vh;">
                                 <?= ($event->EventPrice == 0 ? $translates['free'] : $event->EventPrice . "₺") ?>
                             </div>
                         </div>

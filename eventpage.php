@@ -29,8 +29,8 @@ if ($myEvent->EventOrganizerID == $memberid) {
     $isOrganizer = 0;
 }
 ?>
-<div class="organizer">
-    <div class="row w-100 m-0 p-0 text-light">
+<div class="organizer shadow-lg rounded-3">
+    <div class="row w-100 m-0 p-0 text-dark">
         <div class="col-12">
             <div class="row">
                 <div class="col-12 mt-2">
@@ -38,7 +38,7 @@ if ($myEvent->EventOrganizerID == $memberid) {
                 </div>
                 <hr class="m-0">
                 <div class="col-12 my-3">
-                    <a class="text-decoration-none text-light" href="http://localhost/aybu/socialmedia/<?= $translates["profile"] ?>/<?= $organizer->MemberID ?>">
+                    <a class="text-decoration-none text-dark" href="http://localhost/aybu/socialmedia/<?= $translates["profile"] ?>/<?= $organizer->MemberID ?>">
                         <div class="row">
                             <div class="col-3 m-0 p-0 ps-2">
                                 <img src="images_profile/<?= $organizer_photo ?>" class="rounded-circle" style="width:40px;height:40px;">
@@ -87,37 +87,37 @@ if ($myEvent->EventOrganizerID == $memberid) {
         <div class="col-5">
             <div class="row">
                 <div class="col-12">
-                    <img src="events_images/<?= $myEvent->EventImage ?>" class="w-100 rounded-3" style="max-height: 70vh;">
+                    <img src="events_images/<?= $myEvent->EventImage ?>" class="w-100 rounded-3 shadow-lg" style="max-height: 70vh;">
                 </div>
                 <div class="col-12 mt-3 p-0 ps-1" id="event_buttons">
                     <?php
                     if ($isOrganizer) { ?>
-                        <button type="button" class="btn btn-primary ms-2 w-70" id="editEventBtn" eventid="<?= $myEvent->EventID ?>" data-bs-toggle="modal" data-bs-target="#editEvent"><?= $translates["editevent"] ?> <span class="spinner" id="spinnerEditEvent"></span></button>
+                        <button type="button" class="btn btn-post text-light ms-2 w-70 shadow" id="editEventBtn" eventid="<?= $myEvent->EventID ?>" data-bs-toggle="modal" data-bs-target="#editEvent"><?= $translates["editevent"] ?> <span class="spinner" id="spinnerEditEvent"></span></button>
                         <?php } else {
                         $isjoined = $db->getData("SELECT * FROM eventparticipants WHERE MemberID = ? AND EventID = ?", array($memberid, $EventID));
                         if (!$isjoined) { ?>
-                            <button type="button" class="btn btn-secondary ms-2 w-70" id="joinEvent" eventid="<?= $myEvent->EventID ?>"><?= $translates["jointoevent"] ?> <span class="spinner" id="spinnerJoin"></span></button>
+                            <button type="button" class="btn btn-secondary ms-2 w-70 shadow" id="joinEvent" eventid="<?= $myEvent->EventID ?>"><?= $translates["jointoevent"] ?> <span class="spinner" id="spinnerJoin"></span></button>
                         <?php } else { ?>
-                            <button type="button" class="btn btn-success ms-2 w-70" id="cancelJoin" eventid="<?= $myEvent->EventID ?>"><?= $translates["joinedtoevent"] ?> <span class="spinner" id="spinnercancelJoin"></span></button>
+                            <button type="button" class="btn btn-success ms-2 w-70 shadow" id="cancelJoin" eventid="<?= $myEvent->EventID ?>"><?= $translates["joinedtoevent"] ?> <span class="spinner" id="spinnercancelJoin"></span></button>
                     <?php }
                     } ?>
-                    <button type="button" class="btn btn-dark w-25"><?= $myEvent->EventPrice ?>₺</button>
+                    <button type="button" class="btn btn-dark w-25 shadow"><?= $myEvent->EventPrice ?>₺</button>
                 </div>
                 <?php if ($isOrganizer) {
                     if ($myEvent->EventPremium) { ?>
                         <div class="col-12 my-3 mb-2 ms-0 ps-1 pe-4 mx-auto">
-                            <button type="button" class="btn ms-2 w-100 rounded-3 proBtn text-light">Premium Etkinlik <i class="fas fa-check"></i></button>
+                            <button type="button" class="btn ms-2 w-100 rounded-3 proBtn shadow text-dark"><?=$translates["preevent"]?> <i class="fas fa-check"></i></button>
                         </div> <?php } else { ?>
                         <div class="col-12 my-3 mb-2 ms-0 ps-1 pe-4 mx-auto">
-                            <button type="button" class="btn ms-2 w-100 rounded-3 proBtn text-light" id="getPremium" eventid="<?= $myEvent->EventID ?>">Premium Al <i class="far fa-star"></i><span class="spinner" id="spinnerProEvent"></span></button>
+                            <button type="button" class="btn ms-2 w-100 rounded-3 proBtn shadow text-dark" id="getPremium" eventid="<?= $myEvent->EventID ?>"><?=$translates["getpre"]?> <i class="far fa-star"></i><span class="spinner" id="spinnerProEvent"></span></button>
                         </div>
                 <?php }
                         } ?>
                 <div class="col-12 mt-1">
-                    <div class="text-light form-text"><?= $translates["contactorganizer"] ?></div>
+                    <div class="text-dark form-text"><?= $translates["contactorganizer"] ?></div>
                 </div>
                 <div class="col-12 mt-1">
-                    <div class="text-light form-text"><?= $translates["notresponsible"] ?></div>
+                    <div class="text-dark form-text"><?= $translates["notresponsible"] ?></div>
                 </div>
             </div>
         </div>
@@ -127,16 +127,16 @@ if ($myEvent->EventOrganizerID == $memberid) {
                     <h2 class="text-center category_names"><?= $myEvent->EventHeader ?></h2>
                 </div>
                 <?php if ($myEvent->EventSchool) { ?>
-                    <div class="col-12 text-light fs-5 border-bottom py-3"><?= $translates["university"] ?>: <?= $db->getColumnData("SELECT UniversityName FROM universities WHERE UniversityID = ?", array($myEvent->EventSchool)) ?></div>
+                    <div class="col-12 text-dark fs-5 border-bottom py-3"><?= $translates["university"] ?>: <?= $db->getColumnData("SELECT UniversityName FROM universities WHERE UniversityID = ?", array($myEvent->EventSchool)) ?></div>
                 <?php }
                 if ($myEvent->EventCity) { ?>
-                    <div class="col-12 text-light fs-5 border-bottom py-3"><?= $translates["city"] ?>: <?= $db->getColumnData("SELECT CityName FROM cities WHERE CityID = ?", array($myEvent->EventCity)) ?></div>
+                    <div class="col-12 text-dark fs-5 border-bottom py-3"><?= $translates["city"] ?>: <?= $db->getColumnData("SELECT CityName FROM cities WHERE CityID = ?", array($myEvent->EventCity)) ?></div>
                 <?php }
                 if ($myEvent->EventPlace) { ?>
-                    <div class="col-12 text-light fs-5 border-bottom py-3"><?= $translates["place"] ?>: <?= $myEvent->EventPlace ?></div>
+                    <div class="col-12 text-dark fs-5 border-bottom py-3"><?= $translates["place"] ?>: <?= $myEvent->EventPlace ?></div>
                 <?php } ?>
-                <div class="col-12 text-light fs-5 border-bottom py-3"><?= $translates["date"] ?>: <?= $myEvent->EventDateTime ?></div>
-                <div class="col-12 text-light fs-5 border-bottom py-3"><span id="participantNum"><?= $myEvent->EventParticipant ?></span> <?= $translates["participant"] ?></div>
+                <div class="col-12 text-dark fs-5 border-bottom py-3"><?= $translates["date"] ?>: <?= $myEvent->EventDateTime ?></div>
+                <div class="col-12 text-dark fs-5 border-bottom py-3"><span id="participantNum"><?= $myEvent->EventParticipant ?></span> <?= $translates["participant"] ?></div>
             </div>
         </div>
     </div>
@@ -144,7 +144,7 @@ if ($myEvent->EventOrganizerID == $memberid) {
         <div class="col-12 fs-4 text-primary">
             <u><i><?= $translates["eventexplanation"] ?></i></u>
         </div>
-        <div class="col-12 fs-5 text-light">
+        <div class="col-12 fs-5 text-dark">
             <?= ($myEvent->EventExplanation) ? $myEvent->EventExplanation : $translates["noexp"] ?>
         </div>
     </div>

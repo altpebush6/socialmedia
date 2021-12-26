@@ -385,5 +385,7 @@ $translates = array(
     "addmember" => "Gruba Kullanıcı Ekle",
     "reload" => "Yenile",
     "editevent" => "Etkinliği Düzenle",
-    "joinedevents" => "Kullanıcının Katılacağı Etkinlikler"
+    "joinedevents" => "Kullanıcının Katılacağı Etkinlikler",
+    "preevent" => "Premium Etkinlik",
+    "getpre" => "Premium Al"
 );

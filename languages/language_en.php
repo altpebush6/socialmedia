@@ -382,5 +382,7 @@ $translates = array(
     "addmember" => "Add Member to Group",
     "reload" => "Reload",
     "editevent" => "Edit Event",
-    "joinedevents" => "Events User Will Attend"
+    "joinedevents" => "Events User Will Attend",
+    "preevent" => "Premium Event",
+    "getpre" => "Buy Premium"
 );

@@ -3220,14 +3220,14 @@ textarea.form-control-lg {
 }
 
 .btn-outline-theme {
-  color: #5a49e3;
-  border-color: #5a49e3;
+  color: #5a49e3 !important;
+  border-color: #5a49e3 !important;
 }
 
 .btn-outline-theme:hover {
-  color: #fff;
-  background-color: #5a49e3;
-  border-color: #5a49e3;
+  color: #fff !important;
+  background-color: #5a49e3 !important;
+  border-color: #5a49e3 !important;
 }
 
 .btn-outline-primary {
@@ -7914,11 +7914,7 @@ textarea.form-control-lg {
 }
 
 .bg-navbar {
-  background: linear-gradient(rgba(65, 0, 185, 0.4), rgba(0, 68, 133, 0.4)) !important;
-}
-
-.bg-navbar-name {
-  background: linear-gradient(rgba(0, 68, 133, 0.4), rgba(65, 0, 185, 0.4)) !important;
+  background: linear-gradient(#5a49e3, #6657df, #5a49e3) !important;
 }
 
 .bg-noti {

@@ -95,8 +95,16 @@ body {
     color: #5a49e3;
 }
 
+.dislike{
+    color:#5a49e3;
+}
+.dislike:hover{
+    color:#362a92;
+}
+
 .btn-post {
     background-color: #5a49e3 !important;
+    color: white !important;
     transition: 0.1s;
 }
 
@@ -500,13 +508,17 @@ body {
 .order,
 .organizer {
     position: fixed;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.3);
     right: 0px;
     top: 30%;
     width: 200px;
     border: 1px solid #dee2e6 !important;
     border-right: none !important;
     z-index: 5;
+}
+
+.organizer {
+    background: rgba(90, 73, 227, 0.3) !important;
 }
 
 .order-events {
@@ -538,7 +550,7 @@ body {
 .category_names {
     font-family: 'Merriweather', serif;
     font-weight: bold;
-    background: -webkit-linear-gradient(rgba(0, 43, 83, 0.8), rgba(23, 0, 66, 0.8));
+    background: -webkit-linear-gradient(#5a49e3, rgba(23, 0, 66, 0.8));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -598,7 +610,6 @@ body {
     position: absolute;
     left: -2px;
     top: -2px;
-    box-shadow: 1px 1px 1px 1px rgb(43, 43, 43);
     background: linear-gradient(to right, #AA771C, #f5eb7f, #B38728, #f5eb7f, #AA771C);
     background-size: 200%;
     width: calc(100% + 4px);

@@ -82,7 +82,7 @@ switch ($operation) {
                                       </div>      
                                       <div class="col-10 d-flex justify-content-start p-0 text-start message-content-img">
                                         <a class="w-33" href="message_images/' . $msgName . '">' . $messageimage . '</a>
-                                        <span class="time-img text-light fs-6 m-2 p-1 align-self-end rounded-2 position-absolute" style="font-size: 13px !important;">
+                                        <span class="time-img text-dark fs-6 m-2 p-1 align-self-end rounded-2 position-absolute" style="font-size: 13px !important;">
                                         ' . messageTime($item->MessageAddTime) . '
                                         </span>
                                       </div>
@@ -157,7 +157,7 @@ switch ($operation) {
         $resultcontent = $MemberName . ": " . $messageText;
 
         if (!$ishave) {
-          $result["nonconversation"] = '<a class="text-light text-decoration-none" id="person_' . $personID . '" href="http://localhost/aybu/socialmedia/' . $translates['messages'] . '/' . $personID . '" style=\'background:rgba(255, 255, 255, 0.2)\'>
+          $result["nonconversation"] = '<a class="text-dark text-decoration-none" id="person_' . $personID . '" href="http://localhost/aybu/socialmedia/' . $translates['messages'] . '/' . $personID . '" style=\'background:rgba(255, 255, 255, 0.2)\'>
                                         <div class="row my-2 justify-content-center align-items-center">
                                           <div class="col-2 text-center">
                                             <img src="images_profile/' . $getprofileimg . '" class="rounded-circle" width="60" height="60">
@@ -177,7 +177,7 @@ switch ($operation) {
                                         </div>
                                       </a>';
         } else {
-          $result["conversationtrue"] = '<a class="text-light text-decoration-none" id="person_' . $personID . '" href="http://localhost/aybu/socialmedia/' . $translates['messages'] . '/' . $personID . '" style=\'background:rgba(255, 255, 255, 0.2)\'>
+          $result["conversationtrue"] = '<a class="text-dark text-decoration-none" id="person_' . $personID . '" href="http://localhost/aybu/socialmedia/' . $translates['messages'] . '/' . $personID . '" style=\'background:rgba(255, 255, 255, 0.2)\'>
                                         <div class="row my-2 justify-content-center align-items-center">
                                           <div class="col-2 text-center">
                                             <img src="images_profile/' . $getprofileimg . '" class="rounded-circle" width="60" height="60">
@@ -281,10 +281,10 @@ switch ($operation) {
                                     </div>      
                                     <div class="col-10 d-flex justify-content-start p-0 text-start message-content-img">
                                       <a class="w-33" href="message_images/' . $msgName . '">
-                                      <div class="position-absolute bg-dark text-light m-1 p-1 rounded-2" style="font-size:13px;">' . $personNames . '</div>
+                                      <div class="position-absolute bg-dark text-dark m-1 p-1 rounded-2" style="font-size:13px;">' . $personNames . '</div>
                                       ' . $messageimage . '
                                       </a>
-                                      <span class="time-img text-light fs-6 m-2 p-1 align-self-end rounded-2 position-absolute" style="font-size: 13px !important;">
+                                      <span class="time-img text-dark fs-6 m-2 p-1 align-self-end rounded-2 position-absolute" style="font-size: 13px !important;">
                                       ' . messageTime($item->MessageAddTime) . '
                                       </span>
                                     </div>
@@ -300,7 +300,7 @@ switch ($operation) {
                                   <div class="col-2 p-0" style="width:auto;max-width:250px;min-width:75px;">
                                     <div class="row align-items-center bg-light text-dark rounded-3" style="height:100%;max-width:200px;">
                                       <div class="p-0 w-100" style="width:auto;max-width:200px;">
-                                        <p class="m-0 px-2 text-break bg-dark text-light border-bottom" style="font-size:13px;padding-bottom:1px;padding-top:1px;border-top-left-radius:0.3rem;border-top-right-radius:0.3rem;">' . $personNames . '</p>
+                                        <p class="m-0 px-2 text-break bg-dark text-dark border-bottom" style="font-size:13px;padding-bottom:1px;padding-top:1px;border-top-left-radius:0.3rem;border-top-right-radius:0.3rem;">' . $personNames . '</p>
                                         <p class="m-0 py-1 px-2 fs-6 text-break">' . $item->MessageText . '</p>
                                       </div>
                                       <div class="bg-light text-dark text-end px-2 rounded-3" style="border-top-left-radius:0px !important;border-top-right-radius:0px !important;font-size:12px">
@@ -327,7 +327,7 @@ switch ($operation) {
 
         $content = ($MessageFromID == $memberid  ? $translates["you"] : $MessageFromName) . ": " . $messageText;
 
-        $result["conversationtrue"] = '<a class="text-light text-decoration-none" id="person_' . $GroupID . '" href=\'http://localhost/aybu/socialmedia/' . $translates['messages'] . '/' . $translates["group"] . '/' . $GroupID . '\'>
+        $result["conversationtrue"] = '<a class="text-dark text-decoration-none" id="person_' . $GroupID . '" href=\'http://localhost/aybu/socialmedia/' . $translates['messages'] . '/' . $translates["group"] . '/' . $GroupID . '\'>
                                       <div class="row my-2 justify-content-center align-items-center">
                                         <div class="col-2 text-center">
                                           <img src="group_images/' . $Groupimage . '" class="rounded-circle" width="60" height="60">
@@ -493,7 +493,7 @@ switch ($operation) {
       $resultcontent = $MemberName . ": " . $messageText;
 
       if (!$ishave) {
-        $result["nonconversation"] = '<a class="text-light text-decoration-none" id="person_' . $personID . '" href="http://localhost/aybu/socialmedia/' . $translates['messages'] . '/' . $personID . '">
+        $result["nonconversation"] = '<a class="text-dark text-decoration-none" id="person_' . $personID . '" href="http://localhost/aybu/socialmedia/' . $translates['messages'] . '/' . $personID . '">
                                         <div class="row my-2 justify-content-center align-items-center">
                                           <div class="col-2 text-center">
                                             <img src="images_profile/' . $getprofileimg . '" class="rounded-circle" width="60" height="60">
@@ -513,7 +513,7 @@ switch ($operation) {
                                         </div>
                                       </a>';
       } else {
-        $result["conversationtrue"] = '<a class="text-light text-decoration-none" id="person_' . $personID . '" href="http://localhost/aybu/socialmedia/' . $translates['messages'] . '/' . $personID . '">
+        $result["conversationtrue"] = '<a class="text-dark text-decoration-none" id="person_' . $personID . '" href="http://localhost/aybu/socialmedia/' . $translates['messages'] . '/' . $personID . '">
                                           <div class="row my-2 justify-content-center align-items-center">
                                             <div class="col-2 text-center">
                                               <img src="images_profile/' . $getprofileimg . '" class="rounded-circle" width="60" height="60">
@@ -568,7 +568,7 @@ switch ($operation) {
           $resultcontent = $MemberName . ": " . $messageText;
 
 
-          $result["conversationtrue"] = '<a class="text-light text-decoration-none" id="person_' . $groupID . '" href=\'http://localhost/aybu/socialmedia/' . $translates['messages'] . '/' . $translates["group"] . '/' . $groupID . '\'>
+          $result["conversationtrue"] = '<a class="text-dark text-decoration-none" id="person_' . $groupID . '" href=\'http://localhost/aybu/socialmedia/' . $translates['messages'] . '/' . $translates["group"] . '/' . $groupID . '\'>
                                         <div class="row my-2 justify-content-center align-items-center">
                                           <div class="col-2 text-center">
                                             <img src="group_images/' . $groupimg . '" class="rounded-circle" width="60" height="60">
@@ -691,7 +691,7 @@ switch ($operation) {
           $resultcontent = $translates["you"] . ": " . $messageText . " " . $tic;
           $ishave = $db->getData("SELECT * FROM messages WHERE MessageStatus = ? AND ((MessageFromID = ? AND MessageToID = ?) OR (MessageFromID = ? AND MessageToID = ?))", array(1, $fromID, $toID, $toID, $fromID));
           if (!$ishave) {
-            $result["nonconversation"] = '<a class="text-light text-decoration-none" id="person_' . $personID . '" href="http://localhost/aybu/socialmedia/' . $translates['messages'] . '/' . $personID . '">
+            $result["nonconversation"] = '<a class="text-dark text-decoration-none" id="person_' . $personID . '" href="http://localhost/aybu/socialmedia/' . $translates['messages'] . '/' . $personID . '">
                                             <div class="row my-2 justify-content-center align-items-center">
                                               <div class="col-2 text-center">
                                                 <img src="images_profile/' . $getprofileimg . '" class="rounded-circle" width="60" height="60">
@@ -711,7 +711,7 @@ switch ($operation) {
                                             </div>
                                           </a>';
           } else {
-            $result["conversationtrue"] = '<a class="text-light text-decoration-none" id="person_' . $personID . '" href="http://localhost/aybu/socialmedia/' . $translates['messages'] . '/' . $personID . '">
+            $result["conversationtrue"] = '<a class="text-dark text-decoration-none" id="person_' . $personID . '" href="http://localhost/aybu/socialmedia/' . $translates['messages'] . '/' . $personID . '">
                                               <div class="row my-2 justify-content-center align-items-center">
                                                 <div class="col-2 text-center">
                                                   <img src="images_profile/' . $getprofileimg . '" class="rounded-circle" width="60" height="60">
@@ -785,7 +785,7 @@ switch ($operation) {
 
           $result["personID"] = $groupID;
           $resultcontent = $translates["you"] . ": " . $messageText;
-          $result["conversationtrue"] = '<a class="text-light text-decoration-none" id="person_' . $groupID . '" href\'http://localhost/aybu/socialmedia/' . $translates['messages'] . '/' . $translates["group"] . '/' . $groupID . '\'>
+          $result["conversationtrue"] = '<a class="text-dark text-decoration-none" id="person_' . $groupID . '" href\'http://localhost/aybu/socialmedia/' . $translates['messages'] . '/' . $translates["group"] . '/' . $groupID . '\'>
                                           <div class="row my-2 justify-content-center align-items-center">
                                             <div class="col-2 text-center">
                                               <img src="group_images/' . $groupimage . '" class="rounded-circle" width="60" height="60">
@@ -851,11 +851,11 @@ switch ($operation) {
                                 </div>      
                                 <div class="col-10 d-flex justify-content-end p-0 text-end message-content-img">
                                   <a class="w-33" href="' . $target . '">' . $imgmsg . '</a>
-                                  <span class="time-img text-light fs-6 m-2 p-1 align-self-start rounded-2 position-absolute" style="font-size: 13px !important;">
+                                  <span class="time-img text-dark fs-6 m-2 p-1 align-self-start rounded-2 position-absolute" style="font-size: 13px !important;">
                                     <i class="fas fa-trash text-danger fs-6 del-img" onClick=\'DeleteMessage("deletemessage","' . $sql . '")\'></i>
                                     ' . messageTime($messagetime) . '
                                   </span>
-                                  <span class="seentic time-img text-light m-2 p-1 align-self-end rounded-2 position-absolute" style="font-size: 9px !important;">
+                                  <span class="seentic time-img text-dark m-2 p-1 align-self-end rounded-2 position-absolute" style="font-size: 9px !important;">
                                   ' . $tic . '
                                   </span>
                                 </div>
@@ -906,7 +906,7 @@ switch ($operation) {
         $ishave = $db->getData("SELECT * FROM messages WHERE MessageStatus = ? AND ((MessageFromID = ? AND MessageToID = ?) OR (MessageFromID = ? AND MessageToID = ?))", array(1, $fromID, $toID, $toID, $fromID));
 
         if (!$ishave) {
-          $result["nonconversation"] = '<a class="text-light text-decoration-none" id="person_' . $personID . '" href="http://localhost/aybu/socialmedia/' . $translates['messages'] . '/' . $personID . '" style=\'background:rgba(255, 255, 255, 0.2)\'>
+          $result["nonconversation"] = '<a class="text-dark text-decoration-none" id="person_' . $personID . '" href="http://localhost/aybu/socialmedia/' . $translates['messages'] . '/' . $personID . '" style=\'background:rgba(255, 255, 255, 0.2)\'>
                                           <div class="row my-2 justify-content-center align-items-center">
                                             <div class="col-2 text-center">
                                               <img src="images_profile/' . $getprofileimg . '" class="rounded-circle" width="60" height="60">
@@ -926,7 +926,7 @@ switch ($operation) {
                                           </div>
                                         </a>';
         } else {
-          $result["conversationtrue"] = '<a class="text-light text-decoration-none" id="person_' . $personID . '" href="http://localhost/aybu/socialmedia/' . $translates['messages'] . '/' . $personID . '" style=\'background:rgba(255, 255, 255, 0.2)\'>
+          $result["conversationtrue"] = '<a class="text-dark text-decoration-none" id="person_' . $personID . '" href="http://localhost/aybu/socialmedia/' . $translates['messages'] . '/' . $personID . '" style=\'background:rgba(255, 255, 255, 0.2)\'>
                                           <div class="row my-2 justify-content-center align-items-center">
                                             <div class="col-2 text-center">
                                               <img src="images_profile/' . $getprofileimg . '" class="rounded-circle" width="60" height="60">
@@ -979,7 +979,7 @@ switch ($operation) {
                                   </div>      
                                   <div class="col-10 d-flex justify-content-end p-0 text-end message-content-img">
                                     <a class="w-33" href="' . $target . '">' . $imgmsg . '</a>
-                                    <span class="time-img text-light fs-6 m-2 p-1 align-self-start rounded-2 position-absolute" style="font-size: 13px !important;">
+                                    <span class="time-img text-dark fs-6 m-2 p-1 align-self-start rounded-2 position-absolute" style="font-size: 13px !important;">
                                       <i class="fas fa-trash text-danger fs-6 del-img" onClick=\'DeleteMessage("deletemessage_group","' . $sql . '")\'></i>
                                       ' . messageTime($messagetime) . '
                                     </span>
@@ -1001,7 +1001,7 @@ switch ($operation) {
 
         $resultcontent = $translates["you"] . ': ' . '<i class="fas fa-camera"></i> ' . $translates["photo"];
 
-        $result["conversationtrue"] = '<a class="text-light text-decoration-none" id="person_' . $groupID . '" href\'http://localhost/aybu/socialmedia/' . $translates['messages'] . '/' . $translates["group"] . '/' . $groupID . '\'>
+        $result["conversationtrue"] = '<a class="text-dark text-decoration-none" id="person_' . $groupID . '" href\'http://localhost/aybu/socialmedia/' . $translates['messages'] . '/' . $translates["group"] . '/' . $groupID . '\'>
                                         <div class="row my-2 justify-content-center align-items-center">
                                           <div class="col-2 text-center">
                                             <img src="group_images/' . $groupimage . '" class="rounded-circle" width="60" height="60">
@@ -1262,7 +1262,7 @@ switch ($operation) {
         $addtochatbox = $db->Insert("INSERT INTO chatbox SET GroupID = ?, GroupMembers = ?", array($addtogroups, $GroupMembers));
         $result["success"] = $translates["grouphascreated"];
         $groupMessage = $user_name . " " . $translates["personcreatedgroup"];
-        $result["groupcontact"] = '<a class="text-light text-decoration-none" id="group_' . $addtogroups . '" href=\'http://localhost/aybu/socialmedia/' . $translates["messages"] . '/' . $translates["group"] . '/' . $addtogroups . '\'>
+        $result["groupcontact"] = '<a class="text-dark text-decoration-none" id="group_' . $addtogroups . '" href=\'http://localhost/aybu/socialmedia/' . $translates["messages"] . '/' . $translates["group"] . '/' . $addtogroups . '\'>
                                     <div class="row my-2 justify-content-center align-items-center">
                                       <div class="col-2 text-center">
                                         <img src="group_images/' . $groupimg . '" class="rounded-circle" width="60" height="60">

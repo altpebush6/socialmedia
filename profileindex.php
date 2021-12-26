@@ -66,7 +66,7 @@ if ($part) {
         <img class="w-100 h-40 h-md-45" src="images_cover/<?= $cover_photo ?>">
       </a>
       <?php if (!$part or ($memberid == $part)) { ?>
-        <button class="align-self-end text-decoration-none btn-sm bg-primary p-2 mb-2 me-2 rounded-3 text-light" style="position:absolute;border:none;" data-bs-toggle="modal" data-bs-target="#CoverPhotoModal">
+        <button class="align-self-end text-decoration-none btn-sm btn-post p-2 mb-2 me-2 rounded-3 text-light" style="position:absolute;border:none;" data-bs-toggle="modal" data-bs-target="#CoverPhotoModal">
           <i class="fas fa-image"></i> <label style="cursor: pointer;"><?= $translates["addcoverphoto"] ?></label>
         </button>
       <?php } ?>
@@ -85,8 +85,24 @@ if ($part) {
     </div>
   </div>
   <div class="row justify-content-center">
-    <div class="col-3 text-center text-light py-2 fs-4 bg-navbar-name" style="border-top-left-radius:20px !important;border-top-right-radius:20px !important;"><?= $user_name . " " . $user_lastname ?></div>
+    <div class="col-3 text-center text-light py-2 fs-2 border-bottom" style="color:#5a49e3 !important;font-weight:500;border-top-left-radius:20px !important;border-top-right-radius:20px !important;"><?= $user_name . " " . $user_lastname ?></div>
   </div>
+  <?php
+  if ($part) {
+    $memberBio = $db->getColumnData("SELECT Biography FROM memberbiography WHERE MemberID = ?", array($part));
+  } else {
+    $memberBio = $db->getColumnData("SELECT Biography FROM memberbiography WHERE MemberID = ?", array($memberid));
+  }
+  if ($memberBio) { ?>
+    <div class="row justify-content-center mb-4 pt-1">
+      <div class="row position-absolute">
+        <div class="col-3 offset-6 text-center pe-5"><i class="fas fa-edit" style="cursor:pointer"></i></div>
+      </div>
+      <div class="col-3 text-center text-dark py-2 fs-4 mt-2" style="border-bottom-left-radius:20px !important;border-bottom-right-radius:20px !important;">
+        <span class="fs-6"><?= $memberBio ?></span>
+      </div>
+    </div>
+  <?php } ?>
   <div class="row justify-content-center bg-navbar" style="border-radius: 10px;">
     <div class="col-4 text-center p-3 fs-5 text-light d-flex align-items-center justify-content-center" style="border-right:1px solid gray;">
       <?php if (!$part or $memberid == $part) { ?>
@@ -126,20 +142,7 @@ if ($part) {
       <?php } ?>
     </div>
   </div>
-  <?php
-  if ($part) {
-    $memberBio = $db->getColumnData("SELECT Biography FROM memberbiography WHERE MemberID = ?", array($part));
-  } else {
-    $memberBio = $db->getColumnData("SELECT Biography FROM memberbiography WHERE MemberID = ?", array($memberid));
-  }
-  if ($memberBio) { ?>
 
-    <div class="row justify-content-center">
-      <div class="col-3 text-center text-light py-2 fs-4 bg-navbar-name" style="border-bottom-left-radius:20px !important;border-bottom-right-radius:20px !important;">
-        <span class="fs-6"><?= $memberBio ?></span>
-      </div>
-    </div>
-  <?php } ?>
   <?php
   if (($isfriend or $isfriend2) or !$part or ($memberid == $part)) {
     if ($part) {
@@ -156,7 +159,7 @@ if ($part) {
               $clubinfos = $db->getData("SELECT * FROM clubs WHERE ClubID = ? AND ClubState = ?", array($club->ClubID, 1));
             ?>
               <a class="text-light" href="http://localhost/aybu/socialmedia/<?= $translates["clubs"] ?>/<?= $club->ClubID ?>">
-                <div class="border item carousel-div d-flex justify-content-center align-items-center mx-3 rounded-circle" style="width:85px;height:85px;background-image: url('club_images/<?= $clubinfos->ClubImg ?>');"></div>
+                <div class="border shadow mb-4 item carousel-div d-flex justify-content-center align-items-center mx-3 rounded-circle" style="width:85px;height:85px;background-image: url('club_images/<?= $clubinfos->ClubImg ?>');"></div>
               </a>
             <?php } ?>
           </div>
@@ -172,7 +175,7 @@ if ($part) {
       <div class="container my-5">
         <div class="row">
           <div class="col-12 mb-2" style="border-bottom: 1px solid rgba(46, 46, 46, 0.2);">
-            <h2 class="header text-light text-center" style="font-family: 'Libre Baskerville', serif;"><?= $translates["joinedevents"] ?></h2>
+            <h2 class="header text-dark text-center" style="font-family: 'Libre Baskerville', serif;"><?= $translates["joinedevents"] ?></h2>
           </div>
         </div>
         <div class="row">
@@ -181,7 +184,7 @@ if ($part) {
               <?php foreach ($memberEvents as $eachEvent) {
                 $event = $db->getData("SELECT * FROM events WHERE EventID = ?", array($eachEvent->EventID)); ?>
                 <div class="pe-5">
-                  <div class="row border rounded-3 each-event" style="width:500px;height:26vh;overflow:hidden;">
+                  <div class="row border rounded-3 each-event shadow mb-4" style="width:500px;height:26vh;overflow:hidden;">
                     <div class="col-5 m-0 p-0">
                       <img src="events_images/<?= $event->EventImage ?>" class="w-100 rounded-3" style="height:100%">
                     </div>
@@ -198,7 +201,7 @@ if ($part) {
                         <div class="col-12 p-0 cuttheline">~<?= $event->EventDateTime ?></div>
                         <div class="col-12 p-0 cuttheline">~<?= $event->EventParticipant ?> <?= $translates["participant"] ?></div>
                       </div>
-                      <div class="p-0 fs-3 text-end text-light" style="height:2vh;">
+                      <div class="p-0 fs-3 text-end text-dark" style="height:2vh;">
                         <?= ($event->EventPrice == 0 ? $translates['free'] : $event->EventPrice . "₺") ?>
                       </div>
                     </div>
@@ -215,12 +218,12 @@ if ($part) {
         <div class="col-12" style="border-bottom: 1px solid rgba(46, 46, 46, 0.2);">
           <div class="row justify-content-end">
             <div class="col-12 mb-2">
-              <h2 class="header text-light text-center" style="font-family: 'Libre Baskerville', serif;"><?= $translates["courses"] ?></h2>
+              <h2 class="header text-dark text-center" style="font-family: 'Libre Baskerville', serif;"><?= $translates["courses"] ?></h2>
             </div>
             <?php
             if ($memberid == $part || !$part) { ?>
               <div class="col-3 pt-2 position-absolute text-end">
-                <button class="btn btn-dark  w-50" data-bs-toggle="modal" data-bs-target="#courseModal"><i class="fas fa-plus"></i> <?= $translates["addcourse"] ?></button>
+                <button class="btn btn-dark w-50 shadow" data-bs-toggle="modal" data-bs-target="#courseModal"><i class="fas fa-plus"></i> <?= $translates["addcourse"] ?></button>
               </div>
             <?php } ?>
           </div>
@@ -237,12 +240,12 @@ if ($part) {
               foreach ($memberCourses as $membercourse) {
                 $course = $db->getData("SELECT * FROM courses WHERE CourseID = ?", array($membercourse->CourseID));
             ?>
-                <div class="col-2 text-center btn btn-lg btn-success fs-5 me-1 mb-1" title="<?= $course->CourseName ?>">
+                <div class="col-2 shadow text-center btn btn-lg btn-success fs-5 me-1 mb-1" title="<?= $course->CourseName ?>">
                   <?= $course->CourseCode ?>
                 </div>
               <?php }
             } else { ?>
-              <div class="col-10 mx-auto my-3 p-4 text-light fs-5 text-center rounded-3 border"><?= $translates["nocourse"] ?></div>
+              <div class="col-10 mx-auto my-3 p-4 text-dark fs-5 text-center rounded-3 border"><?= $translates["nocourse"] ?></div>
             <?php } ?>
           </div>
         </div>
@@ -252,20 +255,20 @@ if ($part) {
       <div class="row">
         <div class="col-6" style="border-right: 1px solid rgba(46, 46, 46, 0.2);">
           <div class="row justify-content-end profile-about">
-            <h2 class="header text-light text-center" style="font-family: 'Libre Baskerville', serif;"><?= $translates["About"] ?></h2>
+            <h2 class="header text-dark text-center" style="font-family: 'Libre Baskerville', serif;"><?= $translates["About"] ?></h2>
             <?php if (!$part or $memberid == $part) { ?>
               <div class="col-2 align-self-start position-absolute text-end about-edit">
-                <a class="text-light" href="http://localhost/aybu/socialmedia/<?= $translates["settings"] ?>"><i class="far fa-edit"></i></a>
+                <a class="text-dark" href="http://localhost/aybu/socialmedia/<?= $translates["settings"] ?>"><i class="far fa-edit"></i></a>
               </div>
             <?php } ?>
           </div>
         </div>
         <div class="col-6">
           <div class="row justify-content-end profile-cv">
-            <h2 class="header text-light text-center" style="font-family: 'Libre Baskerville', serif;"><?= $translates["resume"] ?></h2>
+            <h2 class="header text-dark text-center" style="font-family: 'Libre Baskerville', serif;"><?= $translates["resume"] ?></h2>
             <?php if (!$part or $memberid == $part) { ?>
               <div class="col-2 align-self-start position-absolute text-end cv-edit">
-                <a class="text-light" href="http://localhost/aybu/socialmedia/<?= $translates["settings"] ?>"><i class="far fa-edit"></i></a>
+                <a class="text-dark" href="http://localhost/aybu/socialmedia/<?= $translates["settings"] ?>"><i class="far fa-edit"></i></a>
               </div>
             <?php } ?>
           </div>
@@ -274,7 +277,7 @@ if ($part) {
       <hr>
       <div class="row">
         <div class="col-6">
-          <ul class="list-group rounded-1 mb-3">
+          <ul class="list-group rounded-1 mb-3 shadow">
             <?php
             if ($part) {
               $person_abouts = $db->getData("SELECT * FROM memberabout WHERE MemberID = ?", array($part));
@@ -310,13 +313,13 @@ if ($part) {
                 }
 
             ?>
-                <a class="list-group-item text-center bg-transparent text-light p-3"><span class="fw-bold"><?= $translates[$key] ?>: </span><?= $value ?></a>
+                <a class="list-group-item text-center bg-transparent text-dark p-3"><span class="fw-bold"><?= $translates[$key] ?>: </span><?= $value ?></a>
             <?php }
             } ?>
           </ul>
         </div>
         <div class="col-6">
-          <ul class="list-group rounded-1 mb-3">
+          <ul class="list-group rounded-1 mb-3 shadow">
             <?php
             if ($part) {
               $person_resume = $db->getData("SELECT * FROM memberresume WHERE MemberID = ?", array($part));
@@ -325,7 +328,7 @@ if ($part) {
             }
             foreach ($person_resume as $key => $value) {
               if ($value && $key != "MemberID" && $key != "ResumeID") { ?>
-                <a class="list-group-item text-center bg-transparent text-light p-3"><span class="fw-bold"><?= $translates[$key] ?>: </span><?= $value ?></a>
+                <a class="list-group-item text-center bg-transparent text-dark p-3"><span class="fw-bold"><?= $translates[$key] ?>: </span><?= $value ?></a>
             <?php }
             } ?>
           </ul>
@@ -334,27 +337,27 @@ if ($part) {
 
     </div>
 
-    <div class="row my-4 d-flex justify-content-center" id="posts_container">
-      <h2 class="header text-light text-center border-bottom pb-3 w-50" style="font-family: 'Libre Baskerville', serif;"><?= $translates["posts"] ?></h2>
+    <div class="row my-4 d-flex justify-content-center shadow pt-5" id="posts_container">
+      <h2 class="header text-dark text-center border-bottom pb-3 w-50" style="font-family: 'Libre Baskerville', serif;"><?= $translates["posts"] ?></h2>
       <?php require_once "posts_profile.php"; ?>
     </div>
   <?php } elseif ($sentrequest) { ?>
     <div class="row my-3 text-center text-dark fs-3" id="doknow">
       <h2><?php echo ($language == 'en' ? $translates["requesthassent"] . $user_name : $user_name . $translates["requesthassent"]) ?></h2>
       <p><?= $translates["waitrequest"] ?></p>
-      <button class="btn btn-outline-light w-75 mx-auto" id="SentFriendButton" onClick="FriendButton('remove','<?= $part ?>')"><i class="fas fa-user-plus"></i> <?= $translates["friendrequestsent"] ?></button>
+      <button class="btn btn-outline-theme w-75 mx-auto" id="SentFriendButton" onClick="FriendButton('remove','<?= $part ?>')"><i class="fas fa-user-plus"></i> <?= $translates["friendrequestsent"] ?></button>
     </div>
   <?php } elseif ($hasrequest) { ?>
     <div class="row my-3 text-center text-dark fs-3" id="doknow">
       <h2><?php echo ($language == 'en' ? $translates["doknow"] . $user_name : $user_name . $translates["doknow"]) . "?" ?></h2>
       <p><?= $translates["admitrequestp"] ?></p>
-      <button class="btn btn-outline-light w-75 mx-auto" id="RequestFriendButton" onClick="FriendButton('requestAccept','<?= $part ?>')"><i class="fas fa-user-plus"></i> <?= $translates["admitrequest"] ?></button>
+      <button class="btn btn-outline-theme w-75 mx-auto" id="RequestFriendButton" onClick="FriendButton('requestAccept','<?= $part ?>')"><i class="fas fa-user-plus"></i> <?= $translates["admitrequest"] ?></button>
     </div>
   <?php } elseif (!$isfriend2 and !$isfriend) { ?>
     <div class="row my-3 text-center text-dark fs-3" id="doknow">
       <h2><?php echo ($language == 'en' ? $translates["doknow"] . $user_name : $user_name . $translates["doknow"]) . "?" ?></h2>
       <p><?= $translates["sendrequestp"] ?></p>
-      <button class="btn btn-outline-light w-75 mx-auto" id="addFriendButton" onClick="FriendButton('add','<?= $part ?>')"><i class="fas fa-user-plus"></i> <?= $translates["addfriend"] ?></button>
+      <button class="btn btn-outline-theme w-75 mx-auto" id="addFriendButton" onClick="FriendButton('add','<?= $part ?>')"><i class="fas fa-user-plus"></i> <?= $translates["addfriend"] ?></button>
     </div>
   <?php } ?>
 </div>
@@ -383,7 +386,7 @@ if ($part) {
         </form>
       </div>
       <hr id="result_cvr_hr" style="display:none">
-      <div id="result_cvr_img" class="bg-danger text-light mx-auto mb-3 text-center rounded-3" style="display:none;"></div>
+      <div id="result_cvr_img" class="bg-danger text-dark mx-auto mb-3 text-center rounded-3" style="display:none;"></div>
     </div>
   </div>
 </div>
@@ -424,7 +427,7 @@ if ($part) {
         </form>
       </div>
       <hr id="result_pr_hr" style="display:none">
-      <div id="result_pr_img" class="bg-danger text-light mx-auto mb-3 text-center rounded-3" style="display:none;"></div>
+      <div id="result_pr_img" class="bg-danger text-dark mx-auto mb-3 text-center rounded-3" style="display:none;"></div>
     </div>
   </div>
 </div>
@@ -587,7 +590,7 @@ if ($part) {
       $("#edit_post_files_" + PostID).html('');
       let i = 0;
       while (this.files[i]) {
-        $("#edit_post_files_" + PostID).append('<div class="col-12 my-2 ps-4 fs-6"><i class="fas fa-file-alt fa-2x text-light"></i> <a class="text-light" href="">' + this.files[i]["name"] + '</a> </div>');
+        $("#edit_post_files_" + PostID).append('<div class="col-12 my-2 ps-4 fs-6"><i class="fas fa-file-alt fa-2x text-dark"></i> <a class="text-dark" href="">' + this.files[i]["name"] + '</a> </div>');
         i++;
       }
       if (window.URL.createObjectURL(this.files[4])) {
