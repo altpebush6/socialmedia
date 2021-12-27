@@ -320,7 +320,7 @@ if ($counter > 0) {
                     <label style="cursor:pointer;"> ' . $translates["likepost"] . ' (' . $count_like . ')</label>
                    </a>';
     } else {
-      $result["state"] .= '<a class="text-info text-decoration-none text-dark" onClick=\'Like("decreaseLike","' . $post->PostID . '")\'>
+      $result["state"] .= '<a class="text-decoration-none dislike" onClick=\'Like("decreaseLike","' . $post->PostID . '")\'>
                     <i class="far fa-thumbs-down" style="cursor:pointer;"></i>
                     <label style="cursor:pointer;"> ' . $translates["dislikepost"] . ' (' . $count_like . ')</label>
                    </a>';

@@ -334,7 +334,7 @@ foreach ($posts as $item) {
                 <label style="cursor:pointer;"> <?= $translates["likepost"] ?> (<?= $count_like ?>)</label>
               </a>
             <?php } else { ?>
-              <a class="text-decoration-none text-dark dislike" onClick="Like('decreaseLike','<?= $post_ID ?>')">
+              <a class="text-decoration-none dislike" onClick="Like('decreaseLike','<?= $post_ID ?>')">
                 <i class="far fa-thumbs-down" style="cursor:pointer;"></i>
                 <label style="cursor:pointer;"> <?= $translates["dislikepost"] ?> (<?= $count_like ?>)</label>
               </a>

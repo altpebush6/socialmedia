@@ -106,11 +106,11 @@ body {
 }
 
 .dislike {
-    color: #5a49e3;
+    color: #5a49e3 !important;
 }
 
 .dislike:hover {
-    color: #362a92;
+    color: #362a92 !important;
 }
 
 .btn-post {
