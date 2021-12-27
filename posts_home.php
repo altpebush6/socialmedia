@@ -7,7 +7,7 @@ if ($part) {
 ?>
 
 
-  <h1 class="header text-center my-5 header-part"><u><?= $topicName ?></u></h1>
+  <!-- <h1 class="header text-center my-5 header-part"><u><?= $topicName ?></u></h1> -->
 
 <?php } ?>
 

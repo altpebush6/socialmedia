@@ -283,7 +283,6 @@ switch ($operation) {
     case 'change_hometown':
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $hometown = security("hometown");
-            $hometown = $db->getColumnData("SELECT CityName FROM cities WHERE CityID = ?", array($hometown));
             if (empty($hometown)) {
                 $db->Update("UPDATE memberabout SET
                     MemberHometown= ?
@@ -293,6 +292,7 @@ switch ($operation) {
                 $db->Update("UPDATE memberabout SET
                     MemberHometown= ?
                     WHERE MemberID = ?", array($hometown, $memberid));
+                $hometown = $db->getColumnData("SELECT CityName FROM cities WHERE CityID = ?", array($hometown));
                 $result["success"] = $hometown;
             }
         }
@@ -302,7 +302,6 @@ switch ($operation) {
     case 'change_city':
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $city = security("city");
-            $city = $db->getColumnData("SELECT CityName FROM cities WHERE CityID = ?", array($city));
             if (empty($city)) {
                 $db->Update("UPDATE memberabout SET
                     MemberCity= ?
@@ -312,6 +311,7 @@ switch ($operation) {
                 $db->Update("UPDATE memberabout SET
                     MemberCity= ?
                     WHERE MemberID = ?", array($city, $memberid));
+                $city = $db->getColumnData("SELECT CityName FROM cities WHERE CityID = ?", array($city));
                 $result["success"] = $city;
             }
         }

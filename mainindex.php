@@ -157,7 +157,7 @@ $user_namelastname = $user_name . " " . $user_lastname;
                     <?php } ?>
                     <div class="tab-pane fade p-3" id="posts" role="tabpanel"><?php require_once "posts.php"; ?></div>
                     <div class="tab-pane fade p-3" id="topics" role="tabpanel"><?php require_once "topics.php"; ?></div>
-                    <div class="tab-pane fade p-3" id="news" role="tabpanel"><?php require_once "news.php"; ?></div>
+                    <div class="tab-pane fade p-3" id="news" role="tabpanel"><?php require_once "adminnews.php"; ?></div>
                     <div class="tab-pane fade p-3" id="password" role="tabpanel"><?php require_once "password.php"; ?></div>
                 </div>
             </div>

@@ -22,7 +22,7 @@ require_once "languages/language_" . $language . ".php";
 
 <head>
   <meta charset="utf-8">
-  <title><?= $translates["loginsignup"] ?>| AYBU</title>
+  <title><?= $translates["loginsignup"] ?>| Academy Social</title>
   <base href="http://localhost/aybu/socialmedia/">
   <link rel="icon" href="images/login_logo.png" type="image/x-icon" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -69,12 +69,12 @@ require_once "languages/language_" . $language . ".php";
       </div>
       <div class="col-12 col-md-6 col-xl-6 col-xxl-6 mx-md-4">
         <div class="row justify-content-center">
-          <div class="col-6 col-md-8 col-xl-6 col-xxl-5 text-center mt-5">
-            <img src="images/login_logo.png" class="w-100">
+          <div class="col-6 col-md-8 col-xl-6 col-xxl-12 text-center mt-5">
+            <img src="images/logo.png" class="w-100">
           </div>
           <div class="col-10 col-md-12 col-xl-10 mt-3 text-center fs-3" style="color:#5a49e3;font-family: 'Glory', sans-serif;font-weight:bold;">
             <p><?= $translates["titlelogin"] ?></p>
-            <p><?= $translates["programmer"] ?>: Ebubekir Alatepe</p>
+            <p>-Ebubekir Alatepe</p>
           </div>
         </div>
       </div>

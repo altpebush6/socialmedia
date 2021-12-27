@@ -139,7 +139,7 @@
                         $categoryName = $eachcategory->CategoryName;
 
                     ?>
-                        <a href="http://localhost/aybu/socialmedia/<?= $translates["events"] ?>?pageNum=<?= $pageNum ?>&category=<?= $eachcategory->CategoryID . $uni . $price . $order ?>" class="item each_category border p-4 rounded-1 d-flex flex-column jusitfy-content-center align-items-center text-decoration-none">
+                        <a href="http://localhost/aybu/socialmedia/<?= $translates["events"] ?>?pageNum=<?= $pageNum ?>&category=<?= $eachcategory->CategoryID . $uni . $price . $order ?>" class="item each_category border p-4 rounded-1 d-flex flex-column jusitfy-content-center align-items-center shadow my-4 text-decoration-none">
                             <?= $categoryIcon ?>
                             <span class="fs-4 text-dark mt-2 category_names"><?= $categoryName ?></span>
                         </a>
@@ -200,7 +200,7 @@
             foreach ($all_events as $event) {
             ?>
                 <div class="col-4 my-3 pe-5">
-                    <div class="row rounded-3 each-event <?= $event->EventPremium ? 'eventPre' : 'border' ?>" style="height:26vh;overflow:hidden;">
+                    <div class="row rounded-3 each-event shadow <?= $event->EventPremium ? 'eventPre' : 'border' ?>" style="height:26vh;overflow:hidden;">
                         <div class="ribbon"><span>GOLD</span></div>
                         <div class="col-5 m-0 p-0">
                             <img src="events_images/<?= $event->EventImage ?>" class="w-100 rounded-3" style="height:100%">

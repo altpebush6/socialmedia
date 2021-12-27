@@ -88,7 +88,8 @@ body {
 }
 
 .header-part {
-    text-shadow: 3px 3px 1px #000f1d;
+    color: #5a49e3;
+    text-shadow: 2px 2px 1px #fff;
 }
 
 .form-control-plaintext {

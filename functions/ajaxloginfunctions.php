@@ -108,7 +108,7 @@
         var FormID2 = "form_register";
         var Operation = "completeReg";
         var MemberID = $("#complete_reg").attr("memberid");
-        var Datas = $("form#" + FormID).serialize()+"&"+$("form#" + FormID2).serialize();
+        var Datas = $("form#" + FormID).serialize() + "&" + $("form#" + FormID2).serialize();
         $("#spinnerreg").html('<i class="fas fa-spinner fa-spin"></i>');
         $("#complete_reg").prop("disabled", true);
         $.ajax({
@@ -124,9 +124,26 @@
                 } else {
                     $("#result2").html("<div class='bg-success text-white text-center mt-3 mb-1 py-2 rounded-2'><i class='fas fa-check-square'></i> " + result.success + "</div>");
                     $("form").trigger("reset");
-                    setTimeout(function(){ location.reload(); }, 1000);
+                    setTimeout(function() {
+                        location.reload();
+                    }, 1000);
                 }
             }
         });
     });
+
+    // Change Language AJAX
+    function ChangeLang(ToLang, Page, Part, Edit) {
+        $.ajax({
+            type: "POST",
+            url: SITE_URL + "/socialmedia/ajaxchangelanguage.php",
+            dataType: "json",
+            data: {
+                'toLang': ToLang
+            },
+            success: function(result) {
+                location.reload();
+            }
+        });
+    }
 </script>

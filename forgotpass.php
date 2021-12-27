@@ -24,7 +24,7 @@ require_once "languages/language_" . $language . ".php";
 <html>
 
 <head>
-    <title>AYBU | <?= $translates["resetpass"] ?></title>
+    <title>Academy Social | <?= $translates["resetpass"] ?></title>
     <base href="http://localhost/aybu/socialmedia/">
     <link rel="icon" href="images/logo.png" type="image/x-icon" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />

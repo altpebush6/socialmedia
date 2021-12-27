@@ -122,7 +122,7 @@ if (($memberid == $clubPresidentID) and ($clubRequests)) { ?>
                 }
             ?>
 
-                <div class="d-flex flex-column justify-content-between mx-1 item carousel-div text-center friend-box" style="background-image: url('images_profile/<?= $memberimg ?>');" id="clubMember_<?= $memberID ?>">
+                <div class="d-flex flex-column justify-content-between mx-1 item carousel-div text-center friend-box" style="width:200px !important;height:200px !important;background-image: url('images_profile/<?= $memberimg ?>');" id="clubMember_<?= $memberID ?>">
                     <?php if ($clubPresidentID == $memberid) { ?>
                         <div class="row justify-content-end">
                             <button class="col-3 m-0 p-0 text-center text-dark d-flex justify-content-center align-items-center rounded-circle removeMemberDiv me-2 opt_dropdown dropbtn" memid="<?= $memberID ?>"><i class="fas fa-ellipsis-h"></i></button>

@@ -149,35 +149,35 @@ $message_count = $db->getColumnData("SELECT COUNT(*) FROM chatbox WHERE MessageT
     switch ($page) {
       case 'home':
       case 'anasayfa':
-        echo "AYBU | " . $translates["Home"];
+        echo "Academy Social | " . $translates["Home"];
         break;
       case 'profile':
       case 'profil':
         if ($part) {
           $name_profile = $db->getColumnData("SELECT MemberNames FROM members WHERE MemberID = ?", array($part));
-          echo "AYBU | " . $name_profile;
+          echo "Academy Social | " . $name_profile;
         } else {
-          echo "AYBU | " . $user_namelastname;
+          echo "Academy Social | " . $user_namelastname;
         }
         break;
       case 'settings':
       case 'ayarlar':
-        echo "AYBU | " . $translates["Settings"];
+        echo "Academy Social | " . $translates["Settings"];
         break;
       case 'messages':
       case 'mesajlar':
-        echo "AYBU | " . $translates["Messages"];
+        echo "ACADEMY SOCIAL | " . $translates["Messages"];
         break;
       case 'clubs':
       case 'kulupler':
-        echo "AYBU | " . $translates["Clubs"];
+        echo "ACADEMY SOCIAL | " . $translates["Clubs"];
         break;
       case 'findfriends':
       case 'arkadasara':
-        echo "AYBU | " . $translates["Searchfriend"];
+        echo "ACADEMY SOCIAL | " . $translates["Searchfriend"];
         break;
       default:
-        echo "AYBU | " . $translates["socialmedia"];
+        echo "ACADEMY SOCIAL | " . $translates["socialmedia"];
         break;
     }
 
