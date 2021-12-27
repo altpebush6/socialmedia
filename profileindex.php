@@ -63,7 +63,7 @@ if ($part) {
   <div class="row">
     <div class="col-12 col-md-12 p-0 d-flex justify-content-end" id="user-coverphoto">
       <a class="w-100" href="images_cover/<?= $cover_photo ?>">
-        <img class="w-100 h-40 h-md-45" src="images_cover/<?= $cover_photo ?>">
+        <img class="w-100 h-40 h-md-45 shadow" src="images_cover/<?= $cover_photo ?>">
       </a>
       <?php if (!$part or ($memberid == $part)) { ?>
         <button class="align-self-end text-decoration-none btn-sm btn-post p-2 mb-2 me-2 rounded-3 text-light" style="position:absolute;border:none;" data-bs-toggle="modal" data-bs-target="#CoverPhotoModal">
@@ -72,16 +72,28 @@ if ($part) {
       <?php } ?>
     </div>
   </div>
-  <div class="row justify-content-center align-self-end mt--20 mt-md--12 mt-xl--10 mb-3" id="user-profilephoto">
-    <div class="col-4 d-flex justify-content-center">
+  <div class="row justify-content-between align-self-end mt--20 mt-md--12 mt-xl--10 mb-3" id="user-profilephoto">
+    <div class="col-4 align-self-end text-start">
+      <?php if (!$part or ($memberid == $part)) { ?>
+        <a href="http://localhost/aybu/socialmedia/<?= $translates["friends"] ?>" class="text-center text-decoration-none btn btn-post"><?= $translates["friendstitle"] . "(" . $friend_count . ")" ?></a>
+      <?php } else { ?>
+        <a href="http://localhost/aybu/socialmedia/<?= $translates["friends"] ?>/<?= $part ?>" class="text-center text-decoration-none btn btn-post"><?= $translates["friendstitle"] . "(" . $friend_count . ")" ?></a>
+      <?php } ?>
+    </div>
+    <div class="col-4 d-flex justify-content-center mx-auto">
       <div class="d-flex justify-content-end align-items-end">
         <a href="images_profile/<?= $profile_photo ?>">
-          <img title="<?= $user_name . " " . $user_lastname ?>" src="images_profile/<?= $profile_photo ?>" class='rounded-circle' width="140" height="140">
+          <img title="<?= $user_name . " " . $user_lastname ?>" src="images_profile/<?= $profile_photo ?>" class='rounded-circle shadow' width="140" height="140">
         </a>
         <?php if (!$part or ($memberid == $part)) { ?>
           <i data-bs-toggle="modal" data-bs-target="#ProfilePhotoModal" class="fas fa-camera position-absolute fs-4 text-dark mb-2 me-2" style="cursor:pointer;" title="<?= $translates["changeyourprofilephoto"] ?>"></i>
         <?php } ?>
       </div>
+    </div>
+    <div class="col-4 align-self-end text-end">
+      <?php if ($part && $memberid != $part) { ?>
+        <a class="text-decoration-none btn btn-post" href="http://localhost/aybu/socialmedia/<?= $translates["messages"] ?>/<?= $part ?>"><i class="fab fa-facebook-messenger me-1"></i> <?= $translates["message"] ?></a>
+      <?php } ?>
     </div>
   </div>
   <div class="row justify-content-center">
@@ -95,26 +107,19 @@ if ($part) {
   }
   if ($memberBio) { ?>
     <div class="row justify-content-center mb-4 pt-1">
-      <div class="row position-absolute">
-        <div class="col-3 offset-6 text-center pe-5"><i class="fas fa-edit" style="cursor:pointer"></i></div>
-      </div>
+      <?php if (!$part || $part == $memberid) { ?>
+        <div class="row position-absolute">
+          <div class="col-3 offset-6 text-center pe-5"><i class="fas fa-edit" style="cursor:pointer" data-bs-toggle="modal" data-bs-target="#bioModal"></i></div>
+        </div>
+      <?php } ?>
       <div class="col-3 text-center text-dark py-2 fs-4 mt-2" style="border-bottom-left-radius:20px !important;border-bottom-right-radius:20px !important;">
         <span class="fs-6"><?= $memberBio ?></span>
       </div>
     </div>
   <?php } ?>
-  <div class="row justify-content-center bg-navbar" style="border-radius: 10px;">
-    <div class="col-4 text-center p-3 fs-5 text-light d-flex align-items-center justify-content-center" style="border-right:1px solid gray;">
-      <?php if (!$part or $memberid == $part) { ?>
-        <a href="javascript:void(0)" class="text-decoration-none text-light" data-bs-toggle="modal" data-bs-target="#bioModal"><?= $translates["editbio"] ?></a>
-      <?php } else { ?>
-        <a class="text-decoration-none text-light" href="http://localhost/aybu/socialmedia/<?= $translates["messages"] ?>/<?= $part ?>"><i class="fab fa-facebook-messenger me-1"></i> Mesaj</a>
-      <?php } ?>
-    </div>
-    <div class="col-4 text-center p-3 fs-4 text-light d-flex align-items-center justify-content-center">
-      <?php if (!$part or $memberid == $part) { ?>
-        <span class="text-center text-light"><?= $translates["yourprofile"] ?></span>
-      <?php } else { ?>
+  <div class="row justify-content-center">
+    <div class="col-4 text-center p-3 fs-4 d-flex align-items-center justify-content-center">
+      <?php if ($part && $memberid != $part) { ?>
         <div class="friend-request" id="friend-request">
           <?php
           $isfriend = $db->getData("SELECT * FROM friends WHERE FirstMemberID = ? AND SecondMemberID = ? AND FriendRequest = ?", array($memberid, $part, 1));
@@ -123,24 +128,18 @@ if ($part) {
           $hasrequest = $db->getData("SELECT * FROM friends WHERE FirstMemberID = ? AND SecondMemberID = ? AND FriendRequest = ?", array($part, $memberid, 0));
           ?>
           <?php if ($sentrequest) { ?>
-            <button class="btn btn-outline-light" id="SentFriendButton" onClick="FriendButton('remove','<?= $part ?>')"><i class='fas fa-user-check'></i> <?= $translates["friendrequestsent"] ?></button>
+            <button class="btn btn-post" id="SentFriendButton" onClick="FriendButton('remove','<?= $part ?>')"><i class='fas fa-user-check'></i> <?= $translates["friendrequestsent"] ?></button>
           <?php } elseif ($hasrequest) { ?>
-            <button class="btn btn-outline-light" id="RequestFriendButton" onClick="FriendButton('requestAccept','<?= $part ?>')"><i class='fas fa-user-plus'></i> <?= $translates["admitrequest"] ?></button>
+            <button class="btn btn-post" id="RequestFriendButton" onClick="FriendButton('requestAccept','<?= $part ?>')"><i class='fas fa-user-plus'></i> <?= $translates["admitrequest"] ?></button>
           <?php } elseif ($isfriend or $isfriend2) { ?>
-            <button class="btn btn-outline-light" id="RemoveFriendButton" onClick="FriendButton('remove','<?= $part ?>')"><i class='fas fa-user-check'></i> <?= $translates["youarefriend"] ?></button>
+            <button class="btn btn-post" id="RemoveFriendButton" onClick="FriendButton('remove','<?= $part ?>')"><i class='fas fa-user-check'></i> <?= $translates["youarefriend"] ?></button>
           <?php } else { ?>
-            <button class="btn btn-outline-light" id="addFriendButton" onClick="FriendButton('add','<?= $part ?>')"><i class="fas fa-user-plus"></i> <?= $translates["addfriend"] ?></button>
+            <button class="btn btn-post" id="addFriendButton" onClick="FriendButton('add','<?= $part ?>')"><i class="fas fa-user-plus"></i> <?= $translates["addfriend"] ?></button>
           <?php } ?>
         </div>
       <?php } ?>
     </div>
-    <div class="col-4 p-3 fs-5 text-light d-flex align-items-center justify-content-center" style="border-left:1px solid gray;">
-      <?php if (!$part or ($memberid == $part)) { ?>
-        <a href="http://localhost/aybu/socialmedia/<?= $translates["friends"] ?>" class="text-center text-decoration-none text-light"><?= $translates["friendstitle"] . "(" . $friend_count . ")" ?></a>
-      <?php } else { ?>
-        <a href="http://localhost/aybu/socialmedia/<?= $translates["friends"] ?>/<?= $part ?>" class="text-center text-decoration-none text-light"><?= $translates["friendstitle"] . "(" . $friend_count . ")" ?></a>
-      <?php } ?>
-    </div>
+
   </div>
 
   <?php

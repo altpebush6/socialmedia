@@ -71,10 +71,10 @@ switch ($operation) {
     $result["success"] = '<li class="list-group-item bg-transparent mb-3 py-3">
                               <div class="row align-items-center justify-content-center">
                                   <div class="col-2 text-center"><img src="images_profile/' . $personimg . '" class="rounded-circle" width="50" height="50"></div>
-                                  <div class="col-7 text-light text-start">
+                                  <div class="col-7 text-dark text-start">
                                       <h4>' . $personNames . '</h4>
                                   </div>
-                                  <div class="col-3 p-0"><a class="btn btn-outline-light" href="http://localhost/aybu/socialmedia/' . $translates['profile'] . '/' . $friendid . '">' . $translates["goprofile"] . '</a></div>
+                                  <div class="col-3 p-0"><a class="btn btn-outline-theme" href="http://localhost/aybu/socialmedia/' . $translates['profile'] . '/' . $friendid . '">' . $translates["goprofile"] . '</a></div>
                               </div>';
 
     $isHave = $db->getDatas("SELECT * FROM friends WHERE SecondMemberID = ? AND FriendRequest = ?", array($memberid, 0));
@@ -88,7 +88,7 @@ switch ($operation) {
       $result["norequest"] = 'null';
       $result["request_count"] = $request_count;
     } else {
-      $result["norequest"] = '<h4 class="m-0">' . $translates["friendrequests"] ." ". '<span class="badge bg-primary friend_request_count">' . $request_count . '</span><li class="list-group-item bg-transparent" style="padding:5%;font-size:19px;color:white;border:none">' . $translates["norequest"] .'</h4></li>';
+      $result["norequest"] = '<h4 class="m-0">' . $translates["friendrequests"] ." ". '<span class="badge bg-primary friend_request_count">' . $request_count . '</span><li class="list-group-item bg-transparent text-dark" style="padding:5%;font-size:19px;border:none">' . $translates["norequest"] .'</h4></li>';
     }
     $countnoti = $db->getColumnData("SELECT COUNT(*) FROM notifications WHERE MemberID = ? AND NotificationStatus = ?",array($memberid,1));
     $result["countnoti"] = $countnoti;
@@ -107,7 +107,7 @@ switch ($operation) {
       $result["norequest"] = 'null';
       $result["request_count"] = $request_count;
     } else {
-      $result["norequest"] = '<h4 class="m-0">' . $translates["friendrequests"] ." ". '<span class="badge bg-primary friend_request_count">' . $friend_count . '</span><li class="list-group-item bg-transparent" style="padding:5%;font-size:19px;color:white;border:none">' . $translates["norequest"] . '</h4></li></h4>';
+      $result["norequest"] = '<h4 class="m-0">' . $translates["friendrequests"] ." ". '<span class="badge bg-primary friend_request_count text-dark">' . $friend_count . '</span><li class="list-group-item bg-transparent" style="padding:5%;font-size:19px;border:none">' . $translates["norequest"] . '</h4></li></h4>';
     }
     $countnoti = $db->getColumnData("SELECT COUNT(*) FROM notifications WHERE MemberID = ? AND NotificationStatus = ?",array($memberid,1));
     $result["countnoti"] = $countnoti;

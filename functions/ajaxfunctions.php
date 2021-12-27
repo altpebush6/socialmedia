@@ -607,6 +607,11 @@
     $("#" + AboutItem + "_spinner").html(' <i class="fas fa-spinner fa-spin"></i>');
     $(".submitabout").prop("disabled", true);
     var Datas = $("form#" + FormID).serialize();
+    if (FormID == "form_hobbies") {
+      var Hobbies = $("#added_hobbies").attr("hobbies");
+      Datas += "&hobbies=" + Hobbies;
+    }
+    console.log(Datas);
     $.ajax({
       type: "post",
       url: SITE_URL + "/socialmedia/ajaxsettings.php?operation=" + Operation,
@@ -623,6 +628,9 @@
           $("#contents_about_" + AboutItem).html(result.success);
           $("#about_result").removeClass("bg-danger text-light p-3 mb-3 text-center rounded-3");
           $("#about_result").html("");
+          if (AboutItem == "faculty" && result.success == '<?=$translates["undefined"]?>') {
+            $("#contents_about_department").html(result.success);
+          }
         } else if (result.error) {
           $("html, body").animate({
             scrollTop: $(document).height()
@@ -1252,10 +1260,18 @@
   });
 
   //Kulüp Events
-  function changeShdw(changeTo) {
+  function changeShdwClub(changeTo) {
     $("#posts_container-tab").removeClass("shadow");
     $("#events-tab").removeClass("shadow");
     $("#members-tab").removeClass("shadow");
+    $("#" + changeTo).addClass("shadow");
+  }
+
+  function changeShdwSettings(changeTo) {
+    $("#account-tab").removeClass("shadow");
+    $("#about-tab").removeClass("shadow");
+    $("#resume-tab").removeClass("shadow");
+    $("#password-tab").removeClass("shadow");
     $("#" + changeTo).addClass("shadow");
   }
 

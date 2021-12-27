@@ -1,6 +1,6 @@
 <div class="row mt-4" id="abouts_container">
   <div class="col-12">
-    <table class="table table-light table-hover">
+    <table class="table table-light table-hover shadow">
       <thead>
         <th></th>
         <th class="fs-4 p-3 text-center"><?= $translates["Aboutset"] ?></th>

@@ -4087,7 +4087,7 @@ textarea.form-control-lg {
 }
 
 .nav-link:hover {
-  background: rgba(0, 0, 0, 0.39) !important;
+  background: rgba(0, 0, 0, 0.39);
   color: rgba(255, 255, 255, 0.9) !important;
 }
 

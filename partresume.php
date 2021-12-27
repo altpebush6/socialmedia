@@ -1,6 +1,6 @@
 <div class="row mt-4">
     <div class="col-12">
-        <table class=" table table-light table-hover">
+        <table class="shadow table table-light table-hover">
             <thead>
                 <th></th>
                 <th class="fs-4 p-3 text-center"><?= $translates["cvset"] ?></th>
@@ -36,14 +36,13 @@
                                         <div class="col-12 p-0 mx-auto">
                                             <div class="input-group w-75 mx-auto d-flex flex-row justify-content-center">
                                                 <input type="text" id="<?= $items->NavForm ?>_input" maxlength="255" class="form-control w-50" name="<?= $items->NavForm ?>" placeholder="<?= $items->NavName ?>">
-                                                <select class="form-select ms-1 w-25" name="job_year" id="job_year">
+                                                <select class="form-select ms-1 w-25 shadow" name="job_year" id="job_year">
                                                     <?php
                                                     for ($i = 1; $i <= 10; $i++) { ?>
                                                         <option value="<?= $i ?>"><?= $i ?> <?= $translates["year"] ?></option>
                                                     <?php } ?>
                                                 </select>
-                                                <button type="button" class="btn btn-sm ms-2 rounded-3 btn-primary w-20" id="addJob"><?= $translates["add"] ?></button>
-
+                                                <button type="button" class="btn btn-sm ms-2 rounded-3 btn-outline-theme px-3" id="addJob"><?= $translates["add"] ?></button>
                                             </div>
                                         </div>
                                         <?php $alljobs = $db->getColumnData("SELECT JobExperiments FROM memberresume WHERE MemberID = ?", array($memberid)); ?>
@@ -64,11 +63,11 @@
 
                                 <?php } else { ?>
                                     <div class="w-70 mx-auto">
-                                        <input type="text" id="<?= $items->NavForm ?>_input" class="form-control form-control-sm" name="<?= $items->NavForm ?>" placeholder="<?= $items->NavName ?>">
+                                        <input type="text" id="<?= $items->NavForm ?>_input" class="form-control form-control-sm shadow" name="<?= $items->NavForm ?>" placeholder="<?= $items->NavName ?>">
                                     </div>
                                 <?php } ?>
                             </td>
-                            <td class="py-3 col-3 border-start"><button type="button" class="btn btn-sm btn-outline-primary submitresume" onClick='SendFormResume("form_<?= $items->NavForm ?>","change_<?= $items->NavForm ?>","<?= $items->NavForm ?>")'><?= $translates["save"] ?><span class="spinner" id="<?= $items->NavForm ?>_spinner"></span></button></td>
+                            <td class="py-3 col-3 border-start"><button type="button" class="btn btn-sm btn-outline-theme shadow submitresume" onClick='SendFormResume("form_<?= $items->NavForm ?>","change_<?= $items->NavForm ?>","<?= $items->NavForm ?>")'><?= $translates["save"] ?><span class="spinner" id="<?= $items->NavForm ?>_spinner"></span></button></td>
                         </div>
                     </form>
                 </tr>

@@ -3,13 +3,13 @@
     <td class="py-3">
         <div class="row flex-column">
             <div class="col-10 offset-1">
-                <input type="text" id="tv_input" autocomplete="off" class="form-control form-control-sm" name="<?= $items->NavForm ?>" placeholder="<?= $items->NavName ?>">
+                <input type="text" id="tv_input" autocomplete="off" class="form-control form-control-sm shadow" name="<?= $items->NavForm ?>" placeholder="<?= $items->NavName ?>">
             </div>
             <div class="col-10 mt-1 offset-1 text-start" id="added_tv">
             </div>
         </div>
     </td>
-    <td class="py-3 border-start"><button type="button" class="btn btn-sm btn-outline-primary submitabout" onClick='SendFormAbout("form_<?= $items->NavForm ?>","change_<?= $items->NavForm ?>","<?= $items->NavForm ?>")'><?= $translates["save"] ?><span class="spinner" id="<?= $items->NavForm ?>_spinner"></span></button></td>
+    <td class="py-3 border-start"><button type="button" class="btn btn-sm btn-outline-theme submitabout shadow" onClick='SendFormAbout("form_<?= $items->NavForm ?>","change_<?= $items->NavForm ?>","<?= $items->NavForm ?>")'><?= $translates["save"] ?><span class="spinner" id="<?= $items->NavForm ?>_spinner"></span></button></td>
 </form>
 <script>
     $(function() {

@@ -2,17 +2,17 @@
   <div class="row">
     <div class="col-12">
       <ul class="nav nav-tabs nav-fill nav-justified mt-3" id="myTab" role="tablist">
-        <li class="nav-item" role="presentation">
-          <a class="nav-link active" id="account-tab" data-bs-toggle="tab" data-bs-target="#account" type="button" role="tab"><?= $translates["Accountset"] ?></a>
+        <li class="nav-item" role="presentation" onClick="changeShdwSettings('account-tab')">
+          <a class="nav-link active shadow text-dark tabsText" id="account-tab" data-bs-toggle="tab" data-bs-target="#account" type="button" role="tab"><?= $translates["Accountset"] ?></a>
         </li>
-        <li class="nav-item" role="presentation">
-          <a class="nav-link" id="about-tab" data-bs-toggle="tab" data-bs-target="#about" type="button" role="tab"><?= $translates["Aboutset"] ?></a>
+        <li class="nav-item" role="presentation" onClick="changeShdwSettings('about-tab')">
+          <a class="nav-link text-dark tabsText" id="about-tab" data-bs-toggle="tab" data-bs-target="#about" type="button" role="tab"><?= $translates["Aboutset"] ?></a>
         </li>
-        <li class="nav-item" role="presentation">
-          <a class="nav-link" id="resume-tab" data-bs-toggle="tab" data-bs-target="#resume" type="button" role="tab"><?= $translates["resumeset"] ?></a>
+        <li class="nav-item" role="presentation" onClick="changeShdwSettings('resume-tab')">
+          <a class="nav-link text-dark tabsText" id="resume-tab" data-bs-toggle="tab" data-bs-target="#resume" type="button" role="tab"><?= $translates["resumeset"] ?></a>
         </li>
-        <li class="nav-item" role="presentation">
-          <a class="nav-link" id="password-tab" data-bs-toggle="tab" data-bs-target="#password" type="button" role="tab"><?= $translates["Passwordset"] ?></a>
+        <li class="nav-item" role="presentation" onClick="changeShdwSettings('password-tab')">
+          <a class="nav-link text-dark tabsText" id="password-tab" data-bs-toggle="tab" data-bs-target="#password" type="button" role="tab"><?= $translates["Passwordset"] ?></a>
         </li>
       </ul>
     </div>

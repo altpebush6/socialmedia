@@ -23,7 +23,7 @@ if ($friend_count) {
 }
 
 ?>
-<div class="container mt-4 friend-container">
+<div class="container mt-4 friend-container shadow">
     <div class="row justify-content-center mt-3">
         <div class="col-4 text-center">
             <img src="images_profile/<?= $profile_photo ?>" class="rounded-circle" width="150" height="150">
@@ -34,7 +34,7 @@ if ($friend_count) {
             <h2><?= $user_name . $translates["whosefriends"] . " " ?><span class="badge bg-primary friend_count" id="friend_count1"><?= $counts_friend ?></span></h2>
         </div>
     </div>
-    <hr class="text-light mb-3">
+    <hr class="text-dark mb-3">
     <?php if (!$part) { ?>
         <div class="col-12 text-center d-md-none">
             <ul class="list-group friend_requests" id="friend_requests_sm">
@@ -67,7 +67,7 @@ if ($friend_count) {
                         <li class="list-group-item bg-transparent each_request_<?= $items->FriendID ?>" id="each_request_sm_<?= $items->FriendID ?>">
                             <div class="row justify-content-center align-items-center">
                                 <div class="col-2"><img src="images_profile/<?= $personimg ?>" class="rounded-circle" width="75" height="75"></div>
-                                <div class="col-8 text-light">
+                                <div class="col-8 text-dark">
                                     <h4 class="person-h4"><?= $personNames ?></h4>
                                 </div>
                                 <div class="col-2">
@@ -111,15 +111,15 @@ if ($friend_count) {
                         <li class="list-group-item bg-transparent mb-3 py-3">
                             <div class="row align-items-center justify-content-center">
                                 <div class="col-2 text-center"><img src="images_profile/<?= $personimg ?>" class="rounded-circle" width="50" height="50"></div>
-                                <div class="col-7 text-light text-start">
+                                <div class="col-7 text-dark text-start">
                                     <h4><?= $personNames ?></h4>
                                 </div>
-                                <div class="col-3 p-0"><a class="btn btn-outline-light" href="http://localhost/aybu/socialmedia/<?= $translates['profile'] ?>/<?= $personID ?>"><?= $translates["goprofile"] ?></a></div>
+                                <div class="col-3 p-0"><a class="btn btn-outline-theme" href="http://localhost/aybu/socialmedia/<?= $translates['profile'] ?>/<?= $personID ?>"><?= $translates["goprofile"] ?></a></div>
                             </div>
                         </li>
                     <?php }
                 } else { ?>
-                    <li class="each-friend-li" id="no_friends" style="padding:5%;font-size:19px;color:white;list-style: none;"><?= $translates["nofriends"] ?></li>
+                    <li class="each-friend-li text-dark" id="no_friends" style="padding:5%;font-size:19px;list-style: none;"><?= $translates["nofriends"] ?></li>
                 <?php } ?>
             </ul>
         </div>
@@ -152,7 +152,7 @@ if ($friend_count) {
                                 <div class="row justify-content-center align-items-center">
                                     <div class="col-2"><img src="images_profile/<?= $personimg ?>" class="rounded-circle" width="50" height="50"></div>
                                     <div class="col-7">
-                                        <h5 class="m-0 text-light"><?= $personNames ?></h5>
+                                        <h5 class="m-0 text-dark"><?= $personNames ?></h5>
                                     </div>
                                     <div class="col-3">
                                         <i class="fas fa-times refuse-request" onClick="FriendAcceptment('refuse','<?= $personID ?>','<?= $items->FriendID ?>')"></i>
@@ -162,7 +162,7 @@ if ($friend_count) {
                             </li>
                         <?php }
                     } else { ?>
-                        <li class="list-group-item bg-transparent" style="padding:5%;font-size:19px;color:white;border:none"> <?= $translates["norequest"] ?> </li>
+                        <li class="list-group-item bg-transparent text-dark" style="padding:5%;font-size:19px;border:none"> <?= $translates["norequest"] ?> </li>
                     <?php } ?>
                 </ul>
             </div>

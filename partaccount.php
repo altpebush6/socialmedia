@@ -1,6 +1,6 @@
 <div class="row mt-2">
   <div class="col-12">
-    <table class=" table table-light table-hover">
+    <table class=" table table-light table-hover shadow">
       <thead>
         <th></th>
         <th class="fs-4 p-3 text-center"><?= $translates["Accountset"] ?></th>
@@ -59,7 +59,7 @@
                   </div>
                 <?php } ?>
               </td>
-              <td class="py-3 col-3 border-start"><button type="button" class="btn btn-sm btn-outline-primary submitaccount" onClick='SendFormAccount("form_<?= $items->NavForm ?>","change_<?= $items->NavForm ?>","<?= $items->NavLink ?>")'><?= $translates["save"] ?><span class="spinner" id="<?= $items->NavLink ?>_spinner"></span></button></td>
+              <td class="py-3 col-3 border-start"><button type="button" class="btn btn-sm btn-outline-theme submitaccount" onClick='SendFormAccount("form_<?= $items->NavForm ?>","change_<?= $items->NavForm ?>","<?= $items->NavLink ?>")'><?= $translates["save"] ?><span class="spinner" id="<?= $items->NavLink ?>_spinner"></span></button></td>
             </div>
           </form>
         </tr>

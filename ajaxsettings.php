@@ -156,22 +156,40 @@ switch ($operation) {
         echo json_encode($result);
         break;
 
+    case 'change_university':
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $university = security("university");
+            if (empty($university)) {
+                $db->Update("UPDATE memberabout SET
+                            MemberUniversity= ?
+                            WHERE MemberID = ?", array(null, $memberid));
+                $result["success"] = $translates["undefined"];
+            } else {
+                $db->Update("UPDATE memberabout SET
+                            MemberUniversity= ?
+                            WHERE MemberID = ?", array($university, $memberid));
+                $result["success"] = $db->getColumnData("SELECT UniversityName FROM universities WHERE UniversityID = ?", array($university));
+            }
+        }
+        echo json_encode($result);
+        break;
+
     case 'change_faculty':
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $faculty = security("faculty");
             if (empty($faculty)) {
                 $db->Update("UPDATE memberabout SET
-                        MemberFacultyID= ?
+                        MemberFaculty= ?
                         WHERE MemberID = ?", array(null, $memberid));
                 $db->Update("UPDATE memberabout SET
-                        MemberDepartmentID= ?
+                        MemberDepartment= ?
                         WHERE MemberID = ?", array(null, $memberid));
-                $result["success"] = "ok";
+                $result["success"] = $translates["undefined"];
             } else {
                 $db->Update("UPDATE memberabout SET
-                        MemberFacultyID= ?
+                        MemberFaculty= ?
                         WHERE MemberID = ?", array($faculty, $memberid));
-                $result["success"] = "ok";
+                $result["success"] = $db->getColumnData("SELECT FacultyName FROM faculties_$language WHERE FacultyID = ?", array($faculty));
             }
         }
         echo json_encode($result);
@@ -182,14 +200,14 @@ switch ($operation) {
             $department = security("department");
             if (empty($department)) {
                 $db->Update("UPDATE memberabout SET
-                        MemberDepartmentID= ?
+                        MemberDepartment= ?
                         WHERE MemberID = ?", array(null, $memberid));
-                $result["success"] = "Bölümünüz başarıyla değiştirildi.:::succe";
+                $result["success"] = $translates["undefined"];
             } else {
                 $db->Update("UPDATE memberabout SET
-                        MemberDepartmentID= ?
+                        MemberDepartment= ?
                         WHERE MemberID = ?", array($department, $memberid));
-                $result["success"] = "Bölümünüz başarıyla değiştirildi.";
+                $result["success"] = $db->getColumnData("SELECT DepartmentName FROM departments_$language WHERE DepartmentID = ?", array($department));
             }
         }
         echo json_encode($result);
@@ -239,6 +257,24 @@ switch ($operation) {
                     MemberFavTV= ?
                     WHERE MemberID = ?", array($tvseries, $memberid));
                 $result["success"] = $tvseries;
+            }
+        }
+        echo json_encode($result);
+        break;
+
+    case 'change_country':
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $country = security("country");
+            if (empty($country)) {
+                $db->Update("UPDATE memberabout SET
+                                MemberCountry= ?
+                                WHERE MemberID = ?", array(null, $memberid));
+                $result["success"] = $translates["undefined"];
+            } else {
+                $db->Update("UPDATE memberabout SET
+                                MemberCountry= ?
+                                WHERE MemberID = ?", array($country, $memberid));
+                $result["success"] = $db->getColumnData("SELECT CountryName FROM countries WHERE CountryID = ?", array($country));
             }
         }
         echo json_encode($result);

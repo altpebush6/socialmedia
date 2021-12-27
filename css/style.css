@@ -17,6 +17,15 @@ body {
     border-radius: 10px;
 }
 
+.navActive {
+    background-color: #5a49e3 !important;
+}
+
+.navHover:hover {
+    background-color: #5a49e3 !important;
+    color: white !important;
+}
+
 .nav-name {
     color: black;
     cursor: pointer;
@@ -95,11 +104,12 @@ body {
     color: #5a49e3;
 }
 
-.dislike{
-    color:#5a49e3;
+.dislike {
+    color: #5a49e3;
 }
-.dislike:hover{
-    color:#362a92;
+
+.dislike:hover {
+    color: #362a92;
 }
 
 .btn-post {
@@ -719,4 +729,8 @@ body {
 
 .eventPre:after {
     filter: blur(50px);
+}
+
+.tabsText:hover {
+    background-color: rgba(0, 0, 0, 0.37) !important;
 }

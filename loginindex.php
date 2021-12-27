@@ -72,7 +72,7 @@ require_once "languages/language_" . $language . ".php";
           <div class="col-6 col-md-8 col-xl-6 col-xxl-5 text-center mt-5">
             <img src="images/login_logo.png" class="w-100">
           </div>
-          <div class="col-10 col-md-12 col-xl-10 mt-3 text-center text-info fs-5" style="font-family: 'Glory', sans-serif;font-weight:bold;">
+          <div class="col-10 col-md-12 col-xl-10 mt-3 text-center fs-3" style="color:#5a49e3;font-family: 'Glory', sans-serif;font-weight:bold;">
             <p><?= $translates["titlelogin"] ?></p>
             <p><?= $translates["programmer"] ?>: Ebubekir Alatepe</p>
           </div>

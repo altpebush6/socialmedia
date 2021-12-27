@@ -142,7 +142,7 @@ $message_count = $db->getColumnData("SELECT COUNT(*) FROM chatbox WHERE MessageT
 
 <head>
   <meta charset="utf-8">
-  <link rel="icon" href="images/logo.png" type="image/x-icon" />
+  <link rel="icon" href="images/login_logo.png" type="image/x-icon" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>
     <?php
@@ -238,13 +238,13 @@ $message_count = $db->getColumnData("SELECT COUNT(*) FROM chatbox WHERE MessageT
           foreach ($list as $items) {
             if ($page == $items->NavLink) {
               echo '<li class="nav-item my-2 my-md-auto mx-auto mx-md-2 d-flex justify-content-center"> 
-                      <a class="nav-link text-light shadow-lg rounded-circle text-center" style="width:40px;height:40px;background:rgba(0, 0, 0, 0.39)" href="http://localhost/aybu/socialmedia/' . $items->NavLink . '">' . $items->NavIcon . '</a>
+                      <a class="nav-link navActive text-light shadow-lg rounded-circle text-center" style="width:40px;height:40px;background:rgba(0, 0, 0, 0.39)" href="http://localhost/aybu/socialmedia/' . $items->NavLink . '">' . $items->NavIcon . '</a>
                       <a href="http://localhost/aybu/socialmedia/' . $items->NavLink . '" class="text-decoration-none ms-2 mt-2 d-md-none nav-name text-light">' . $items->NavName . '</a>
                     </li>
                     <hr>';
             } else {
               echo '<li class="nav-item my-2 my-md-auto mx-auto mx-md-2 d-flex justify-content-center"> 
-                      <a class="nav-link text-dark bg-light shadow rounded-circle text-center" style="width:40px;height:40px" href="http://localhost/aybu/socialmedia/' . $items->NavLink . '">' . $items->NavIcon . '</a>
+                      <a class="nav-link navHover text-dark bg-light shadow rounded-circle text-center" style="width:40px;height:40px" href="http://localhost/aybu/socialmedia/' . $items->NavLink . '">' . $items->NavIcon . '</a>
                       <a href="http://localhost/aybu/socialmedia/' . $items->NavLink . '" class="text-decoration-none ms-2 mt-2 d-md-none nav-name"> ' . $items->NavName . '</a> 
                     </li>
                     <hr>';
@@ -265,7 +265,7 @@ $message_count = $db->getColumnData("SELECT COUNT(*) FROM chatbox WHERE MessageT
             $navAnimate = '';
           }
           echo '<li class="nav-item dropdown d-none d-md-flex my-2 my-md-auto mx-auto mx-md-2 d-flex justify-content-center">
-                    <a id="notiDropdown" role="button" data-bs-toggle="dropdown" class="nav-link text-dark rounded-circle shadow text-center ' . $navAnimate . '" style="width:40px;height:40px;background:#f8f9fa;" href="#" onClick="deleteNotis()">' . $Notiicon . '</a>
+                    <a id="notiDropdown" role="button" data-bs-toggle="dropdown" class="nav-link navHover text-dark rounded-circle shadow text-center ' . $navAnimate . '" style="width:40px;height:40px;background:#f8f9fa;" href="#" onClick="deleteNotis()">' . $Notiicon . '</a>
                     <span class="d-none d-md-block position-absolute top-0 mt-1 start-85 translate-middle p-0 bg-noti border border-light rounded-circle text-light text-center" id="noti_count" style="line-height:30px;width:30px;height:30px;font-size:14px;">' . $countnoti . '</span><hr>';
 
           ?>
@@ -401,9 +401,9 @@ $message_count = $db->getColumnData("SELECT COUNT(*) FROM chatbox WHERE MessageT
           <li class="nav-item text-center d-md-none mb-3 text-wrap text-light"><small><i class="far fa-copyright"></i><?= $translates["copy_right"] ?></small></li>
           <li class="nav-item dropdown text-center d-none d-md-flex">
             <a class="nav-link dropdown-toggle text-light rounded-3" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              <img src="images_profile/<?= $profile_photo; ?>" style="width:40px;height:40px;" class="rounded-circle">
+              <img src="images_profile/<?= $profile_photo; ?>" style="width:40px;height:40px;" class="rounded-circle shadow">
             </a>
-            <ul class="dropdown-menu dropdown-menu-end mt-2">
+            <ul class="dropdown-menu dropdown-menu-end mt-2 shadow">
               <li>
                 <a class="dropdown-item" href="javascript:void(0)">
                   <?= $user_name . " " . $user_lastname; ?>

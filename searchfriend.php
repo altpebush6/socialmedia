@@ -5,7 +5,7 @@ require_once "functions/seolink.php";
 
 <div class="container mt-5">
   <div class="row p-2">
-    <h2 class="text-center text-light">
+    <h2 class="text-center text-dark">
       <?php
       if ($language == 'tr') {
         echo $searchedkey . $translates["searchedresult"];
@@ -14,7 +14,7 @@ require_once "functions/seolink.php";
       }
       ?>
     </h2>
-    <small class="text-white mt-3 mt-md-0">
+    <small class="text-dark mt-3 mt-md-0">
       <?php
       $totalresult = $db->getColumnData("SELECT COUNT(*) FROM members WHERE MemberName LIKE '$searchedkey%'");
       echo $translates["total"] . $totalresult . $translates["foundresult"];
@@ -26,7 +26,7 @@ require_once "functions/seolink.php";
     $members = $db->getDatas("SELECT * FROM members WHERE MemberName LIKE '$searchedkey%'");
     if (count($members) > 5) { ?>
       <div class="col-1 d-flex justify-content-center align-items-center">
-        <i class="fas fa-chevron-circle-left text-light fa-2x" id="prevBtn" style="cursor:pointer"></i>
+        <i class="fas fa-chevron-circle-left text-dark fa-2x" id="prevBtn" style="cursor:pointer"></i>
       </div>
     <?php } ?>
     <div class="col-8 col-sm-9 col-md-10 pt-4">
@@ -44,7 +44,7 @@ require_once "functions/seolink.php";
           }
         ?>
  
-          <div class="item profile-card profile-card-md my-2 carousel-div text-center friend-box" style="background-image: url('images_profile/<?= $memberimg ?>');">
+          <div class="item profile-card profile-card-md my-2 mx-2 carousel-div text-center friend-box" style="width:200px !important;height:200px !important;background-image: url('images_profile/<?= $memberimg ?>');">
             <h4 class="text-center p-3 bg-light fs-5 rounded-md-50"><?= $member->MemberName . " " . $member->MemberLastName ?></h4>
             <a class="btn btn-dark rounded-3 mb-5 mb-md-0 mx-auto" href="http://localhost/aybu/socialmedia/<?= $translates['profile'] ?>/<?= $member->MemberID ?>"><?= $translates["goprofile"] ?></a>
           </div>
@@ -53,7 +53,7 @@ require_once "functions/seolink.php";
     </div>
     <?php if (count($members) > 5) { ?>
       <div class="col-1 d-flex justify-content-center align-items-center">
-        <i class="fas fa-chevron-circle-right text-light fa-2x" id="nextBtn" style="cursor:pointer"></i>
+        <i class="fas fa-chevron-circle-right text-dark fa-2x" id="nextBtn" style="cursor:pointer"></i>
       </div>
     <?php } ?>
 

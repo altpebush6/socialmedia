@@ -144,14 +144,14 @@
             <div class="row m-0 p-0">
                 <div class="col-12 m-0 p-0">
                     <ul class="nav nav-tabs nav-fill nav-justified mt-3" id="clubTabs" role="tablist">
-                        <li class="nav-item" role="presentation" onClick="changeShdw('posts_container-tab')">
-                            <a class="nav-link text-dark active shadow" id="posts_container-tab" data-bs-toggle="tab" data-bs-target="#posts_container" type="button" role="tab"><?= $translates["posts"] ?></a>
+                        <li class="nav-item" role="presentation" onClick="changeShdwClub('posts_container-tab')">
+                            <a class="nav-link tabsText text-dark active shadow" id="posts_container-tab" data-bs-toggle="tab" data-bs-target="#posts_container" type="button" role="tab"><?= $translates["posts"] ?></a>
                         </li>
-                        <li class="nav-item" role="presentation" onClick="changeShdw('events-tab')">
-                            <a class="nav-link text-dark" id="events-tab" data-bs-toggle="tab" data-bs-target="#events" type="button" role="tab"><?= $translates["Events"] ?></a>
+                        <li class="nav-item" role="presentation" onClick="changeShdwClub('events-tab')">
+                            <a class="nav-link tabsText text-dark" id="events-tab" data-bs-toggle="tab" data-bs-target="#events" type="button" role="tab"><?= $translates["Events"] ?></a>
                         </li>
-                        <li class="nav-item" role="presentation" onClick="changeShdw('members-tab')">
-                            <a class="nav-link text-dark" id="members-tab" data-bs-toggle="tab" data-bs-target="#members" type="button" role="tab"><?= $translates["members"] ?></a>
+                        <li class="nav-item" role="presentation" onClick="changeShdwClub('members-tab')">
+                            <a class="nav-link tabsText text-dark" id="members-tab" data-bs-toggle="tab" data-bs-target="#members" type="button" role="tab"><?= $translates["members"] ?></a>
                         </li>
                     </ul>
                 </div>
