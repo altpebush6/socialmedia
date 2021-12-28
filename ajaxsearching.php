@@ -60,38 +60,274 @@ switch ($operation) {
 
   case 'messagessearch':
     $searched_key = security("search");
-    $member_searched = $db->getDatas("SELECT * FROM members WHERE MemberNames LIKE '$searched_key%' AND NOT MemberID = ?", array($memberid));
-    foreach ($member_searched as $item) {
-      if ($item->MemberConfirm == 1) {
-        $personID = $item->MemberID;
-        $name_lastname = $db->getColumnData("SELECT MemberNames FROM members WHERE MemberID = ?", array($personID));
-        $person_photo = $db->getColumnData("SELECT Member_Profileimg FROM images WHERE MemberID = ?", array($personID));
-        $gender = $db->getColumnData("SELECT MemberGender FROM members WHERE MemberID = ?", array($personID));
-        if (is_null($person_photo)) {
-          if ($gender == 'Erkek') {
-            $person_photo = "profilemale.png";
+    if ($searched_key != "") {
+      $output["state"] = "boş değil";
+      $chatpersons = $db->getDatas("SELECT * FROM chatbox
+                                  WHERE MessageStatus = 1 
+                                  AND (MessageFromID = ? OR MessageToID = ? OR GroupMembers LIKE '%$memberid%')", array($memberid, $memberid));
+      foreach ($chatpersons as $info) {
+        $groupID = $info->GroupID;
+        if ($groupID) {
+          $groupInfos = $db->getData("SELECT * FROM all_groups WHERE GroupID = ?", array($groupID));
+          $groupName = $groupInfos->GroupName;
+          $pattern = "/$searched_key/i";
+          if (preg_match($pattern, $groupName)) {
+            if (!$info->MessageFromID) {
+              $groupCreatorID = $groupInfos->GroupCreator;
+              $CreatorName = $db->getColumnData("SELECT MemberName FROM members WHERE MemberID = ?", array($groupCreatorID));
+              $groupMessage = $CreatorName . " " . $translates["personcreatedgroup"];
+            } else {
+              $lastmessage = $db->getData("SELECT * FROM messages_group WHERE GroupID = ? AND MessageStatus = ? ORDER BY MessageAddTime DESC", array($groupID, 1));
+              $whosemessage = $lastmessage->MessageFromID;
+              if ($whosemessage == $memberid) {
+                $fromwho = $translates["you"];
+              } else {
+                $fromwho = $db->getColumnData("SELECT MemberName FROM members WHERE MemberID = ?", array($whosemessage));
+              }
+              if ($lastmessage->MessageImg) {
+                $groupMessage = $fromwho . ": " . '<i class="fas fa-camera"></i> ' . $translates["photo"];
+              } else {
+                $groupMessage = $fromwho . ": " . $lastmessage->MessageText;
+              }
+              $messageHasRead = $info->MessageHasRead;
+              $messageHasRead = explode(":", $messageHasRead);
+              if (!in_array($memberid, $messageHasRead) && $groupID != $edit && $memberid != $whosemessage) {
+                $styleperson = "style='opacity:1'";
+              } else {
+                $styleperson = "style='opacity:0.5'";
+              }
+            }
+
+            $groupID = $groupInfos->GroupID;
+            $groupimg = $groupInfos->GroupImage;
+            if (is_null($groupimg)) {
+              $groupimg = "noneimage.png";
+            }
+            $groupName = $groupInfos->GroupName;
+
+            $messagetime = $db->GetColumnData("SELECT MessageAddTime FROM messages_group WHERE GroupID = ? AND MessageStatus = ? ORDER BY MessageAddTime DESC", array($groupID, 1));
+            $output["data"] .= '<a class="text-dark text-decoration-none" id="person_' . $groupID . '" href="http://localhost/aybu/socialmedia/' . $translates['messages'] . '/' . $translates["group"] . '/' . $groupID . '"><div class="row my-2 justify-content-center align-items-center">
+                                  <div class="col-2 text-center">
+                                    <img src="group_images/' . $groupimg . '" class="rounded-circle" width="60" height="60">
+                                  </div>
+                                  <div class="col-10 px-3 ps-4 ps-md-5 ps-lg-4 ps-xl-5">
+                                    <div class="row fs-5">
+                                      <div class="col-12 p-0 messenger-names" id="chatbox_name_' . $groupID . '"><i class="fas fa-users" style="font-size: 17px;"></i> ';
+            if ($groupName) {
+              $output["data"] .=  $groupName;
+            } else {
+              $output["data"] .= $translates["anonymousgrp"];
+            }
+            $output["data"] .= '</div>
+                                    </div>
+                                    <div class="row">
+                                      <div class="col-9 p-0 text-start person-content" id="content_' . $groupID . '" ' . $styleperson . '>
+                                        ' . $groupMessage . '
+                                      </div>';
+            if ($info->MessageFromID) {
+
+              $output["data"] .= '<div class="col-3 pe-1 text-end">
+                                          <small>' . messageTime($messagetime) . '</small>
+                                        </div>';
+            }
+            $output["data"] .= '</div>
+                                  </div>
+                                </div>
+                              </a>';
+          }
+        } else {
+          if ($info->MessageFromID == $memberid) {
+            $personID = $info->MessageToID;
           } else {
-            $person_photo = "profilefemale.png";
+            $personID = $info->MessageFromID;
+          }
+          $personNames = $db->getColumnData("SELECT MemberNames FROM members WHERE MemberID = ?", array($personID));
+          $pattern = "/$searched_key/i";
+          if (preg_match($pattern, $personNames)) {
+            $getprofileimg = $db->getColumnData("SELECT Member_Profileimg FROM images WHERE MemberID = ?", array($personID));
+            $ChatPersonName = $db->getColumnData("SELECT MemberName FROM members WHERE MemberID = ?", array($personID));
+            $ChatPersonLastName = $db->getColumnData("SELECT MemberLastName FROM members WHERE MemberID = ?", array($personID));
+            if (is_null($getprofileimg)) {
+              if ($gender == 'Erkek') {
+                $getprofileimg = "profilemale.png";
+              } else {
+                $getprofileimg = "profilefemale.png";
+              }
+            }
+
+            $name_lastname = $ChatPersonName . " " . $ChatPersonLastName;
+
+            $messageID = $db->GetColumnData("SELECT MessageID FROM messages
+                 WHERE MessageStatus = 1 AND ((MessageFromID = $memberid AND MessageToID = $personID) OR (MessageFromID = $personID AND MessageToID = $memberid))
+                 ORDER BY MessageAddTime DESC");
+
+            $messageText = $db->getColumnData("SELECT MessageText FROM messages WHERE MessageID = ?", array($messageID));
+            $messageImg = $db->getColumnData("SELECT MessageImg FROM messages WHERE MessageID = ?", array($messageID));
+
+            $whosemessage = $db->GetColumnData("SELECT MessageFromID FROM messages WHERE MessageID = ?", array($messageID));
+
+            $messagetime = $db->GetColumnData("SELECT MessageAddTime FROM messages
+                 WHERE MessageID = ? AND MessageStatus = ?", array($messageID, 1));
+
+            if ($whosemessage != $memberid) {
+              $messageHasRead = $info->MessageHasRead;
+            } else {
+              $messageHasRead = 1;
+            }
+
+            if ($whosemessage == $memberid) {
+              $messageHasSeen = $db->getColumnData("SELECT MessageHasSeen FROM messages WHERE MessageID = ?", array($messageID));
+              if ($messageHasSeen == 1) {
+                $tic = ' <i class="fas fa-check-double text-primary" style="font-size:13px;"></i>';
+              } else {
+                $tic = ' <i class="fas fa-check" style="font-size:13px;"></i>';
+              }
+              $fromwho = $translates["you"];
+            } else {
+              $fromwho = $ChatPersonName;
+              $tic = '';
+            }
+
+            $time = $db->getColumnData("SELECT MemberTime FROM members WHERE MemberID = ?", array($personID));
+            $now_time = date("Y-m-d H:i:s");
+            $strt = strtotime($time);
+            $fnsh = strtotime($now_time);
+            $diff = abs($fnsh - $strt);
+            if ($diff < 10) {
+              $result = "style='color:green'";
+            } else {
+              $result = "style='color:rgb(204, 1, 1)'";
+            }
+            if ($messageImg) {
+              $messageText = '<i class="fas fa-camera"></i> ' . $translates["photo"];
+            }
+
+            $resultcontent = $fromwho . ": " . $messageText . $tic;
+            $output["data"] .= '<a class="text-dark text-decoration-none" id="person_' . $personID . '" href="http://localhost/aybu/socialmedia/' . $translates['messages'] . '/' . $personID . '"><div class="row my-2 justify-content-center align-items-center">
+                                <div class="col-2 text-center">
+                                  <img src="images_profile/' . $getprofileimg . '" class="rounded-circle" width="60" height="60">
+                                </div>
+                                <div class="col-10 px-3 ps-4 ps-md-5 ps-lg-4 ps-xl-5">
+                                  <div class="row fs-5">
+                                    <div class="col-10 p-0 messenger-names">' . $name_lastname . '</div>
+                                    <div class="col-2"><i class="fas fa-circle offline" id="chatperson_' . $personID . '" ' . $result . '></i></div>
+                                  </div>
+                                  <div class="row">
+                                    <div class="col-8 p-0 text-start person-content" id="content_' . $personID . '" ' . $styleperson . '>
+                                      ' . $resultcontent . '
+                                    </div>
+                                    <div class="col-4 m-0 p-0 pe-1 text-end"><small>' . messageTime($messagetime) . '</small></div>
+                                  </div>
+                                </div>
+                              </div>
+                            </a>';
           }
         }
-        $ishaveMessage = $db->getData("SELECT * FROM chatbox
-                                              WHERE MessageStatus = 1 AND ((MessageFromID = $memberid AND MessageToID = $personID) OR (MessageFromID = $personID AND MessageToID = $memberid))");
-        if ($ishaveMessage) {
+      }
+    } else { //Arama yeri boşsa
+      $chatpersons = $db->getDatas("SELECT * FROM chatbox
+      WHERE MessageStatus = 1 AND (MessageFromID = $memberid OR MessageToID = $memberid OR GroupMembers LIKE '%$memberid%')
+      ORDER BY LastTime DESC");
+      foreach ($chatpersons as $info) {
+        $groupID = $info->GroupID;
+        if ($groupID) {
+          $groupInfos = $db->getData("SELECT * FROM all_groups WHERE GroupID = ?", array($groupID));
+          if (!$info->MessageFromID) {
+            $groupCreatorID = $groupInfos->GroupCreator;
+            $CreatorName = $db->getColumnData("SELECT MemberName FROM members WHERE MemberID = ?", array($groupCreatorID));
+            $groupMessage = $CreatorName . " " . $translates["personcreatedgroup"];
+          } else {
+            $lastmessage = $db->getData("SELECT * FROM messages_group WHERE GroupID = ? AND MessageStatus = ? ORDER BY MessageAddTime DESC", array($groupID, 1));
+            $whosemessage = $lastmessage->MessageFromID;
+            if ($whosemessage == $memberid) {
+              $fromwho = $translates["you"];
+            } else {
+              $fromwho = $db->getColumnData("SELECT MemberName FROM members WHERE MemberID = ?", array($whosemessage));
+            }
+            if ($lastmessage->MessageImg) {
+              $groupMessage = $fromwho . ": " . '<i class="fas fa-camera"></i> ' . $translates["photo"];
+            } else {
+              $groupMessage = $fromwho . ": " . $lastmessage->MessageText;
+            }
+            $messageHasRead = $info->MessageHasRead;
+            $messageHasRead = explode(":", $messageHasRead);
+            if (!in_array($memberid, $messageHasRead) && $groupID != $edit && $memberid != $whosemessage) {
+              $styleperson = "style='opacity:1'";
+            } else {
+              $styleperson = "style='opacity:0.5'";
+            }
+          }
+
+          $groupID = $groupInfos->GroupID;
+          $groupimg = $groupInfos->GroupImage;
+          if (is_null($groupimg)) {
+            $groupimg = "noneimage.png";
+          }
+          $groupName = $groupInfos->GroupName;
+
+          $messagetime = $db->GetColumnData("SELECT MessageAddTime FROM messages_group WHERE GroupID = ? AND MessageStatus = ? ORDER BY MessageAddTime DESC", array($groupID, 1));
+
+          $output["sa"] .=  $groupID;
+          $output["data"] .= '<a class="text-dark text-decoration-none" id="person_' . $groupID . '" href="http://localhost/aybu/socialmedia/' . $translates['messages'] . '/' . $translates["group"] . '/' . $groupID . '"><div class="row my-2 justify-content-center align-items-center">
+              <div class="col-2 text-center">
+                <img src="group_images/' . $groupimg . '" class="rounded-circle" width="60" height="60">
+              </div>
+              <div class="col-10 px-3 ps-4 ps-md-5 ps-lg-4 ps-xl-5">
+                <div class="row fs-5">
+                  <div class="col-12 p-0 messenger-names" id="chatbox_name_' . $groupID . '"><i class="fas fa-users" style="font-size: 17px;"></i> ';
+          if ($groupName) {
+            $output["data"] .= $groupName;
+          } else {
+            $output["data"] .= $translates["anonymousgrp"];
+          }
+          $output["data"] .= '</div>
+                </div>
+                <div class="row">
+                  <div class="col-9 p-0 text-start person-content" id="content_' . $groupID . '" ' . $styleperson . '>
+                    ' . $groupMessage . '
+                  </div>';
+          if ($info->MessageFromID) {
+            $output["data"] .= '<div class="col-3 pe-1 text-end">
+                      <small>' . messageTime($messagetime) . '</small>
+                    </div>';
+          }
+          $output["data"] .= '</div>
+              </div>
+            </div>
+          </a>';
+        } else {
+          if ($info->MessageFromID == $memberid) {
+            $personID = $info->MessageToID;
+          } else {
+            $personID = $info->MessageFromID;
+          }
+          $getprofileimg = $db->getColumnData("SELECT Member_Profileimg FROM images WHERE MemberID = ?", array($personID));
+          $ChatPersonName = $db->getColumnData("SELECT MemberName FROM members WHERE MemberID = ?", array($personID));
+          $ChatPersonLastName = $db->getColumnData("SELECT MemberLastName FROM members WHERE MemberID = ?", array($personID));
+          if (is_null($getprofileimg)) {
+            if ($gender == 'Erkek') {
+              $getprofileimg = "profilemale.png";
+            } else {
+              $getprofileimg = "profilefemale.png";
+            }
+          }
+
+          $name_lastname = $ChatPersonName . " " . $ChatPersonLastName;
+
           $messageID = $db->GetColumnData("SELECT MessageID FROM messages
-                                                  WHERE MessageStatus = 1 AND ((MessageFromID = $memberid AND MessageToID = $personID) OR (MessageFromID = $personID AND MessageToID = $memberid))
-                                                  ORDER BY MessageAddTime DESC");
+                   WHERE MessageStatus = 1 AND ((MessageFromID = $memberid AND MessageToID = $personID) OR (MessageFromID = $personID AND MessageToID = $memberid))
+                   ORDER BY MessageAddTime DESC");
 
           $messageText = $db->getColumnData("SELECT MessageText FROM messages WHERE MessageID = ?", array($messageID));
+          $messageImg = $db->getColumnData("SELECT MessageImg FROM messages WHERE MessageID = ?", array($messageID));
 
-          $whosemessage =  $db->GetColumnData("SELECT MessageFromID FROM messages WHERE MessageID = ?", array($messageID));
+          $whosemessage = $db->GetColumnData("SELECT MessageFromID FROM messages WHERE MessageID = ?", array($messageID));
 
           $messagetime = $db->GetColumnData("SELECT MessageAddTime FROM messages
-                                                    WHERE MessageID = ? AND MessageStatus = ?", array($messageID, 1));
-
+                   WHERE MessageID = ? AND MessageStatus = ?", array($messageID, 1));
 
           if ($whosemessage != $memberid) {
-            $messageHasRead = $db->getColumnData("SELECT MessageHasRead FROM chatbox
-                    WHERE MessageStatus = 1 AND ((MessageFromID = $memberid AND MessageToID = $personID) OR (MessageFromID = $personID AND MessageToID = $memberid))");
+            $messageHasRead = $info->MessageHasRead;
           } else {
             $messageHasRead = 1;
           }
@@ -99,21 +335,15 @@ switch ($operation) {
           if ($whosemessage == $memberid) {
             $messageHasSeen = $db->getColumnData("SELECT MessageHasSeen FROM messages WHERE MessageID = ?", array($messageID));
             if ($messageHasSeen == 1) {
-              $tic = '<i class="fas fa-check-double" style="font-size:12px;color:blue"></i>';
+              $tic = ' <i class="fas fa-check-double text-primary" style="font-size:13px;"></i>';
             } else {
-              $tic = '<i class="fas fa-check" style="font-size:12px;"></i>';
+              $tic = ' <i class="fas fa-check" style="font-size:13px;"></i>';
             }
             $fromwho = $translates["you"];
           } else {
+            $fromwho = $ChatPersonName;
             $tic = '';
-            $fromwho = $item->MemberName;
           }
-
-          $messageImg = $db->getColumnData("SELECT MessageImg FROM messages WHERE MessageID = ?", array($messageID));
-          $shortcutphoto = '<i class="fas fa-camera"></i> ' . $translates["photo"];
-          $messageText = ($messageImg ? $shortcutphoto : $messageText);
-
-          $resultcontent = $fromwho . ': ' . $messageText . ' ' . $tic;
 
           $time = $db->getColumnData("SELECT MemberTime FROM members WHERE MemberID = ?", array($personID));
           $now_time = date("Y-m-d H:i:s");
@@ -121,40 +351,34 @@ switch ($operation) {
           $fnsh = strtotime($now_time);
           $diff = abs($fnsh - $strt);
           if ($diff < 10) {
-            $styleicon = "style='color:green'";
+            $result = "style='color:green'";
           } else {
-            $styleicon = "style='color:rgb(204, 1, 1)'";
+            $result = "style='color:rgb(204, 1, 1)'";
+          }
+          if ($messageImg) {
+            $messageText = '<i class="fas fa-camera"></i> ' . $translates["photo"];
           }
 
-          if ($messageHasRead == 0 and $personID != $part) {
-            $styletext = "style='opacity:1;'";
-          } else {
-            $styletext =  "style='opacity:0.5'";
-          }
-        } else {
-          $resultcontent = '';
+          $resultcontent = $fromwho . ": " . $messageText . $tic;
+          $output["data"] .= '<a class="text-dark text-decoration-none" id="person_' . $personID . '" href="http://localhost/aybu/socialmedia/' . $translates['messages'] . '/' . $personID . '"><div class="row my-2 justify-content-center align-items-center">
+              <div class="col-2 text-center">
+                <img src="images_profile/' . $getprofileimg . '" class="rounded-circle" width="60" height="60">
+              </div>
+              <div class="col-10 px-3 ps-4 ps-md-5 ps-lg-4 ps-xl-5">
+                <div class="row fs-5">
+                  <div class="col-10 p-0 messenger-names">' . $name_lastname . '</div>
+                  <div class="col-2"><i class="fas fa-circle offline" id="chatperson_' . $personID . '" ' . $result . '></i></div>
+                </div>
+                <div class="row">
+                  <div class="col-8 p-0 text-start person-content" id="content_' . $personID . '" ' . $styleperson . '>
+                    ' . $resultcontent . '
+                  </div>
+                  <div class="col-4 m-0 p-0 pe-1 text-end"><small>' . messageTime($messagetime) . '</small></div>
+                </div>
+              </div>
+            </div>
+          </a>';
         }
-
-
-        $output["data"] .= '<a class="text-light text-decoration-none" id="person_' . $personID . '" href="http://localhost/aybu/socialmedia/' . $translates['messages'] . '/' . $personID . '">
-                                <div class="row my-2 justify-content-center align-items-center">
-                                  <div class="col-2 text-center">
-                                    <img src="images_profile/' . $person_photo . '" class="rounded-circle" width="60" height="60">
-                                  </div>
-                                  <div class="col-8 px-3 ps-md-5 ps-lg-4 ps-xl-5 d-flex flex-column">
-                                    <div class="row fs-5" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">' . $name_lastname . '</div>
-                                    <div class="row">
-                                      <div class="col-12 p-0 text-start person-content" id="content_' . $personID . '" ' . $styletext . '>
-                                      ' . $resultcontent . '
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <div class="col-2 text-center d-flex flex-column justify-content-between">
-                                    <div class="row"><i class="fas fa-circle offline" id="chatperson_' . $personID . '" ' . $styleicon . '></i></div>
-                                    <div class="row" id="chatpersontime_' . $personID . '"><small>' . messageTime($messagetime) . '</small></div>
-                                  </div>
-                                </div>';
-        $output["deneme"] = $searched_key;
       }
     }
     echo json_encode($output);
