@@ -1,6 +1,6 @@
 <?php
 if (!isset($_SESSION)) {
-  session_start();
+    session_start();
 }
 require_once "functions/routing.php";
 require_once "classes/AllClasses.php";
@@ -15,17 +15,27 @@ $memberid = $SS->get("MemberID");
 $memberNames = $_GET['Names'];
 $operation = $_GET['operation'];
 
+$db = new aybu\db\mysqlDB();
+$SS = new aybu\session\session();
+
+if ($SS->isHave("Language")) {
+    $language = $SS->get("Language");
+} else {
+    $language = "tr";
+}
+require_once "languages/language_" . $language . ".php";
+
 $result = array();
 
 
 
 switch ($operation) {
     case 'uploadprofileimg':
-        $data = $_POST['image'];
+        $data = $_POST['image2'];
         if (empty($data)) {
-            $result["error"] = "<i class='fas fa-exclamation'></i> Lütfen Bir resim seçiniz.";
+            $result["error"] = '<i class="fas fa-exclamation"></i> ' . $translates["selectimg"];
         } else {
-            $old_profile_img_name = $db->getColumnData("SELECT Member_Profileimg FROM images WHERE MemberID = $memberid");
+            $old_profile_img_name = $db->getColumnData("SELECT Member_Profileimg FROM images WHERE MemberID = ?",array($memberid));
             if (!is_null($old_profile_img_name)) {
                 $delete_img = "images_profile/" . $old_profile_img_name;
                 unlink($delete_img);          //  fotoğrafı klasörden sil
@@ -53,35 +63,32 @@ switch ($operation) {
         break;
 
     case 'uploadcoverimg':
-        $cover_img_name = $_FILES['image1']['name'];    //Kapak Fotoğrafına yüklenen resmin ismini al
-        if (empty($cover_img_name)) {
-            $result["error"] = "<i class='fas fa-exclamation'></i> Lütfen Bir resim seçiniz." . $cover_img_name . "";
+        $data = $_POST['image1'];
+        if (empty($data)) {
+            $result["error"] = '<i class="fas fa-exclamation"></i> ' . $translates["selectimg"];
         } else {
-            $cover_image_extension = strtolower(pathinfo($cover_img_name, PATHINFO_EXTENSION));
-            $allowed_file_extensions = array("png", "jpg", "jpeg", "jfif");
-            if (!in_array($cover_image_extension, $allowed_file_extensions)) {
-                $result["error"] = "<i class='fas fa-exclamation'></i> Sadece jpeg, jpg, jfif ve png uzantılı dosya yükleyebilirsiniz.";
-            } else {
+            $old_cover_img_name = $db->getColumnData("SELECT Member_Coverimg FROM images WHERE MemberID = ?",array($memberid));
+            if (!is_null($old_cover_img_name)) {
+                $delete_img = "images_cover/" . $old_cover_img_name;
+                unlink($delete_img);          //  fotoğrafı klasörden sil
+            }
 
-                $old_cover_img_name = $db->getColumnData("SELECT Member_Coverimg FROM images WHERE MemberID = $memberid");
-                if (!is_null($old_cover_img_name)) {
-                    $delete_img = "images_cover/" . $old_cover_img_name;
-                    unlink($delete_img);          //  fotoğrafı klasörden sil
-                }
-                $cover_img_name = $memberNames . "_cover_" . uniqid() . "." . $cover_image_extension;
-                $target = "images_cover/" . basename($cover_img_name);      // Hedefi images/resminismi yap  
+            $image_array_1 = explode(";", $data);
+            $image_array_2 = explode(",", $image_array_1[1]);
+            $data = base64_decode($image_array_2[1]);
 
-                $sql = $db->Update("UPDATE
+            $cover_img_name = $memberNames . time() . "_cover_" . uniqid() . ".png";
+
+            $sql = $db->Update("UPDATE
                                         images
                                         SET
                                         Member_Coverimg = ? WHERE MemberID = ?", array($cover_img_name, $memberid));   //Resmi Veritabanına Ekle  
 
-                if (move_uploaded_file($_FILES['image1']['tmp_name'], $target)) {   //Dosyayı geçiçi yoldan hedef yola gönder
-                    $result["success"] = "Resim başarıyla yüklendi.";
-                } else {
-                    $result["error"] = "<i class='fas fa-exclamation'></i> Resim yüklenemedi.";
-                }
-            }
+            $cover_img_name = "images_cover/" . $cover_img_name;
+
+            file_put_contents($cover_img_name, $data);
+
+            $result["success"] = "<img src='" . $cover_img_name . "'>";
         }
 
         echo json_encode($result);

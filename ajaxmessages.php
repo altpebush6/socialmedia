@@ -335,12 +335,12 @@ switch ($operation) {
                                         <div class="col-10 px-3 ps-4 ps-md-5 ps-lg-4 ps-xl-5">
                                           <div class="row fs-5">
                                           <div class="col-12 p-0 messenger-names" id="chatbox_name_' . $GroupID . '"><i class="fas fa-users" style="font-size: 17px;"></i> ';
-                                          if($GroupName){
-                                            $result["conversationtrue"] .= $GroupName;
-                                          }else{
-                                            $result["conversationtrue"] .= $translates["anonymousgrp"];
-                                          }
-                                            $result["conversationtrue"] .= '</div>
+        if ($GroupName) {
+          $result["conversationtrue"] .= $GroupName;
+        } else {
+          $result["conversationtrue"] .= $translates["anonymousgrp"];
+        }
+        $result["conversationtrue"] .= '</div>
                                             
                                           </div>
                                           <div class="row">
@@ -453,6 +453,7 @@ switch ($operation) {
 
     $newMessages = $db->getData("SELECT * FROM messages WHERE MessageToID = ? AND MessageStatus = ? AND MessageHasRead = ? AND MessageHasShown = ? ORDER BY MessageID DESC", array($memberid, 1, 0, 0));
     if ($newMessages) {
+      $result["newMessages"] = "true";
       $newmessageID = $newMessages->MessageID;
       $personID = $newMessages->MessageFromID;
       $messageText = $newMessages->MessageText;
@@ -540,11 +541,12 @@ switch ($operation) {
     foreach ($memberGroups as $eachgroup) {
       $newMessages2 = $db->getData("SELECT * FROM messages_group WHERE GroupID = ? AND MessageStatus = ? ORDER BY MessageID DESC", array($eachgroup->GroupID, 1));
       if ($newMessages2) {
+
         $ismessageshown = $newMessages2->MessageHasShown;
         $ismessageshown = explode(":", $ismessageshown);
         $result["info"] = $ismessageshown;
         if (!in_array($memberid, $ismessageshown) and $newMessages2->MessageFromID != $memberid) {
-          $result["memberGroups"] = "as";
+          $result["newMessages"] = "true";
           $newmessageID = $newMessages2->MessageID;
           $groupID = $newMessages2->GroupID;
           $messageText = $newMessages2->MessageText;
@@ -576,12 +578,12 @@ switch ($operation) {
                                           <div class="col-10 px-3 ps-4 ps-md-5 ps-lg-4 ps-xl-5">
                                             <div class="row fs-5">
                                             <div class="col-12 p-0 messenger-names" id="chatbox_name_' . $groupID . '"><i class="fas fa-users" style="font-size: 17px;"></i> ';
-                                            if($groupname){
-                                              $result["conversationtrue"] .= $groupname;
-                                            }else{
-                                              $result["conversationtrue"] .= $translates["anonymousgrp"];
-                                            }
-                                              $result["conversationtrue"] .= '</div>
+          if ($groupname) {
+            $result["conversationtrue"] .= $groupname;
+          } else {
+            $result["conversationtrue"] .= $translates["anonymousgrp"];
+          }
+          $result["conversationtrue"] .= '</div>
                                             </div>
                                             <div class="row">
                                               <div class="col-9 p-0 text-start person-content" id="content_' . $groupID . '" ' . $styletext . '>
@@ -594,6 +596,18 @@ switch ($operation) {
                                           </div>
                                         </div>
                                       </a>';
+
+          $result["fortoast"] = '<div class="toastContainer mt-2">
+                                  <div class="toast-header">
+                                    <img src="group_images/' . $groupimg . '" class="rounded-circle me-2" width="30" height="30">
+                                    <strong class="me-auto">' . $groupname . '</strong>
+                                    <small>' . $translates["now"] . '</small>
+                                  </div>
+                                  <div class="toast-body">
+                                    ' . $resultcontent . '
+                                  </div>
+                                </div>';
+
           $result["personID"] = $groupID;
           $db->Update("UPDATE messages_group SET MessageHasShown = ? WHERE MessageID = ?", array(($memberid . ":"), $newmessageID));
         }
@@ -657,11 +671,11 @@ switch ($operation) {
           $result["lastsentmsg"] = '<li class="list-group-item bg-transparent p-4 py-1" style="border:none;" id="each_message_' . $saveMessage . '" lastid="' . $saveMessage . '">
                                       <div class="row d-flex flex-row-reverse"> 
                                         <div class="col-2 col-xl-1 ms-md-1 ms-xl-2 p-0 text-center d-flex justify-content-center align-items-center">
-                                          <img src="images_profile/' . $member_profile . '"  class="rounded-circle" width="50" height="50">
+                                          <img src="images_profile/' . $member_profile . '"  class="rounded-circle shadow" width="50" height="50">
                                         </div>        
                                         <div class="p-2 text-end msg-container" style="width:auto;max-width:250px;min-width:75px;">
                                           <div class="me-2 del-msg"><i class="fas fa-trash position-absolute text-danger mt-2" onClick=\'DeleteMessage("deletemessage","' . $saveMessage . '")\'></i></div>
-                                            <div class="d-flex text-start flex-column row align-items-center bg-light text-dark rounded-3 d-flex flex-row flex-nowrap" style="height:100%;max-width:200px;">
+                                            <div class="d-flex text-start shadow flex-column row align-items-center bg-light text-dark rounded-3 d-flex flex-row flex-nowrap" style="height:100%;max-width:200px;">
                                               <div class="p-0 w-100" style="width:auto;max-width:200px;">
                                                 <p class="m-0 py-1 px-2 fs-6 text-break">' . $messageText . '</p>
                                               </div>
@@ -765,11 +779,11 @@ switch ($operation) {
           $result["lastsentmsg"] = '<li class="list-group-item bg-transparent p-4 py-1" style="border:none;" id="each_message_' . $saveMessage . '" lastid="' . $saveMessage . '">
                                         <div class="row d-flex flex-row-reverse"> 
                                           <div class="col-2 col-xl-1 ms-md-1 ms-xl-2 p-0 text-center d-flex justify-content-center align-items-center">
-                                            <img src="images_profile/' . $member_profile . '"  class="rounded-circle" width="50" height="50">
+                                            <img src="images_profile/' . $member_profile . '"  class="rounded-circle shadow" width="50" height="50">
                                           </div>        
                                           <div class="p-2 text-end msg-container" style="width:auto;max-width:250px;min-width:75px;">
                                             <div class="me-2 del-msg"><i class="fas fa-trash position-absolute text-danger mt-2" onClick=\'DeleteMessage("deletemessage_group","' . $saveMessage . '")\'></i></div>
-                                              <div class="d-flex text-start flex-column row align-items-center bg-light text-dark rounded-3 d-flex flex-row flex-nowrap" style="height:100%;max-width:200px;">
+                                              <div class="d-flex text-start shadow flex-column row align-items-center bg-light text-dark rounded-3 d-flex flex-row flex-nowrap" style="height:100%;max-width:200px;">
                                                 <div class="p-0 w-100" style="width:auto;max-width:200px;">
                                                   <p class="m-0 py-1 px-2 fs-6 text-break">' . $messageText . '</p>
                                                 </div>
@@ -793,12 +807,12 @@ switch ($operation) {
                                             <div class="col-10 px-3 ps-4 ps-md-5 ps-lg-4 ps-xl-5">
                                               <div class="row fs-5">
                                                 <div class="col-12 p-0 messenger-names" id="chatbox_name_' . $groupID . '"><i class="fas fa-users" style="font-size: 17px;"></i> ';
-                                              if($GroupName){
-                                                $result["conversationtrue"] .= $GroupName;
-                                              }else{
-                                                $result["conversationtrue"] .= $translates["anonymousgrp"];
-                                              }
-                                                $result["conversationtrue"] .= '</div>
+          if ($GroupName) {
+            $result["conversationtrue"] .= $GroupName;
+          } else {
+            $result["conversationtrue"] .= $translates["anonymousgrp"];
+          }
+          $result["conversationtrue"] .= '</div>
                                               </div>
                                               <div class="row">
                                                 <div class="col-9 p-0 text-start person-content" id="content_' . $personID . '" style="opacity:0.5">
@@ -1009,12 +1023,12 @@ switch ($operation) {
                                           <div class="col-10 px-3 ps-4 ps-md-5 ps-lg-4 ps-xl-5">
                                             <div class="row fs-5">
                                             <div class="col-12 p-0 messenger-names" id="chatbox_name_' . $groupID . '"><i class="fas fa-users" style="font-size: 17px;"></i> ';
-                                            if($GroupName){
-                                              $result["conversationtrue"] .= $GroupName;
-                                            }else{
-                                              $result["conversationtrue"] .= $translates["anonymousgrp"];
-                                            }
-                                              $result["conversationtrue"] .= '</div>
+        if ($GroupName) {
+          $result["conversationtrue"] .= $GroupName;
+        } else {
+          $result["conversationtrue"] .= $translates["anonymousgrp"];
+        }
+        $result["conversationtrue"] .= '</div>
                                             </div>
                                             <div class="row">
                                               <div class="col-9 p-0 text-start person-content" id="content_' . $personID . '" style="opacity:0.5">
@@ -1270,12 +1284,12 @@ switch ($operation) {
                                       <div class="col-8 px-3 ps-4 ps-md-5 ps-lg-4 ps-xl-5">
                                         <div class="row fs-5">
                                         <div class="col-12 p-0 messenger-names" id="chatbox_name_' . $addtogroups . '"><i class="fas fa-users" style="font-size: 17px;"></i> ';
-                                        if($groupname){
-                                          $result["groupcontact"] .= $groupname;
-                                        }else{
-                                          $result["groupcontact"] .= $translates["anonymousgrp"];
-                                        }
-                                          $result["groupcontact"] .= '</div>
+        if ($groupname) {
+          $result["groupcontact"] .= $groupname;
+        } else {
+          $result["groupcontact"] .= $translates["anonymousgrp"];
+        }
+        $result["groupcontact"] .= '</div>
                                         </div>
                                         <div class="row">
                                           <div class="col-12 p-0 text-start person-content" id="content_' . $addtogroups . '">

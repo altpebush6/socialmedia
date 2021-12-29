@@ -254,33 +254,77 @@
       });
     })
     // Profil AJAX
-    $("#form_cover").on('submit', function(e) {
-      e.preventDefault();
-      $("#spinnerimg1").html('<i class="fas fa-spinner fa-spin"></i>');
-      $("#uploadimg1").prop("disabled", true);
-      $.ajax({
-        type: "post",
-        url: SITE_URL + "/socialmedia/ajaxpr_img.php?operation=uploadcoverimg&Names=<?= $user_name . '-' . $user_lastname ?>",
-        data: new FormData(this),
-        dataType: "json",
-        contentType: false,
-        cache: false,
-        processData: false,
-        success: function(result) {
-          $("#spinnerimg1").html("");
-          $("#uploadimg1").prop("disabled", false);
-          if (result.error) {
-            $("#result_cvr_img").html(result.error);
-            $("#result_cvr_hr").css("display", "block");
-            $("#result_cvr_img").css("display", "block");
-            $("#result_cvr_img").addClass("py-2 px-4");
-          } else if (result.success) {
-            location.reload();
-          }
+    // Kapak Fotoğrafı
+    $cover_image_crop = $('#cvr_image_demo').croppie({
+      enableExif: true,
+      viewport: {
+        width: 200,
+        height: 80,
+        type: 'rectangular'
+      },
+      boundary: {
+        width: 300,
+        height: 300
+      }
+    });
+    $("#upload_cvr_image").on("change", function() {
+      var filePath = $(this).val();
+      var allowedExtensions = /(\.jpg|\.jpeg|\.png|\.jfif)$/i;
+      if (!allowedExtensions.exec(filePath) && filePath != "") {
+        alert('Invalid file type');
+        location.reload();
+      } else {
+        var reader = new FileReader();
+        reader.onload = function(event) {
+          $cover_image_crop.croppie('bind', {
+            url: event.target.result
+          }).then(function() {
+            console.log("Jquery bind complete");
+          });
         }
-      });
-    })
-
+        reader.readAsDataURL(this.files[0]);
+        $('#uploadcvrimageModal').removeClass("d-none");
+        $('#uploadcvrimageModal').addClass("d-flex");
+      }
+    });
+    $('.crop-image1').click(function(event) {
+      $(this).prop("disabled", true);
+      var filePath = $("#upload_cvr_image").val();
+      var allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
+      if (!allowedExtensions.exec(filePath) && filePath != "") {
+        alert('Invalid file type');
+        location.reload();
+      } else {
+        $cover_image_crop.croppie('result', {
+          type: 'canvas',
+          size: 'viewport'
+        }).then(function(response) {
+          $.ajax({
+            url: SITE_URL + "/socialmedia/ajaxpr_img.php?operation=uploadcoverimg&Names=<?= $user_name . '-' . $user_lastname ?>",
+            type: "post",
+            data: {
+              "image1": response
+            },
+            dataType: "json",
+            success: function(result) {
+              $(this).prop("disabled", false);
+              if (result.success) {
+                $("#uploadcvrimageModal").html(result.success);
+                location.reload();
+              }
+              if (result.error) {
+                alert(result.error);
+                $("#result_cv_img").html(result.error);
+                $("#result_cv_hr").css("display", "block");
+                $("#result_cv_img").css("display", "block");
+                $("#result_cv_img").addClass("py-2 px-4");
+              }
+            }
+          });
+        })
+      }
+    });
+    // Profile Fotoğrafı
     $image_crop = $('#image_demo').croppie({
       enableExif: true,
       viewport: {
@@ -314,7 +358,7 @@
       }
     });
 
-    $('.crop-image').click(function(event) {
+    $('.crop-image2').click(function(event) {
       $(this).prop("disabled", true);
       var filePath = $("#upload_image").val();
       var allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
@@ -330,7 +374,7 @@
             url: SITE_URL + "/socialmedia/ajaxpr_img.php?operation=uploadprofileimg&Names=<?= $user_name . '-' . $user_lastname ?>",
             type: "post",
             data: {
-              "image": response
+              "image2": response
             },
             dataType: "json",
             success: function(result) {
@@ -628,7 +672,7 @@
           $("#contents_about_" + AboutItem).html(result.success);
           $("#about_result").removeClass("bg-danger text-light p-3 mb-3 text-center rounded-3");
           $("#about_result").html("");
-          if (AboutItem == "faculty" && result.success == '<?=$translates["undefined"]?>') {
+          if (AboutItem == "faculty" && result.success == '<?= $translates["undefined"] ?>') {
             $("#contents_about_department").html(result.success);
           }
         } else if (result.error) {
@@ -928,22 +972,25 @@
         data: Datas,
         dataType: 'json',
         success: function(result) {
-          if (result.nonconversation) {
-            $("#contactmain").prepend(result.nonconversation);
-          }
-          if (result.conversationtrue) {
-            $("#person_" + result.personID).remove();
-            $("#contactmain").prepend(result.conversationtrue);
-          }
-          if (result.deleted) {
-            $("#content_" + result.personID).html(result.lastcontent);
-            $("#content_" + result.personID).css("opacity", "0.5");
-            $("#chatpersontime_" + result.personID).html(result.messagetime);
-            if (result.nomsg) {
-              $("#person_" + result.personID).remove();
+          if (result.newMessages) {
+            $(".toast").append(result.fortoast);
+            if (result.nonconversation) {
+              $("#contactmain").prepend(result.nonconversation);
             }
-            if (result.opacity) {
-              $(".content").css("opacity", "0.7");
+            if (result.conversationtrue) {
+              $("#person_" + result.personID).remove();
+              $("#contactmain").prepend(result.conversationtrue);
+            }
+            if (result.deleted) {
+              $("#content_" + result.personID).html(result.lastcontent);
+              $("#content_" + result.personID).css("opacity", "0.5");
+              $("#chatpersontime_" + result.personID).html(result.messagetime);
+              if (result.nomsg) {
+                $("#person_" + result.personID).remove();
+              }
+              if (result.opacity) {
+                $(".content").css("opacity", "0.7");
+              }
             }
           }
         }
@@ -1003,9 +1050,9 @@
   });
   <?php if ($page == $translates["messages"]) { ?>
     setInterval('$.ajaxloadmessages()', 1000);
-    setInterval('$.getMessage()', 1000);
     setInterval('$.getStatus()', 1000);
   <?php } ?>
+  setInterval('$.getMessage()', 1000);
   setInterval('$.setStatus()', 1000);
   setInterval('$.setNoti()', 2000);
 

@@ -360,7 +360,7 @@ if ($part) {
     </div>
   <?php } ?>
 </div>
-
+<!-- Kapak Fotoğrafı -->
 <div class="modal fade" id="CoverPhotoModal">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
@@ -369,13 +369,20 @@ if ($part) {
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body pb-0 px-4">
+        <div id="uploadcvrimageModal" class="d-none justify-content-center my-2">
+          <div class="row">
+            <div class="col-md-8 text-center">
+              <div id="cvr_image_demo" style="width:350px;margin-top:30px;"></div>
+            </div>
+          </div>
+        </div>
         <form method="post" id="form_cover" autocomplete="off" enctype="multipart/form-data">
           <div class="row mb-3">
-            <label for="coverphoto-upload" class="btn btn-primary"><?= $translates["choosephoto"] ?></label>
-            <input type="file" name="image1" id="coverphoto-upload" class="d-none">
+            <label for="upload_cvr_image" class="btn btn-primary"><?= $translates["choosephoto"] ?></label>
+            <input type="file" name="upload_cvr_image" id="upload_cvr_image" class="d-none">
           </div>
           <div class="row mb-3">
-            <button type="submit" name="uploadimg1" class="btn btn-success"><?= $translates["save"] ?> <span class="spinner" id="spinnerimg1"></span></button>
+            <button type="button" name="uploadimg1" class="btn btn-success crop-image1"><?= $translates["save"] ?> <span class="spinner" id="spinnerimg1"></span></button>
           </div>
         </form>
       </div>
@@ -384,12 +391,12 @@ if ($part) {
           <button type="submit" name="deleteimg1" class="btn btn-danger w-100"><?= $translates["deletephoto"] ?></button>
         </form>
       </div>
-      <hr id="result_cvr_hr" style="display:none">
-      <div id="result_cvr_img" class="bg-danger text-dark mx-auto mb-3 text-center rounded-3" style="display:none;"></div>
+      <hr id="result_cv_hr" style="display:none">
+      <div id="result_cv_img" class="bg-danger text-light mx-auto mb-3 text-center rounded-3" style="display:none;"></div>
     </div>
   </div>
 </div>
-
+<!-- Profile Fotoğrafı -->
 <div class="modal fade" id="ProfilePhotoModal">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
@@ -405,18 +412,13 @@ if ($part) {
             </div>
           </div>
         </div>
-        <!-- <div class="row mb-4 d-none" id="image_review">
-          <div class="col-6 mx-auto p-0 d-flex justify-content-end" id="image_demo">
-            <img id="profile_image" src="" class="w-100">
-          </div>
-        </div> -->
         <form method="post" id="form_profile" autocomplete="off" enctype="multipart/form-data">
           <div class="row mb-3">
             <label for="upload_image" class="btn btn-primary"><?= $translates["choosephoto"] ?></label>
             <input type="file" name="upload_image" id="upload_image" class="d-none">
           </div>
           <div class="row mb-3">
-            <button type="button" name="uploadimg2" class="btn btn-success crop-image"><?= $translates["save"] ?> <span class="spinner" id="spinnerimg1"></span></button>
+            <button type="button" name="uploadimg2" class="btn btn-success crop-image2"><?= $translates["save"] ?> <span class="spinner" id="spinnerimg1"></span></button>
           </div>
         </form>
       </div>
@@ -426,7 +428,7 @@ if ($part) {
         </form>
       </div>
       <hr id="result_pr_hr" style="display:none">
-      <div id="result_pr_img" class="bg-danger text-dark mx-auto mb-3 text-center rounded-3" style="display:none;"></div>
+      <div id="result_pr_img" class="bg-danger text-light mx-auto mb-3 text-center rounded-3" style="display:none;"></div>
     </div>
   </div>
 </div>

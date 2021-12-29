@@ -53,7 +53,7 @@ if (is_null($getprofileimg)) {
                         echo '<li class="list-group-item bg-transparent p-4 py-1" style="border:none;" id="each_message_' . $item->MessageID . '" lastid="' . $item->MessageID . '">
                             <div class="row d-flex flex-row-reverse">   
                               <div class="col-2 col-xl-1 p-0 text-center">
-                                <img src="images_profile/' . $profile_photo . '"  class="rounded-circle" width="50" height="50">
+                                <img src="images_profile/' . $profile_photo . '"  class="rounded-circle shadow" width="50" height="50">
                               </div>      
                               <div class="col-10 d-flex justify-content-end p-0 text-end message-content-img">
                                 <a class="w-33" href="message_images/' . $item->MessageImg . '">' . $imgmsg . '</a>
@@ -71,7 +71,7 @@ if (is_null($getprofileimg)) {
                         echo '<li class="list-group-item bg-transparent p-4 py-1" style="border:none;" id="each_message_' . $item->MessageID . '" lastid="' . $item->MessageID . '">
                             <div class="row d-flex flex-row-reverse"> 
                               <div class="col-2 col-xl-1 ms-md-1 ms-xl-2 p-0 text-center d-flex justify-content-center align-items-center">
-                                <img src="images_profile/' . $profile_photo . '"  class="rounded-circle shadow-lg" width="50" height="50">
+                                <img src="images_profile/' . $profile_photo . '"  class="rounded-circle shadow" width="50" height="50">
                               </div>        
                               <div class="p-2 text-end msg-container" style="width:auto;max-width:250px;min-width:75px;">
                                 <div class="me-2 del-msg"><i class="fas fa-trash position-absolute text-danger mt-2" onClick=\'DeleteMessage("deletemessage","' . $item->MessageID . '")\'></i></div>

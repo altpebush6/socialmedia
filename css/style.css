@@ -7,14 +7,25 @@ body {
     background-color: #efefef !important;
 }
 
+/* SCROLLBARS */
+
 ::-webkit-scrollbar {
-    width: 12px;
-    background: transparent;
+    cursor: pointer;
+    width: 10px;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: linear-gradient(transparent 0.5%, #5a49e3, #6657df, #5a49e3);
+    background: rgb(189, 189, 189);
     border-radius: 10px;
+    cursor: pointer;
+}
+
+#messages_container::-webkit-scrollbar, #contactmain::-webkit-scrollbar {
+    width: 5px;
+}
+
+.leftMenu::-webkit-scrollbar {
+    width: 3px;
 }
 
 .navActive {
@@ -86,6 +97,7 @@ body {
     background: #ffffff !important;
     color: black !important;
 }
+
 
 .header-part {
     color: #5a49e3;

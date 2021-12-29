@@ -385,5 +385,10 @@ $translates = array(
     "editevent" => "Edit Event",
     "joinedevents" => "Events User Will Attend",
     "preevent" => "Premium Event",
-    "getpre" => "Buy Premium"
+    "getpre" => "Buy Premium",
+    "imagenotupl" => "The image could not be loaded.",
+    "imageupl" => "Image uploaded successfully.",
+    "typeimg" => "You can upload only jpeg, jpg, jfif and png files.",
+    "selectimg" => "Please select an image.",
+    "imgdimension" => "Image must be at rate of 1248x325."
 );

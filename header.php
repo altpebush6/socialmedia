@@ -166,18 +166,18 @@ $message_count = $db->getColumnData("SELECT COUNT(*) FROM chatbox WHERE MessageT
         break;
       case 'messages':
       case 'mesajlar':
-        echo "ACADEMY SOCIAL | " . $translates["Messages"];
+        echo "Academy Social | " . $translates["Messages"];
         break;
       case 'clubs':
       case 'kulupler':
-        echo "ACADEMY SOCIAL | " . $translates["Clubs"];
+        echo "Academy Social | " . $translates["Clubs"];
         break;
       case 'findfriends':
       case 'arkadasara':
-        echo "ACADEMY SOCIAL | " . $translates["Searchfriend"];
+        echo "Academy Social | " . $translates["Searchfriend"];
         break;
       default:
-        echo "ACADEMY SOCIAL | " . $translates["socialmedia"];
+        echo "Academy Social | " . $translates["socialmedia"];
         break;
     }
 
@@ -444,3 +444,10 @@ $message_count = $db->getColumnData("SELECT COUNT(*) FROM chatbox WHERE MessageT
     </div>
   </div>
   <div style="height:12vh;"></div>
+
+  <div class="toast position-fixed" style="bottom:30px;right:30px;z-index:1;" data-bs-delay="10000" role="alert" aria-live="assertive" aria-atomic="true"></div>
+  <script>
+    let myAlert = document.querySelector('.toast');
+    let bsAlert = new bootstrap.Toast(myAlert);
+    bsAlert.show();
+  </script>

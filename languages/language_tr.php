@@ -388,5 +388,10 @@ $translates = array(
     "editevent" => "Etkinliği Düzenle",
     "joinedevents" => "Kullanıcının Katılacağı Etkinlikler",
     "preevent" => "Premium Etkinlik",
-    "getpre" => "Premium Al"
+    "getpre" => "Premium Al",
+    "imagenotupl" => "Resim yüklenemedi.",
+    "imageupl" => "Resim başarıyla yüklendi.",
+    "typeimg" => "Sadece jpeg, jpg, jfif ve png uzantılı dosya yükleyebilirsiniz.",
+    "selectimg" => "Lütfen Bir resim seçiniz.",
+    "imgdimension" => "Resim 1248x325 oranlarında olmalıdır."
 );

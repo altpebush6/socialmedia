@@ -86,8 +86,8 @@ if ($myEvent->EventOrganizerID == $memberid) {
     <div class="row">
         <div class="col-5">
             <div class="row">
-                <div class="col-12">
-                    <img src="events_images/<?= $myEvent->EventImage ?>" class="w-100 rounded-3 shadow-lg" style="max-height: 70vh;">
+                <div class="col-12 text-center">
+                    <img src="events_images/<?= $myEvent->EventImage ?>" class="rounded-3 shadow-lg" style="max-width:100%;height:100%;">
                 </div>
                 <div class="col-12 mt-3 p-0 ps-1" id="event_buttons">
                     <?php

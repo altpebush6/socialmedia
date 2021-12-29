@@ -200,10 +200,10 @@
             foreach ($all_events as $event) {
             ?>
                 <div class="col-4 my-3 pe-5">
-                    <div class="row rounded-3 each-event shadow <?= $event->EventPremium ? 'eventPre' : 'border' ?>" style="height:26vh;overflow:hidden;">
+                    <div class="row rounded-3 w-100 each-event shadow <?= $event->EventPremium ? 'eventPre' : 'border' ?>" style="height:26vh;overflow:hidden;">
                         <div class="ribbon"><span>GOLD</span></div>
-                        <div class="col-5 m-0 p-0">
-                            <img src="events_images/<?= $event->EventImage ?>" class="w-100 rounded-3" style="height:100%">
+                        <div class="col-5 m-0 p-0" style="overflow: hidden;">
+                            <img src="events_images/<?= $event->EventImage ?>" class="rounded-3 w-100" style="height:100%">
                         </div>
                         <div class="col-7 view-event justify-content-center align-items-center" style="display: none;">
                             <a class="btn btn-outline-light" href="http://localhost/aybu/socialmedia/<?= $translates["events"] ?>/<?= seolink($event->EventHeader) . "-" . $event->EventID ?>"><?= $translates["viewevent"] ?></a>

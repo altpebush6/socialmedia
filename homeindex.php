@@ -111,7 +111,7 @@
   <div class="row p-0 m-0">
     <div class="col-2 p-0 m-0 border-end d-none d-md-block shadow" style="height:100%;position:fixed" id="topics_wide">
       <h2 class="text-center p-3 " style="font-size:27px;font-family: 'Nanum Gothic', sans-serif;"><i><?= $translates["topics"] ?></i></h2>
-      <ul class="list-group rounded-1 w-100 p-0 m-0" style="height: 31vh;overflow-y:auto;">
+      <ul class="list-group rounded-1 w-100 p-0 m-0 leftMenu" style="height: 31vh;overflow-y:auto;">
         <?php
         $topics = $db->getDatas("SELECT * FROM topics WHERE TopicActive = ? ORDER BY TopicOrder ASC", array(1));
         foreach ($topics as $topic) { ?>
@@ -120,7 +120,7 @@
       </ul>
       <hr class=" mt-4">
       <h2 class="text-center p-3 " style="font-size:27px;font-family: 'Nanum Gothic', sans-serif;"><i><?= $translates["Clubs"] ?></i></h2>
-      <ul class="list-group rounded-1 w-100 p-0" style="height: 31vh;overflow-y:auto;">
+      <ul class="list-group rounded-1 w-100 p-0 leftMenu" style="height: 31vh;overflow-y:auto;">
         <?php
         $myClubs = $db->getDatas("SELECT * FROM clubmembers WHERE MemberID = ? AND Activeness = ?", array($memberid, 1));
         foreach ($myClubs as $myClub) {
