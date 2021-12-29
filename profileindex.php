@@ -239,8 +239,10 @@ if ($part) {
               foreach ($memberCourses as $membercourse) {
                 $course = $db->getData("SELECT * FROM courses WHERE CourseID = ?", array($membercourse->CourseID));
             ?>
-                <div class="col-2 shadow text-center btn btn-lg btn-success fs-5 me-1 mb-1" title="<?= $course->CourseName ?>">
-                  <?= $course->CourseCode ?>
+                <div class="col-2 p-0 text-center fs-5 me-1 mb-1">
+                  <button type="button" class="example-popover btn btn-lg btn-success w-100 shadow">
+                    <?= $course->CourseCode ?>
+                  </button>
                 </div>
               <?php }
             } else { ?>

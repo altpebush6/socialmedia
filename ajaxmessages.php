@@ -534,6 +534,18 @@ switch ($operation) {
                                           </div>
                                         </a>';
       }
+      $result["toast"] = '<a class="toast-link text-dark text-decoration-none" href="http://localhost/aybu/socialmedia/' . $translates['messages'] . '/' . $personID . '">
+      <div class="toast show mt-2" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header">
+        <img src="images_profile/' . $getprofileimg . '" width="30" height="30" class="rounded-circle me-2">
+        <strong class="me-auto">' . $name_lastname . '</strong>
+        <small class="text-muted">' . $translates["now"] . '</small>
+      </div>
+      <div class="toast-body">
+      ' . $resultcontent . '
+      </div>
+    </div></a>';
+
       $result["personID"] = $personID;
       $db->Update("UPDATE messages SET MessageHasShown = ? WHERE MessageID = ?", array(1, $newmessageID));
     }
@@ -597,16 +609,17 @@ switch ($operation) {
                                         </div>
                                       </a>';
 
-          $result["fortoast"] = '<div class="toastContainer mt-2">
-                                  <div class="toast-header">
-                                    <img src="group_images/' . $groupimg . '" class="rounded-circle me-2" width="30" height="30">
-                                    <strong class="me-auto">' . $groupname . '</strong>
-                                    <small>' . $translates["now"] . '</small>
-                                  </div>
-                                  <div class="toast-body">
-                                    ' . $resultcontent . '
-                                  </div>
-                                </div>';
+          $result["toast"] = '<a class="toast-link text-dark text-decoration-none" href=\'http://localhost/aybu/socialmedia/' . $translates['messages'] . '/' . $translates["group"] . '/' . $groupID . '\'>
+          <div class="toast show mt-2" role="alert" aria-live="assertive" aria-atomic="true">
+          <div class="toast-header">
+            <img src="group_images/' . $groupimg . '" width="30" height="30" class="rounded-circle me-2">
+            <strong class="me-auto">' . $groupname . '</strong>
+            <small class="text-muted">' . $translates["now"] . '</small>
+          </div>
+          <div class="toast-body">
+          ' . $resultcontent . '
+          </div>
+        </div></a>';
 
           $result["personID"] = $groupID;
           $db->Update("UPDATE messages_group SET MessageHasShown = ? WHERE MessageID = ?", array(($memberid . ":"), $newmessageID));

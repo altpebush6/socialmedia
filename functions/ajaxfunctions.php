@@ -973,7 +973,14 @@
         dataType: 'json',
         success: function(result) {
           if (result.newMessages) {
-            $(".toast").append(result.fortoast);
+            $(".toast-container").append(result.toast);
+            setTimeout(() => {
+              $(".toast").css({
+                "opacity":0,
+                "visibility":"hidden"
+              });
+            }, 5000);
+    
             if (result.nonconversation) {
               $("#contactmain").prepend(result.nonconversation);
             }

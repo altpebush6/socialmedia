@@ -445,9 +445,5 @@ $message_count = $db->getColumnData("SELECT COUNT(*) FROM chatbox WHERE MessageT
   </div>
   <div style="height:12vh;"></div>
 
-  <div class="toast position-fixed" style="bottom:30px;right:30px;z-index:1;" data-bs-delay="10000" role="alert" aria-live="assertive" aria-atomic="true"></div>
-  <script>
-    let myAlert = document.querySelector('.toast');
-    let bsAlert = new bootstrap.Toast(myAlert);
-    bsAlert.show();
-  </script>
+
+  <div  class="toast-container position-fixed" style="bottom: 30px;right: 30px;z-index:1;"></div>
