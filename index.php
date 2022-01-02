@@ -1,6 +1,6 @@
 <?php
 if (!isset($_SESSION)) {
-  session_start();
+    session_start();
 }
 require_once "classes/AllClasses.php";
 
@@ -63,6 +63,13 @@ if ($SS->get("MemberID")) {
         case 'etkinlikler':
             require_once "header.php";
             require_once "eventsindex.php";
+            require_once "functions/ajaxfunctions.php";
+            break;
+
+        case 'courses':
+        case 'dersler':
+            require_once "header.php";
+            require_once "coursesindex.php";
             require_once "functions/ajaxfunctions.php";
             break;
 
@@ -203,6 +210,23 @@ if ($SS->get("MemberID")) {
 
         case 'friends':
         case 'arkadaslar':
+            if ($language == 'tr') {
+                header("Location: http://localhost/aybu/socialmedia/giris");
+            } else {
+                header("Location: http://localhost/aybu/socialmedia/login");
+            }
+            break;
+
+        case 'events':
+        case 'etkinlikler':
+            if ($language == 'tr') {
+                header("Location: http://localhost/aybu/socialmedia/giris");
+            } else {
+                header("Location: http://localhost/aybu/socialmedia/login");
+            }
+            break;
+        case 'courses':
+        case 'kurslar':
             if ($language == 'tr') {
                 header("Location: http://localhost/aybu/socialmedia/giris");
             } else {

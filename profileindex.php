@@ -217,7 +217,7 @@ if ($part) {
         <div class="col-12" style="border-bottom: 1px solid rgba(46, 46, 46, 0.2);">
           <div class="row justify-content-end">
             <div class="col-12 mb-2">
-              <h2 class="header text-dark text-center" style="font-family: 'Libre Baskerville', serif;"><?= $translates["courses"] ?></h2>
+              <h2 class="header text-dark text-center" style="font-family: 'Libre Baskerville', serif;"><?= $translates["Courses"] ?></h2>
             </div>
             <?php
             if ($memberid == $part || !$part) { ?>

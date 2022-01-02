@@ -747,3 +747,11 @@ body {
 .tabsText:hover {
     background-color: rgba(0, 0, 0, 0.37) !important;
 }
+
+.courseTabs {
+    color:#000000a1 !important;
+}
+
+.courseTabs:hover {
+    background: rgba(0, 0, 0, 0.1) !important;
+}
