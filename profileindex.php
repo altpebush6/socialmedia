@@ -444,7 +444,7 @@ if ($part) {
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <input type="text" id="searchCourse" placeholder="Kurs adını giriniz" class="form-control mb-3">
+        <input type="text" id="searchCourse" placeholder="<?=$translates["entercoursename"]?>" class="form-control mb-3">
         <div class="container">
           <div class="row ps-1">
             <div class="col-7 offset-1"><b><?= $translates["coursename"] ?></b></div>

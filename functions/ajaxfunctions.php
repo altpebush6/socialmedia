@@ -976,11 +976,11 @@
             $(".toast-container").append(result.toast);
             setTimeout(() => {
               $(".toast").css({
-                "opacity":0,
-                "visibility":"hidden"
+                "opacity": 0,
+                "visibility": "hidden"
               });
             }, 5000);
-    
+
             if (result.nonconversation) {
               $("#contactmain").prepend(result.nonconversation);
             }
@@ -2072,6 +2072,79 @@
         $("#icon_" + MemberID).addClass('fa-plus');
         $("#operation_" + MemberID).removeClass("removeMemberIcon");
         $("#operation_" + MemberID).addClass("addMemberIcon");
+      }
+    });
+  });
+
+  $(".courseFilter").on("keyup", function() {
+    var CourseName = $("#courseName").val();
+    var CourseCode = $("#courseCode").val();
+    var CourseClass = $("#CourseClass").val();
+    var Datas = {
+      "CourseName": CourseName,
+      "CourseCode": CourseCode,
+      "CourseClass": CourseClass
+    };
+    $.ajax({
+      type: "POST",
+      url: SITE_URL + "/socialmedia/ajaxcourses.php?operation=filterCourse",
+      dataType: "JSON",
+      data: Datas,
+      success: function(result) {
+        $("#courseContainer").html(result.course);
+        if (!result.course) {
+          $("#courseContainer").html("<h4 class='text-dark'><?= $translates["noresult"] ?></h4>");
+        }
+      }
+    });
+  });
+  $(".courseFilter").on("change", function() {
+    var CourseName = $("#courseName").val();
+    var CourseCode = $("#courseCode").val();
+    var CourseClass = $("#CourseClass").val();
+    var Datas = {
+      "CourseName": CourseName,
+      "CourseCode": CourseCode,
+      "CourseClass": CourseClass
+    };
+    $.ajax({
+      type: "POST",
+      url: SITE_URL + "/socialmedia/ajaxcourses.php?operation=filterCourse",
+      dataType: "JSON",
+      data: Datas,
+      success: function(result) {
+        $("#courseContainer").html(result.course);
+        if (!result.course) {
+          $("#courseContainer").html("<h4 class='text-dark'><?= $translates["noresult"] ?></h4>");
+        }
+      }
+    });
+  });
+
+  $("#coursePage").on("click", ".courseattendance", function() {
+    var Operation = $(this).attr("id");
+    var CourseID = $(this).attr("courseid");
+    $.ajax({
+      type: "POST",
+      url: SITE_URL + "/socialmedia/ajaxcourses.php?operation=" + Operation,
+      dataType: "JSON",
+      data: {
+        "CourseID": CourseID
+      },
+      success: function(result) {
+        if (Operation == "enrollCourse") {
+          $("#enrollCourse").removeClass("btn-post");
+          $("#enrollCourse").addClass("btn-secondary");
+          $("#enrollCourse").html('<?= $translates["hascourse"] ?> <i class="fas fa-check"></i');
+          $("#enrollCourse").attr("id", "quitCourse");
+          $("#courseAttandance").html(result.attandance);
+        } else {
+          $("#quitCourse").removeClass("btn-secondary");
+          $("#quitCourse").addClass("btn-post");
+          $("#quitCourse").html('<?= $translates["addcourse"] ?>');
+          $("#quitCourse").attr("id", "enrollCourse");
+          $("#courseAttandance").html(result.attandance);
+        }
       }
     });
   });
