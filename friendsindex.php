@@ -3,7 +3,7 @@
 if ($part) {
     $profile_photo = $db->getColumnData("SELECT Member_Profileimg FROM images WHERE MemberID = ?", array($part));
     if (is_null($profile_photo)) {
-        if ($gender == 'Erkek') {
+        if ($gender == 'Male') {
             $profile_photo = "profilemale.png";
         } else {
             $profile_photo = "profilefemale.png";
@@ -57,7 +57,7 @@ if ($friend_count) {
                         $personimg = $db->getColumnData("SELECT Member_Profileimg FROM images WHERE MemberID = ?", array($personID));
                         $gender = $db->getColumnData("SELECT MemberGender FROM members WHERE MemberID = ?", array($personID));
                         if (is_null($personimg)) {
-                            if ($gender == 'Erkek') {
+                            if ($gender == 'Male') {
                                 $personimg = "profilefullmale.jpg";
                             } else {
                                 $personimg = "profilefullfemale.jpg";
@@ -101,7 +101,7 @@ if ($friend_count) {
                         $personimg = $db->getColumnData("SELECT Member_Profileimg FROM images WHERE MemberID = ?", array($personID));
                         $gender = $db->getColumnData("SELECT MemberGender FROM members WHERE MemberID = ?", array($personID));
                         if (is_null($personimg)) {
-                            if ($gender == 'Erkek') {
+                            if ($gender == 'Male') {
                                 $personimg = "profilefullmale.jpg";
                             } else {
                                 $personimg = "profilefullfemale.jpg";
@@ -141,7 +141,7 @@ if ($friend_count) {
                             $personimg = $db->getColumnData("SELECT Member_Profileimg FROM images WHERE MemberID = ?", array($personID));
                             $gender = $db->getColumnData("SELECT MemberGender FROM members WHERE MemberID = ?", array($personID));
                             if (is_null($personimg)) {
-                                if ($gender == 'Erkek') {
+                                if ($gender == 'Male') {
                                     $personimg = "profilefullmale.jpg";
                                 } else {
                                     $personimg = "profilefullfemale.jpg";

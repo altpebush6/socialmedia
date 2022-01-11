@@ -13,7 +13,7 @@ if ($part) {
     $cover_photo = "noncover.png";
   }
   if (is_null($profile_photo)) {
-    if ($gender == 'Erkek') {
+    if ($gender == 'Male') {
       $profile_photo = "profilemale.png";
     } else {
       $profile_photo = "profilefemale.png";
@@ -240,9 +240,9 @@ if ($part) {
                 $course = $db->getData("SELECT * FROM courses WHERE CourseID = ?", array($membercourse->CourseID));
             ?>
                 <div class="col-2 p-0 text-center fs-5 me-1 mb-1">
-                  <button type="button" class="example-popover btn btn-lg btn-success w-100 shadow">
+                  <a href="http://localhost/aybu/socialmedia/<?= $translates["courses"] . "/" . $course->CourseID ?>" class="example-popover btn btn-lg btn-success w-100 shadow">
                     <?= $course->CourseCode ?>
-                  </button>
+                  </a>
                 </div>
               <?php }
             } else { ?>
@@ -444,7 +444,7 @@ if ($part) {
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <input type="text" id="searchCourse" placeholder="<?=$translates["entercoursename"]?>" class="form-control mb-3">
+        <input type="text" id="searchCourse" placeholder="<?= $translates["entercoursename"] ?>" class="form-control mb-3">
         <div class="container">
           <div class="row ps-1">
             <div class="col-7 offset-1"><b><?= $translates["coursename"] ?></b></div>

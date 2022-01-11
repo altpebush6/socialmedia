@@ -34,7 +34,7 @@ $usernames = $db->getColumnData("SELECT MemberNames FROM members WHERE MemberID 
 $member_profile = $db->getColumnData("SELECT Member_Profileimg FROM images WHERE MemberID = ?", array($memberid));
 $gender = $db->getColumnData("SELECT MemberGender FROM members WHERE MemberID = ?", array($memberid));
 if (is_null($member_profile)) {
-  if ($gender == 'Erkek') {
+  if ($gender == 'Male') {
     $member_profile = "profilemale.png";
   } else {
     $member_profile = "profilefemale.png";
@@ -65,7 +65,7 @@ switch ($operation) {
           $getprofileimg = $db->getColumnData("SELECT Member_Profileimg FROM images WHERE MemberID = ?", array($personID));
           $gender = $db->getColumnData("SELECT MemberGender FROM members WHERE MemberID = ?", array($personID));
           if (is_null($getprofileimg)) {
-            if ($gender == 'Erkek') {
+            if ($gender == 'Male') {
               $getprofileimg = "profilemale.png";
             } else {
               $getprofileimg = "profilefemale.png";
@@ -82,7 +82,7 @@ switch ($operation) {
                                       </div>      
                                       <div class="col-10 d-flex justify-content-start p-0 text-start message-content-img">
                                         <a class="w-33" href="message_images/' . $msgName . '">' . $messageimage . '</a>
-                                        <span class="time-img text-dark fs-6 m-2 p-1 align-self-end rounded-2 position-absolute" style="font-size: 13px !important;">
+                                        <span class="time-img text-light fs-6 m-2 p-1 align-self-end rounded-2 position-absolute" style="font-size: 13px !important;">
                                         ' . messageTime($item->MessageAddTime) . '
                                         </span>
                                       </div>
@@ -199,7 +199,7 @@ switch ($operation) {
         }
         $sawMessage = $db->Update("UPDATE messages SET MessageHasSeen = ? WHERE MessageFromID = ? AND MessageToID = ?", array(1, $personID, $memberid));
         $readMessage = $db->Update("UPDATE chatbox SET MessageHasRead = ? WHERE MessageFromID = ? AND MessageToID = ?", array(1, $personID, $memberid));
-        $readMessage = $db->Update("UPDATE messages SET MessageHasRead = ? WHERE MessageFromID = ? AND MessageToID = ?", array(1, $personID, $memberid));
+        $readMessage2 = $db->Update("UPDATE messages SET MessageHasRead = ? WHERE MessageFromID = ? AND MessageToID = ?", array(1, $personID, $memberid));
 
         $isSeen = $db->getColumnData("SELECT MessageHasSeen FROM messages WHERE MessageFromID = $memberid AND MessageToID = $personID AND MessageStatus = 1 ORDER BY MessageID DESC");
         if ($isSeen == 1) {
@@ -261,7 +261,7 @@ switch ($operation) {
           $getprofileimg = $db->getColumnData("SELECT Member_Profileimg FROM images WHERE MemberID = ?", array($MessageFromID));
           $gender = $db->getColumnData("SELECT MemberGender FROM members WHERE MemberID = ?", array($MessageFromID));
           if (is_null($getprofileimg)) {
-            if ($gender == 'Erkek') {
+            if ($gender == 'Male') {
               $getprofileimg = "profilemale.png";
             } else {
               $getprofileimg = "profilefemale.png";
@@ -284,7 +284,7 @@ switch ($operation) {
                                       <div class="position-absolute bg-dark text-dark m-1 p-1 rounded-2" style="font-size:13px;">' . $personNames . '</div>
                                       ' . $messageimage . '
                                       </a>
-                                      <span class="time-img text-dark fs-6 m-2 p-1 align-self-end rounded-2 position-absolute" style="font-size: 13px !important;">
+                                      <span class="time-img text-light fs-6 m-2 p-1 align-self-end rounded-2 position-absolute" style="font-size: 13px !important;">
                                       ' . messageTime($item->MessageAddTime) . '
                                       </span>
                                     </div>
@@ -300,7 +300,7 @@ switch ($operation) {
                                   <div class="col-2 p-0" style="width:auto;max-width:250px;min-width:75px;">
                                     <div class="row align-items-center bg-light text-dark rounded-3" style="height:100%;max-width:200px;">
                                       <div class="p-0 w-100" style="width:auto;max-width:200px;">
-                                        <p class="m-0 px-2 text-break bg-dark text-dark border-bottom" style="font-size:13px;padding-bottom:1px;padding-top:1px;border-top-left-radius:0.3rem;border-top-right-radius:0.3rem;">' . $personNames . '</p>
+                                        <p class="m-0 px-2 text-break bg-dark text-light border-bottom" style="font-size:13px;padding-bottom:1px;padding-top:1px;border-top-left-radius:0.3rem;border-top-right-radius:0.3rem;">' . $personNames . '</p>
                                         <p class="m-0 py-1 px-2 fs-6 text-break">' . $item->MessageText . '</p>
                                       </div>
                                       <div class="bg-light text-dark text-end px-2 rounded-3" style="border-top-left-radius:0px !important;border-top-right-radius:0px !important;font-size:12px">
@@ -312,6 +312,9 @@ switch ($operation) {
                               </li>';
           }
         }
+
+        $sawMessage = $db->Update("UPDATE messages_group SET MessageHasSeen = ? WHERE GroupID = ? AND MessageFromID = ?", array($memberid . ":", $GroupID, $MessageFromID));
+
         $MessageFromName = $db->getColumnData("SELECT MemberName FROM members WHERE MemberID = ?", array($MessageFromID));
 
         $newmessageID = $item->MessageID;
@@ -464,7 +467,7 @@ switch ($operation) {
       $getprofileimg = $db->getColumnData("SELECT Member_Profileimg FROM images WHERE MemberID = ?", array($personID));
       $gender = $db->getColumnData("SELECT MemberGender FROM members WHERE MemberID = ?", array($personID));
       if (is_null($getprofileimg)) {
-        if ($gender == 'Erkek') {
+        if ($gender == 'Male') {
           $getprofileimg = "profilemale.png";
         } else {
           $getprofileimg = "profilefemale.png";
@@ -661,7 +664,7 @@ switch ($operation) {
           $getprofileimg = $db->getColumnData("SELECT Member_Profileimg FROM images WHERE MemberID = ?", array($personID));
           $gender = $db->getColumnData("SELECT MemberGender FROM members WHERE MemberID = ?", array($personID));
           if (is_null($getprofileimg)) {
-            if ($gender == 'Erkek') {
+            if ($gender == 'Male') {
               $getprofileimg = "profilemale.png";
             } else {
               $getprofileimg = "profilefemale.png";
@@ -909,7 +912,7 @@ switch ($operation) {
         $getprofileimg = $db->getColumnData("SELECT Member_Profileimg FROM images WHERE MemberID = ?", array($personID));
         $gender = $db->getColumnData("SELECT MemberGender FROM members WHERE MemberID = ?", array($personID));
         if (is_null($getprofileimg)) {
-          if ($gender == 'Erkek') {
+          if ($gender == 'Male') {
             $getprofileimg = "profilemale.png";
           } else {
             $getprofileimg = "profilefemale.png";
@@ -1181,7 +1184,7 @@ switch ($operation) {
           $friendIMG = $db->getColumnData("SELECT Member_Profileimg FROM images WHERE MemberID = ?", array($friendID));
           $gender = $member->MemberGender;
           if (is_null($friendIMG)) {
-            if ($gender == 'Erkek') {
+            if ($gender == 'Male') {
               $friendIMG = "profilemale.png";
             } else {
               $friendIMG = "profilefemale.png";
@@ -1202,7 +1205,7 @@ switch ($operation) {
     $friendIMG = $db->getColumnData("SELECT Member_Profileimg FROM images WHERE MemberID = ?", array($friendID));
     $gender = $db->getColumnData("SELECT MemberGender FROM members WHERE MemberID = ?", array($friendID));
     if (is_null($friendIMG)) {
-      if ($gender == 'Erkek') {
+      if ($gender == 'Male') {
         $friendIMG = "profilemale.png";
       } else {
         $friendIMG = "profilefemale.png";
@@ -1220,7 +1223,7 @@ switch ($operation) {
     $friendIMG = $db->getColumnData("SELECT Member_Profileimg FROM images WHERE MemberID = ?", array($friendID));
     $gender = $db->getColumnData("SELECT MemberGender FROM members WHERE MemberID = ?", array($friendID));
     if (is_null($friendIMG)) {
-      if ($gender == 'Erkek') {
+      if ($gender == 'Male') {
         $friendIMG = "profilemale.png";
       } else {
         $friendIMG = "profilefemale.png";
@@ -1405,7 +1408,7 @@ switch ($operation) {
             $person_photo = $db->getColumnData("SELECT Member_Profileimg FROM images WHERE MemberID = ?", array($memberID));
             $gender = $db->getColumnData("SELECT MemberGender FROM members WHERE MemberID = ?", array($memberID));
             if (is_null($person_photo)) {
-              if ($gender == 'Erkek') {
+              if ($gender == 'Male') {
                 $person_photo = "profilemale.png";
               } else {
                 $person_photo = "profilefemale.png";
@@ -1474,7 +1477,7 @@ switch ($operation) {
         $gender = $db->getColumnData("SELECT MemberGender FROM members WHERE MemberID = ?", array($memberID));
         $memberNames = $item->MemberNames;
         if (is_null($person_photo)) {
-          if ($gender == 'Erkek') {
+          if ($gender == 'Male') {
             $person_photo = "profilemale.png";
           } else {
             $person_photo = "profilefemale.png";

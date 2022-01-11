@@ -404,5 +404,8 @@ $translates = array(
     "selectclass" => "Sınıfınızı seçiniz",
     "class" => ". sınıf",
     "peoplecourse" => "Kursu alan kişi sayısı",
-    "hascourse" => "Derse kayıtlısın"
+    "hascourse" => "Derse kayıtlısın",
+    "hasbirthday" => "'in Doğum Günü!",
+    "congrathisbirthday" => "Onun bu özel günün de ona iyi dileklerini söyle!",
+    "congratherbirthday" => "Onun bu özel günün de ona iyi dileklerini söyle!"
 );

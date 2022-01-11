@@ -973,7 +973,9 @@
         dataType: 'json',
         success: function(result) {
           if (result.newMessages) {
-            $(".toast-container").append(result.toast);
+            if (Page != '<?= $translates["messages"] ?>') {
+              $(".toast-container").append(result.toast);
+            }
             setTimeout(() => {
               $(".toast").css({
                 "opacity": 0,
@@ -2173,6 +2175,8 @@
       }
     });
   }
+
+
 
   // Enter Key Events
   $(function() {

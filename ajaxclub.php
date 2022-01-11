@@ -222,7 +222,7 @@ switch ($operation) {
         $memberimg = $db->getColumnData("SELECT Member_Profileimg FROM images WHERE MemberID = ?", array($memberID));
         $gender = $db->getColumnData("SELECT MemberGender FROM members WHERE MemberID = ?", array($memberID));
         if (is_null($memberimg)) {
-            if ($gender == 'Erkek') {
+            if ($gender == 'Male') {
                 $memberimg = "profilefullmale.jpg";
             } else {
                 $memberimg = "profilefullfemale.jpg";

@@ -8,7 +8,7 @@ $name_lastname = $name . " " . $lastname;
 $getprofileimg = $db->getColumnData("SELECT Member_Profileimg FROM images WHERE MemberID = ?", array($part));
 $membergender = $db->getColumnData("SELECT MemberGender FROM members WHERE MemberID = ?", array($part));
 if (is_null($getprofileimg)) {
-    if ($membergender == 'Erkek') {
+    if ($membergender == 'Male') {
         $getprofileimg = "profilemale.png";
     } else {
         $getprofileimg = "profilefemale.png";
@@ -97,7 +97,7 @@ if (is_null($getprofileimg)) {
                               </div>      
                               <div class="col-10 d-flex justify-content-start p-0 text-start message-content-img">
                                 <a class="w-33" href="message_images/' . $item->MessageImg . '">' . $imgmsg . '</a>
-                                <span class="time-img text-dark fs-6 m-2 p-1 align-self-end rounded-2 position-absolute" style="font-size: 13px !important;">
+                                <span class="time-img text-light fs-6 m-2 p-1 align-self-end rounded-2 position-absolute" style="font-size: 13px !important;">
                                 ' . messageTime($item->MessageAddTime) . '
                                 </span>
                               </div>

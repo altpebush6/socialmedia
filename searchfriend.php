@@ -36,7 +36,7 @@ require_once "functions/seolink.php";
           $memberimg = $db->getColumnData("SELECT Member_Profileimg FROM images WHERE MemberID = ?", array($member->MemberID));
           $gender = $db->getColumnData("SELECT MemberGender FROM members WHERE MemberID = ?", array($member->MemberID));
           if (is_null($memberimg)) {
-            if ($gender == 'Erkek') {
+            if ($gender == 'Male') {
               $memberimg = "profilemale.png";
             } else {
               $memberimg = "profilefemale.png";

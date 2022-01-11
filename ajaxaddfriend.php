@@ -62,7 +62,7 @@ switch ($operation) {
     $personimg = $db->getColumnData("SELECT Member_Profileimg FROM images WHERE MemberID = ?", array($friendid));
     $gender = $db->getColumnData("SELECT MemberGender FROM members WHERE MemberID = ?", array($friendid));
     if (is_null($personimg)) {
-      if ($gender == 'Erkek') {
+      if ($gender == 'Male') {
         $personimg = "profilefullmale.jpg";
       } else {
         $personimg = "profilefullfemale.jpg";

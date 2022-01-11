@@ -60,7 +60,7 @@ switch($operation){
         $last_comment = $db->getColumnData("SELECT CommentText FROM postcomments WHERE CommentID = ?",array($insert_comment));
         $gender = $db->getColumnData("SELECT MemberGender FROM members WHERE MemberID = ?", array($id));
         if (is_null($comment_profile_photo)) {
-          if ($gender == 'Erkek') {
+          if ($gender == 'Male') {
             $comment_profile_photo = "profilemale.png";
           } else {
             $comment_profile_photo = "profilefemale.png";

@@ -58,7 +58,7 @@ $profile_photo = $db->getColumnData("SELECT AdminImg FROM admins WHERE AdminID =
 $gender = $db->getColumnData("SELECT AdminGender FROM admins WHERE AdminID = ?", array($adminid));
 
 if (is_null($profile_photo)) {
-    if ($gender == 'Erkek') {
+    if ($gender == 'Male') {
         $profile_photo = "profilemale.png";
     } else {
         $profile_photo = "profilefemale.png";

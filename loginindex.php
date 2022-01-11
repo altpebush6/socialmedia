@@ -120,9 +120,9 @@ require_once "languages/language_" . $language . ".php";
               </div>
               <label for="gender" class="form-label text-muted"><?= $translates["gender"] . "*" ?></label>
               <div class="mb-3">
-                <input class="btn-check" type="radio" name="gender" id="genderman" value="Erkek" checked>
+                <input class="btn-check" type="radio" name="gender" id="genderman" value="Male" checked>
                 <label class="btn btn-outline-primary" for="genderman"><?= $translates["man"] ?></label>
-                <input class="btn-check" type="radio" name="gender" id="genderwoman" value="Kadın">
+                <input class="btn-check" type="radio" name="gender" id="genderwoman" value="Female">
                 <label class="btn btn-outline-danger" for="genderwoman"><?= $translates["woman"] ?></label>
               </div>
               <div class="form-check">

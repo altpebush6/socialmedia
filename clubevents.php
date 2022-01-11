@@ -78,7 +78,7 @@ foreach ($allevents as $event) {
     $creatorNames = $db->getColumnData("SELECT MemberNames FROM members WHERE MemberID = ?", array($creatorID));
     $creatorimg = $db->getColumnData("SELECT Member_Profileimg FROM images WHERE MemberID = ?", array($creatorID));
     if (is_null($creatorimg)) {
-        if ($gender == 'Erkek') {
+        if ($gender == 'Male') {
             $creatorimg = "profilemale.png";
         } else {
             $creatorimg = "profilefemale.png";

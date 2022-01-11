@@ -401,5 +401,8 @@ $translates = array(
     "selectclass" => "Select your class",
     "class" => ". class",
     "peoplecourse" => "Number of people enrolled this course",
-    "hascourse" => "Enrolled to course"
+    "hascourse" => "Enrolled to course",
+    "hasbirthday" => "'s Birthday!",
+    "congrathisbirthday" => "Wish him well on his special day!",
+    "congratherbirthday" => "Wish her well on her special day!",
 );

@@ -11,7 +11,7 @@ if (($memberid == $clubPresidentID) and ($clubRequests)) { ?>
                     $memberimg = $db->getColumnData("SELECT Member_Profileimg FROM images WHERE MemberID = ?", array($memberinfo->MemberID));
                     $gender = $db->getColumnData("SELECT MemberGender FROM members WHERE MemberID = ?", array($memberinfo->MemberID));
                     if (is_null($memberimg)) {
-                        if ($gender == 'Erkek') {
+                        if ($gender == 'Male') {
                             $memberimg = "profilemale.png";
                         } else {
                             $memberimg = "profilefemale.png";
@@ -58,7 +58,7 @@ if (($memberid == $clubPresidentID) and ($clubRequests)) { ?>
                 $memberimg = $db->getColumnData("SELECT Member_Profileimg FROM images WHERE MemberID = ?", array($memberID));
                 $gender = $db->getColumnData("SELECT MemberGender FROM members WHERE MemberID = ?", array($memberID));
                 if (is_null($memberimg)) {
-                    if ($gender == 'Erkek') {
+                    if ($gender == 'Male') {
                         $memberimg = "profilemale.png";
                     } else {
                         $memberimg = "profilefemale.png";
@@ -114,7 +114,7 @@ if (($memberid == $clubPresidentID) and ($clubRequests)) { ?>
                 $memberimg = $db->getColumnData("SELECT Member_Profileimg FROM images WHERE MemberID = ?", array($memberID));
                 $gender = $db->getColumnData("SELECT MemberGender FROM members WHERE MemberID = ?", array($memberID));
                 if (is_null($memberimg)) {
-                    if ($gender == 'Erkek') {
+                    if ($gender == 'Male') {
                         $memberimg = "profilemale.png";
                     } else {
                         $memberimg = "profilefemale.png";

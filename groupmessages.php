@@ -48,7 +48,7 @@ if (is_null($groupImage)) {
         $personImage = $db->getColumnData("SELECT Member_Profileimg FROM images WHERE MemberID = ?", array($MessageFrom));
         $persongender = $db->getColumnData("SELECT MemberGender FROM members WHERE MemberID = ?", array($MessageFrom));
         if (is_null($personImage)) {
-          if ($persongender == 'Erkek') {
+          if ($persongender == 'Male') {
             $personImage  = "profilemale.png";
           } else {
             $personImage = "profilefemale.png";
@@ -99,7 +99,7 @@ if (is_null($groupImage)) {
                             <div class="row">
                               <div class="col-2 p-0 col-lg-1 text-center me-lg-3">
                               <a href="http://localhost/aybu/socialmedia/' . $translates["profile"] . '/' . $MessageFrom . '">
-                                <img src="images_profile/' . $getprofileimg . '" class="rounded-circle shadow-lg" width="60" height="60">
+                                <img src="images_profile/' . $personImage . '" class="rounded-circle shadow-lg" width="60" height="60">
                               </a>
                               </div>      
                               <div class="col-10 d-flex justify-content-start p-0 text-start message-content-img">
@@ -118,7 +118,7 @@ if (is_null($groupImage)) {
                             <div class="row">
                               <div class="col-2 col-lg-1 text-center p-0 me-2 me-md-3 me-lg-4">
                               <a href="http://localhost/aybu/socialmedia/' . $translates["profile"] . '/' . $MessageFrom . '">
-                                <img src="images_profile/' . $getprofileimg . '" class="rounded-circle shadow-lg" width="60" height="60">
+                                <img src="images_profile/' . $personImage . '" class="rounded-circle shadow-lg" width="60" height="60">
                               </a>
                               </div>        
                               <div class="col-10 p-0" style="width:auto;max-width:250px;min-width:75px;">
@@ -222,7 +222,7 @@ if (is_null($groupImage)) {
             $memberNames = $db->getColumnData("SELECT MemberNames FROM members WHERE MemberID = ?", array($eachMember));
             $memberImg = $db->getColumnData("SELECT Member_Profileimg FROM images WHERE MemberID = ?", array($eachMember));
             if (is_null($memberImg)) {
-              if ($gender == 'Erkek') {
+              if ($gender == 'Male') {
                 $memberImg = "profilemale.png";
               } else {
                 $memberImg = "profilefemale.png";
@@ -311,7 +311,7 @@ if (is_null($groupImage)) {
                 $memberNames = $db->getColumnData("SELECT MemberNames FROM members WHERE MemberID = ?", array($eachmemberID));
                 $memberImg = $db->getColumnData("SELECT Member_Profileimg FROM images WHERE MemberID = ?", array($eachmemberID));
                 if (is_null($memberImg)) {
-                  if ($gender == 'Erkek') {
+                  if ($gender == 'Male') {
                     $memberImg = "profilemale.png";
                   } else {
                     $memberImg = "profilefemale.png";

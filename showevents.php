@@ -42,7 +42,7 @@ if ($counter > 0) {
         $gender = $db->getColumnData("SELECT MemberGender FROM members WHERE MemberID = ?", array($eventCreatorID));
 
         if (is_null($event_profile_photo)) {
-            if ($gender == 'Erkek') {
+            if ($gender == 'Male') {
                 $event_profile_photo = "profilemale.png";
             } else {
                 $event_profile_photo = "profilefemale.png";

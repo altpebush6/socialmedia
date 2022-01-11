@@ -85,6 +85,23 @@ if ($page == $translates["home"]) {
   }
 }
 
+// Mesajlar işlemleri
+if ($page == $translates["messages"]) {
+  if ($part == $memberid) {
+    header("Location: http://localhost/aybu/socialmedia/404.php");
+  }
+}
+
+// Dersler işlemleri
+if ($page == $translates["courses"]) {
+  if ($part) {
+    $isCourseHave = $db->getData("SELECT * FROM courses WHERE CourseID = ?", array($part));
+    if (empty($isCourseHave)) {
+      header("Location: http://localhost/aybu/socialmedia/404.php");
+    }
+  }
+}
+
 // Haber sayfası işlemleri
 if ($page == $translates["News"]) {
   if ($part) {
@@ -120,7 +137,7 @@ $profile_photo = $db->getColumnData("SELECT Member_Profileimg FROM images WHERE 
 $gender = $db->getColumnData("SELECT MemberGender FROM members WHERE MemberID = ?", array($memberid));
 
 if (is_null($profile_photo)) {
-  if ($gender == 'Erkek') {
+  if ($gender == 'Male') {
     $profile_photo = "profilemale.png";
   } else {
     $profile_photo = "profilefemale.png";
@@ -135,6 +152,7 @@ $user_lastname = $db->getColumnData("SELECT MemberLastName FROM members WHERE Me
 $user_namelastname = $db->getColumnData("SELECT MemberNames FROM members WHERE MemberID = $memberid ");
 
 $message_count = $db->getColumnData("SELECT COUNT(*) FROM chatbox WHERE MessageToID = ? AND MessageStatus = ? AND MessageHasRead = ?", array($memberid, 1, 0));
+
 ?>
 
 <!DOCTYPE html>
@@ -189,13 +207,16 @@ $message_count = $db->getColumnData("SELECT COUNT(*) FROM chatbox WHERE MessageT
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/bootstrap.css" />
   <link rel="stylesheet" href="css/croppie.css">
+  <link rel="stylesheet" href="css/confetti.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js" type="text/javascript"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js" type="text/javascript"></script>
   <script src="js/bootstrap.js"></script>
+  <script src="js/confetti.js"></script>
   <script src="js/baguetteBox.min.js"></script>
   <script src="js/jquery-3.5.1.min.js"></script>
   <script src="js/owl.carousel.min.js"></script>
   <script src="js/croppie.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
   <script>
     function LoadFinish() {
       $(".lds-ellipsis").css("display", "none");
@@ -293,7 +314,7 @@ $message_count = $db->getColumnData("SELECT COUNT(*) FROM chatbox WHERE MessageT
                         $personID = $db->getColumnData("SELECT FirstMemberID FROM friends WHERE FriendID = ?", array($FriendID));
                         $personimg = $db->getColumnData("SELECT Member_Profileimg FROM images WHERE MemberID = ?", array($personID));
                         if (is_null($personimg)) {
-                          if ($gender == 'Erkek') {
+                          if ($gender == 'Male') {
                             $personimg = "profilemale.png";
                           } else {
                             $personimg = "profilefemale.png";
@@ -352,7 +373,7 @@ $message_count = $db->getColumnData("SELECT COUNT(*) FROM chatbox WHERE MessageT
                           $personID = $db->getColumnData("SELECT FirstMemberID FROM friends WHERE FriendID = ?", array($FriendID));
                           $personimg = $db->getColumnData("SELECT Member_Profileimg FROM images WHERE MemberID = ?", array($personID));
                           if (is_null($personimg)) {
-                            if ($gender == 'Erkek') {
+                            if ($gender == 'Male') {
                               $personimg = "profilemale.png";
                             } else {
                               $personimg = "profilefemale.png";
@@ -445,5 +466,72 @@ $message_count = $db->getColumnData("SELECT COUNT(*) FROM chatbox WHERE MessageT
   </div>
   <div style="height:12vh;"></div>
 
+  <?php
+  // DOĞUM GÜNÜ MESAJI
+  $year = date("Y");
+  $month = date("m");
+  $day = date("d");
+  $allMemberinfo = $db->getDatas("SELECT * FROM memberabout");
+  foreach ($allMemberinfo as $memberinfo) {
+    $memberBirthday = explode("-", $memberinfo->MemberBirthday);
+    $modalinfo = $db->getData("SELECT * FROM birthdaymodals WHERE MemberID = ? AND BirthdayMemberID = ? AND ModalState = ?", array($memberid, $memberinfo->MemberID, 1));
+    if ($memberBirthday[1] == $month and $memberBirthday[2] == $day and (!$modalinfo or $modalinfo->ShownYear != $year) and $memberid != $memberinfo->MemberID) {
+      if ($modalinfo) {
+        $db->Update("UPDATE birthdaymodals SET ShownYear = ? WHERE MemberID = ? AND BirthdayMemberID = ?", array($year,$memberid, $memberinfo->MemberID));
+      } else {
+        $db->Insert("INSERT INTO birthdaymodals SET MemberID = ?,
+        BirthdayMemberID = ?,
+        ModalState = ?,
+        ShownYear = ?", array($memberid, $memberinfo->MemberID, 1, $year));
+      }
+      $dayMember = $db->getData("SELECT * FROM members WHERE MemberID = ?", array($memberinfo->MemberID));
+      require_once "birthdaymodal.php";
+  ?>
+      <script>
+        var birthdayModal = new bootstrap.Modal(document.getElementById('birthdayModal'), {
+          keyboard: false
+        });
+        birthdayModal.show();
 
-  <div  class="toast-container position-fixed" style="bottom: 30px;right: 30px;z-index:1;"></div>
+        var defaults = {
+          startVelocity: 20,
+          spread: 360,
+          ticks: 150,
+          zIndex: 0
+        };
+
+        function randomInRange(min, max) {
+          return Math.random() * (max - min) + min;
+        }
+
+        var interval = setInterval(function() {
+          modalDis = $("#birthdayModal").css("display");
+          if (modalDis == 'block') {
+
+            var particleCount = 50;
+            // since particles fall down, start a bit higher than random
+            confetti(Object.assign({}, defaults, {
+              particleCount,
+              origin: {
+                x: randomInRange(0.1, 0.3),
+                y: Math.random() - 0.2
+              }
+            }));
+            confetti(Object.assign({}, defaults, {
+              particleCount,
+              origin: {
+                x: randomInRange(0.7, 0.9),
+                y: Math.random() - 0.2
+              }
+            }));
+          }
+        }, 250);
+      </script>
+  <?php
+    }
+  }
+
+  ?>
+
+
+  <div class="toast-container position-fixed" style="bottom: 30px;right: 30px;z-index:1;"></div>

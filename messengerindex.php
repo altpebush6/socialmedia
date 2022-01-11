@@ -100,7 +100,7 @@
               $ChatPersonName = $db->getColumnData("SELECT MemberName FROM members WHERE MemberID = ?", array($personID));
               $ChatPersonLastName = $db->getColumnData("SELECT MemberLastName FROM members WHERE MemberID = ?", array($personID));
               if (is_null($getprofileimg)) {
-                if ($gender == 'Erkek') {
+                if ($gender == 'Male') {
                   $getprofileimg = "profilemale.png";
                 } else {
                   $getprofileimg = "profilefemale.png";
@@ -217,7 +217,7 @@
                 $friendimg = $db->getColumnData("SELECT Member_Profileimg FROM images WHERE MemberID = ?", array($FriendID));
                 $friendnames = $db->getColumnData("SELECT MemberNames FROM members WHERE MemberID = ?", array($FriendID));
                 if (is_null($friendimg)) {
-                  if ($gender == 'Erkek') {
+                  if ($gender == 'Male') {
                     $friendimg = "profilemale.png";
                   } else {
                     $friendimg = "profilefemale.png";
@@ -295,7 +295,7 @@
                       $gender = $db->getColumnData("SELECT MemberGender FROM members WHERE MemberID = ?", array($friendID));
 
                       if (is_null($friendIMG)) {
-                        if ($gender == 'Erkek') {
+                        if ($gender == 'Male') {
                           $friendIMG = "profilemale.png";
                         } else {
                           $friendIMG = "profilefemale.png";

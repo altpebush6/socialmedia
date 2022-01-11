@@ -76,7 +76,7 @@ if ($counter > 0) {
     $gender = $db->getColumnData("SELECT MemberGender FROM members WHERE MemberID = ?", array($post->MemberID));
 
     if (is_null($post_profile_photo)) {
-      if ($gender == 'Erkek') {
+      if ($gender == 'Male') {
         $post_profile_photo = "profilemale.png";
       } else {
         $post_profile_photo = "profilefemale.png";
@@ -104,7 +104,7 @@ if ($counter > 0) {
     $diff_post = calculateTime($post_time);
     $profile_photo = $db->getColumnData("SELECT Member_Profileimg FROM images WHERE MemberID = ?", array($memberid));
     if (is_null($profile_photo)) {
-      if ($gender == 'Erkek') {
+      if ($gender == 'Male') {
         $profile_photo = "profilemale.png";
       } else {
         $profile_photo = "profilefemale.png";
@@ -360,7 +360,7 @@ if ($counter > 0) {
       $gender = $db->getColumnData("SELECT MemberGender FROM members WHERE MemberID = ?", array($postinfo->MemberID));
 
       if (is_null($comment_profile_photo)) {
-        if ($gender == 'Erkek') {
+        if ($gender == 'Male') {
           $comment_profile_photo = "profilemale.png";
         } else {
           $comment_profile_photo = "profilefemale.png";
@@ -434,7 +434,7 @@ if ($newEvent && $counter == 3 && $randomNum) {
   $organizerGender = $db->getColumnData("SELECT MemberGender FROM members WHERE MemberID = ?", array($newEvent->EventOrganizerID));
 
   if (is_null($event_profile_photo)) {
-    if ($organizerGender == 'Erkek') {
+    if ($organizerGender == 'Male') {
       $event_profile_photo = "profilemale.png";
     } else {
       $event_profile_photo = "profilefemale.png";

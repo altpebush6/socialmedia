@@ -103,7 +103,7 @@ foreach ($posts as $item) {
     $gender = $db->getColumnData("SELECT MemberGender FROM members WHERE MemberID = ?", array($item->MemberID));
 
     if (is_null($post_profile_photo)) {
-      if ($gender == 'Erkek') {
+      if ($gender == 'Male') {
         $post_profile_photo = "profilemale.png";
       } else {
         $post_profile_photo = "profilefemale.png";
@@ -378,7 +378,7 @@ foreach ($posts as $item) {
             $gender = $db->getColumnData("SELECT MemberGender FROM members WHERE MemberID = ?", array($postinfo->MemberID));
 
             if (is_null($comment_profile_photo)) {
-              if ($gender == 'Erkek') {
+              if ($gender == 'Male') {
                 $comment_profile_photo = "profilemale.png";
               } else {
                 $comment_profile_photo = "profilefemale.png";
@@ -458,7 +458,7 @@ $event_profile_photo = $db->getColumnData("SELECT Member_Profileimg FROM images 
 $organizerGender = $db->getColumnData("SELECT MemberGender FROM members WHERE MemberID = ?", array($event->EventOrganizerID));
 
 if (is_null($event_profile_photo)) {
-  if ($organizerGender == 'Erkek') {
+  if ($organizerGender == 'Male') {
     $event_profile_photo = "profilemale.png";
   } else {
     $event_profile_photo = "profilefemale.png";

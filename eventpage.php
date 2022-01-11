@@ -17,7 +17,7 @@ $organizer_photo = $db->getColumnData("SELECT Member_Profileimg FROM images WHER
 $gender = $organizer->MemberGender;
 
 if (is_null($organizer_photo)) {
-    if ($gender == 'Erkek') {
+    if ($gender == 'Male') {
         $organizer_photo = "profilemale.png";
     } else {
         $organizer_photo = "profilefemale.png";

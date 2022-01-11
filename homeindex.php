@@ -118,27 +118,34 @@
           <a class="list-group-item py-3 text-center bg-transparent fs-5 text-decoration-none topics" href="http://localhost/aybu/socialmedia/<?= $translates["home"] ?>/<?= $topic->TopicLink ?>"><?= $topic->TopicName ?></a>
         <?php } ?>
       </ul>
-      <hr class=" mt-4">
-      <h2 class="text-center p-3 " style="font-size:27px;font-family: 'Nanum Gothic', sans-serif;"><i><?= $translates["Clubs"] ?></i></h2>
-      <ul class="list-group rounded-1 w-100 p-0 leftMenu" style="height: 31vh;overflow-y:auto;">
-        <?php
-        $myClubs = $db->getDatas("SELECT * FROM clubmembers WHERE MemberID = ? AND Activeness = ?", array($memberid, 1));
-        foreach ($myClubs as $myClub) {
-          $Clubinfo = $db->getData("SELECT * FROM clubs WHERE ClubID = ?", array($myClub->ClubID));
-          $clubname = $Clubinfo->ClubName;
-        ?>
-          <a class="list-group-item py-3 text-center bg-transparent fs-5 text-decoration-none topics" href="http://localhost/aybu/socialmedia/<?= $translates["clubs"] ?>/<?= $Clubinfo->ClubID ?>">
-            <div class="row">
-              <div class="col-2">
-                <img src="club_images/<?= $Clubinfo->ClubImg ?>" class="rounded-circle" style="width:50px;height:50px;border:1px solid rgba(255, 255, 255, 0.788);">
+      <?php
+      $myClubs = $db->getDatas("SELECT * FROM clubmembers WHERE MemberID = ? AND Activeness = ?", array($memberid, 1));
+      if ($myClubs) { ?>
+        <h2 class="text-center p-3 " style="font-size:27px;font-family: 'Nanum Gothic', sans-serif;"><i><?= $translates["Clubs"] ?></i></h2>
+        <hr class=" mt-4">
+        <ul class="list-group rounded-1 w-100 p-0 leftMenu" style="height: 31vh;overflow-y:auto;">
+          <?php
+          foreach ($myClubs as $myClub) {
+            $Clubinfo = $db->getData("SELECT * FROM clubs WHERE ClubID = ?", array($myClub->ClubID));
+            $clubname = $Clubinfo->ClubName;
+          ?>
+
+
+
+
+            <a class="list-group-item py-3 text-center bg-transparent fs-5 text-decoration-none topics" href="http://localhost/aybu/socialmedia/<?= $translates["clubs"] ?>/<?= $Clubinfo->ClubID ?>">
+              <div class="row">
+                <div class="col-2">
+                  <img src="club_images/<?= $Clubinfo->ClubImg ?>" class="rounded-circle" style="width:50px;height:50px;border:1px solid rgba(255, 255, 255, 0.788);">
+                </div>
+                <div class="col-10 ps-3 d-flex align-items-center">
+                  <label class="ps-3" style="cursor:pointer; white-space: nowrap;overflow: hidden;text-overflow: ellipsis;" title="<?= $clubname ?>"><?= $clubname ?></label>
+                </div>
               </div>
-              <div class="col-10 ps-3 d-flex align-items-center">
-                <label class="ps-3" style="cursor:pointer; white-space: nowrap;overflow: hidden;text-overflow: ellipsis;" title="<?= $clubname ?>"><?= $clubname ?></label>
-              </div>
-            </div>
-          </a>
-        <?php } ?>
-      </ul>
+            </a>
+        <?php }
+        } ?>
+        </ul>
     </div>
     <div class="col-md-2"></div>
     <div class="col-12 col-md-8 m-0 px-md-5" id="posts_container">
