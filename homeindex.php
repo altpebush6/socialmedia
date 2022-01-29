@@ -149,7 +149,19 @@
     </div>
     <div class="col-md-2"></div>
     <div class="col-12 col-md-8 m-0 px-md-5" id="posts_container">
-      <?php require_once "posts_home.php" ?>
+      <div class="row d-flex flex-column">
+        <!-- <?php if ($memberid == 1) { ?>
+          <button type="button" id="matchMembers" class="btn btn-post mx-auto w-100 my-3">Eşleştir</button>
+        <?php } ?> -->
+        <div class="col-12">
+          <?php require_once "matchedmembers.php" ?>
+        </div>
+        <div class="col-12">
+          <?php require_once "posts_home.php" ?>
+        </div>
+
+      </div>
+
     </div>
     <div class="col-12 col-md-8 m-0 px-md-5 loadposts w-100 d-none justify-content-center mb-5">
       <i class="mx-auto fas fa-circle-notch fa-3x fa-spin text-navbar"></i>

@@ -2176,8 +2176,6 @@
     });
   }
 
-
-
   // Enter Key Events
   $(function() {
     $("#search_person").on("keypress", function(e) {
@@ -2187,4 +2185,16 @@
       }
     })
   });
+
+  // $("#matchMembers").on("click", function() {
+  //   $.ajax({
+  //     type: "post",
+  //     url: SITE_URL + "/socialmedia/ajaxmatchmembers.php",
+  //     dataType: "json",
+  //     success: function(result) {
+  //       alert("Kişiler eşleştirildi");
+  //       location.reload();
+  //     }
+  //   });
+  // });
 </script>

@@ -407,5 +407,7 @@ $translates = array(
     "hascourse" => "Derse kayıtlısın",
     "hasbirthday" => "'in Doğum Günü!",
     "congrathisbirthday" => "Onun bu özel günün de ona iyi dileklerini söyle!",
-    "congratherbirthday" => "Onun bu özel günün de ona iyi dileklerini söyle!"
+    "congratherbirthday" => "Onun bu özel günün de ona iyi dileklerini söyle!",
+    "matchresult" => "Eşleşme sonucunuz",
+    "starttalk" => "Konuşmaya başla"
 );

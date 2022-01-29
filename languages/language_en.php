@@ -405,4 +405,6 @@ $translates = array(
     "hasbirthday" => "'s Birthday!",
     "congrathisbirthday" => "Wish him well on his special day!",
     "congratherbirthday" => "Wish her well on her special day!",
+    "matchresult" => "Your match result is",
+    "starttalk" => "Start talking"
 );
