@@ -26,13 +26,25 @@ if (is_null($groupImage)) {
       <?php
       $groupMembers = $db->getColumnData("SELECT GroupMembers FROM all_groups WHERE GroupID = ?", array($groupID));
       $groupMembers = explode(":", $groupMembers);
+      foreach ($groupMembers as $arrayid => $eachGroupMember) {
+        $isPersonActive = $db->getColumnData("SELECT MemberConfirm FROM members WHERE MemberID = ?", array($eachGroupMember));
+        if ($isPersonActive != 1) {
+          unset($groupMembers[$arrayid]);
+        }
+      }
       $groupMembersNum = count($groupMembers);
-      unset($groupMembers[$groupMembersNum - 1]);
-      foreach ($groupMembers as $eachMember) {
-        $g_memberName = $db->getColumnData("SELECT MemberName FROM members WHERE MemberID = ?", array($eachMember));
-        $g_memberLastname = $db->getColumnData("SELECT MemberLastName FROM members WHERE MemberID = ?", array($eachMember));
-        if ($g_memberName) {
-          echo $g_memberName . " " . $g_memberLastname[0] . ", ";
+      foreach ($groupMembers as $arrayKey => $eachMember) {
+        $isPersonActive = $db->getColumnData("SELECT MemberConfirm FROM members WHERE MemberID = ?", array($eachMember));
+        if ($isPersonActive == 1) {
+          $g_memberName = $db->getColumnData("SELECT MemberName FROM members WHERE MemberID = ?", array($eachMember));
+          $g_memberLastname = $db->getColumnData("SELECT MemberLastName FROM members WHERE MemberID = ?", array($eachMember));
+          if ($g_memberName) {
+            if ($arrayKey == $groupMembersNum) {
+              echo $g_memberName . " " . $g_memberLastname[0];
+            } else {
+              echo $g_memberName . " " . $g_memberLastname[0] . ", ";
+            }
+          }
         }
       }
       ?>
@@ -46,6 +58,13 @@ if (is_null($groupImage)) {
         $MessageFrom = $item->MessageFromID;
         $personNames = $db->getColumnData("SELECT MemberNames FROM members WHERE MemberID = ?", array($MessageFrom));
         $personImage = $db->getColumnData("SELECT Member_Profileimg FROM images WHERE MemberID = ?", array($MessageFrom));
+
+        $isPersonActive = $db->getColumnData("SELECT MemberConfirm FROM members WHERE MemberID = ?", array($MessageFrom));
+        if ($isPersonActive != 1) {
+          $personImage = NULL;
+          $personNames = $translates["unknownuser"];
+        }
+
         $persongender = $db->getColumnData("SELECT MemberGender FROM members WHERE MemberID = ?", array($MessageFrom));
         if (is_null($personImage)) {
           if ($persongender == 'Male') {
@@ -171,6 +190,22 @@ if (is_null($groupImage)) {
 <div class="modal fade" id="groupinfo">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
+      <div class="modal-header d-flex flex-column m-0 px-0">
+        <div class="row w-100">
+          <form method="post" class="w-100" id="form_group_img" autocomplete="off" enctype="multipart/form-data">
+            <div class="row align-items-center">
+              <div class="col-12 d-flex justify-content-center align-items-center">
+                <label for="upload_groupimg" class="groupImage rounded-circle">
+                  <img src="group_images/<?= $groupImage ?>" class="groupImg rounded-circle" id="changeGroupImg">
+                  <span class="uploadgroupImage"><i class="fas fa-camera"></i> <?=$translates["choosephoto"]?></span>
+                </label>
+                <input type="file" name="upload_groupimg" id="upload_groupimg" style="display:none;" accept=image/x-png,image/gif,image/jpeg>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div id="resultImg" class="d-none w-75 my-2 bg-danger p-2 rounded-3 text-light text-center"></div>
+      </div>
       <div class="modal-header">
         <div class="row w-100">
           <div class="col-12 mb-1">
@@ -204,78 +239,80 @@ if (is_null($groupImage)) {
       </div>
       <div class="modal-body">
         <div class="row mb-2">
-          <div class="col-12" id="groupMemberNum"><?= ($groupMembersNum - 1) . " " . $translates["people"] ?></div>
+          <div class="col-12" id="groupMemberNum"><?= ($groupMembersNum) . " " . $translates["people"] ?></div>
         </div>
         <div class="mb-3 mt-2 d-flex flex-row justify-content-center align-items-center">
           <i class="fas fa-user-plus btn btn-success d-flex justify-content-center align-items-center me-2" data-bs-toggle="modal" data-bs-target="#addMember" style="width: 35px;height: 35px;border-radius:25px;font-size:13px"></i>
           <label class="text-success fs-5" style="cursor: pointer;font-weight: 600;" data-bs-toggle="modal" data-bs-target="#addMember"><?= $translates["addmember"] ?></label>
         </div>
+
         <div class="row mb-2">
           <div class="input-group">
             <input type="text" class="form-control" groupid="<?= $groupID ?>" placeholder="<?= $translates["entername"] ?>" id="groupMemberName" aria-describedby="basic-addon1">
             <span class="input-group-text" id="searchMembers"><i class="fas fa-search"></i></span>
           </div>
         </div>
-        <div class="row px-2 d-block" style="height: 35vh;overflow-x:hidden;overflow-y:auto;" id="groupMembers">
-          <?php foreach ($groupMembers as $eachMember) {
+        <div class="row px-2 d-block" style="height: 20vh;overflow-x:hidden;overflow-y:auto;" id="groupMembers">
+          <?php
+          foreach ($groupMembers as $eachMember) {
             $isadmin = 0;
-            $memberNames = $db->getColumnData("SELECT MemberNames FROM members WHERE MemberID = ?", array($eachMember));
-            $memberImg = $db->getColumnData("SELECT Member_Profileimg FROM images WHERE MemberID = ?", array($eachMember));
-            if (is_null($memberImg)) {
-              if ($gender == 'Male') {
-                $memberImg = "profilemale.png";
-              } else {
-                $memberImg = "profilefemale.png";
-              }
-            }
-          ?>
-            <div class="col-12 border py-2" id="groupMember_<?= $eachMember ?>">
-              <div class="row">
-                <div class="col-2">
-                  <img src="images_profile/<?= $memberImg ?>" style="width:50px;height:50px;" class="rounded-circle border">
-                </div>
-                <div class="col-5 m-0 p-0 d-flex justify-content-start align-items-center fs-5">
-                  <span><?= $memberNames ?></span>
-                </div>
-                <div class="col-5 p-0 m-0 pe-3 d-flex align-items-center justify-content-end" id="memberOperations_<?= $eachMember ?>">
-                  <?php
-                  $admins = $db->getColumnData("SELECT GroupAdmins FROM all_groups WHERE GroupID = ?", array($groupID));
-                  $admins = explode(":", $admins);
-                  foreach ($admins as $admin) {
-                    if ($admin == $eachMember) {
-                      $isadmin = 1;
-                    }
-                  }
-                  if ($isadmin) { ?>
-                    <span class="p-1 rounded-1" style="color:green;border:1px solid green;font-size:12px" id="admin_<?= $eachMember ?>"><?= $translates["gradmin"] ?></span>
-                    <?php if ($eachMember != $memberid) { ?>
-                      <button type="button" class="btn btn-sm ms-2 btn-outline-warning demoteMember" id="division_<?= $eachMember ?>" groupid="<?= $groupID ?>" memberid="<?= $eachMember ?>"><i class="fas fa-angle-double-down px-1"></i></button>
-                    <?php }
-                  } else {
-                    if ($eachMember != $memberid) {  ?>
-                      <button type="button" class="btn btn-sm ms-2 btn-outline-success promoteMember" id="division_<?= $eachMember ?>" groupid="<?= $groupID ?>" memberid="<?= $eachMember ?>"><i class="fas fa-angle-double-up px-1"></i></button>
-                    <?php }
-                  }
-                  foreach ($admins as $admin) {
-                    if ($admin == $memberid) {
-                      $amiadmin = 1;
-                    }
-                  }
-                  if ($amiadmin && $eachMember != $memberid) { ?>
-                    <button type="button" class="btn btn-sm ms-2 btn-outline-danger removeMember" groupid="<?= $groupID ?>" memberid="<?= $eachMember ?>"><i class="fas fa-user-slash"></i></button>
-                  <?php } ?>
+            $isPersonActive = $db->getColumnData("SELECT MemberConfirm FROM members WHERE MemberID = ?", array($eachMember));
+            if ($isPersonActive == 1) {
+              $memberImg = $db->getColumnData("SELECT Member_Profileimg FROM images WHERE MemberID = ?", array($eachMember));
+              $memberNames = $db->getColumnData("SELECT MemberNames FROM members WHERE MemberID = ?", array($eachMember));
 
+              if (is_null($memberImg)) {
+                if ($gender == 'Male') {
+                  $memberImg = "profilemale.png";
+                } else {
+                  $memberImg = "profilefemale.png";
+                }
+              }
+          ?>
+              <div class="col-12 border py-2" id="groupMember_<?= $eachMember ?>">
+                <div class="row">
+                  <div class="col-2">
+                    <img src="images_profile/<?= $memberImg ?>" style="width:50px;height:50px;" class="rounded-circle border">
+                  </div>
+                  <div class="col-5 m-0 p-0 d-flex justify-content-start align-items-center fs-5">
+                    <span><?= $memberNames ?></span>
+                  </div>
+                  <div class="col-5 p-0 m-0 pe-3 d-flex align-items-center justify-content-end" id="memberOperations_<?= $eachMember ?>">
+                    <?php
+                    $admins = $db->getColumnData("SELECT GroupAdmins FROM all_groups WHERE GroupID = ?", array($groupID));
+                    $admins = explode(":", $admins);
+                    foreach ($admins as $admin) {
+                      if ($admin == $eachMember) {
+                        $isadmin = 1;
+                      }
+                    }
+                    if ($isadmin) { ?>
+                      <span class="p-1 rounded-1" style="color:green;border:1px solid green;font-size:12px" id="admin_<?= $eachMember ?>"><?= $translates["gradmin"] ?></span>
+                      <?php if ($eachMember != $memberid) { ?>
+                        <button type="button" class="btn btn-sm ms-2 btn-outline-warning demoteMember" id="division_<?= $eachMember ?>" groupid="<?= $groupID ?>" memberid="<?= $eachMember ?>"><i class="fas fa-angle-double-down px-1"></i></button>
+                      <?php }
+                    } else {
+                      if ($eachMember != $memberid) {  ?>
+                        <button type="button" class="btn btn-sm ms-2 btn-outline-success promoteMember" id="division_<?= $eachMember ?>" groupid="<?= $groupID ?>" memberid="<?= $eachMember ?>"><i class="fas fa-angle-double-up px-1"></i></button>
+                      <?php }
+                    }
+                    foreach ($admins as $admin) {
+                      if ($admin == $memberid) {
+                        $amiadmin = 1;
+                      }
+                    }
+                    if ($amiadmin && $eachMember != $memberid) { ?>
+                      <button type="button" class="btn btn-sm ms-2 btn-outline-danger removeMember" groupid="<?= $groupID ?>" memberid="<?= $eachMember ?>"><i class="fas fa-user-slash"></i></button>
+                    <?php } ?>
+
+                  </div>
                 </div>
               </div>
-            </div>
-          <?php } ?>
+          <?php }
+          } ?>
         </div>
       </div>
       <div class="modal-footer text-end">
-        <?php
-        if ($amiadmin) { ?>
-          <button type="submit" id="delGroup" class="btn btn-dark w-33"><?= $translates["delgroup"] ?> <span class="spinner" id="spinnerdelGroup"></span></button>
-        <?php } ?>
         <button type="submit" id="leaveGroup" class="btn btn-outline-danger w-33"><?= $translates["leavegroup"] ?> <span class="spinner" id="spinnerleaveGroup"></span></button>
       </div>
     </div>

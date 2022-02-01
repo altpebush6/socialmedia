@@ -40,6 +40,10 @@
                   $fromwho = $translates["you"];
                 } else {
                   $fromwho = $db->getColumnData("SELECT MemberName FROM members WHERE MemberID = ?", array($whosemessage));
+                  $isPersonActive = $db->getColumnData("SELECT MemberConfirm FROM members WHERE MemberID = ?", array($whosemessage));
+                  if ($isPersonActive != 1) {
+                    $fromwho = $translates["unknownuser"];
+                  }
                 }
                 if ($lastmessage->MessageImg) {
                   $groupMessage = $fromwho . ": " . '<i class="fas fa-camera"></i> ' . $translates["photo"];
@@ -69,7 +73,7 @@
               <a class="text-dark text-decoration-none" id="person_<?= $groupID ?>" href="http://localhost/aybu/socialmedia/<?= $translates['messages'] ?>/<?= $translates["group"] ?>/<?= $groupID ?>" <?php echo ($groupID == $part ? "style='background:rgba(255, 255, 255, 0.2)'" : "style=''") ?>>
                 <div class="row my-2 justify-content-center align-items-center">
                   <div class="col-2 text-center">
-                    <img src="group_images/<?= $groupimg ?>" class="rounded-circle" width="60" height="60">
+                    <img src="group_images/<?= $groupimg ?>" class="rounded-circle" width="60" height="60" id="groupImage_<?=$groupID?>">
                   </div>
                   <div class="col-10 px-3 ps-4 ps-md-5 ps-lg-4 ps-xl-5">
                     <div class="row fs-5">
@@ -99,6 +103,12 @@
               $getprofileimg = $db->getColumnData("SELECT Member_Profileimg FROM images WHERE MemberID = ?", array($personID));
               $ChatPersonName = $db->getColumnData("SELECT MemberName FROM members WHERE MemberID = ?", array($personID));
               $ChatPersonLastName = $db->getColumnData("SELECT MemberLastName FROM members WHERE MemberID = ?", array($personID));
+              $name_lastname = $ChatPersonName . " " . $ChatPersonLastName;
+              $isPersonActive = $db->getColumnData("SELECT MemberConfirm FROM members WHERE MemberID = ?", array($personID));
+              if ($isPersonActive != 1) {
+                $getprofileimg = NULL;
+                $name_lastname = $translates["unknownuser"];
+              }
               if (is_null($getprofileimg)) {
                 if ($gender == 'Male') {
                   $getprofileimg = "profilemale.png";
@@ -106,8 +116,6 @@
                   $getprofileimg = "profilefemale.png";
                 }
               }
-
-              $name_lastname = $ChatPersonName . " " . $ChatPersonLastName;
 
               $messageID = $db->GetColumnData("SELECT MessageID FROM messages
                        WHERE MessageStatus = 1 AND ((MessageFromID = $memberid AND MessageToID = $personID) OR (MessageFromID = $personID AND MessageToID = $memberid))
@@ -213,7 +221,7 @@
             foreach ($members as $person) {
               $FriendID = $person->MemberID;
               $isFriend = $db->getData("SELECT * FROM friends WHERE ((FirstMemberID = ? AND SecondMemberID = ?) OR (SecondMemberID = ? AND FirstMemberID = ?)) AND FriendRequest = ?", array($FriendID, $memberid, $FriendID, $memberid, 1));
-              if ($isFriend) {
+              if ($isFriend and $person->MemberConfirm == 1) {
                 $friendimg = $db->getColumnData("SELECT Member_Profileimg FROM images WHERE MemberID = ?", array($FriendID));
                 $friendnames = $db->getColumnData("SELECT MemberNames FROM members WHERE MemberID = ?", array($FriendID));
                 if (is_null($friendimg)) {

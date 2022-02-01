@@ -2,10 +2,14 @@
 $sawMessage = $db->Update("UPDATE messages SET MessageHasSeen = ? WHERE MessageFromID = ? AND MessageToID = ?", array(1, $part, $memberid));
 $readMessage = $db->Update("UPDATE chatbox SET MessageHasRead = ? WHERE MessageFromID = ? AND MessageToID = ?", array(1, $part, $memberid));
 
-$name = $db->getColumnData("SELECT MemberName FROM members WHERE MemberID = ?", array($part));
-$lastname = $db->getColumnData("SELECT MemberLastName FROM members WHERE MemberID = ?", array($part));
-$name_lastname = $name . " " . $lastname;
+$name_lastname = $db->getColumnData("SELECT MemberNames FROM members WHERE MemberID = ?", array($part));
 $getprofileimg = $db->getColumnData("SELECT Member_Profileimg FROM images WHERE MemberID = ?", array($part));
+
+$isPersonActive = $db->getColumnData("SELECT MemberConfirm FROM members WHERE MemberID = ?", array($part));
+if ($isPersonActive != 1) {
+  $getprofileimg = NULL;
+  $name_lastname = $translates["unknownuser"];
+}
 $membergender = $db->getColumnData("SELECT MemberGender FROM members WHERE MemberID = ?", array($part));
 if (is_null($getprofileimg)) {
     if ($membergender == 'Male') {

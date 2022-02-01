@@ -64,6 +64,10 @@ switch ($operation) {
           }
           $getprofileimg = $db->getColumnData("SELECT Member_Profileimg FROM images WHERE MemberID = ?", array($personID));
           $gender = $db->getColumnData("SELECT MemberGender FROM members WHERE MemberID = ?", array($personID));
+          $isPersonActive = $db->getColumnData("SELECT MemberConfirm FROM members WHERE MemberID = ?", array($personID));
+          if ($isPersonActive != 1) {
+            $getprofileimg = NULL;
+          }
           if (is_null($getprofileimg)) {
             if ($gender == 'Male') {
               $getprofileimg = "profilemale.png";
@@ -259,6 +263,13 @@ switch ($operation) {
           }
 
           $getprofileimg = $db->getColumnData("SELECT Member_Profileimg FROM images WHERE MemberID = ?", array($MessageFromID));
+          $personNames = $db->getColumnData("SELECT MemberNames FROM members WHERE MemberID = ?", array($MessageFromID));
+
+          $isPersonActive = $db->getColumnData("SELECT MemberConfirm FROM members WHERE MemberID = ?", array($MessageFromID));
+          if ($isPersonActive != 1) {
+            $getprofileimg = NULL;
+            $personNames = $translates["unknownuser"];
+          }
           $gender = $db->getColumnData("SELECT MemberGender FROM members WHERE MemberID = ?", array($MessageFromID));
           if (is_null($getprofileimg)) {
             if ($gender == 'Male') {
@@ -270,7 +281,7 @@ switch ($operation) {
 
           $msgName = $item->MessageImg;
 
-          $personNames = $db->getColumnData("SELECT MemberNames FROM members WHERE MemberID = ?", array($MessageFromID));
+
 
           if ($msgName) {
             $messageimage = '<img src="message_images/' . $msgName . '" class="rounded-2" style="width:250px;min-height:20vh;">';
@@ -464,6 +475,11 @@ switch ($operation) {
       $messagetime = $newMessages->MessageAddTime;
       $name_lastname = $db->getColumnData("SELECT MemberNames FROM members WHERE MemberID = ?", array($personID));
       $MemberName = $db->getColumnData("SELECT MemberName FROM members WHERE MemberID = ?", array($personID));
+      $isPersonActive = $db->getColumnData("SELECT MemberConfirm FROM members WHERE MemberID = ?", array($personID));
+      if ($isPersonActive != 1) {
+        $getprofileimg = NULL;
+        $MemberName = $translates["unknownuser"];
+      }
       $getprofileimg = $db->getColumnData("SELECT Member_Profileimg FROM images WHERE MemberID = ?", array($personID));
       $gender = $db->getColumnData("SELECT MemberGender FROM members WHERE MemberID = ?", array($personID));
       if (is_null($getprofileimg)) {
@@ -662,6 +678,10 @@ switch ($operation) {
           }
 
           $getprofileimg = $db->getColumnData("SELECT Member_Profileimg FROM images WHERE MemberID = ?", array($personID));
+          $isPersonActive = $db->getColumnData("SELECT MemberConfirm FROM members WHERE MemberID = ?", array($personID));
+          if ($isPersonActive != 1) {
+            $getprofileimg = NULL;
+          }
           $gender = $db->getColumnData("SELECT MemberGender FROM members WHERE MemberID = ?", array($personID));
           if (is_null($getprofileimg)) {
             if ($gender == 'Male') {
@@ -910,6 +930,14 @@ switch ($operation) {
         }
 
         $getprofileimg = $db->getColumnData("SELECT Member_Profileimg FROM images WHERE MemberID = ?", array($personID));
+        $name_lastname =  $db->getColumnData("SELECT MemberNames FROM members WHERE MemberID = ?", array($personID));
+
+        $isPersonActive = $db->getColumnData("SELECT MemberConfirm FROM members WHERE MemberID = ?", array($personID));
+        if ($isPersonActive != 1) {
+          $getprofileimg = NULL;
+          $name_lastname = $translates["unknownuser"];
+        }
+
         $gender = $db->getColumnData("SELECT MemberGender FROM members WHERE MemberID = ?", array($personID));
         if (is_null($getprofileimg)) {
           if ($gender == 'Male') {
@@ -918,7 +946,7 @@ switch ($operation) {
             $getprofileimg = "profilefemale.png";
           }
         }
-        $name_lastname =  $db->getColumnData("SELECT MemberName FROM members WHERE MemberID = ?", array($personID)) . " " . $db->getColumnData("SELECT MemberLastName FROM members WHERE MemberID = ?", array($personID));
+
 
         $time = $db->getColumnData("SELECT MemberTime FROM members WHERE MemberID = ?", array($personID));
         $now_time = date("Y-m-d H:i:s");
@@ -1179,7 +1207,8 @@ switch ($operation) {
       $friendID = $member->MemberID;
       if (!in_array($friendID, $addedFriends)) {
         $isfriend = $db->getData("SELECT * FROM friends WHERE (FirstMemberID = ? AND SecondMemberID = ?) OR (FirstMemberID = ? AND SecondMemberID = ?) AND FriendRequest = ?", array($friendID, $memberid, $memberid, $friendID, 1));
-        if ($isfriend) {
+        $isPersonActive = $db->getColumnData("SELECT MemberConfirm FROM members WHERE MemberID = ?", array($friendID));
+        if ($isfriend && $isPersonActive == 1) {
           $friendNames = $member->MemberNames;
           $friendIMG = $db->getColumnData("SELECT Member_Profileimg FROM images WHERE MemberID = ?", array($friendID));
           $gender = $member->MemberGender;
@@ -1393,7 +1422,7 @@ switch ($operation) {
   case 'searchMember':
     $groupID = security("groupID");
     $searched_key = security("searchedKey");
-    $member_searched = $db->getDatas("SELECT * FROM members WHERE MemberNames LIKE '$searched_key%'");
+    $member_searched = $db->getDatas("SELECT * FROM members WHERE MemberNames LIKE '$searched_key%' AND MemberConfirm = ?", array(1));
     foreach ($member_searched as $item) {
       $memberID = $item->MemberID;
       $isadmin = 0;
@@ -1526,6 +1555,80 @@ switch ($operation) {
       }
     }
     $db->Update("UPDATE all_groups SET GroupAdmins = ? WHERE GroupID = ?", array($newMembers,  $groupID));
+    echo json_encode($result);
+    break;
+
+  case 'changeImg':
+    $groupID = security("groupID");
+    $groupimg = $_FILES["upload_groupimg"]['name'];
+    $oldimage = $db->getColumnData("SELECT GroupImage FROM all_groups WHERE GroupID = ?", array($groupID));
+    if ($oldimage) {
+      $delete_img = "group_images/" . $oldimage;
+      unlink($delete_img);
+    }
+    if ($groupimg) {
+      $groupimg_ext = strtolower(pathinfo($groupimg, PATHINFO_EXTENSION));
+      $allowed_file_extensions = array("png", "jpg", "jpeg", "jfif");
+      if (!in_array($groupimg_ext, $allowed_file_extensions)) {
+        $result["error"] = "Sadece jpeg, jpg, png ve jfif uzantılı dosya yükleyebilirsiniz.";
+      } else {
+        $groupname = $db->getColumnData("SELECT GroupName FROM all_groups WHERE GroupID = ?", array($groupID));
+        $groupimgname = preg_replace("/ /", "_", $groupname);
+        $groupimg = $groupimgname  . "_" . uniqid() . "." . $groupimg_ext;
+        $target = "group_images/" . basename($groupimg);
+      }
+      move_uploaded_file($_FILES['upload_groupimg']['tmp_name'], $target);
+    } else {
+      $groupimg = "noneimage.png";
+    }
+    $changeimg = $db->Update("UPDATE all_groups SET GroupImage = ? WHERE GroupID = ?", array($groupimg, $groupID));
+    $result["imgsrc"] = $target;
+    echo json_encode($result);
+    break;
+
+  case 'leaveGroup':
+    $groupID = security("groupID");
+    $group = $db->getData("SELECT * FROM all_groups WHERE GroupID = ?", array($groupID));
+
+    $GroupMembers = $group->GroupMembers;
+    $GroupMembers = explode(":", $GroupMembers);
+    $groupMembersNum = count($GroupMembers);
+    $newMembers = "";
+    foreach ($GroupMembers as $eachMember) {
+      if ($eachMember != $memberid && $eachMember != "") {
+        $newMembers .= $eachMember . ":";
+      }
+    }
+
+    $groupAdmins = $group->GroupAdmins;
+    $groupAdmins = explode(":", $groupAdmins);
+    $groupAdminsNum = count($groupAdmins);
+    $amiadmin = 0;
+    $newAdmins = "";
+    foreach ($groupAdmins as $eachAdmin) {
+      if ($memberid == $eachAdmin) {
+        $amiadmin = 1;
+      } else {
+        if ($eachAdmin != "") {
+          $newAdmins .= $eachAdmin . ":";
+        }
+      }
+    }
+
+
+    if ($groupAdminsNum == 2 && $amiadmin == 1) {
+      if ($groupMembersNum == 2) {
+        $db->Delete("DELETE FROM all_groups WHERE GroupID = ?", array($groupID));
+      } else {
+        $newMembersArr = explode(":", $newMembers);
+        $newAdmins = $newMembersArr[0] . ":";
+        $db->Update("UPDATE all_groups SET GroupAdmins = ?, GroupMembers = ? WHERE GroupID = ?", array($newAdmins, $newMembers, $groupID));
+        $db->Update("UPDATE chatbox SET GroupMembers = ? WHERE GroupID = ?", array($newMembers, $groupID));
+      }
+    } else {
+      $db->Update("UPDATE all_groups SET GroupAdmins = ?, GroupMembers = ? WHERE GroupID = ?", array($newAdmins, $newMembers, $groupID));
+      $db->Update("UPDATE chatbox SET GroupMembers = ? WHERE GroupID = ?", array($newMembers, $groupID));
+    }
     echo json_encode($result);
     break;
 }

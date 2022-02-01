@@ -255,7 +255,7 @@ $message_count = $db->getColumnData("SELECT COUNT(*) FROM chatbox WHERE MessageT
         </form>
         <ul class="navbar-nav mt-3 mt-md-0">
           <?php
-          $list = $db->getDatas("SELECT * FROM navbar_$language LIMIT 5");
+          $list = $db->getDatas("SELECT * FROM navbar_$language LIMIT 6");
           foreach ($list as $items) {
             if ($page == $items->NavLink) {
               echo '<li class="nav-item my-2 my-md-auto mx-auto mx-md-2 d-flex justify-content-center"> 
@@ -404,7 +404,7 @@ $message_count = $db->getColumnData("SELECT COUNT(*) FROM chatbox WHERE MessageT
             </ul>
           </li>
           <hr>
-          <?php $list = $db->getDatas("SELECT * FROM navbar_$language LIMIT 6,3");
+          <?php $list = $db->getDatas("SELECT * FROM navbar_$language LIMIT 7,3");
           echo '<li class="nav-item my-2 my-md-auto mx-auto mx-md-2 d-md-none d-flex justify-content-center">';
           foreach ($list as $items) {
             if ($page == $items->NavLink) {
@@ -436,7 +436,7 @@ $message_count = $db->getColumnData("SELECT COUNT(*) FROM chatbox WHERE MessageT
               </li>
               <?php
 
-              $list = $db->getDatas("SELECT * FROM navbar_$language LIMIT 6,3");
+              $list = $db->getDatas("SELECT * FROM navbar_$language LIMIT 7,3");
 
               foreach ($list as $items) {
                 echo '<li><a class="dropdown-item" href="http://localhost/aybu/socialmedia/' . $items->NavLink . '"><span> ' . $items->NavIcon . " " . $items->NavName . '</span></a></li>';

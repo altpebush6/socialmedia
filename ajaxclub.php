@@ -40,16 +40,16 @@ switch ($operation) {
                 }
                 $clubname .= "...";
             }
-            $result["clubs"] .= '<div class="col-md-3 p-3 m-2" style="border:2px solid rgba(255, 255, 255, 0.281);box-shadow:1px 1px 5px white;">
+            $result["clubs"] .= '<div class="col-md-3 p-3 m-2 border shadow-lg">
                                     <div class="row">
                                         <div class="col-3 m-0 p-0 d-flex justify-content-center align-items-center">
-                                            <img src="club_images/' . $club->ClubImg . '" class="rounded-circle" style="width:50px;height:50px;border:2px solid rgba(255, 255, 255, 0.788);">
+                                            <img src="club_images/'. $club->ClubImg .'" class="rounded-circle" style="width:50px;height:50px;border:2px solid rgba(255, 255, 255, 0.788);">
                                         </div>
                                         <div class="col-6 d-flex align-items-center">
-                                            <div class="col-12 fs-5 text-light ps-1" title="' . $club->ClubName . '">' . $clubname . '</div>
+                                            <div class="col-12 fs-5 text-dark ps-1" title="'. $club->ClubName .'">'. $clubname .'</div>
                                         </div>
                                         <div class="col-3 d-flex align-items-center">
-                                            <a href="http://localhost/aybu/socialmedia/' . $translates["clubs"] . '/' . $club->ClubID . '" class="btn btn-outline-dark w-100">' . $translates["go"] . '</a>
+                                            <a href="http://localhost/aybu/socialmedia/'. $translates["clubs"] .'/'. $club->ClubID .'" class="btn btn-outline-dark w-100">'. $translates["go"] .'</a>
                                         </div>
                                     </div>
                                 </div>';

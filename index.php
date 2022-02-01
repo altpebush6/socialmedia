@@ -73,6 +73,13 @@ if ($SS->get("MemberID")) {
             require_once "functions/ajaxfunctions.php";
             break;
 
+        case 'confession':
+        case 'itiraf':
+            require_once "header.php";
+            require_once "confessionsindex.php";
+            require_once "functions/ajaxfunctions.php";
+            break;
+
         case 'profile':
         case 'profil':
             require_once "header.php";
@@ -233,7 +240,15 @@ if ($SS->get("MemberID")) {
                 header("Location: http://localhost/aybu/socialmedia/login");
             }
             break;
-
+        case 'confession':
+        case 'itiraf':
+            if ($language == 'tr') {
+                header("Location: http://localhost/aybu/socialmedia/giris");
+            } else {
+                header("Location: http://localhost/aybu/socialmedia/login");
+            }
+            break;
+            break;
 
         case 'news':
         case 'haberler':

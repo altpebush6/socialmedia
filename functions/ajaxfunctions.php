@@ -2078,6 +2078,51 @@
     });
   });
 
+  $("#form_group_img").on("change", function() {
+    var Datas = new FormData(this);
+    Datas.append("groupID", GroupID);
+    var imagePath = $("#upload_groupimg").val();
+    var imageallowedExtensions = /(\.jpg|\.jpeg|\.png|\.jfif)$/i;
+    if (imagePath && !imageallowedExtensions.exec(imagePath)) {
+      $("#resultImg").removeClass("d-none");
+      $("#resultImg").addClass("d-block");
+      $("#resultImg").html('<i class="fas fa-exclamation"></i> <?= $translates["notallowedimg"] ?>');
+    } else {
+      $.ajax({
+        type: "post",
+        url: SITE_URL + "/socialmedia/ajaxmessages.php?operation=changeImg",
+        data: Datas,
+        dataType: "json",
+        contentType: false,
+        cache: false,
+        processData: false,
+        success: function(result) {
+          $("#chatpersonimg").attr("src", result.imgsrc);
+          $("#groupImage_" + GroupID).attr("src", result.imgsrc);
+          $("#changeGroupImg").attr("src", result.imgsrc);
+        }
+      });
+    }
+  });
+
+  $("#leaveGroup").on("click", function() {
+    $("#spinnerleaveGroup").html('<i class="fas fa-spinner fa-spin"></i>');
+    $("#leaveGroup").prop("disabled", true);
+    $.ajax({
+      type: "post",
+      url: SITE_URL + "/socialmedia/ajaxmessages.php?operation=leaveGroup",
+      data: {
+        "groupID": GroupID,
+      },
+      dataType: "json",
+      success: function(result) {
+        $("#spinnerleaveGroup").html('');
+        $("#leaveGroup").prop("disabled", false);
+        window.location.href = SITE_URL + "/socialmedia/<?= $translates["messages"] ?>";
+      }
+    });
+  });
+
   $(".courseFilter").on("keyup", function() {
     var CourseName = $("#courseName").val();
     var CourseCode = $("#courseCode").val();

@@ -406,5 +406,6 @@ $translates = array(
     "congrathisbirthday" => "Wish him well on his special day!",
     "congratherbirthday" => "Wish her well on her special day!",
     "matchresult" => "Your match result is",
-    "starttalk" => "Start talking"
+    "starttalk" => "Start talking",
+    "unknownuser" => "Silinmiş kullanıcı"
 );
