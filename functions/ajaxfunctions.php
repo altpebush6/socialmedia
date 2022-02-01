@@ -2196,6 +2196,70 @@
     });
   });
 
+  // İtiraf Sayfası
+
+  $("#visibilityOpt").on("change", function() {
+    var visibility = $("#visibilityOpt").val();
+    if (visibility == 1) {
+      var orjpp = $("#ppOrj").attr("pp");
+      $("#profileImage").attr("src", "images_profile/" + orjpp);
+    } else if (visibility == 2) {
+      $("#profileImage").attr("src", "images_profile/profilemale.png");
+    }
+  });
+
+  $("#form_confession").on("submit", function() {
+    var Text = $("#text_confession").val();
+    if (!Text) {
+      location.reload();
+    } else {
+      $("#spinnercnfn").html('<i class="fas fa-spinner fa-spin"></i>');
+      $("#submitconfession").prop("disabled", true);
+      var Visibility = $("#visibilityOpt").val();
+      var Topic = $("#topicOpt").val();
+      var Datas = {
+        "Text": Text,
+        "Visibility": Visibility,
+        "Topic": Topic
+      };
+      $.ajax({
+        type: "POST",
+        url: SITE_URL + "/socialmedia/ajaxconfessions.php?operation=confessit",
+        dataType: "json",
+        data: Datas,
+        success: function(result) {
+          location.reload();
+        }
+      });
+    }
+  });
+
+  $("#containerConfessions").on("click", ".saveedit", function() {
+    var CnfnID = $(this).attr("idsi");
+    $("#spinnercnfnedit").html('<i class="fas fa-spinner fa-spin"></i>');
+    $("#saveedit_"+CnfnID).prop("disabled", true);
+    var Text = $("#edittedtext_"+CnfnID).val();
+    var Visibility = $("#edittedVisibilityOpt_"+CnfnID).val();
+    var Topic = $("#edittedTopicOpt_"+CnfnID).val();
+    var Datas = {
+      "CnfnID":CnfnID,
+      "Text": Text,
+      "Visibility": Visibility,
+      "Topic": Topic
+    };
+    $.ajax({
+      type: "POST",
+      url: SITE_URL + "/socialmedia/ajaxconfessions.php?operation=editconfession",
+      dataType: "json",
+      data: Datas,
+      success: function(result) {
+        $("#spinnercnfnedit").html('');
+        $("#saveedit_"+CnfnID).prop("disabled", false);
+        location.reload();
+      }
+    });
+  });
+
   // Change Language AJAX
   function ChangeLang(ToLang, Page, Part, Edit) {
     $.ajax({
@@ -2212,7 +2276,7 @@
           window.location.href = "http://localhost/aybu/socialmedia/" + result.currentpage + "/" + result.currentpart + "/" + Edit;
         } else {
           if (Part) {
-            window.location.href = "http://localhost/aybu/socialmedia/" + result.currentpage + "/" + Part;
+            window.location.href = "http://localhost/aybu/socialmedia/" + result.currentpage + "/" + result.currentpart;
           } else {
             window.location.href = "http://localhost/aybu/socialmedia/" + result.currentpage;
           }

@@ -102,6 +102,12 @@ if ($page == $translates["courses"]) {
   }
 }
 
+// İtiraf işlemleri
+if ($page == $translates["confessions"]) {
+  if (!$part) {
+      header("Location: http://localhost/aybu/socialmedia/".$translates["confessions"]."/".$translates["all"]);
+  }
+}
 // Haber sayfası işlemleri
 if ($page == $translates["News"]) {
   if ($part) {
@@ -477,7 +483,7 @@ $message_count = $db->getColumnData("SELECT COUNT(*) FROM chatbox WHERE MessageT
     $modalinfo = $db->getData("SELECT * FROM birthdaymodals WHERE MemberID = ? AND BirthdayMemberID = ? AND ModalState = ?", array($memberid, $memberinfo->MemberID, 1));
     if ($memberBirthday[1] == $month and $memberBirthday[2] == $day and (!$modalinfo or $modalinfo->ShownYear != $year) and $memberid != $memberinfo->MemberID) {
       if ($modalinfo) {
-        $db->Update("UPDATE birthdaymodals SET ShownYear = ? WHERE MemberID = ? AND BirthdayMemberID = ?", array($year,$memberid, $memberinfo->MemberID));
+        $db->Update("UPDATE birthdaymodals SET ShownYear = ? WHERE MemberID = ? AND BirthdayMemberID = ?", array($year, $memberid, $memberinfo->MemberID));
       } else {
         $db->Insert("INSERT INTO birthdaymodals SET MemberID = ?,
         BirthdayMemberID = ?,

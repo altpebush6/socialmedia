@@ -73,8 +73,8 @@ if ($SS->get("MemberID")) {
             require_once "functions/ajaxfunctions.php";
             break;
 
-        case 'confession':
-        case 'itiraf':
+        case 'confessions':
+        case 'itiraflar':
             require_once "header.php";
             require_once "confessionsindex.php";
             require_once "functions/ajaxfunctions.php";
@@ -240,8 +240,8 @@ if ($SS->get("MemberID")) {
                 header("Location: http://localhost/aybu/socialmedia/login");
             }
             break;
-        case 'confession':
-        case 'itiraf':
+        case 'confessions':
+        case 'itiraflar':
             if ($language == 'tr') {
                 header("Location: http://localhost/aybu/socialmedia/giris");
             } else {

@@ -1,6 +1,6 @@
 <?php
 if (!isset($_SESSION)) {
-  session_start();
+    session_start();
 }
 require_once "functions/routing.php";
 require_once "functions/security.php";
@@ -38,9 +38,15 @@ if ($counter > 0) {
         $eventCreatorID = $event->EventCreatorID;
         $eventID = $event->EventID;
         $creatorNames = $db->getColumnData("SELECT MemberNames FROM members WHERE MemberID = ?", array($eventCreatorID));
-        $event_profile_photo = $db->getColumnData("SELECT Member_Profileimg FROM images WHERE MemberID = $eventCreatorID");
+        $event_profile_photo = $db->getColumnData("SELECT Member_Profileimg FROM images WHERE MemberID = ?", array($eventCreatorID));
         $gender = $db->getColumnData("SELECT MemberGender FROM members WHERE MemberID = ?", array($eventCreatorID));
 
+        $isPersonActive = $db->getColumnData("SELECT MemberConfirm FROM members WHERE MemberID = ?", array($eventCreatorID));
+        if ($isPersonActive != 1) {
+            $event_profile_photo = NULL;
+            $creatorNames = $translates["unknownuser"];
+        }
+        
         if (is_null($event_profile_photo)) {
             if ($gender == 'Male') {
                 $event_profile_photo = "profilemale.png";
