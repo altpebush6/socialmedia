@@ -126,7 +126,7 @@ if (($memberid == $clubPresidentID) and ($clubRequests)) { ?>
                     <?php if ($clubPresidentID == $memberid) { ?>
                         <div class="row justify-content-end">
                             <button class="col-3 m-0 p-0 text-center text-dark d-flex justify-content-center align-items-center rounded-circle removeMemberDiv me-2 opt_dropdown dropbtn" memid="<?= $memberID ?>"><i class="fas fa-ellipsis-h"></i></button>
-                            <div class="dropdown-content rounded-2 mt-4 px-0" style="display:none;width:280px;font-size:15px" id="opt_dropbox_<?= $memberID ?>">
+                            <div class="dropdown-content rounded-2 px-0" id="opt_dropbox_<?= $memberID ?>">
                                 <a href="javascript:void(0)" class="w-100 px-0 promoteMember" clubmemberid="<?= $memberID ?>"><i class="fas fa-angle-double-up text-success"></i> <?= $translates["promotetoman"] ?></a>
                                 <a href="javascript:void(0)" class="w-100 px-0 removeMember" clubmemberid="<?= $memberID ?>"><i class="fas fa-user-slash text-danger"></i> <?= $translates["removefromclub"] ?></a>
                             </div>
@@ -154,7 +154,7 @@ if (($memberid == $clubPresidentID) and ($clubRequests)) { ?>
         });
         $('.owl-carousel').owlCarousel({
             loop: false,
-            margin: 10,
+            margin: 100,
             rewind: false,
             center: false,
             autoplay: 5000,

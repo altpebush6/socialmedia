@@ -99,7 +99,7 @@ foreach ($posts as $item) {
     $texthashtag = "<a href='http://localhost/aybu/socialmedia/" . $translates['home'] . "/" . $post_topic . "' class='text-info text-decoration-none'>#" . $post_topic . "</a>";
     $isfriend = $db->getData("SELECT * FROM friends WHERE FirstMemberID = ? AND SecondMemberID = ? AND FriendRequest = ?", array($memberid, $postMemberID, 1));
     $isfriend2 = $db->getData("SELECT * FROM friends WHERE FirstMemberID = ? AND SecondMemberID = ? AND FriendRequest = ?", array($postMemberID, $memberid, 1));
-    $post_profile_photo = $db->getColumnData("SELECT Member_Profileimg FROM images WHERE MemberID = $item->MemberID");
+    $post_profile_photo = $db->getColumnData("SELECT Member_Profileimg FROM images WHERE MemberID = ?",array($item->MemberID));
     $gender = $db->getColumnData("SELECT MemberGender FROM members WHERE MemberID = ?", array($item->MemberID));
 
     if (is_null($post_profile_photo)) {
@@ -109,8 +109,8 @@ foreach ($posts as $item) {
         $post_profile_photo = "profilefemale.png";
       }
     }
-    $post_user_name = $db->getColumnData("SELECT MemberName FROM members WHERE MemberID = $item->MemberID ");
-    $post_user_lastname = $db->getColumnData("SELECT MemberLastName FROM members WHERE MemberID = $item->MemberID ");
+    $post_user_name = $db->getColumnData("SELECT MemberName FROM members WHERE MemberID = ?",array($item->MemberID));
+    $post_user_lastname = $db->getColumnData("SELECT MemberLastName FROM members WHERE MemberID = ?",array($item->MemberID));
 
     $diff_post = calculateTime($post_time);
 ?>
@@ -182,41 +182,41 @@ foreach ($posts as $item) {
               <?php if (!is_null($post_img)) {
                 switch ($img_counter) {
                   case 1: ?>
-                    <a href="post_images/<?= $post_img ?>" class="col-12">
-                      <img src="post_images/<?= $post_img ?>" style="width:100%;border-radius:5px;margin-top:15px;">
+                    <a href="post_images/<?= $post_img ?>" class="col-12 d-flex justify-content-center align-items-center">
+                      <img src="post_images/<?= $post_img ?>" style="max-width:100%;min-width:100px;max-height:64vh;border-radius:5px;">
                     </a>
                   <?php break;
                   case 2: ?>
-                    <a href="post_images/<?= $post_img ?>" class="col-6 pe-1">
-                      <img src="post_images/<?= $post_img ?>" style="width:100%;border-radius:5px;margin-top:15px;">
+                    <a href="post_images/<?= $post_img ?>" class="col-6 d-flex justify-content-center align-items-center border-end">
+                      <img src="post_images/<?= $post_img ?>" style="max-width:100%;min-width:100px;max-height:64vh;border-radius:5px;">
                     </a>
-                    <a href="post_images/<?= $post_img2 ?>" class="col-6 pe-1">
-                      <img src="post_images/<?= $post_img2 ?>" style="width:100%;border-radius:5px;margin-top:15px;">
+                    <a href="post_images/<?= $post_img2 ?>" class="col-6 d-flex justify-content-center align-items-center">
+                      <img src="post_images/<?= $post_img2 ?>" style="max-width:100%;min-width:100px;max-height:64vh;border-radius:5px;">
                     </a>
                   <?php break;
                   case 3: ?>
-                    <a href="post_images/<?= $post_img ?>" class="col-6 pe-1">
-                      <img src="post_images/<?= $post_img ?>" style="width:100%;border-radius:5px;margin-top:15px;">
+                    <a href="post_images/<?= $post_img ?>" class="col-6 d-flex justify-content-center align-items-center border">
+                      <img src="post_images/<?= $post_img ?>" style="max-width:100%;min-width:100px;max-height:64vh;border-radius:5px;">
                     </a>
-                    <a href="post_images/<?= $post_img2 ?>" class="col-6 pe-1">
-                      <img src="post_images/<?= $post_img2 ?>" style="width:100%;border-radius:5px;margin-top:15px;">
+                    <a href="post_images/<?= $post_img2 ?>" class="col-6 d-flex justify-content-center align-items-center border">
+                      <img src="post_images/<?= $post_img2 ?>" style="max-width:100%;min-width:100px;max-height:64vh;border-radius:5px;">
                     </a>
-                    <a href="post_images/<?= $post_img3 ?>" class="col-6 pe-1">
-                      <img src="post_images/<?= $post_img3 ?>" style="width:100%;border-radius:5px;margin-top:15px;">
+                    <a href="post_images/<?= $post_img3 ?>" class="col-6 d-flex justify-content-center align-items-center border">
+                      <img src="post_images/<?= $post_img3 ?>" style="max-width:100%;min-width:100px;max-height:64vh;border-radius:5px;">
                     </a>
                   <?php break;
                   case 4: ?>
-                    <a href="post_images/<?= $post_img ?>" class="col-6 pe-1">
-                      <img src="post_images/<?= $post_img ?>" style="width:100%;border-radius:5px;margin-top:15px;">
+                    <a href="post_images/<?= $post_img ?>" class="col-6 d-flex justify-content-center align-items-center border">
+                      <img src="post_images/<?= $post_img ?>" style="max-width:100%;min-width:100px;max-height:64vh;border-radius:5px;">
                     </a>
-                    <a href="post_images/<?= $post_img2 ?>" class="col-6 ps-1">
-                      <img src="post_images/<?= $post_img2 ?>" style="width:100%;border-radius:5px;margin-top:15px;">
+                    <a href="post_images/<?= $post_img2 ?>" class="col-6 d-flex justify-content-center align-items-center border">
+                      <img src="post_images/<?= $post_img2 ?>" style="max-width:100%;min-width:100px;max-height:64vh;border-radius:5px;">
                     </a>
-                    <a href="post_images/<?= $post_img3 ?>" class="col-6 pe-1">
-                      <img src="post_images/<?= $post_img3 ?>" style="width:100%;border-radius:5px;margin-top:15px;">
+                    <a href="post_images/<?= $post_img3 ?>" class="col-6 d-flex justify-content-center align-items-center border">
+                      <img src="post_images/<?= $post_img3 ?>" style="max-width:100%;min-width:100px;max-height:64vh;border-radius:5px;">
                     </a>
-                    <a href="post_images/<?= $post_img4 ?>" class="col-6 ps-1">
-                      <img src="post_images/<?= $post_img4 ?>" style="width:100%;border-radius:5px;margin-top:15px;">
+                    <a href="post_images/<?= $post_img4 ?>" class="col-6 d-flex justify-content-center align-items-center border">
+                      <img src="post_images/<?= $post_img4 ?>" style="max-width:100%;min-width:100px;max-height:64vh;border-radius:5px;">
                     </a>
               <?php break;
                 }
@@ -230,7 +230,7 @@ foreach ($posts as $item) {
         <!-- Gönderi Düzenleme -->
         <div class="d-none" id="addpartul_<?= $post_ID ?>">
           <form id='form_edit<?= $post_ID ?>' class='form_edit' idsi="<?= $post_ID ?>" method='post' enctype='multipart/form-data'>
-            <input autocomplete="off" type='text' class="form-control-plaintext " name='edittedtext' id='edittedtext_<?= $post_ID ?>' value='<?= $post_text ?>' class='posttext-input' style="margin-bottom:5%;width:100%;padding-left: 2%;">
+            <input autocomplete="off" type='text' maxlength="250" class="form-control-plaintext " name='edittedtext' id='edittedtext_<?= $post_ID ?>' value='<?= $post_text ?>' class='posttext-input' style="margin-bottom:5%;width:100%;padding-left: 2%;">
             <div class="row d-flex flex-column ps-3" id="edit_post_files_<?= $post_ID ?>">
 
               <?php
@@ -239,11 +239,11 @@ foreach ($posts as $item) {
                 if ($i > 1) {
                   $postfile = "PostFile" . $i;
                   if ($item->$postfile) {
-                    echo '<div class="col-12 my-2 ps-4 fs-6 text-dark"><a class="text-dark text-decoration*none" href=""><i class="fas fa-file-alt fa-2x"></i> ' . $item->$postfile . '</a></div>';
+                    echo '<div class="col-12 my-2 ps-4 fs-6 text-dark"><a class="text-dark" href=""><i class="fas fa-file-alt fa-2x"></i> ' . $item->$postfile . '</a></div>';
                   }
                 } else {
                   if ($item->PostFile) {
-                    echo '<div class="col-12 my-2 ps-4 fs-6 text-dark"><a class="text-dark text-decoration*none" href=""><i class="fas fa-file-alt fa-2x"></i> ' . $item->PostFile . '</a></div>';
+                    echo '<div class="col-12 my-2 ps-4 fs-6 text-dark"><a class="text-dark" href=""><i class="fas fa-file-alt fa-2x"></i> ' . $item->PostFile . '</a></div>';
                   }
                 }
               }
@@ -256,46 +256,46 @@ foreach ($posts as $item) {
               <div id="review_more_edit_<?= $post_ID ?>" class="rounded-3 w-25 mb-3 fs-1 border d-none justify-content-center align-items-center" style="background: rgba(0,0,0,0.4);"></div>
             </div>
             <div class="p-2 border my-3 w-75 d-none" id="warn_file_edit_<?= $post_ID ?>"></div>
-            <div class="d-flex flex-row edit_post_images_<?= $post_ID ?>" id="edit_post_images_<?= $post_ID ?>">
+            <div class="ps-3 d-flex flex-row edit_post_images_<?= $post_ID ?>" id="edit_post_images_<?= $post_ID ?>">
               <div class="row">
                 <?php if (!is_null($post_img)) {
                   switch ($img_counter) {
                     case 1: ?>
                       <a href="post_images/<?= $post_img ?>" class="col-12" class="editting_img_<?= $post_ID ?>">
-                        <img src="post_images/<?= $post_img ?>" style="width:100%;border-radius:5px;margin-top:15px;">
+                        <img src="post_images/<?= $post_img ?>" style="max-width:100%;min-width:100px;max-height:64vh;border-radius:5px;">
                       </a>
                     <?php break;
                     case 2: ?>
-                      <a href="post_images/<?= $post_img ?>" class="col-6 pe-1" class="editting_img_<?= $post_ID ?>">
-                        <img src="post_images/<?= $post_img ?>" style="width:100%;border-radius:5px;margin-top:15px;">
+                      <a href="post_images/<?= $post_img ?>" class="col-6 d-flex justify-content-center align-items-center" class="editting_img_<?= $post_ID ?>">
+                        <img src="post_images/<?= $post_img ?>" style="max-width:100%;min-width:100px;max-height:64vh;border-radius:5px;">
                       </a>
-                      <a href="post_images/<?= $post_img2 ?>" class="col-6 pe-1" class="editting_img_<?= $post_ID ?>">
-                        <img src="post_images/<?= $post_img2 ?>" style="width:100%;border-radius:5px;margin-top:15px;">
+                      <a href="post_images/<?= $post_img2 ?>" class="col-6 d-flex justify-content-center align-items-center" class="editting_img_<?= $post_ID ?>">
+                        <img src="post_images/<?= $post_img2 ?>" style="max-width:100%;min-width:100px;max-height:64vh;border-radius:5px;">
                       </a>
                     <?php break;
                     case 3: ?>
-                      <a href="post_images/<?= $post_img ?>" class="col-6 pe-1" class="editting_img_<?= $post_ID ?>">
-                        <img src="post_images/<?= $post_img ?>" style="width:100%;border-radius:5px;margin-top:15px;">
+                      <a href="post_images/<?= $post_img ?>" class="col-6 d-flex justify-content-center align-items-center" class="editting_img_<?= $post_ID ?>">
+                        <img src="post_images/<?= $post_img ?>" style="max-width:100%;min-width:100px;max-height:64vh;border-radius:5px;">
                       </a>
-                      <a href="post_images/<?= $post_img2 ?>" class="col-6 pe-1" class="editting_img_<?= $post_ID ?>">
-                        <img src="post_images/<?= $post_img2 ?>" style="width:100%;border-radius:5px;margin-top:15px;">
+                      <a href="post_images/<?= $post_img2 ?>" class="col-6 d-flex justify-content-center align-items-center" class="editting_img_<?= $post_ID ?>">
+                        <img src="post_images/<?= $post_img2 ?>" style="max-width:100%;min-width:100px;max-height:64vh;border-radius:5px;">
                       </a>
-                      <a href="post_images/<?= $post_img3 ?>" class="col-6 pe-1" class="editting_img_<?= $post_ID ?>">
-                        <img src="post_images/<?= $post_img3 ?>" style="width:100%;border-radius:5px;margin-top:15px;">
+                      <a href="post_images/<?= $post_img3 ?>" class="col-6 d-flex justify-content-center align-items-center" class="editting_img_<?= $post_ID ?>">
+                        <img src="post_images/<?= $post_img3 ?>" style="max-width:100%;min-width:100px;max-height:64vh;border-radius:5px;">
                       </a>
                     <?php break;
                     case 4: ?>
-                      <a href="post_images/<?= $post_img ?>" class="col-6 pe-1" class="editting_img_<?= $post_ID ?>">
-                        <img src="post_images/<?= $post_img ?>" style="width:100%;border-radius:5px;margin-top:15px;">
+                      <a href="post_images/<?= $post_img ?>" class="col-6 d-flex justify-content-center align-items-center" class="editting_img_<?= $post_ID ?>">
+                        <img src="post_images/<?= $post_img ?>" style="max-width:100%;min-width:100px;max-height:64vh;border-radius:5px;">
                       </a>
-                      <a href="post_images/<?= $post_img2 ?>" class="col-6 pe-1" class="editting_img_<?= $post_ID ?>">
-                        <img src="post_images/<?= $post_img2 ?>" style="width:100%;border-radius:5px;margin-top:15px;">
+                      <a href="post_images/<?= $post_img2 ?>" class="col-6 d-flex justify-content-center align-items-center" class="editting_img_<?= $post_ID ?>">
+                        <img src="post_images/<?= $post_img2 ?>" style="max-width:100%;min-width:100px;max-height:64vh;border-radius:5px;">
                       </a>
-                      <a href="post_images/<?= $post_img3 ?>" class="col-6 pe-1" class="editting_img_<?= $post_ID ?>">
-                        <img src="post_images/<?= $post_img3 ?>" style="width:100%;border-radius:5px;margin-top:15px;">
+                      <a href="post_images/<?= $post_img3 ?>" class="col-6 d-flex justify-content-center align-items-center" class="editting_img_<?= $post_ID ?>">
+                        <img src="post_images/<?= $post_img3 ?>" style="max-width:100%;min-width:100px;max-height:64vh;border-radius:5px;">
                       </a>
-                      <a href="post_images/<?= $post_img4 ?>" class="col-6 pe-1" class="editting_img_<?= $post_ID ?>">
-                        <img src="post_images/<?= $post_img4 ?>" style="width:100%;border-radius:5px;margin-top:15px;">
+                      <a href="post_images/<?= $post_img4 ?>" class="col-6 d-flex justify-content-center align-items-center" class="editting_img_<?= $post_ID ?>">
+                        <img src="post_images/<?= $post_img4 ?>" style="max-width:100%;min-width:100px;max-height:64vh;border-radius:5px;">
                       </a>
                 <?php break;
                   }
@@ -373,7 +373,7 @@ foreach ($posts as $item) {
           foreach ($comments as $postinfo) {
             $comment_ID = $postinfo->CommentID;
             $commentText = $postinfo->CommentText;
-            $comment_profile_photo = $db->getColumnData("SELECT Member_Profileimg FROM images WHERE MemberID = $postinfo->MemberID");
+            $comment_profile_photo = $db->getColumnData("SELECT Member_Profileimg FROM images WHERE MemberID = ?",array($postinfo->MemberID));
 
             $gender = $db->getColumnData("SELECT MemberGender FROM members WHERE MemberID = ?", array($postinfo->MemberID));
 
@@ -397,8 +397,8 @@ foreach ($posts as $item) {
                     <small>
                       <!-- İsim - süre -->
                       <?php
-                      $comment_name = $db->getColumnData("SELECT MemberName FROM members WHERE MemberID = $postinfo->MemberID");
-                      $comment_lastname = $db->getColumnData("SELECT MemberLastName FROM members WHERE MemberID = $postinfo->MemberID");
+                      $comment_name = $db->getColumnData("SELECT MemberName FROM members WHERE MemberID = ?",array($item->MemberID));
+                      $comment_lastname = $db->getColumnData("SELECT MemberLastName FROM members WHERE MemberID = ?",array($item->MemberID));
                       echo $comment_name . " " . $comment_lastname . " - ";
 
                       $comment_time = $postinfo->CommentAddTime;
@@ -474,7 +474,7 @@ $eventHeader = $event->EventHeader;
         <h6 id="event_header_<?= $event->EventID ?>" class="ps-4 my-3 fs-2 text-center eventHeader d-block"><?= $eventHeader ?></h6>
         <div class="d-flex flex-row p-0 m-0">
           <div class="row w-100 ps-4 mb-3" id="event_image_<?= $event->EventID ?>">
-            <a href="events_images/<?= $event->EventImage ?>" class="col-12 pe-1">
+            <a href="events_images/<?= $event->EventImage ?>" class="col-12 d-flex justify-content-center align-items-center">
               <img src="events_images/<?= $event->EventImage ?>" style="width:100%;border-radius:5px;margin-top:15px;">
             </a>
             <script>

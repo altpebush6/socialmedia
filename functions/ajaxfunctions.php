@@ -817,10 +817,9 @@
     $("#groupmembers").on("keyup", function() {
       var person_info = $(this).val();
       var addedFriends = $(this).attr("alladded");
-      var Operation = "searchFriends";
       $.ajax({
         method: "post",
-        url: SITE_URL + "/socialmedia/ajaxmessages.php?operation=" + Operation,
+        url: SITE_URL + "/socialmedia/ajaxmessages.php?operation=searchFriends",
         data: {
           "search": person_info,
           "addedFriends": addedFriends,
@@ -834,10 +833,9 @@
 
     $("#FriendsList").on("click", ".each-friend", function() {
       var FriendID = $(this).attr("id");
-      var Operation = "addedFriends";
       $.ajax({
         method: "post",
-        url: SITE_URL + "/socialmedia/ajaxmessages.php?operation=" + Operation,
+        url: SITE_URL + "/socialmedia/ajaxmessages.php?operation=addedFriends",
         data: {
           "FriendID": FriendID
         },
@@ -960,7 +958,6 @@
     }
 
     $.getMessage = function() {
-      var Operation = "getmessage";
       var partID = Part;
       var Datas = {
         "partID": partID,
@@ -968,7 +965,7 @@
       };
       $.ajax({
         type: "post",
-        url: SITE_URL + "/socialmedia/ajaxmessages.php?operation=" + Operation,
+        url: SITE_URL + "/socialmedia/ajaxmessages.php?operation=getmessage",
         data: Datas,
         dataType: 'json',
         success: function(result) {
@@ -1007,10 +1004,9 @@
     }
 
     $.setStatus = function() {
-      var Operation = "setStatus";
       $.ajax({
         type: "post",
-        url: SITE_URL + "/socialmedia/ajaxmessages.php?operation=" + Operation,
+        url: SITE_URL + "/socialmedia/ajaxmessages.php?operation=setStatus",
         success: function(result) {
           var nothing = "nothing";
         }
@@ -1018,10 +1014,9 @@
     }
 
     $.getStatus = function() {
-      var Operation = "getStatus";
       $.ajax({
         type: "post",
-        url: SITE_URL + "/socialmedia/ajaxmessages.php?operation=" + Operation,
+        url: SITE_URL + "/socialmedia/ajaxmessages.php?operation=getStatus",
         success: function(result) {
           var result = result.split(":::");
           $(".offline").css("color", "rgb(204, 1, 1)");
@@ -1141,10 +1136,9 @@
   function deleteNotis() {
     $(".notificationIcon").removeClass("iconanimate");
     $("#noticon_mb").removeClass("navanimate");
-    var Operation = "deleteNotifications";
     $.ajax({
       type: "post",
-      url: SITE_URL + "/socialmedia/ajaxnotifications.php?operation=" + Operation,
+      url: SITE_URL + "/socialmedia/ajaxnotifications.php?operation=deleteNotifications",
       dataType: "json",
       success: function(result) {}
     });
@@ -1154,10 +1148,9 @@
 
   $("#search_clubs").on("keyup", function() {
     var club_info = $(this).val();
-    var Operation = "searchClubs";
     $.ajax({
       method: "post",
-      url: SITE_URL + "/socialmedia/ajaxclub.php?operation=" + Operation,
+      url: SITE_URL + "/socialmedia/ajaxclub.php?operation=searchClubs",
       data: {
         "search": club_info
       },
@@ -1178,13 +1171,12 @@
       e.preventDefault();
       $("#spinneraddclub").html('<i class="fas fa-spinner fa-spin"></i>');
       $("#addclub_btn").prop("disabled", true);
-      var Operation = "addclub";
       var Datas = new FormData(this);
       Datas.append("clubname", $("#clubname").val());
       Datas.append("clubscope", $("#clubscope").val());
       $.ajax({
         type: "post",
-        url: SITE_URL + "/socialmedia/ajaxclub.php?operation=" + Operation,
+        url: SITE_URL + "/socialmedia/ajaxclub.php?operation=addclub",
         data: Datas,
         dataType: "json",
         contentType: false,
@@ -1207,12 +1199,11 @@
   });
 
   $("#container").on("click", "#joinclub", function() {
-    var Operation = "sendJoin";
     $("#spinnerjoinclub").html('<i class="fas fa-spinner fa-spin"></i>');
     $("#joinclub").prop("disabled", true);
     $.ajax({
       type: "POST",
-      url: SITE_URL + "/socialmedia/ajaxclub.php?operation=" + Operation,
+      url: SITE_URL + "/socialmedia/ajaxclub.php?operation=sendJoin",
       data: {
         "ClubID": Part
       },
@@ -1229,12 +1220,11 @@
   });
 
   $("#container").on("click", "#cancelreq", function() {
-    var Operation = "cancelReq";
     $("#spinnercancelreq").html('<i class="fas fa-spinner fa-spin"></i>');
     $("#cancelreq").prop("disabled", true);
     $.ajax({
       type: "POST",
-      url: SITE_URL + "/socialmedia/ajaxclub.php?operation=" + Operation,
+      url: SITE_URL + "/socialmedia/ajaxclub.php?operation=cancelReq",
       data: {
         "ClubID": Part
       },
@@ -1251,12 +1241,11 @@
   });
 
   $("#container").on("click", "#spamclub", function() {
-    var Operation = "spamClub";
     $("#spinnerspamclub").html('<i class="fas fa-spinner fa-spin"></i>');
     $("#spamclub").prop("disabled", true);
     $.ajax({
       type: "POST",
-      url: SITE_URL + "/socialmedia/ajaxclub.php?operation=" + Operation,
+      url: SITE_URL + "/socialmedia/ajaxclub.php?operation=spamClub",
       data: {
         "ClubID": Part
       },
@@ -1273,12 +1262,11 @@
   });
 
   $("#container").on("click", "#cancelspam", function() {
-    var Operation = "cancelSpam";
     $("#spinnercancelspam").html('<i class="fas fa-spinner fa-spin"></i>');
     $("#cancelspam").prop("disabled", true);
     $.ajax({
       type: "POST",
-      url: SITE_URL + "/socialmedia/ajaxclub.php?operation=" + Operation,
+      url: SITE_URL + "/socialmedia/ajaxclub.php?operation=cancelSpam",
       data: {
         "ClubID": Part
       },
@@ -1295,12 +1283,12 @@
   });
 
   $("#leaveclub").on("click", function() {
-    var Operation = "leaveClub";
+    
     $("#spinnerleaveclub").html('<i class="fas fa-spinner fa-spin"></i>');
     $("#leaveclub").prop("disabled", true);
     $.ajax({
       type: "POST",
-      url: SITE_URL + "/socialmedia/ajaxclub.php?operation=" + Operation,
+      url: SITE_URL + "/socialmedia/ajaxclub.php?operation=leaveClub",
       data: {
         "ClubID": Part
       },
@@ -1337,10 +1325,9 @@
     $("#submitevent").prop("disabled", true);
     var Datas = $("#form_event").serialize();
     Datas = Datas + "&ClubID=" + Part;
-    var Operation = "addEvent";
     $.ajax({
       type: "post",
-      url: SITE_URL + "/socialmedia/ajaxclub.php?operation=" + Operation,
+      url: SITE_URL + "/socialmedia/ajaxclub.php?operation=addEvent",
       data: Datas,
       dataType: "json",
       success: function(result) {
@@ -1354,19 +1341,19 @@
           $("#result").addClass("bg-success mt-2 mb-3 m-md-0 text-light p-2 w-100 mb-0 mx-auto text-center rounded-3");
           $("#result").html(result.success);
           $("form").trigger("reset");
+          $("#allEvents").prepend(result.newEvent);
         }
       }
     });
   });
 
   $("#events").on("click", ".joinevent", function() {
-    var Operation = "joinEvent";
     var EventID = $(this).attr("eventid");
     $("#spinnerjoin_" + EventID).html('<i class="fas fa-spinner fa-spin"></i>');
     $("#joinevent_" + EventID).prop("disabled", true);
     $.ajax({
       type: "post",
-      url: SITE_URL + "/socialmedia/ajaxclub.php?operation=" + Operation,
+      url: SITE_URL + "/socialmedia/ajaxclub.php?operation=joinEvent" ,
       data: {
         "ClubID": Part,
         "EventID": EventID
@@ -1387,13 +1374,12 @@
   });
 
   $("#events").on("click", ".canceljoin", function() {
-    var Operation = "cancelJoin";
     var EventID = $(this).attr("eventid");
     $("#spinnercanceljoin_" + EventID).html('<i class="fas fa-spinner fa-spin"></i>');
     $("#canceljoin_" + EventID).prop("disabled", true);
     $.ajax({
       type: "post",
-      url: SITE_URL + "/socialmedia/ajaxclub.php?operation=" + Operation,
+      url: SITE_URL + "/socialmedia/ajaxclub.php?operation=cancelJoin",
       data: {
         "ClubID": Part,
         "EventID": EventID
@@ -1413,12 +1399,27 @@
     });
   });
 
-  $(".accept-request").on("click", function() {
-    var MembershipID = $(this).attr("membershipid");
-    var Operation = "acceptRequest";
+  $("#events").on("click", ".deleteEvent", function() {
+    var EventID = $(this).attr("eventid");
     $.ajax({
       type: "post",
-      url: SITE_URL + "/socialmedia/ajaxclub.php?operation=" + Operation,
+      url: SITE_URL + "/socialmedia/ajaxclub.php?operation=deleteEvent",
+      data: {
+        "ClubID": Part,
+        "EventID": EventID
+      },
+      dataType: "json",
+      success: function(result) {
+        $(".event_" + EventID).remove();
+      }
+    });
+  });
+
+  $(".accept-request").on("click", function() {
+    var MembershipID = $(this).attr("membershipid");
+    $.ajax({
+      type: "post",
+      url: SITE_URL + "/socialmedia/ajaxclub.php?operation=acceptRequest",
       data: {
         "ClubID": Part,
         "MembershipID": MembershipID
@@ -1436,10 +1437,9 @@
   });
   $(".refuse-request").on("click", function() {
     var MembershipID = $(this).attr("membershipid");
-    var Operation = "refuseRequest";
     $.ajax({
       type: "post",
-      url: SITE_URL + "/socialmedia/ajaxclub.php?operation=" + Operation,
+      url: SITE_URL + "/socialmedia/ajaxclub.php?operation=refuseRequest",
       data: {
         "ClubID": Part,
         "MembershipID": MembershipID
@@ -2082,26 +2082,28 @@
     var Datas = new FormData(this);
     Datas.append("groupID", GroupID);
     var imagePath = $("#upload_groupimg").val();
-    var imageallowedExtensions = /(\.jpg|\.jpeg|\.png|\.jfif)$/i;
-    if (imagePath && !imageallowedExtensions.exec(imagePath)) {
-      $("#resultImg").removeClass("d-none");
-      $("#resultImg").addClass("d-block");
-      $("#resultImg").html('<i class="fas fa-exclamation"></i> <?= $translates["notallowedimg"] ?>');
-    } else {
-      $.ajax({
-        type: "post",
-        url: SITE_URL + "/socialmedia/ajaxmessages.php?operation=changeImg",
-        data: Datas,
-        dataType: "json",
-        contentType: false,
-        cache: false,
-        processData: false,
-        success: function(result) {
-          $("#chatpersonimg").attr("src", result.imgsrc);
-          $("#groupImage_" + GroupID).attr("src", result.imgsrc);
-          $("#changeGroupImg").attr("src", result.imgsrc);
-        }
-      });
+    if (imagePath) {
+      var imageallowedExtensions = /(\.jpg|\.jpeg|\.png|\.jfif)$/i;
+      if (imagePath && !imageallowedExtensions.exec(imagePath)) {
+        $("#resultImg").removeClass("d-none");
+        $("#resultImg").addClass("d-block");
+        $("#resultImg").html('<i class="fas fa-exclamation"></i> <?= $translates["notallowedimg"] ?>');
+      } else {
+        $.ajax({
+          type: "post",
+          url: SITE_URL + "/socialmedia/ajaxmessages.php?operation=changeImg",
+          data: Datas,
+          dataType: "json",
+          contentType: false,
+          cache: false,
+          processData: false,
+          success: function(result) {
+            $("#chatpersonimg").attr("src", result.imgsrc);
+            $("#groupImage_" + GroupID).attr("src", result.imgsrc);
+            $("#changeGroupImg").attr("src", result.imgsrc);
+          }
+        });
+      }
     }
   });
 
@@ -2237,12 +2239,12 @@
   $("#containerConfessions").on("click", ".saveedit", function() {
     var CnfnID = $(this).attr("idsi");
     $("#spinnercnfnedit").html('<i class="fas fa-spinner fa-spin"></i>');
-    $("#saveedit_"+CnfnID).prop("disabled", true);
-    var Text = $("#edittedtext_"+CnfnID).val();
-    var Visibility = $("#edittedVisibilityOpt_"+CnfnID).val();
-    var Topic = $("#edittedTopicOpt_"+CnfnID).val();
+    $("#saveedit_" + CnfnID).prop("disabled", true);
+    var Text = $("#edittedtext_" + CnfnID).val();
+    var Visibility = $("#edittedVisibilityOpt_" + CnfnID).val();
+    var Topic = $("#edittedTopicOpt_" + CnfnID).val();
     var Datas = {
-      "CnfnID":CnfnID,
+      "CnfnID": CnfnID,
       "Text": Text,
       "Visibility": Visibility,
       "Topic": Topic
@@ -2254,11 +2256,29 @@
       data: Datas,
       success: function(result) {
         $("#spinnercnfnedit").html('');
-        $("#saveedit_"+CnfnID).prop("disabled", false);
+        $("#saveedit_" + CnfnID).prop("disabled", false);
         location.reload();
       }
     });
   });
+
+  // $(function() {
+
+  //   $.timeCounter = function() {
+  //     $.ajax({
+  //       type: "post",
+  //       url: SITE_URL + "/socialmedia/ajaxtimecounter.php",
+  //       data: {
+  //         "MemberID": ID
+  //       },
+  //       success: function(result) {
+  //         $("#sayac").html(result);
+  //       }
+  //     });
+  //   }
+  // });
+  // setInterval('$.timeCounter()', 1000);
+
 
   // Change Language AJAX
   function ChangeLang(ToLang, Page, Part, Edit) {

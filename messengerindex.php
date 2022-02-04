@@ -16,8 +16,8 @@
           <?php
 
           $chatpersons = $db->getDatas("SELECT * FROM chatbox
-                    WHERE MessageStatus = 1 AND (MessageFromID = $memberid OR MessageToID = $memberid OR GroupMembers LIKE '%$memberid%')
-                    ORDER BY LastTime DESC");
+                    WHERE MessageStatus = ? AND (MessageFromID = ? OR MessageToID = ? OR GroupMembers LIKE '%$memberid%')
+                    ORDER BY LastTime DESC",array(1,$memberid,$memberid));
           ?>
           <div class="col-12 text-center mt-0 mb-2">
             <input class="form-control w-100 mx-auto srchfriend" autocomplete="off" type="text" id="srchformsg" name="srchformsg" placeholder="<?= $translates["searchformessage"] ?>">

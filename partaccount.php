@@ -11,13 +11,13 @@
       foreach ($list as $items) {
         switch ($items->NavID) {
           case 1:
-            $contents_account = $db->getColumnData("SELECT MemberNames FROM members WHERE MemberID = $memberid ");
+            $contents_account = $db->getColumnData("SELECT MemberNames FROM members WHERE MemberID = ? ", array($memberid));
             break;
           case 2:
-            $contents_account = $db->getColumnData("SELECT MemberEmail FROM members WHERE MemberID = $memberid");
+            $contents_account = $db->getColumnData("SELECT MemberEmail FROM members WHERE MemberID = ?", array($memberid));
             break;
           case 3:
-            $contents_account = $db->getColumnData("SELECT MemberPhone FROM memberabout WHERE MemberID = $memberid ");
+            $contents_account = $db->getColumnData("SELECT MemberPhone FROM memberabout WHERE MemberID = ? ", array($memberid));
             if ($contents_account[0] == "0") {
               $contents_account = "(" . substr($contents_account, 0, 4) . ")-" . substr($contents_account, 4, 3) . "-" . substr($contents_account, 7, 4);
             } else {
@@ -54,7 +54,7 @@
                   </div>
                 <?php } else { ?>
                   <div class="w-70 mx-auto">
-                    <input type="text" id="<?= $items->NavForm ?>_input" class="form-control form-control-sm" name="<?= $items->NavForm ?>" placeholder="<?= $items->NavName ?>">
+                    <input type="text" id="<?= $items->NavForm ?>_input" maxlength="13" class="form-control form-control-sm" name="<?= $items->NavForm ?>" placeholder="<?= $items->NavName ?>">
                     <?= ($items->NavID == 1) ? '<div class="form-text text-start position-absolute" style="font-size:13px">' . $translates["sixmonths"] . '</div> ' : '' ?>
                   </div>
                 <?php } ?>

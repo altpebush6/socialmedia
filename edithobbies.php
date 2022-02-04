@@ -4,7 +4,7 @@
         <div class="row flex-column">
             <div class="row flex-row">
                 <div class="col-9 offset-1">
-                    <input type="text" id="hobbies_input" autocomplete="off" class="form-control form-control-sm shadow" name="<?= $items->NavForm ?>" placeholder="<?= $items->NavName ?>">
+                    <input type="text" id="hobbies_input" maxlength="150" autocomplete="off" class="form-control form-control-sm shadow" name="<?= $items->NavForm ?>" placeholder="<?= $items->NavName ?>">
                 </div>
                 <div class="col-1 m-0 p-0">
                     <button type="button" class="btn btn-sm rounded-3 btn-outline-theme" id="addHobby"><?= $translates["add"] ?></button>

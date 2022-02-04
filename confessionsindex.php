@@ -177,7 +177,7 @@
                         <div class="d-none" id="editCnfn_<?= $cnfnID ?>">
                             <form id='form_editCnfn_<?= $cnfnID ?>' class='form_edit' method='post' enctype='multipart/form-data'>
                                 <div class="col-10 mx-auto my-3">
-                                    <input autocomplete="off" type='text' class="form-control-plaintext" name='edittedtext' id='edittedtext_<?= $cnfnID ?>' value='<?= $item->ConfessionText ?>'>
+                                    <input autocomplete="off" maxlength="255" type='text' class="form-control-plaintext" name='edittedtext' id='edittedtext_<?= $cnfnID ?>' value='<?= $item->ConfessionText ?>'>
                                 </div>
                                 <div class="col-10 mx-auto mt-2">
                                     <div class="row">

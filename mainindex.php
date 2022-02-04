@@ -65,8 +65,8 @@ if (is_null($profile_photo)) {
     }
 }
 
-$user_name = $db->getColumnData("SELECT AdminName FROM admins WHERE AdminID = $adminid ");
-$user_lastname = $db->getColumnData("SELECT AdminLastname FROM admins WHERE AdminID = $adminid ");
+$user_name = $db->getColumnData("SELECT AdminName FROM admins WHERE AdminID = ? ", array($adminid));
+$user_lastname = $db->getColumnData("SELECT AdminLastname FROM admins WHERE AdminID = ? ", array($adminid));
 $user_namelastname = $user_name . " " . $user_lastname;
 ?>
 

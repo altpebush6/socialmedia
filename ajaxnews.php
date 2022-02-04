@@ -216,7 +216,7 @@ switch ($operation) {
                                             <div class="row my-3">
                                                 <label for="EditNewsheading" class="col-2 fs-5 form-label text-end">Başlık:</label>
                                                 <div class="col-10">
-                                                    <input class="form-control" type="text" value="' . $newsinfos->NewsHeader . '" name="EditNewsheader" id="EditNewsheader" autocomplete="off">
+                                                    <input class="form-control" maxlength="100" type="text" value="' . $newsinfos->NewsHeader . '" name="EditNewsheader" id="EditNewsheader" autocomplete="off">
                                                 </div>
                                             </div>
                                             <div class="row my-3">
@@ -229,25 +229,25 @@ switch ($operation) {
                                         <div class="row mb-3">
                                             <label for="EditNewsauthor" class="col-2 fs-5 form-label text-end">Yazar:</label>
                                             <div class="col-10">
-                                                <input class="form-control" type="text" value="' . $newsinfos->NewsAuthor . '" name="EditNewsauthor" id="EditNewsauthor" autocomplete="off">
+                                                <input class="form-control" maxlength="50" type="text" value="' . $newsinfos->NewsAuthor . '" name="EditNewsauthor" id="EditNewsauthor" autocomplete="off">
                                             </div>
                                         </div>
                                         <div class="row mb-3">
                                             <label for="NewsResource" class="col-2 fs-5 form-label text-end">Kaynak:</label>
                                             <div class="col-10">
-                                                <input class="form-control" type="text" value="' . $newsinfos->NewsResource . '" name="EditNewsResource" id="EditNewsResource" autocomplete="off">
+                                                <input class="form-control" maxlength="100" type="text" value="' . $newsinfos->NewsResource . '" name="EditNewsResource" id="EditNewsResource" autocomplete="off">
                                             </div>
                                         </div>
                                         <div class="row mb-3">
                                             <label for="NewsResource" class="col-2 fs-5 form-label text-end">İçerik Özeti:</label>
                                             <div class="col-10">
-                                                <input class="form-control" type="text" value="' . $newsinfos->NewsSummarize . '" name="EditNewsContentSummarize" id="EditNewsContentSummarize" autocomplete="off">
+                                                <input class="form-control" maxlength="150" type="text" value="' . $newsinfos->NewsSummarize . '" name="EditNewsContentSummarize" id="EditNewsContentSummarize" autocomplete="off">
                                             </div>
                                         </div>
                                         <div class="row mb-3">
                                             <label for="NewsResource" class="col-2 fs-5 form-label text-end">İçerik:</label>
                                             <div class="col-10">
-                                                <input class="form-control" name="EditNewsContent" id="EditNewsContent" value="' . $newsinfos->NewsContent . '"></input>
+                                                <input class="form-control" maxlength="5000" name="EditNewsContent" id="EditNewsContent" value="' . $newsinfos->NewsContent . '"></input>
                                             </div>
                                         </div>
                                         <div class="row">

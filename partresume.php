@@ -63,7 +63,7 @@
 
                                 <?php } else { ?>
                                     <div class="w-70 mx-auto">
-                                        <input type="text" id="<?= $items->NavForm ?>_input" class="form-control form-control-sm shadow" name="<?= $items->NavForm ?>" placeholder="<?= $items->NavName ?>">
+                                        <input type="text" maxlength="255" id="<?= $items->NavForm ?>_input" class="form-control form-control-sm shadow" name="<?= $items->NavForm ?>" placeholder="<?= $items->NavName ?>">
                                     </div>
                                 <?php } ?>
                             </td>

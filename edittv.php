@@ -3,7 +3,7 @@
     <td class="py-3">
         <div class="row flex-column">
             <div class="col-10 offset-1">
-                <input type="text" id="tv_input" autocomplete="off" class="form-control form-control-sm shadow" name="<?= $items->NavForm ?>" placeholder="<?= $items->NavName ?>">
+                <input type="text" id="tv_input" maxlength="150" autocomplete="off" class="form-control form-control-sm shadow" name="<?= $items->NavForm ?>" placeholder="<?= $items->NavName ?>">
             </div>
             <div class="col-10 mt-1 offset-1 text-start" id="added_tv">
             </div>

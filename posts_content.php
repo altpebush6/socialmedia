@@ -35,8 +35,8 @@ foreach ($posts as $item) {
       $post_profile_photo = "profilefemale.png";
     }
   }
-  $post_user_name = $db->getColumnData("SELECT MemberName FROM members WHERE MemberID = $item->MemberID ");
-  $post_user_lastname = $db->getColumnData("SELECT MemberLastName FROM members WHERE MemberID = $item->MemberID ");
+  $post_user_name = $db->getColumnData("SELECT MemberName FROM members WHERE MemberID = ?",array($item->MemberID));
+  $post_user_lastname = $db->getColumnData("SELECT MemberLastName FROM members WHERE MemberID = ?",array($item->MemberID));
 
   $diff_post = calculateTime($post_time);
 ?>
@@ -150,7 +150,7 @@ foreach ($posts as $item) {
         foreach ($comments as $postinfo) {
           $comment_ID = $postinfo->CommentID;
           $commentText = $postinfo->CommentText;
-          $comment_profile_photo = $db->getColumnData("SELECT Member_Profileimg FROM images WHERE MemberID = $postinfo->MemberID");
+          $comment_profile_photo = $db->getColumnData("SELECT Member_Profileimg FROM images WHERE MemberID = ?",array($postinfo->MemberID));
 
           $gender = $db->getColumnData("SELECT MemberGender FROM members WHERE MemberID = ?", array($postinfo->MemberID));
 
@@ -174,8 +174,8 @@ foreach ($posts as $item) {
                   <small>
                     <!-- İsim - süre -->
                     <?php
-                    $comment_name = $db->getColumnData("SELECT MemberName FROM members WHERE MemberID = $postinfo->MemberID");
-                    $comment_lastname = $db->getColumnData("SELECT MemberLastName FROM members WHERE MemberID = $postinfo->MemberID");
+                    $comment_name = $db->getColumnData("SELECT MemberName FROM members WHERE MemberID = ?",array($postinfo->MemberID));
+                    $comment_lastname = $db->getColumnData("SELECT MemberLastName FROM members WHERE MemberID = ?",array($item->MemberID));
                     echo $comment_name . " " . $comment_lastname . " - ";
 
                     $comment_time = $postinfo->CommentAddTime;

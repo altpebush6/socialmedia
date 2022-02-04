@@ -271,7 +271,7 @@
       $("#edit_post_files_" + PostID).html('');
       let i = 0;
       while (this.files[i]) {
-        $("#edit_post_files_" + PostID).append('<div class="col-12 my-2 ps-4 fs-6"><i class="fas fa-file-alt fa-2x "></i> <a class="" href="">' + this.files[i]["name"] + '</a> </div>');
+        $("#edit_post_files_" + PostID).append('<div class="col-12 my-2 ps-4 fs-6"><i class="fas fa-file-alt fa-2x "></i> <a class="text-dark" href="">' + this.files[i]["name"] + '</a> </div>');
         i++;
       }
       if (window.URL.createObjectURL(this.files[4])) {

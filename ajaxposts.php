@@ -132,9 +132,12 @@ switch ($operation) {
           $target = "post_images/" . basename($imagesnames[$imagecounter]);
           $image_tmp_name = $_FILES['edit_image_upload']["tmp_name"][$imagecounter];
           move_uploaded_file($image_tmp_name, $target);
-          $result["newImages"] .= '<a href="post_images/' . $imagesnames[$imagecounter] . '" class="col-6 pe-1">
-                                    <img src="post_images/' .  $imagesnames[$imagecounter] . '" style="width:100%;border-radius:5px;margin-top:15px;">
-                                  </a>';
+          $result["newImages"] .= '<a href="post_images/' . $imagesnames[$imagecounter] . '" class="col-6 mx-auto d-flex justify-content-center align-items-center">
+                                    <img src="post_images/' .  $imagesnames[$imagecounter] . '" style="max-width:100%;min-width:100px;max-height:64vh;border-radius:5px;">
+                                  </a>
+                                  <script>
+                                  baguetteBox.run(".postmiddle_ ' . $PostID . '");
+                                  </script>';
           $imagecounter += 1;
         }
       }
@@ -152,7 +155,7 @@ switch ($operation) {
           $file_tmp_name = $_FILES['edit_file_upload']["tmp_name"][$filecounter];
           move_uploaded_file($file_tmp_name, $target);
           $result["newFiles"] .= '<div class="col-12 my-2 ps-4 fs-6">
-          <a class="text-dark"><i class="text-dark fas fa-file-alt fa-2x"></i> ' . $filesnames[$filecounter] . '</a>
+          <a class="text-dark" href="http://localhost/aybu/socialmedia/' . $translates["home"] . '?download=' . $filesnames[$filecounter] . '"><i class="text-dark fas fa-file-alt fa-2x"></i> ' . $filesnames[$filecounter] . '</a>
           </div>';
           $filecounter += 1;
         }
@@ -333,7 +336,7 @@ switch ($operation) {
                                     <form class="d-none" method="post" id="form_editcomment_' . $insert_comment . '">
                                       <div class="row align-items-center">
                                         <div class="col-10 text-center">
-                                          <input autocomplete="off" class="create-comment form-control form-control-sm rounded-3" type="text" maxlength="100" value="' . $comment_text . '" name="edittedcomment_' . $insert_comment . '" id="edittedcomment_' . $insert_comment . '" placeholder="' . $translates["saysth"] . '">
+                                          <input autocomplete="off" maxlength="100" class="create-comment form-control form-control-sm rounded-3" type="text" maxlength="100" value="' . $comment_text . '" name="edittedcomment_' . $insert_comment . '" id="edittedcomment_' . $insert_comment . '" placeholder="' . $translates["saysth"] . '">
                                         </div>
                                         <div class="col-1 p-0 m-0">
                                           <button type="button" class="btn btn-outline-dark btn-sm rounded-3" onClick=\'CommentOperate("editComment","' . $postid . '","' . $insert_comment . '")\'>

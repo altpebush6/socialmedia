@@ -72,32 +72,32 @@
                             <div class="row my-3">
                                 <label for="Newsheading" class="col-2 fs-5 form-label text-end">Başlık:</label>
                                 <div class="col-10">
-                                    <input class="form-control" type="text" placeholder="Başlık Giriniz..." name="Newsheader" id="Newsheader" autocomplete="off">
+                                    <input autocomplete="off" class="form-control" type="text" placeholder="Başlık Giriniz..." name="Newsheader" id="Newsheader" autocomplete="off">
                                 </div>
                             </div>
                             <div class="row my-3">
                                 <label for="NewsFile" class="col-2 fs-5 form-label text-end">Haberin Fotoğrafı:</label>
                                 <div class="col-10">
-                                    <input class="form-control" id="NewsFile" name="NewsFile" type="file">
+                                    <input autocomplete="off" class="form-control" id="NewsFile" name="NewsFile" type="file">
                                 </div>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <label for="Newsauthor" class="col-2 fs-5 form-label text-end">Yazar:</label>
                             <div class="col-10">
-                                <input class="form-control" type="text" placeholder="Adınızı Soyadınızı Giriniz..." name="Newsauthor" id="Newsauthor" autocomplete="off">
+                                <input autocomplete="off" class="form-control" type="text" placeholder="Adınızı Soyadınızı Giriniz..." name="Newsauthor" id="Newsauthor" autocomplete="off">
                             </div>
                         </div>
                         <div class="row mb-3">
                             <label for="NewsResource" class="col-2 fs-5 form-label text-end">Kaynak:</label>
                             <div class="col-10">
-                                <input class="form-control" type="text" placeholder="Haberin Kaynağını Giriniz..." name="NewsResource" id="NewsResource" autocomplete="off">
+                                <input autocomplete="off" class="form-control" type="text" placeholder="Haberin Kaynağını Giriniz..." name="NewsResource" id="NewsResource" autocomplete="off">
                             </div>
                         </div>
                         <div class="row mb-3">
                             <label for="NewsResource" class="col-2 fs-5 form-label text-end">İçerik Özeti:</label>
                             <div class="col-10">
-                                <input class="form-control" type="text" placeholder="İçeriğin Özetini Giriniz..." name="NewsContentSummarize" id="NewsContentSummarize" autocomplete="off">
+                                <input autocomplete="off" class="form-control" type="text" placeholder="İçeriğin Özetini Giriniz..." name="NewsContentSummarize" id="NewsContentSummarize" autocomplete="off">
                             </div>
                         </div>
                         <div class="row mb-3">

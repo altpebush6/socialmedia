@@ -292,8 +292,8 @@ body {
 .dropdown-content {
     display: none;
     position: absolute;
-    right: 0;
     background-color: #f9f9f9;
+    margin-top: 1.8rem !important;
     min-width: 185px;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: 1;
@@ -793,4 +793,14 @@ body {
 .groupImage:hover .uploadgroupImage {
     visibility: visible;
     opacity: 1;
+}
+
+.deleteEvent {
+    transition: 0.3s;
+    cursor: pointer;
+    font-size: 19px;
+}
+
+.deleteEvent:hover {
+    opacity: 1 !important;
 }

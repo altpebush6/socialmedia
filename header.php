@@ -92,6 +92,18 @@ if ($page == $translates["messages"]) {
   }
 }
 
+// Kulüpler işlemleri
+if ($page == $translates["clubs"]) {
+  if ($part and !$edit) {
+    header("Location: http://localhost/aybu/socialmedia/" . $translates["clubs"] . "/" . $part . "/" . $translates["Posts"]);
+  }
+  if ($edit) {
+    if ($edit != $translates["Posts"] and $edit != $translates["events"] and $edit != $translates["Members"]) {
+      header("Location: http://localhost/aybu/socialmedia/404.php");
+    }
+  }
+}
+
 // Dersler işlemleri
 if ($page == $translates["courses"]) {
   if ($part) {
@@ -105,7 +117,7 @@ if ($page == $translates["courses"]) {
 // İtiraf işlemleri
 if ($page == $translates["confessions"]) {
   if (!$part) {
-      header("Location: http://localhost/aybu/socialmedia/".$translates["confessions"]."/".$translates["all"]);
+    header("Location: http://localhost/aybu/socialmedia/" . $translates["confessions"] . "/" . $translates["all"]);
   }
 }
 // Haber sayfası işlemleri
@@ -153,9 +165,9 @@ if (is_null($cover_photo)) {
   $cover_photo = "noncover.png";
 }
 
-$user_name = $db->getColumnData("SELECT MemberName FROM members WHERE MemberID = $memberid ");
-$user_lastname = $db->getColumnData("SELECT MemberLastName FROM members WHERE MemberID = $memberid ");
-$user_namelastname = $db->getColumnData("SELECT MemberNames FROM members WHERE MemberID = $memberid ");
+$user_name = $db->getColumnData("SELECT MemberName FROM members WHERE MemberID = ?", array($memberid));
+$user_lastname = $db->getColumnData("SELECT MemberLastName FROM members WHERE MemberID = ?", array($memberid));
+$user_namelastname = $db->getColumnData("SELECT MemberNames FROM members WHERE MemberID = ? ", array($memberid));
 
 $message_count = $db->getColumnData("SELECT COUNT(*) FROM chatbox WHERE MessageToID = ? AND MessageStatus = ? AND MessageHasRead = ?", array($memberid, 1, 0));
 

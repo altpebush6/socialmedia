@@ -36,7 +36,7 @@
                     <form name="form_categorize" id="form_categorize" method="post">
                         <div class="col-12">
                             <h6></h6>
-                            <input type="text" id="search_school" class="form-control form-control-sm w-100 bg-transparent text-dark" placeholder="<?= $translates["schoolname"] ?>">
+                            <input type="text" id="search_school" maxlength="100" class="form-control form-control-sm w-100 bg-transparent text-dark" placeholder="<?= $translates["schoolname"] ?>">
                         </div>
                         <div class="col-12 mt-1">
                             <ul class="list-group border m-0" style="max-height: 20vh;overflow-y:auto;overflow-x:hidden;min-height: 144px;" id="all_schools">
@@ -76,8 +76,8 @@
                         <div class="col-12 mb-3 d-flex flew-row">
                             <div class="row">
                                 <div class="col-8 d-flex flex-row m-0 p-0 ps-2">
-                                    <input type="text" name="least_price" id="least_price" class="form-control form-control-sm me-1" placeholder="<?= $translates["least"] ?>">-
-                                    <input type="text" name="most_price" id="most_price" class="form-control form-control-sm ms-1" placeholder="<?= $translates["most"] ?>">
+                                    <input type="text" name="least_price" maxlength="5" id="least_price" class="form-control form-control-sm me-1" placeholder="<?= $translates["least"] ?>">-
+                                    <input type="text" name="most_price" maxlength="5" id="most_price" class="form-control form-control-sm ms-1" placeholder="<?= $translates["most"] ?>">
                                 </div>
                                 <div class="col-2 m-0 p-0 ps-2 text-start">
                                     <button type="button" id="categorize_items" class="btn btn-sm btn-primary"><?= $translates["search"] ?></button>
@@ -344,13 +344,13 @@
                             </div>
                             <div class="row mt-1" id="placeofEvent" style="display: none;">
                                 <div class="col-12">
-                                    <input type="text" class="form-control" id="eventPlace" name="eventPlace" placeholder="<?= $translates["enterplace"] ?>">
+                                    <input type="text" maxlength="200" class="form-control" id="eventPlace" name="eventPlace" placeholder="<?= $translates["enterplace"] ?>">
                                 </div>
                             </div>
                             <div class="row mt-3 mb-3">
                                 <div class="col-12">
                                     <label for="eventDate" class="form-label text-muted"><?= $translates["eventdate"] ?>*</label>
-                                    <input type="text" class="form-control" id="eventDate" name="eventDate" placeholder="<?= $translates["eventdate"] ?>">
+                                    <input type="text" class="form-control" maxlength="50" id="eventDate" name="eventDate" placeholder="<?= $translates["eventdate"] ?>">
                                 </div>
                             </div>
                         </div>
@@ -358,13 +358,13 @@
                             <div class="row mb-3">
                                 <div class="col-12">
                                     <label for="emailAddress" class="form-label text-muted"><?= $translates["contactmail"] ?>*</label>
-                                    <input type="text" class="form-control" id="emailAddress" name="emailAddress" placeholder="<?= $translates["youremail"] ?>">
+                                    <input type="text" class="form-control" maxlength="255" id="emailAddress" name="emailAddress" placeholder="<?= $translates["youremail"] ?>">
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <div class="col-12">
                                     <label for="phoneNum" class="form-label text-muted"><?= $translates["contactphone"] ?>*</label>
-                                    <input type="text" class="form-control" id="phoneNum" name="phoneNum" placeholder="<?= $translates["yourphone"] ?>">
+                                    <input type="text" class="form-control" id="phoneNum" maxlength="12" name="phoneNum" placeholder="<?= $translates["yourphone"] ?>">
                                 </div>
                             </div>
                             <div class="row mb-3">

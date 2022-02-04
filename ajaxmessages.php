@@ -457,7 +457,7 @@ switch ($operation) {
           $MemberName = $db->getColumnData("SELECT MemberName FROM members WHERE MemberID = ?", array($personID));
           $result["lastcontent"] = $MemberName . ": " . $messageText;
         }
-        $anyMessageLeft = $db->getColumnData("SELECT MessageID FROM messages WHERE MessageStatus = 1 AND ((MessageFromID = $memberid AND MessageToID = $personID) OR (MessageFromID = $personID AND MessageToID = $memberid))");
+        $anyMessageLeft = $db->getColumnData("SELECT MessageID FROM messages WHERE MessageStatus = ? AND ((MessageFromID = ? AND MessageToID = ?) OR (MessageFromID = ? AND MessageToID = ?))", array(1, $memberid, $personID, $personID, $memberid));
         if (!$anyMessageLeft) {
           $db->Update("UPDATE chatbox SET MessageStatus = ? WHERE (MessageFromID = ? AND MessageToID = ?) OR (MessageFromID = ? AND MessageToID = ?)", array(0, $memberid, $personID, $personID, $memberid));
           $result["nomsg"] = "no message left";
@@ -670,11 +670,11 @@ switch ($operation) {
 
           if ($isHaveChatBox) {
             $db->Update("UPDATE chatbox
-                                    SET MessageStatus = 1, MessageFromID = $memberid, MessageToID = $personID, LastTime = now(), MessageStatus = 1, MessageHasRead = 0
-                                    WHERE ChatboxID = $isHaveChatBox");
+                                    SET MessageStatus = ?, MessageFromID = ?, MessageToID = ?, LastTime = now(), MessageStatus = ?, MessageHasRead = ?
+                                    WHERE ChatboxID = ?", array(1, $memberid, $personID, 1, 0, $isHaveChatBox));
           } else {
             $db->Insert("INSERT INTO chatbox
-                                     SET MessageFromID = $memberid, MessageToID = $personID, MessageStatus = 1, MessageHasRead = 0");
+                                     SET MessageFromID = ?, MessageToID = ?, MessageStatus = ?, MessageHasRead = ?", array($memberid, $personID, 1, 0));
           }
 
           $getprofileimg = $db->getColumnData("SELECT Member_Profileimg FROM images WHERE MemberID = ?", array($personID));
@@ -918,15 +918,15 @@ switch ($operation) {
 
 
         $isHaveChatBox = $db->getColumnData("SELECT ChatboxID FROM chatbox
-                                            WHERE (MessageFromID = $memberid AND MessageToID = $personID) OR (MessageFromID = $personID AND MessageToID = $memberid)");
+                                            WHERE (MessageFromID = ?AND MessageToID = ?) OR (MessageFromID = ? AND MessageToID = ?)", array($memberid, $personID, $persnoID, $memberid));
 
         if ($isHaveChatBox) {
           $db->Update("UPDATE chatbox
-                    SET MessageStatus = 1, MessageFromID = $memberid, MessageToID = $personID, LastTime = now(), MessageStatus = 1, MessageHasRead = 0
-                    WHERE ChatboxID = $isHaveChatBox");
+                    SET MessageStatus = ?, MessageFromID = ?, MessageToID = ?, LastTime = now(), MessageStatus = ?, MessageHasRead = ?
+                    WHERE ChatboxID = ?", array(1, $memberid, $personID, 1, 0, $isHaveChatBox));
         } else {
           $db->Insert("INSERT INTO chatbox
-                     SET MessageFromID = $memberid, MessageToID = $personID, MessageStatus = 1, MessageHasRead = 0");
+                     SET MessageFromID = ?, MessageToID = ?, MessageStatus = ?, MessageHasRead = ?", array($memberid, $personID, 1, 0));
         }
 
         $getprofileimg = $db->getColumnData("SELECT Member_Profileimg FROM images WHERE MemberID = ?", array($personID));
@@ -1097,7 +1097,7 @@ switch ($operation) {
 
     $personID = $db->getColumnData("SELECT MessageToID FROM messages WHERE MessageID = ?", array($messageID));
 
-    $anyMessageLeft = $db->getColumnData("SELECT MessageID FROM messages WHERE MessageStatus = 1 AND ((MessageFromID = $memberid AND MessageToID = $personID) OR (MessageFromID = $personID AND MessageToID = $memberid))");
+    $anyMessageLeft = $db->getColumnData("SELECT MessageID FROM messages WHERE MessageStatus = ? AND ((MessageFromID = ? AND MessageToID = ?) OR (MessageFromID = ? AND MessageToID = ?))", array(1, $memberid, $persnoID, $persnoID, $memberid));
 
     if (!$anyMessageLeft) {
       $result["nomessage"] = "nomsg";
@@ -1107,12 +1107,12 @@ switch ($operation) {
       $name = $db->getColumnData("SELECT MemberName FROM members WHERE MemberID = ?", array($personID));
       $name_lastname =  $db->getColumnData("SELECT MemberNames FROM members WHERE MemberID = ?", array($personID));
       $newmessageID = $db->GetColumnData("SELECT MessageID FROM messages
-                                          WHERE MessageStatus = 1 AND ((MessageFromID = $memberid AND MessageToID = $personID) OR (MessageFromID = $personID AND MessageToID = $memberid))
-                                          ORDER BY MessageAddTime DESC");
+                                          WHERE MessageStatus = ? AND ((MessageFromID = ? AND MessageToID = ?) OR (MessageFromID = ? AND MessageToID = ?))
+                                          ORDER BY MessageAddTime DESC",array(1,$memberid,$personID,$personID,$memberid));
 
       $hasRead =  $db->GetColumnData("SELECT MessageHasRead FROM messages WHERE MessageID = ?", array($newmessageID));
       $db->Update("UPDATE chatbox SET MessageHasRead = ? 
-                  WHERE ((MessageFromID = $memberid AND MessageToID = $personID) OR (MessageFromID = $personID AND MessageToID = $memberid))", array($hasRead));
+                  WHERE ((MessageFromID = ? AND MessageToID = ?) OR (MessageFromID = ? AND MessageToID = ?))", array($hasRead,$memberid,$personID,$personID,$memberid));
 
       $messageText = $db->getColumnData("SELECT MessageText FROM messages WHERE MessageID = ?", array($newmessageID));
       $messageImg = $db->getColumnData("SELECT MessageImg FROM messages WHERE MessageID = ?", array($newmessageID));

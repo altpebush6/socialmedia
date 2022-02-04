@@ -8205,7 +8205,8 @@ fieldset:disabled .btn {
 }
 
 .friend-box {
-    height: 50vh;
+    height: 200px;
+    width: 200px;
     border-radius: 0.3rem;
 }
 

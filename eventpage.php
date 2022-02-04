@@ -221,13 +221,13 @@ if ($myEvent->EventOrganizerID == $memberid) {
                         </div>
                         <div class="row mt-1" id="placeofEvent" style="display: none;">
                             <div class="col-12">
-                                <input type="text" class="form-control" value="<?= $myEvent->EventPlace ?>" id="eventPlace" name="eventPlace" placeholder="<?= $translates["enterplace"] ?>">
+                                <input type="text" maxlength="200" class="form-control" value="<?= $myEvent->EventPlace ?>" id="eventPlace" name="eventPlace" placeholder="<?= $translates["enterplace"] ?>">
                             </div>
                         </div>
                         <div class="row mt-3 mb-3">
                             <div class="col-12">
                                 <label for="eventDate" class="form-label text-muted"><?= $translates["eventdate"] ?>*</label>
-                                <input type="text" class="form-control" value="<?= $myEvent->EventDateTime ?>" id="eventDate" name="eventDate" placeholder="<?= $translates["eventdate"] ?>">
+                                <input type="text" class="form-control" maxlength="255" value="<?= $myEvent->EventDateTime ?>" id="eventDate" name="eventDate" placeholder="<?= $translates["eventdate"] ?>">
                             </div>
                         </div>
                     </div>
@@ -235,13 +235,13 @@ if ($myEvent->EventOrganizerID == $memberid) {
                         <div class="row mb-3">
                             <div class="col-12">
                                 <label for="emailAddress" class="form-label text-muted"><?= $translates["contactmail"] ?>*</label>
-                                <input type="text" class="form-control" id="emailAddress" value="<?= $myEvent->OrganizerEmail ?>" name="emailAddress" placeholder="<?= $translates["youremail"] ?>">
+                                <input type="text" class="form-control" maxlength="255" id="emailAddress" value="<?= $myEvent->OrganizerEmail ?>" name="emailAddress" placeholder="<?= $translates["youremail"] ?>">
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col-12">
                                 <label for="phoneNum" class="form-label text-muted"><?= $translates["contactphone"] ?>*</label>
-                                <input type="text" class="form-control" id="phoneNum" name="phoneNum" value="<?= $myEvent->OrganizerPhone ?>" placeholder="<?= $translates["yourphone"] ?>">
+                                <input type="text" class="form-control" maxlength="12" id="phoneNum" name="phoneNum" value="<?= $myEvent->OrganizerPhone ?>" placeholder="<?= $translates["yourphone"] ?>">
                             </div>
                         </div>
                         <div class="row mb-3">

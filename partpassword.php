@@ -6,21 +6,21 @@
         <div class="row mb-4 justify-content-center">
           <label for="pass_old" class="col-4 col-md-3 form-label"><?= $translates["passlabel"] ?></label>
           <div class="col-8">
-            <input class="form-control shadow" type="password" placeholder="<?= $translates["pass"] ?>" name="pass_old" id="pass_old">
+            <input class="form-control shadow" maxlength="20" type="password" placeholder="<?= $translates["pass"] ?>" name="pass_old" id="pass_old">
           </div>
         </div>
 
         <div class="row my-4 justify-content-center">
           <label for="pass_new" class="col-4 col-md-3 form-label"><?= $translates["newpasslabel"] ?></label>
           <div class="col-8">
-            <input class="form-control shadow" type="password" placeholder="<?= $translates["newpass"] ?>" name="pass_new" id="pass_new">
+            <input class="form-control shadow" maxlength="20" type="password" placeholder="<?= $translates["newpass"] ?>" name="pass_new" id="pass_new">
           </div>
         </div>
 
         <div class="row my-4 justify-content-center">
           <label for="pass_new_again" class="col-4 col-md-3 form-label"><?= $translates["newpassagainlabel"] ?></label>
           <div class="col-8">
-            <input class="form-control shadow" type="password" placeholder="<?= $translates["newpassagain"] ?>" name="pass_new_again" id="pass_new_again">
+            <input class="form-control shadow" maxlength="20" type="password" placeholder="<?= $translates["newpassagain"] ?>" name="pass_new_again" id="pass_new_again">
           </div>
         </div>
 

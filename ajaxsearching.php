@@ -63,8 +63,8 @@ switch ($operation) {
     if ($searched_key != "") {
       $output["state"] = "boş değil";
       $chatpersons = $db->getDatas("SELECT * FROM chatbox
-                                  WHERE MessageStatus = 1 
-                                  AND (MessageFromID = ? OR MessageToID = ? OR GroupMembers LIKE '%$memberid%')", array($memberid, $memberid));
+                                  WHERE MessageStatus = ? 
+                                  AND (MessageFromID = ? OR MessageToID = ? OR GroupMembers LIKE '%$memberid%')", array(1, $memberid, $memberid));
       foreach ($chatpersons as $info) {
         $groupID = $info->GroupID;
         if ($groupID) {
@@ -315,8 +315,8 @@ switch ($operation) {
           $name_lastname = $ChatPersonName . " " . $ChatPersonLastName;
 
           $messageID = $db->GetColumnData("SELECT MessageID FROM messages
-                   WHERE MessageStatus = 1 AND ((MessageFromID = $memberid AND MessageToID = $personID) OR (MessageFromID = $personID AND MessageToID = $memberid))
-                   ORDER BY MessageAddTime DESC");
+                   WHERE MessageStatus = ? AND ((MessageFromID = ? AND MessageToID = ?) OR (MessageFromID = ? AND MessageToID = ?))
+                   ORDER BY MessageAddTime DESC", array(1, $memberid, $personID, $personID, $memberid));
 
           $messageText = $db->getColumnData("SELECT MessageText FROM messages WHERE MessageID = ?", array($messageID));
           $messageImg = $db->getColumnData("SELECT MessageImg FROM messages WHERE MessageID = ?", array($messageID));

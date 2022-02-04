@@ -81,7 +81,7 @@ switch ($operation) {
 
     case "editEvent":
     case "createEvent":
-        $eventHeader = security("eventHeader");
+        $eventHeader = $_POST["eventHeader"];
         $eventCategory = security("eventCategory");
         $explanation = security("explanation");
         $eventSchool = security("eventSchool");
@@ -141,6 +141,7 @@ switch ($operation) {
                                     $result["error"] = $translates["notallowedimg"];
                                 } else {
                                     $eventImagename = preg_replace("/ /", "_", $eventHeader);
+                                    $eventImagename = preg_replace("/'!\"#\$%&'(),-.\/:;<=>?@\[\]\\^_{|}~/", "_", $eventImagename);
                                     $eventImage = $eventImagename . "_" . uniqid() . "." . $eventImage_ext;
                                     $target = "events_images/" . basename($eventImage);
                                 }

@@ -49,7 +49,7 @@ require_once "languages/language_" . $language . ".php";
                             <form id="form_controlemail" method="post">
                                 <label for="email" class="form-label text-muted w-100 text-start"><?= $translates["email"] . "*" ?></label>
                                 <div class="input-group mb-3">
-                                    <input autocomplete="off" type="text" class="form-control" name="email_forgot" id="email_forgot" maxlength="11" placeholder="<?= $translates["yourstudentnumber"] ?>">
+                                    <input autocomplete="off" type="text" maxlength="11" class="form-control" name="email_forgot" id="email_forgot" maxlength="11" placeholder="<?= $translates["yourstudentnumber"] ?>">
                                     <span class="input-group-text">@ybu.edu.tr</span>
                                 </div>
                                 <div class="" id="result_controlemail"></div>

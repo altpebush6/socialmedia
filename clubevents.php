@@ -20,7 +20,7 @@
                     </div>
                     <div class="col-md-6 px-4 p-md-0">
                         <label for="eventtopic" class="form-label d-md-none text-dark"><?= $translates["eventdate"] ?>*</label>
-                        <input class="form-control event" id="eventdate" name="eventdate" placeholder="Select date & time" type="date" value="2021-01-01">
+                        <input class="form-control event" maxlength="100" id="eventdate" name="eventdate" placeholder="Select date & time" type="date" value="2021-01-01">
                     </div>
                 </div>
                 <div class="row my-2 justify-content-center">
@@ -71,65 +71,78 @@
         </div>
     </div>
 <?php } ?>
-<?php
-$allevents = $db->getDatas("SELECT * FROM clubevents WHERE EventClubID = ? ORDER BY EventID DESC LIMIT 3", array($part));
-foreach ($allevents as $event) {
-    $creatorID = $event->EventCreatorID;
-    $creatorNames = $db->getColumnData("SELECT MemberNames FROM members WHERE MemberID = ?", array($creatorID));
-    $creatorimg = $db->getColumnData("SELECT Member_Profileimg FROM images WHERE MemberID = ?", array($creatorID));
-    if (is_null($creatorimg)) {
-        if ($gender == 'Male') {
-            $creatorimg = "profilemale.png";
-        } else {
-            $creatorimg = "profilefemale.png";
+<div id="allEvents">
+    <?php
+    $allevents = $db->getDatas("SELECT * FROM clubevents WHERE EventClubID = ? ORDER BY EventID DESC LIMIT 3", array($part));
+    foreach ($allevents as $event) {
+        $creatorID = $event->EventCreatorID;
+        $creatorNames = $db->getColumnData("SELECT MemberNames FROM members WHERE MemberID = ?", array($creatorID));
+        $creatorimg = $db->getColumnData("SELECT Member_Profileimg FROM images WHERE MemberID = ?", array($creatorID));
+        $gender = $db->getColumnData("SELECT MemberGender FROM members WHERE MemberID = ?", array($creatorID));
+
+        $isPersonActive = $db->getColumnData("SELECT MemberConfirm FROM members WHERE MemberID = ?", array($creatorID));
+        if ($isPersonActive != 1) {
+            $creatorimg = NULL;
+            $creatorNames = $translates["unknownuser"];
         }
-    }
-?>
-    <div class="container p-0 m-0 my-4 px-4" id="<?= $creatorID ?>">
-        <div class="create-post border rounded-1 col-md-10 mx-auto p-4 shadow">
-            <div class="row d-flex justify-content-center">
-                <div class="col-3 col-md-1 m-0 p-0 ps-md-2">
-                    <img src="images_profile/<?= $creatorimg ?>" class="rounded-circle" style="width: 60px;height:60px;">
-                </div>
-                <div class="col-5 d-flex d-md-none align-items-center m-0 p-0"><h4><b><?= $event->EventTopic ?></b></h4></div>
-                <div class="col-3 d-flex d-md-none align-items-center mb-3 p-0"><span class="text-dark text-center fs-5">~<?= $creatorNames ?></span></div>
-                <div class="col-md-11">
-                    <div class="row">
-                        <div class="col-12 d-none d-md-flex flex-row justify-content-between">
-                            <h4><b><?= $event->EventTopic ?></b></h4>
-                            <span class="text-dark fs-5">~<?= $creatorNames ?></span>
-                        </div>
-                        <div class="col-12">
-                            <span class="text-dark"><b><?= $translates["eventdatetime"] ?>:</b> <?= $event->EventDateTime ?></span>
-                        </div>
-                        <div class="col-12">
-                            <span class="text-dark"><b><?= $translates["eventplace2"] ?>:</b> <?= $event->EventPlace ?></span>
-                        </div>
-                        <div class="col-12">
-                            <span class="text-dark"><b><?= $translates["eventfor"] ?>:</b> <?= $event->EventFor ?></span>
-                        </div>
-                        <?php if ($event->EventNote) { ?>
-                            <div class="col-12">
-                                <span class="text-dark"><b><?= $translates["eventnote"] ?>:</b> <?= $event->EventNote ?></span>
+
+        if (is_null($creatorimg)) {
+            if ($gender == 'Male') {
+                $creatorimg = "profilemale.png";
+            } else {
+                $creatorimg = "profilefemale.png";
+            }
+        }
+    ?>
+        <div class="container p-0 m-0 my-4 px-4 event_<?= $event->EventID ?>" id="<?= $event->EventID ?>">
+            <div class="create-post border rounded-1 col-md-10 mx-auto p-4 shadow">
+                <div class="row d-flex justify-content-center">
+                    <div class="col-3 col-md-1 m-0 p-0 ps-md-2">
+                        <img src="images_profile/<?= $creatorimg ?>" class="rounded-circle" style="width: 60px;height:60px;">
+                    </div>
+                    <div class="col-5 d-flex d-md-none align-items-center m-0 p-0">
+                        <h4><b><?= $event->EventTopic ?></b></h4>
+                    </div>
+                    <div class="col-3 d-flex d-md-none align-items-center mb-3 p-0"><span class="text-dark text-center fs-5">~<?= $creatorNames ?></span></div>
+                    <div class="col-md-11">
+                        <div class="row">
+                            <div class="col-12 d-none d-md-flex flex-row justify-content-between">
+                                <h4><b><?= $event->EventTopic ?></b></h4>
+                                <span class="text-dark fs-5">~<?= $creatorNames ?></span>
                             </div>
-                        <?php } ?>
-                        <div class="col-12 text-end my-2 my-md-0">
-                            <span class="text-dark me-4" id="eventparticipant_<?= $event->EventID ?>"><?= $translates["eventparticipant"] ?>: <?= $event->ParticipantNumber ?></span>
-                            <?php
-                            $isjoined = $db->getData("SELECT * FROM clubeventparticipants WHERE MemberID = ? AND EventID = ?", array($memberid, $event->EventID));
-                            if ($isjoined) {
-                                $join_btn = '<button type="button" class="btn btn-primary canceljoin" eventid="' . $event->EventID . '" id="canceljoin_' . $event->EventID . '">' . $translates["canceljoin"] . ' <span class="spinner" id="spinnercanceljoin"></span></button>';
-                            } else {
-                                $join_btn = '<button type="button" class="btn btn-success joinevent" eventid="' . $event->EventID . '" id="joinevent_' . $event->EventID . '">' . $translates["join"] . ' <span class="spinner" id="spinnerjoin"></span></button>';
-                            }
-                            ?>
-                            <?= $join_btn ?>
+                            <div class="col-12">
+                                <span class="text-dark"><b><?= $translates["eventdatetime"] ?>:</b> <?= $event->EventDateTime ?></span>
+                            </div>
+                            <div class="col-12">
+                                <span class="text-dark"><b><?= $translates["eventplace2"] ?>:</b> <?= $event->EventPlace ?></span>
+                            </div>
+                            <div class="col-12">
+                                <span class="text-dark"><b><?= $translates["eventfor"] ?>:</b> <?= $event->EventFor ?></span>
+                            </div>
+                            <?php if ($event->EventNote) { ?>
+                                <div class="col-12">
+                                    <span class="text-dark"><b><?= $translates["eventnote"] ?>:</b> <?= $event->EventNote ?></span>
+                                </div>
+                            <?php } ?>
+                            <div class="col-12 text-end my-2 my-md-0">
+                                <?php if ($event->EventCreatorID == $memberid) { ?>
+                                    <i class="far fa-trash-alt text-danger opacity-8 me-3 deleteEvent" eventid="<?= $event->EventID ?>"></i>
+                                <?php } ?>
+                                <span class="text-dark me-4" id="eventparticipant_<?= $event->EventID ?>"><?= $translates["eventparticipant"] ?>: <?= $event->ParticipantNumber ?></span>
+                                <?php
+                                $isjoined = $db->getData("SELECT * FROM clubeventparticipants WHERE MemberID = ? AND EventID = ?", array($memberid, $event->EventID));
+                                if ($isjoined) { ?>
+                                    <button type="button" class="btn btn-primary canceljoin" eventid="<?= $event->EventID ?>" id="canceljoin_<?= $event->EventID ?>"><?= $translates["canceljoin"] ?> <span class="spinner" id="spinnercanceljoin"></span></button>
+                                <?php } else { ?>
+                                    <button type="button" class="btn btn-success joinevent" eventid="<?= $event->EventID ?>" id="joinevent_<?= $event->EventID ?>"><?= $translates["join"] ?> <span class="spinner" id="spinnerjoin"></span></button>
+                                <?php } ?>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
 
-<?php } ?>
+    <?php } ?>
+</div>

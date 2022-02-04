@@ -25,7 +25,7 @@ foreach ($posts as $item) {
     $texthashtag = "<a href='' class='text-info text-decoration-none'>#" . $post_topic . "</a>";
     $isfriend = $db->getData("SELECT * FROM friends WHERE FirstMemberID = ? AND SecondMemberID = ? AND FriendRequest = ?", array($memberid, $postMemberID, 1));
     $isfriend2 = $db->getData("SELECT * FROM friends WHERE FirstMemberID = ? AND SecondMemberID = ? AND FriendRequest = ?", array($postMemberID, $memberid, 1));
-    $post_profile_photo = $db->getColumnData("SELECT Member_Profileimg FROM images WHERE MemberID = $item->MemberID");
+    $post_profile_photo = $db->getColumnData("SELECT Member_Profileimg FROM images WHERE MemberID = ?",array($item->MemberID));
     $gender = $db->getColumnData("SELECT MemberGender FROM members WHERE MemberID = ?", array($item->MemberID));
 
     if (is_null($post_profile_photo)) {
@@ -35,8 +35,8 @@ foreach ($posts as $item) {
             $post_profile_photo = "profilefemale.png";
         }
     }
-    $post_user_name = $db->getColumnData("SELECT MemberName FROM members WHERE MemberID = $item->MemberID ");
-    $post_user_lastname = $db->getColumnData("SELECT MemberLastName FROM members WHERE MemberID = $item->MemberID ");
+    $post_user_name = $db->getColumnData("SELECT MemberName FROM members WHERE MemberID = ? ",array($item->MemberID));
+    $post_user_lastname = $db->getColumnData("SELECT MemberLastName FROM members WHERE MemberID = ? ",array($item->MemberID));
 
     $diff_post = calculateTime($post_time);
 ?>
@@ -172,8 +172,8 @@ foreach ($posts as $item) {
                                     <small>
                                         <!-- İsim - süre -->
                                         <?php
-                                        $comment_name = $db->getColumnData("SELECT MemberName FROM members WHERE MemberID = $postinfo->MemberID");
-                                        $comment_lastname = $db->getColumnData("SELECT MemberLastName FROM members WHERE MemberID = $postinfo->MemberID");
+                                        $comment_name = $db->getColumnData("SELECT MemberName FROM members WHERE MemberID = ?",array($postinfo->MemberID));
+                                        $comment_lastname = $db->getColumnData("SELECT MemberLastName FROM members WHERE MemberID = ?",array($postinfo->MemberID));
                                         echo $comment_name . " " . $comment_lastname . " - ";
 
                                         $comment_time = $postinfo->CommentAddTime;

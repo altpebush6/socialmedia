@@ -9,7 +9,7 @@
             <div class="row">
                 <div class="col-12 col-lg-6 mx-auto p-3">
                     <div class="row justify-content-center">
-                        <div class="col-10 p-0 ps-3 text-center"><input type="text" id="new_topic" name="new_topic" class="form-control" placeholder="Enter a new topic"></div>
+                        <div class="col-10 p-0 ps-3 text-center"><input type="text" id="new_topic" maxlength="50" name="new_topic" class="form-control" placeholder="Enter a new topic"></div>
                         <div class="col-2 p-0 text-center"><button type="button" class="btn btn-outline-dark" id="addTopic" onClick="addTopic()">Add<span class="spinner" id="topic_spinner"></span></button></div>
                     </div>
                 </div>

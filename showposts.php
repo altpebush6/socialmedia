@@ -75,7 +75,7 @@ if ($counter > 0) {
     if ($isPostownerActive == 1) {
       $counterforEvent ++;
       $postID = $post->PostID;
-      $post_profile_photo = $db->getColumnData("SELECT Member_Profileimg FROM images WHERE MemberID = $post->MemberID");
+      $post_profile_photo = $db->getColumnData("SELECT Member_Profileimg FROM images WHERE MemberID = ?",array($post->MemberID ));
       $gender = $db->getColumnData("SELECT MemberGender FROM members WHERE MemberID = ?", array($post->MemberID));
 
       if (is_null($post_profile_photo)) {
@@ -101,8 +101,8 @@ if ($counter > 0) {
       if ($post_img4) {
         $img_counter = 4;
       }
-      $post_user_name = $db->getColumnData("SELECT MemberName FROM members WHERE MemberID = $post->MemberID");
-      $post_user_lastname = $db->getColumnData("SELECT MemberLastName FROM members WHERE MemberID = $post->MemberID");
+      $post_user_name = $db->getColumnData("SELECT MemberName FROM members WHERE MemberID = ?",array($post->MemberID ));
+      $post_user_lastname = $db->getColumnData("SELECT MemberLastName FROM members WHERE MemberID = ?",array($post->MemberID ));
       $post_time = $post->PostAddTime;
       $diff_post = calculateTime($post_time);
       $profile_photo = $db->getColumnData("SELECT Member_Profileimg FROM images WHERE MemberID = ?", array($memberid));
@@ -227,7 +227,7 @@ if ($counter > 0) {
              </script></div></div></div>
                 <div class="d-none" id="addpartul_' . $post->PostID . '">
                  <form id="form_edit' . $post->PostID . '" class="form_edit" idsi="' . $post->PostID . '" method="post" enctype="multipart/form-data">
-                  <input autocomplete="off" type="text" class="form-control-plaintext " name="edittedtext" id="edittedtext_' . $post->PostID . '" value="' . $post->PostText . '" class="posttext-input" style="width:100%;padding-left: 2%;">';
+                  <input autocomplete="off" type="text" maxlength="255" class="form-control-plaintext " name="edittedtext" id="edittedtext_' . $post->PostID . '" value="' . $post->PostText . '" class="posttext-input" style="width:100%;padding-left: 2%;">';
       $result["state"] .= '<div class="row d-flex flex-column ps-3" id="edit_post_files_' . $post->PostID . '">';
 
       for ($i = 1; $i < 5; $i++) {
@@ -358,7 +358,7 @@ if ($counter > 0) {
       foreach ($allcomments as $postinfo) {
         $comment_ID = $postinfo->CommentID;
         $commentText = $postinfo->CommentText;
-        $comment_profile_photo = $db->getColumnData("SELECT Member_Profileimg FROM images WHERE MemberID = $postinfo->MemberID");
+        $comment_profile_photo = $db->getColumnData("SELECT Member_Profileimg FROM images WHERE MemberID = ?",array($postinfo->MemberID ));
 
         $gender = $db->getColumnData("SELECT MemberGender FROM members WHERE MemberID = ?", array($postinfo->MemberID));
 
@@ -379,8 +379,8 @@ if ($counter > 0) {
                     <div class="col-12">
                      <a class=" text-decoration-none text-dark" href="http://localhost/aybu/socialmedia/' . $translates['profile'] . '/' . $postinfo->MemberID . '">
                       <small>';
-        $comment_name = $db->getColumnData("SELECT MemberName FROM members WHERE MemberID = $postinfo->MemberID");
-        $comment_lastname = $db->getColumnData("SELECT MemberLastName FROM members WHERE MemberID = $postinfo->MemberID");
+        $comment_name = $db->getColumnData("SELECT MemberName FROM members WHERE MemberID = ?",array($postinfo->MemberID ));
+        $comment_lastname = $db->getColumnData("SELECT MemberLastName FROM members WHERE MemberID = ?",array($postinfo->MemberID ));
         $result["state"] .= $comment_name . ' ' . $comment_lastname . ' - ';
 
         $comment_time = $postinfo->CommentAddTime;

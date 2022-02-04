@@ -5,10 +5,10 @@
                 <div class="row pt-2">
                     <div class="col-12 text-center fs-4 my-2"><?= $translates["filter"] ?></div>
                     <div class="col-12 mt-3">
-                        <input type="text" class="form-control w-100 courseFilter" name="courseName" id="courseName" placeholder="<?= $translates["entercoursename"] ?>">
+                        <input type="text" maxlength="50" class="form-control w-100 courseFilter" name="courseName" id="courseName" placeholder="<?= $translates["entercoursename"] ?>">
                     </div>
                     <div class="col-12 mt-3">
-                        <input type="text" class="form-control w-100 courseFilter" name="courseCode" id="courseCode" placeholder="<?= $translates["entercoursecode"] ?>">
+                        <input type="text" maxlength="10" class="form-control w-100 courseFilter" name="courseCode" id="courseCode" placeholder="<?= $translates["entercoursecode"] ?>">
                     </div>
                     <div class="col-12 mt-3">
                         <select name="CourseClass" id="CourseClass" class="form-select courseFilter">

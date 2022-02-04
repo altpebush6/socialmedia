@@ -43,13 +43,13 @@ switch ($operation) {
             $result["clubs"] .= '<div class="col-md-3 p-3 m-2 border shadow-lg">
                                     <div class="row">
                                         <div class="col-3 m-0 p-0 d-flex justify-content-center align-items-center">
-                                            <img src="club_images/'. $club->ClubImg .'" class="rounded-circle" style="width:50px;height:50px;border:2px solid rgba(255, 255, 255, 0.788);">
+                                            <img src="club_images/' . $club->ClubImg . '" class="rounded-circle" style="width:50px;height:50px;border:2px solid rgba(255, 255, 255, 0.788);">
                                         </div>
                                         <div class="col-6 d-flex align-items-center">
-                                            <div class="col-12 fs-5 text-dark ps-1" title="'. $club->ClubName .'">'. $clubname .'</div>
+                                            <div class="col-12 fs-5 text-dark ps-1" title="' . $club->ClubName . '">' . $clubname . '</div>
                                         </div>
                                         <div class="col-3 d-flex align-items-center">
-                                            <a href="http://localhost/aybu/socialmedia/'. $translates["clubs"] .'/'. $club->ClubID .'" class="btn btn-outline-dark w-100">'. $translates["go"] .'</a>
+                                            <a href="http://localhost/aybu/socialmedia/' . $translates["clubs"] . '/' . $club->ClubID . '" class="btn btn-outline-dark w-100">' . $translates["go"] . '</a>
                                         </div>
                                     </div>
                                 </div>';
@@ -175,6 +175,65 @@ switch ($operation) {
                                         EventFor = ?", array($memberid, $clubid, $eventtopic, $eventnote, $eventdateTime, $eventplace, $eventfor));
                 if ($insertevent) {
                     $result["success"] = $translates["successevent"];
+                    $creatorID = $memberid;
+                    $creatorNames = $db->getColumnData("SELECT MemberNames FROM members WHERE MemberID = ?", array($creatorID));
+                    $creatorimg = $db->getColumnData("SELECT Member_Profileimg FROM images WHERE MemberID = ?", array($creatorID));
+                    $gender = $db->getColumnData("SELECT MemberGender FROM members WHERE MemberID = ?", array($creatorID));
+
+                    $isPersonActive = $db->getColumnData("SELECT MemberConfirm FROM members WHERE MemberID = ?", array($creatorID));
+                    if ($isPersonActive != 1) {
+                        $creatorimg = NULL;
+                        $creatorNames = $translates["unknownuser"];
+                    }
+
+                    if (is_null($creatorimg)) {
+                        if ($gender == 'Male') {
+                            $creatorimg = "profilemale.png";
+                        } else {
+                            $creatorimg = "profilefemale.png";
+                        }
+                    }
+                    $result["newEvent"] .= '<div class="container p-0 m-0 my-4 px-4 event_'.$insertevent.'" id="' . $insertevent . '">
+                                                <div class="create-post border rounded-1 col-md-10 mx-auto p-4 shadow">
+                                                    <div class="row d-flex justify-content-center">
+                                                        <div class="col-3 col-md-1 m-0 p-0 ps-md-2">
+                                                            <img src="images_profile/' . $creatorimg . '" class="rounded-circle" style="width: 60px;height:60px;">
+                                                        </div>
+                                                        <div class="col-5 d-flex d-md-none align-items-center m-0 p-0">
+                                                            <h4><b>' . $eventtopic . '</b></h4>
+                                                        </div>
+                                                        <div class="col-3 d-flex d-md-none align-items-center mb-3 p-0"><span class="text-dark text-center fs-5">~' . $creatorNames . '</span></div>
+                                                        <div class="col-md-11">
+                                                            <div class="row">
+                                                                <div class="col-12 d-none d-md-flex flex-row justify-content-between">
+                                                                    <h4><b>' . $eventtopic . '</b></h4>
+                                                                    <span class="text-dark fs-5">~' . $creatorNames . '</span>
+                                                                </div>
+                                                                <div class="col-12">
+                                                                    <span class="text-dark"><b>' . $translates["eventdatetime"] . ':</b> ' . $eventdateTime . '</span>
+                                                                </div>
+                                                                <div class="col-12">
+                                                                    <span class="text-dark"><b>' . $translates["eventplace2"] . ':</b> ' . $eventplace . '</span>
+                                                                </div>
+                                                                <div class="col-12">
+                                                                    <span class="text-dark"><b>' . $translates["eventfor"] . ':</b> ' . $eventfor . '</span>
+                                                                </div>';
+
+                    if ($eventnote) {
+                        $result["newEvent"] .= '<div class="col-12">
+                                                                        <span class="text-dark"><b>' . $translates["eventnote"] . ':</b> ' . $eventNote . '</span>
+                                                                    </div>';
+                    }
+                    $result["newEvent"] .= '<div class="col-12 text-end my-2 my-md-0">
+                    <i class="far fa-trash-alt text-danger opacity-8 me-3 deleteEvent" eventid="'. $insertevent .'"></i>
+                    <span class="text-dark me-4" id="eventparticipant_' . $insertevent . '">' . $translates["eventparticipant"] . ': 0</span>
+                                                                        <button type="button" class="btn btn-success joinevent" eventid="' . $insertevent . '" id="joinevent_' . $insertevent . '">' . $translates["join"] . ' <span class="spinner" id="spinnerjoin"></span></button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>';
                 }
             } else {
                 $result["error"] = $translates["notauthorized"];
@@ -201,7 +260,7 @@ switch ($operation) {
         $participantcounter = $db->getColumnData("SELECT ParticipantNumber FROM clubevents WHERE EventID = ?", array($eventid));
         $participantcounter = ($participantcounter - 1);
         $decreaseparticipant = $db->Update("UPDATE clubevents SET ParticipantNumber = ? WHERE EventID = ?", array($participantcounter, $eventid));
-        $cancelevent = $db->Delete("DELETE FROM clubeventparticipants WHERE MemberID = ? AND EventID = ? ", array($memberid, $eventid));
+        $cancelevent = $db->Delete("DELETE FROM clubeventparticipants WHERE MemberID = ? AND EventID = ? AND ClubID = ? ", array($memberid, $eventid, $clubid));
         $result["success"] = "ok";
         $result["participantnumber"] = $participantcounter;
         echo json_encode($result);
@@ -271,7 +330,7 @@ switch ($operation) {
         $result["member"] = '<div class="d-flex flex-column justify-content-between mx-1 item carousel-div text-center friend-box" style="background-image: url(\'images_profile/' . $memberimg . '\');" id="clubMember_' . $ClubMemberID . '">
                                  <div class="row justify-content-end">
                                     <button class="col-3 m-0 p-0 text-center text-dark d-flex justify-content-center align-items-center rounded-circle removeMemberDiv me-2 opt_dropdown dropbtn" memid="' . $ClubMemberID . '"><i class="fas fa-ellipsis-h"></i></button>
-                                    <div class="dropdown-content rounded-2 mt-4 px-0" style="display:none;width:280px;font-size:15px" id="opt_dropbox_' . $ClubMemberID . '">
+                                    <div class="dropdown-content rounded-2 px-0" style="display:none;margin-top: 1.8rem !important;width: 185px;font-size:15px" id="opt_dropbox_' . $ClubMemberID . '">
                                         <a href="javascript:void(0)" class="w-100 px-0 deductMember" clubmemberid="' . $ClubMemberID . '"><i class="fas fa-angle-double-down text-danger"></i> ' . $translates["deduct"] . '</a>
                                         <a href="javascript:void(0)" class="w-100 px-0 removeMember" clubmemberid="' . $ClubMemberID . '"><i class="fas fa-user-slash text-danger"></i> ' . $translates["removefromclub"] . '</a>
                                     </div>
@@ -288,18 +347,25 @@ switch ($operation) {
         $deductMember = $db->Update("UPDATE clubmembers SET MemberPosition = ? WHERE ClubID = ? AND MemberID = ?", array('Member', $clubid, $ClubMemberID));
         $memberimg = $db->getColumnData("SELECT Member_Profileimg FROM images WHERE MemberID = ?", array($ClubMemberID));
         $memberNames = $db->getColumnData("SELECT MemberNames FROM members WHERE MemberID = ?", array($ClubMemberID));
-        $result["member"] = '<div class="d-flex flex-column justify-content-between mx-1 item carousel-div text-center friend-box" style="background-image: url(\'images_profile/'. $memberimg .'\');" id="clubMember_'. $ClubMemberID .'">
+        $result["member"] = '<div class="d-flex flex-column justify-content-between mx-1 item carousel-div text-center friend-box" style="background-image: url(\'images_profile/' . $memberimg . '\');" id="clubMember_' . $ClubMemberID . '">
                                 <div class="row justify-content-end">
-                                    <button class="col-3 m-0 p-0 text-center text-dark d-flex justify-content-center align-items-center rounded-circle removeMemberDiv me-2 opt_dropdown dropbtn" memid="'. $ClubMemberID .'"><i class="fas fa-ellipsis-h"></i></button>
-                                    <div class="dropdown-content rounded-2 mt-4 px-0" style="display:none;width:280px;font-size:15px" id="opt_dropbox_'. $ClubMemberID .'">
-                                        <a href="javascript:void(0)" class="w-100 px-0 promoteMember" clubmemberid="'. $ClubMemberID .'"><i class="fas fa-angle-double-up text-success"></i> '. $translates["promotetoman"] .'</a>
-                                        <a href="javascript:void(0)" class="w-100 px-0 removeMember" clubmemberid="'. $ClubMemberID .'"><i class="fas fa-user-slash text-danger"></i> '. $translates["removefromclub"] .'</a>
+                                    <button class="col-3 m-0 p-0 text-center text-dark d-flex justify-content-center align-items-center rounded-circle removeMemberDiv me-2 opt_dropdown dropbtn" memid="' . $ClubMemberID . '"><i class="fas fa-ellipsis-h"></i></button>
+                                    <div class="dropdown-content rounded-2 px-0" style="display:none;margin-top: 1.8rem !important;width: 185px;font-size:15px" id="opt_dropbox_' . $ClubMemberID . '">
+                                        <a href="javascript:void(0)" class="w-100 px-0 promoteMember" clubmemberid="' . $ClubMemberID . '"><i class="fas fa-angle-double-up text-success"></i> ' . $translates["promotetoman"] . '</a>
+                                        <a href="javascript:void(0)" class="w-100 px-0 removeMember" clubmemberid="' . $ClubMemberID . '"><i class="fas fa-user-slash text-danger"></i> ' . $translates["removefromclub"] . '</a>
                                     </div>
                                 </div>
-                                <a class="d-flex flex-column text-center mt-auto p-3 bg-dark text-light fs-5 rounded-3 text-decoration-none" href="http://localhost/aybu/socialmedia/'. $translates['profile'] .'/'. $ClubMemberID .'">
-                                    <span>'. $memberNames .'</span>
+                                <a class="d-flex flex-column text-center mt-auto p-3 bg-dark text-light fs-5 rounded-3 text-decoration-none" href="http://localhost/aybu/socialmedia/' . $translates['profile'] . '/' . $ClubMemberID . '">
+                                    <span>' . $memberNames . '</span>
                                 </a>
                             </div>';
+        echo json_encode($result);
+        break;
+    case 'deleteEvent':
+        $eventID = security("EventID");
+        $clubID = security("ClubID");
+        $db->Delete("DELETE FROM clubevents WHERE EventID = ? AND EventClubID = ?", array($eventID, $clubID));
+        $db->Delete("DELETE FROM clubeventparticipants WHERE EventID = ? AND ClubID = ?", array($eventID, $clubID));
         echo json_encode($result);
         break;
 }

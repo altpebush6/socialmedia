@@ -32,23 +32,23 @@
                         <td class="text-end"><?= $messageid ?></td>
                         <td width="50">
                             <span class="span_<?= $messageid ?>" id="span_MessageText_<?= $messageid ?>"><?= $message->MessageText ?></span>
-                            <input type="text" name="form_MessageText" value="<?= $message->MessageText ?>" class="form-control form-control-sm d-none input_<?= $messageid ?>">
+                            <input type="text" autocomplete="off" name="form_MessageText" value="<?= $message->MessageText ?>" class="form-control form-control-sm d-none input_<?= $messageid ?>">
                         </td>
                         <td>
                             <span class="span_<?= $messageid ?>" id="span_MessageImg_<?= $messageid ?>"><?= $message->MessageImg ?></span>
-                            <input type="text" name="form_MessageImg" value="<?= $message->MessageImg ?>" class="form-control form-control-sm d-none input_<?= $messageid ?>">
+                            <input type="text" autocomplete="off" name="form_MessageImg" value="<?= $message->MessageImg ?>" class="form-control form-control-sm d-none input_<?= $messageid ?>">
                         </td>
                         <td>
                             <span class="span_<?= $messageid ?>" id="span_MessageFromID_<?= $messageid ?>"><?= $message->MessageFromID ?></span>
-                            <input type="text" name="form_MessageFromID" value="<?= $message->MessageFromID ?>" class="form-control form-control-sm d-none input_<?= $messageid ?>">
+                            <input type="text" autocomplete="off" name="form_MessageFromID" value="<?= $message->MessageFromID ?>" class="form-control form-control-sm d-none input_<?= $messageid ?>">
                         </td>
                         <td>
                             <span class="span_<?= $messageid ?>" id="span_MessageToID_<?= $messageid ?>"> <?= $message->MessageToID ?> </span>
-                            <input type="text" name="form_MessageToID" value="<?= $message->MessageToID ?>" class="form-control form-control-sm d-none input_<?= $messageid ?>">
+                            <input type="text" autocomplete="off" name="form_MessageToID" value="<?= $message->MessageToID ?>" class="form-control form-control-sm d-none input_<?= $messageid ?>">
                         </td>
                         <td>
                             <span class="span_<?= $messageid ?>" id="span_MessagesStatus_<?= $messageid ?>"> <?= $message->MessageStatus ?> </span>
-                            <input type="text" name="form_MessageStatus" id="MessagesStatusInput_<?=$messageid?>" value="<?= $message->MessageStatus ?>" class="form-control form-control-sm d-none input_<?= $messageid ?>">
+                            <input type="text" autocomplete="off" name="form_MessageStatus" id="MessagesStatusInput_<?=$messageid?>" value="<?= $message->MessageStatus ?>" class="form-control form-control-sm d-none input_<?= $messageid ?>">
                         </td>
                         <td class="text-center" id="edit_<?= $messageid ?>">
                             <i class="fas fa-edit editItem" id="editMessage_<?= $messageid ?>" onClick="openeditMessage('<?= $messageid ?>')"></i>

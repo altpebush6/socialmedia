@@ -86,7 +86,7 @@ if ($part) {
           <img title="<?= $user_name . " " . $user_lastname ?>" src="images_profile/<?= $profile_photo ?>" class='rounded-circle shadow' width="140" height="140">
         </a>
         <?php if (!$part or ($memberid == $part)) { ?>
-          <i data-bs-toggle="modal" data-bs-target="#ProfilePhotoModal" class="fas fa-camera position-absolute fs-4 text-dark mb-2 me-2" style="cursor:pointer;" title="<?= $translates["changeyourprofilephoto"] ?>"></i>
+          <i data-bs-toggle="modal" data-bs-target="#ProfilePhotoModal" class="fas fa-camera position-absolute fs-4 text-dark mb-2 me-2" style="cursor:pointer;"></i>
         <?php } ?>
       </div>
     </div>

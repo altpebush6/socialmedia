@@ -213,7 +213,7 @@ if (is_null($groupImage)) {
           </div>
           <div class="col-10">
             <span class="modal-title mx-auto" id="groupName"><?= $group_name ? $group_name : $translates["anonymousgrp"] ?></span>
-            <input type="text" class="form-control d-none" id="groupNameInput" placeholder="<?= $translates["entergroupname"] ?>">
+            <input type="text" class="form-control d-none" maxlength="50" id="groupNameInput" placeholder="<?= $translates["entergroupname"] ?>">
           </div>
           <div class="col-2 m-0 p-0 text-end">
             <i class="fas fa-marker editgroupName"></i>
@@ -229,7 +229,7 @@ if (is_null($groupImage)) {
           </div>
           <div class="col-10">
             <span class="modal-title mx-auto" id="groupExp"><?= ($group_exp) ? $group_exp : $translates["nogroupexp"] ?></span>
-            <input type="text" class="form-control d-none" id="expInput" placeholder="<?= $translates["entergroupexp"] ?>">
+            <input type="text" class="form-control d-none" maxlength="255" id="expInput" placeholder="<?= $translates["entergroupexp"] ?>">
           </div>
           <div class="col-2 m-0 p-0 text-end">
             <i class="fas fa-marker editExp"></i>

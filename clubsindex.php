@@ -52,7 +52,7 @@
                 var scrolltop = ($(window).scrollTop() + lastposts_height);
                 if (scrolltop > differance && event_activeness == 'active') {
                     event_activeness = 'inactive';
-                    var id = $("#events .container:last").attr("id");
+                    var id = $("#allEvents .container:last").attr("id");
                     $.ajax({
                         type: "post",
                         url: "http://localhost/aybu/socialmedia/showevents.php",
@@ -63,7 +63,7 @@
                         dataType: "json",
                         success: function(result) {
                             if (result.state == "empty") {} else {
-                                $("#events").append(result.state);
+                                $("#allEvents").append(result.state);
                                 event_activeness = "active";
                             }
                         }
@@ -143,22 +143,35 @@
             </div>
             <div class="row m-0 p-0">
                 <div class="col-12 m-0 p-0">
-                    <ul class="nav nav-tabs nav-fill nav-justified mt-3" id="clubTabs" role="tablist">
-                        <li class="nav-item" role="presentation" onClick="changeShdwClub('posts_container-tab')">
-                            <a class="nav-link tabsText text-dark active shadow" id="posts_container-tab" data-bs-toggle="tab" data-bs-target="#posts_container" type="button" role="tab"><?= $translates["posts"] ?></a>
+                    <ul class="nav nav-tabs nav-fill nav-justified mt-3" id="clubTabs">
+                        <li class="nav-item" style="cursor: pointer;">
+                            <a class="nav-link tabsText text-dark <?= ($edit == $translates["Posts"]) ? 'active shadow' : '' ?>" href="http://localhost/aybu/socialmedia/<?= $translates["clubs"] . "/" . $part . "/" . $translates["Posts"] ?>" id="posts_container-tab"><?= $translates["posts"] ?></a>
                         </li>
-                        <li class="nav-item" role="presentation" onClick="changeShdwClub('events-tab')">
-                            <a class="nav-link tabsText text-dark" id="events-tab" data-bs-toggle="tab" data-bs-target="#events" type="button" role="tab"><?= $translates["Events"] ?></a>
+                        <li class="nav-item" style="cursor: pointer;">
+                            <a class="nav-link tabsText text-dark <?= ($edit == $translates["events"]) ? 'active shadow' : '' ?>" href="http://localhost/aybu/socialmedia/<?= $translates["clubs"] . "/" . $part . "/" . $translates["events"] ?>" id="events-tab"><?= $translates["Events"] ?></a>
                         </li>
-                        <li class="nav-item" role="presentation" onClick="changeShdwClub('members-tab')">
-                            <a class="nav-link tabsText text-dark" id="members-tab" data-bs-toggle="tab" data-bs-target="#members" type="button" role="tab"><?= $translates["members"] ?></a>
+                        <li class="nav-item" style="cursor: pointer;">
+                            <a class="nav-link tabsText text-dark <?= ($edit == $translates["Members"]) ? 'active shadow' : '' ?>" href="http://localhost/aybu/socialmedia/<?= $translates["clubs"] . "/" . $part . "/" . $translates["Members"] ?>" id="members-tab"><?= $translates["members"] ?></a>
                         </li>
                     </ul>
                 </div>
                 <div class="col-12 m-0 p-0 tab-content" id="myTabContent">
-                    <div class="tab-pane fade show active py-3" id="posts_container" role="tabpanel"><?php require_once "posts_club.php" ?></div>
-                    <div class="tab-pane fade py-3" id="events" role="tabpanel"><?php require_once "clubevents.php" ?></div>
-                    <div class="tab-pane fade py-3" id="members" role="tabpanel"><?php require_once "clubmembers.php" ?></div>
+                    <?php
+                    switch ($edit) {
+                        case $translates["Posts"]: ?>
+                            <div class="py-3" id="posts_container"><?php require_once "posts_club.php" ?></div>
+                        <?php break;
+                        case $translates["events"]: ?>
+                            <div class="py-3" id="events"><?php require_once "clubevents.php" ?></div>
+                        <?php break;
+                        case $translates["Members"]: ?>
+                            <div class="py-3" id="members"><?php require_once "clubmembers.php" ?></div>
+                        <?php break;
+                        default: ?>
+                            <div class="py-3" id="posts_container"><?php require_once "posts_club.php" ?></div>
+                    <?php break;
+                    }
+                    ?>
                 </div>
             </div>
         <?php } ?>
@@ -206,7 +219,7 @@
                                 <div class="col-12 fs-5 text-dark ps-1" title="<?= $club->ClubName ?>"><?= $clubname ?></div>
                             </div>
                             <div class="col-3 d-flex align-items-center">
-                                <a href="http://localhost/aybu/socialmedia/<?= $translates["clubs"] ?>/<?= $club->ClubID ?>" class="btn btn-outline-dark w-100"><?= $translates["go"] ?></a>
+                                <a href="http://localhost/aybu/socialmedia/<?= $translates["clubs"] ?>/<?= $club->ClubID ?>/<?= $translates["Posts"] ?>" class="btn btn-outline-dark w-100"><?= $translates["go"] ?></a>
                             </div>
                         </div>
                     </div>
