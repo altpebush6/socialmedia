@@ -33,7 +33,7 @@ if (is_null($getprofileimg)) {
         </div>
     </div>
     <div class="row m-0 p-0 pb-2 messenger-middle d-flex flex-column justify-content-betweeen" id="messages">
-        <ul class="list-group px-0 m-0" id="messages_container" style="height:49vh;overflow-y:auto">
+        <ul class="list-group px-0 m-0 pb-3" id="messages_container" style="height:49vh;overflow-y:auto">
             <?php
             $texts = $db->getDatas("SELECT * FROM messages
                 WHERE (MessageStatus = ?) AND ((MessageFromID = ? AND MessageToID = ?) OR (MessageFromID = ? AND MessageToID = ?))
@@ -50,7 +50,7 @@ if (is_null($getprofileimg)) {
                     $tic = '<i class="fas fa-check"></i>';
                 }
                 if ($item->MessageImg) {
-                    $imgmsg = '<img src="message_images/' . $item->MessageImg . '"  class="rounded-2" style="width:250px;min-height:20vh;">';
+                    $imgmsg = '<img src="message_images/' . $item->MessageImg . '"  class="rounded-2 shadow" style="width:250px;min-height:20vh;">';
                 }
                 if ($item->MessageFromID == $memberid) {
                     if ($item->MessageImg) {
@@ -97,7 +97,7 @@ if (is_null($getprofileimg)) {
                         echo '<li class="list-group-item bg-transparent p-4 py-1" style="border:none;" id="each_message_' . $item->MessageID . '" lastid="' . $item->MessageID . '">
                             <div class="row">   
                               <div class="col-2 p-0 col-lg-1 text-center me-lg-3">
-                              <a href="http://localhost/aybu/socialmedia/' . $translates["profile"] . '/'.$item->MessageFromID.'"><img src="images_profile/' . $getprofileimg . '" class="rounded-circle" width="60" height="60"></a>
+                              <a href="http://localhost/aybu/socialmedia/' . $translates["profile"] . '/'.$item->MessageFromID.'"><img src="images_profile/' . $getprofileimg . '" class="rounded-circle shadow-lg" width="60" height="60"></a>
                               </div>      
                               <div class="col-10 d-flex justify-content-start p-0 text-start message-content-img">
                                 <a class="w-33" href="message_images/' . $item->MessageImg . '">' . $imgmsg . '</a>

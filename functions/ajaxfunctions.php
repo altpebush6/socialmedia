@@ -870,10 +870,12 @@
     });
 
     $("#form_createGroup").on("submit", function(e) {
-      var allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
+      var allowedExtensions = /(\.jpg|\.jpeg|\.png|\.jfif)$/i;
       var filePath = $("#groupimg").val();
       if (!allowedExtensions.exec(filePath) && filePath != "") {
-        alert('Invalid file type');
+        $("#resultgroup").removeClass("bg-success");
+        $("#resultgroup").addClass("bg-danger text-light p-3 w-100 mb-0 mx-auto text-center rounded-3");
+        $("#resultgroup").html('<?= $translates["notallowedimg"] ?>');
         location.reload();
       } else {
         e.preventDefault();
@@ -929,17 +931,6 @@
           if (result.seen) {
             $(".seentic").html(result.seen);
           }
-          if (result.deletedmsg) {
-            $("#each_message_" + result.deletedmsg).css("opacity", "0");
-            setTimeout(function() {
-              $("#each_message_" + result.deletedmsg).css("display", "none");
-              $("#content_" + result.personID).html(result.lastcontent);
-              $("#chatpersontime_" + result.personID).html(result.messagetime);
-            }, 200);
-            if (result.nomsg) {
-              $("#person_" + result.personID).remove();
-            }
-          }
           $("#messages_container").append(result.message);
           if (result.message) {
             log.animate({
@@ -951,6 +942,43 @@
             if (result.conversationtrue) {
               $("#person_" + result.personID).remove();
               $("#contactmain").prepend(result.conversationtrue);
+            }
+          }
+        }
+      });
+    }
+
+    $.ajaxdeleteControl = function() {
+      var partID = Part;
+      var lastMessage = $("#messages_container li:last").attr("lastid");
+      var Datas = {
+        "lastid": lastMessage,
+        "personID": partID,
+        "GroupID": GroupID
+      };
+      $.ajax({
+        type: "post",
+        url: SITE_URL + "/socialmedia/ajaxmessages.php?operation=deleteControl",
+        data: Datas,
+        dataType: 'json',
+        success: function(result) {
+          var deletedMessages = result.MessageID;
+          if (result.MessageID) {
+            var msgNum = result.len;
+            let msgArr = deletedMessages.split(" ");
+            for (var i = 0; i < msgNum; i++) {
+              $("#each_message_" + msgArr[i]).css("opacity", "0");
+              $("#each_message_" + msgArr[i]).remove();
+              if (!result.nomsg) {
+                console.log(result.lastcontent);
+                $("#content_" + result.personID).html(result.lastcontent);
+              }
+              $("#chatpersontime_" + result.personID).html(result.messagetime);
+              if (result.nomsg) {
+                if (!GroupID) {
+                  $("#person_" + partID).remove();
+                }
+              }
             }
           }
         }
@@ -1054,6 +1082,7 @@
   });
   <?php if ($page == $translates["messages"]) { ?>
     setInterval('$.ajaxloadmessages()', 1000);
+    setInterval('$.ajaxdeleteControl()', 1000);
     setInterval('$.getStatus()', 1000);
   <?php } ?>
   setInterval('$.getMessage()', 1000);
@@ -1283,7 +1312,7 @@
   });
 
   $("#leaveclub").on("click", function() {
-    
+
     $("#spinnerleaveclub").html('<i class="fas fa-spinner fa-spin"></i>');
     $("#leaveclub").prop("disabled", true);
     $.ajax({
@@ -1353,7 +1382,7 @@
     $("#joinevent_" + EventID).prop("disabled", true);
     $.ajax({
       type: "post",
-      url: SITE_URL + "/socialmedia/ajaxclub.php?operation=joinEvent" ,
+      url: SITE_URL + "/socialmedia/ajaxclub.php?operation=joinEvent",
       data: {
         "ClubID": Part,
         "EventID": EventID

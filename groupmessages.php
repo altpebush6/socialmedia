@@ -10,6 +10,9 @@ if (!in_array($memberid, $isreadmessage_array)) {
     $readMessage = $db->Update("UPDATE chatbox SET MessageHasRead = ? WHERE GroupID = ?", array($newvalue, $groupID));
   }
 }
+
+
+
 $group_name = $db->getColumnData("SELECT GroupName FROM all_groups WHERE GroupID = ?", array($groupID));
 $groupImage = $db->getColumnData("SELECT GroupImage FROM all_groups WHERE GroupID = ?", array($groupID));
 if (is_null($groupImage)) {
@@ -51,7 +54,7 @@ if (is_null($groupImage)) {
     </div>
   </div>
   <div class="row m-0 p-0 pb-2 messenger-middle d-flex flex-column justify-content-betweeen" id="messages">
-    <ul class="list-group px-0 m-0" id="messages_container" style="height:43vh;overflow-y:auto">
+    <ul class="list-group px-0 m-0 pb-2" id="messages_container" style="height:43vh;overflow-y:auto">
       <?php
       $texts = $db->getDatas("SELECT * FROM messages_group WHERE MessageStatus = ? AND GroupID = ? ORDER BY MessageAddTime", array(1, $groupID));
       foreach ($texts as $item) {
@@ -197,7 +200,7 @@ if (is_null($groupImage)) {
               <div class="col-12 d-flex justify-content-center align-items-center">
                 <label for="upload_groupimg" class="groupImage rounded-circle">
                   <img src="group_images/<?= $groupImage ?>" class="groupImg rounded-circle" id="changeGroupImg">
-                  <span class="uploadgroupImage"><i class="fas fa-camera"></i> <?=$translates["choosephoto"]?></span>
+                  <span class="uploadgroupImage"><i class="fas fa-camera"></i> <?= $translates["choosephoto"] ?></span>
                 </label>
                 <input type="file" name="upload_groupimg" id="upload_groupimg" style="display:none;" accept=image/x-png,image/gif,image/jpeg>
               </div>

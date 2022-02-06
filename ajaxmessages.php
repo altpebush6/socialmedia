@@ -82,7 +82,7 @@ switch ($operation) {
             $result["message"] = '<li class="list-group-item bg-transparent p-4 py-1" style="border:none;" id="each_message_' . $item->MessageID . '" lastid="' . $item->MessageID . '">
                                     <div class="row">   
                                       <div class="col-2 p-0 col-lg-1 text-center me-lg-3">
-                                      <a href="http://localhost/aybu/socialmedia/' . $translates["profile"] . '/' . $personID . '"><img src="images_profile/' . $getprofileimg . '" class="rounded-circle" width="60" height="60"></a>
+                                      <a href="http://localhost/aybu/socialmedia/' . $translates["profile"] . '/' . $personID . '"><img src="images_profile/' . $getprofileimg . '" class="rounded-circle shadow-lg" width="60" height="60"></a>
                                       </div>      
                                       <div class="col-10 d-flex justify-content-start p-0 text-start message-content-img">
                                         <a class="w-33" href="message_images/' . $msgName . '">' . $messageimage . '</a>
@@ -100,7 +100,7 @@ switch ($operation) {
                                     <a href="http://localhost/aybu/socialmedia/' . $translates["profile"] . '/' . $personID . '"><img src="images_profile/' . $getprofileimg . '" class="rounded-circle" width="60" height="60"></a>
                                     </div>        
                                     <div class="col-2 p-0" style="width:auto;max-width:250px;min-width:75px;">
-                                      <div class="row align-items-center bg-light text-dark rounded-3" style="height:100%;max-width:200px;">
+                                      <div class="row align-items-center bg-light text-dark rounded-3 shadow" style="height:100%;max-width:200px;">
                                         <div class="p-0 w-100" style="width:auto;max-width:200px;">
                                           <p class="m-0 py-1 px-2 fs-6 text-break">' . $item->MessageText . '</p>
                                         </div>
@@ -179,7 +179,7 @@ switch ($operation) {
                                             <div class="row" id="chatpersontime_' . $personID . '"><small>' . messageTime($messagetime) . '</small></div>
                                           </div>
                                         </div>
-                                      </a>';
+                                      <hr class="my-3"></A>';
         } else {
           $result["conversationtrue"] = '<a class="text-dark text-decoration-none" id="person_' . $personID . '" href="http://localhost/aybu/socialmedia/' . $translates['messages'] . '/' . $personID . '" style=\'background:rgba(255, 255, 255, 0.2)\'>
                                         <div class="row my-2 justify-content-center align-items-center">
@@ -199,7 +199,7 @@ switch ($operation) {
                                             <div class="row" id="chatpersontime_' . $personID . '"><small>' . messageTime($messagetime) . '</small></div>
                                           </div>
                                         </div>
-                                      </a>';
+                                      <hr class="my-3"></A>';
         }
         $sawMessage = $db->Update("UPDATE messages SET MessageHasSeen = ? WHERE MessageFromID = ? AND MessageToID = ?", array(1, $personID, $memberid));
         $readMessage = $db->Update("UPDATE chatbox SET MessageHasRead = ? WHERE MessageFromID = ? AND MessageToID = ?", array(1, $personID, $memberid));
@@ -279,21 +279,18 @@ switch ($operation) {
             }
           }
 
-          $msgName = $item->MessageImg;
+          $msgImage = $item->MessageImg;
 
-
-
-          if ($msgName) {
-            $messageimage = '<img src="message_images/' . $msgName . '" class="rounded-2" style="width:250px;min-height:20vh;">';
+          if ($msgImage) {
             $result["message"] = '<li class="list-group-item bg-transparent p-4 py-1 my-2" style="border:none;" id="each_message_' . $item->MessageID . '" lastid="' . $item->MessageID . '">
                                   <div class="row">   
                                     <div class="col-2 p-0 col-lg-1 text-center me-lg-3">
-                                    <a href="http://localhost/aybu/socialmedia/' . $translates["profile"] . '/' . $MessageFromID . '"><img src="images_profile/' . $getprofileimg . '" class="rounded-circle" width="60" height="60"></a>
+                                    <a href="http://localhost/aybu/socialmedia/' . $translates["profile"] . '/' . $MessageFromID . '"><img src="images_profile/' . $getprofileimg . '" class="rounded-circle shadow-lg" width="60" height="60"></a>
                                     </div>      
                                     <div class="col-10 d-flex justify-content-start p-0 text-start message-content-img">
-                                      <a class="w-33" href="message_images/' . $msgName . '">
-                                      <div class="position-absolute bg-dark text-dark m-1 p-1 rounded-2" style="font-size:13px;">' . $personNames . '</div>
-                                      ' . $messageimage . '
+                                      <a class="w-33" href="message_images/' . $msgImage . '">
+                                      <div class="position-absolute bg-dark text-light m-1 p-1 rounded-2" style="font-size:13px;">' . $personNames . '</div>
+                                        <img src="message_images/' . $msgImage . '" class="rounded-2" style="width:250px;min-height:20vh;">
                                       </a>
                                       <span class="time-img text-light fs-6 m-2 p-1 align-self-end rounded-2 position-absolute" style="font-size: 13px !important;">
                                       ' . messageTime($item->MessageAddTime) . '
@@ -306,10 +303,10 @@ switch ($operation) {
             $result["message"] = '<li class="list-group-item bg-transparent p-4 py-1 my-2" style="border:none;" id="each_message_' . $item->MessageID . '" lastid="' . $item->MessageID . '">
                                 <div class="row">     
                                   <div class="col-2 col-lg-1 text-center p-0 me-2 me-md-3 me-lg-4">
-                                  <a href="http://localhost/aybu/socialmedia/' . $translates["profile"] . '/' . $MessageFromID . '"><img src="images_profile/' . $getprofileimg . '" class="rounded-circle" width="60" height="60"></a>
+                                  <a href="http://localhost/aybu/socialmedia/' . $translates["profile"] . '/' . $MessageFromID . '"><img src="images_profile/' . $getprofileimg . '" class="rounded-circle shadow-lg" width="60" height="60"></a>
                                   </div>        
                                   <div class="col-2 p-0" style="width:auto;max-width:250px;min-width:75px;">
-                                    <div class="row align-items-center bg-light text-dark rounded-3" style="height:100%;max-width:200px;">
+                                    <div class="row align-items-center shadow bg-light text-dark rounded-3" style="height:100%;max-width:200px;">
                                       <div class="p-0 w-100" style="width:auto;max-width:200px;">
                                         <p class="m-0 px-2 text-break bg-dark text-light border-bottom" style="font-size:13px;padding-bottom:1px;padding-top:1px;border-top-left-radius:0.3rem;border-top-right-radius:0.3rem;">' . $personNames . '</p>
                                         <p class="m-0 py-1 px-2 fs-6 text-break">' . $item->MessageText . '</p>
@@ -324,11 +321,7 @@ switch ($operation) {
           }
         }
 
-        $sawMessage = $db->Update("UPDATE messages_group SET MessageHasSeen = ? WHERE GroupID = ? AND MessageFromID = ?", array($memberid . ":", $GroupID, $MessageFromID));
-
-        $MessageFromName = $db->getColumnData("SELECT MemberName FROM members WHERE MemberID = ?", array($MessageFromID));
-
-        $newmessageID = $item->MessageID;
+        $sawMessage = $db->Update("UPDATE messages_group SET MessageHasSeen = ? WHERE MessageID = ?", array($memberid . ":", $item->messageID));
         $messageText = $item->MessageText;
         $messageImg = $item->MessageImg;
         if ($messageImg) {
@@ -339,7 +332,7 @@ switch ($operation) {
 
         $result["personID"] = $GroupID;
 
-        $content = ($MessageFromID == $memberid  ? $translates["you"] : $MessageFromName) . ": " . $messageText;
+        $content = ($MessageFromID == $memberid  ? $translates["you"] : $personNames) . ": " . $item->MessageText;
 
         $result["conversationtrue"] = '<a class="text-dark text-decoration-none" id="person_' . $GroupID . '" href=\'http://localhost/aybu/socialmedia/' . $translates['messages'] . '/' . $translates["group"] . '/' . $GroupID . '\'>
                                       <div class="row my-2 justify-content-center align-items-center">
@@ -348,68 +341,29 @@ switch ($operation) {
                                         </div>
                                         <div class="col-10 px-3 ps-4 ps-md-5 ps-lg-4 ps-xl-5">
                                           <div class="row fs-5">
-                                          <div class="col-12 p-0 messenger-names" id="chatbox_name_' . $GroupID . '"><i class="fas fa-users" style="font-size: 17px;"></i> ';
-        if ($GroupName) {
-          $result["conversationtrue"] .= $GroupName;
-        } else {
-          $result["conversationtrue"] .= $translates["anonymousgrp"];
-        }
-        $result["conversationtrue"] .= '</div>
-                                            
+                                            <div class="col-12 p-0 messenger-names" id="chatbox_name_' . $GroupID . '">
+                                              <i class="fas fa-users" style="font-size: 17px;"></i> ' . $GroupName . '
+                                            </div>
                                           </div>
                                           <div class="row">
                                             <div class="col-9 p-0 text-start person-content" id="content_' . $GroupID . '" style="opacity:0.5">
                                               ' . $content . '
                                             </div>
-                                              <div class="col-3 pe-1 text-end">
+                                            <div class="col-3 pe-1 text-end">
                                               <small> ' . messageTime($messagetime) . '</small>
-                                              </div>
+                                            </div>
                                           </div>
                                         </div>
                                       </div>
-                                    </a>';
+                                    <hr class="my-3"></A>';
 
         $isreadmessage = $db->getColumnData("SELECT MessageHasRead FROM chatbox WHERE GroupID = ?", array($GroupID));
         $isreadmessage_array = explode(":", $isreadmessage);
-        if ($isreadmessage == 0) {
-          $readMessage = $db->Update("UPDATE chatbox SET MessageHasRead = ? WHERE GroupID = ?", array(($memberid . ":"), $groupID));
-        } else {
-          $newvalue = $isreadmessage . $memberid . ":";
-          $readMessage = $db->Update("UPDATE chatbox SET MessageHasRead = ? WHERE GroupID = ?", array($newvalue, $groupID));
+        if (!in_array($memberid, $isreadmessage_array)) {
+          $newVal = $isreadmessage . $memberid . ":";
+          $readMessage = $db->Update("UPDATE chatbox SET MessageHasRead = ? WHERE GroupID = ?", array($newVal, $GroupID));
         }
 
-        $isreadmessage2 = $db->getColumnData("SELECT MessageHasRead FROM chatbox WHERE GroupID = ?", array($GroupID));
-        $isreadmessage_array2 = explode(":", $isreadmessage2);
-        if ($isreadmessage2 == 0) {
-          $readMessage2 = $db->Update("UPDATE chatbox SET MessageHasRead = ? WHERE GroupID = ?", array(($memberid . ":"), $groupID));
-        } else {
-          $newvalue2 = $isreadmessage2 . $memberid . ":";
-          $readMessage2 = $db->Update("UPDATE chatbox SET MessageHasRead = ? WHERE GroupID = ?", array($newvalue2, $groupID));
-        }
-
-        $deletedmessages = $db->getColumnData("SELECT MessageID FROM messages_group WHERE MessageStatus = ? AND GroupID = ? ORDER BY MessageID DESC", array(0, $groupID));
-        if ($deletedmessages) {
-          $result["deletedmsg"] = $deletedmessages;
-          $result["personID"] = $personID;
-          $lastmessage = $db->getData("SELECT * FROM messages 
-                                    WHERE MessageStatus = ? AND GroupID = ?
-                                    ORDER BY MessageID DESC", array(1, $groupID));
-          $messagetime = $db->GetColumnData("SELECT MessageAddTime FROM messages_group WHERE MessageID = ?", array($lastmessage->MessageID));
-          $messagetime = "<small>" . messageTime($messagetime) . "</small>";
-          $result["messagetime"] = $messagetime;
-          if ($lastmessage->MessageFromID == $memberid) {
-            $messageHasSeen = $db->getColumnData("SELECT MessageHasSeen FROM messages_group WHERE MessageID = ?", array($lastmessage->MessageID));
-            $messageText = $lastmessage->MessageText;
-            $lastmsgimg = $lastmessage->MessageImg;
-            if ($lastmsgimg) {
-              $messageText = '<i class="fas fa-camera"></i> ' . $translates["photo"];
-            }
-            $result["lastcontent"] = $translates["you"] . ": " . $messageText;
-          } else {
-            $MemberName = $db->getColumnData("SELECT MemberName FROM members WHERE MemberID = ?", array($personID));
-            $result["lastcontent"] = $MemberName . ": " . $messageText;
-          }
-        }
       }
     }
     echo json_encode($result);
@@ -531,7 +485,7 @@ switch ($operation) {
                                             </div>
                                           </div>
                                         </div>
-                                      </a>';
+                                      <hr class="my-3"></A>';
       } else {
         $result["conversationtrue"] = '<a class="text-dark text-decoration-none" id="person_' . $personID . '" href="http://localhost/aybu/socialmedia/' . $translates['messages'] . '/' . $personID . '">
                                           <div class="row my-2 justify-content-center align-items-center">
@@ -551,7 +505,7 @@ switch ($operation) {
                                               </div>
                                             </div>
                                           </div>
-                                        </a>';
+                                        <hr class="my-3"></A>';
       }
       $result["toast"] = '<a class="toast-link text-dark text-decoration-none" href="http://localhost/aybu/socialmedia/' . $translates['messages'] . '/' . $personID . '">
       <div class="toast show mt-2" role="alert" aria-live="assertive" aria-atomic="true">
@@ -626,7 +580,7 @@ switch ($operation) {
                                             </div>
                                           </div>
                                         </div>
-                                      </a>';
+                                      <hr class="my-3"></A>';
 
           $result["toast"] = '<a class="toast-link text-dark text-decoration-none" href=\'http://localhost/aybu/socialmedia/' . $translates['messages'] . '/' . $translates["group"] . '/' . $groupID . '\'>
           <div class="toast show mt-2" role="alert" aria-live="assertive" aria-atomic="true">
@@ -759,7 +713,7 @@ switch ($operation) {
                                                 </div>
                                               </div>
                                             </div>
-                                          </a>';
+                                          <hr class="my-3"></A>';
           } else {
             $result["conversationtrue"] = '<a class="text-dark text-decoration-none" id="person_' . $personID . '" href="http://localhost/aybu/socialmedia/' . $translates['messages'] . '/' . $personID . '">
                                               <div class="row my-2 justify-content-center align-items-center">
@@ -779,7 +733,7 @@ switch ($operation) {
                                                   </div>
                                                 </div>
                                               </div>
-                                            </a>';
+                                            <hr class="my-3"></A>';
           }
         }
       }
@@ -851,7 +805,7 @@ switch ($operation) {
           $result["conversationtrue"] .= '</div>
                                               </div>
                                               <div class="row">
-                                                <div class="col-9 p-0 text-start person-content" id="content_' . $personID . '" style="opacity:0.5">
+                                                <div class="col-9 p-0 text-start person-content" id="content_' . $groupID . '" style="opacity:0.5">
                                                   ' . $resultcontent . '
                                                 </div>
                                                   <div class="col-3" style="font-size:14px;">
@@ -860,7 +814,7 @@ switch ($operation) {
                                               </div>
                                             </div>
                                           </div>
-                                        </a>';
+                                        <hr class="my-3"></A>';
         }
       }
     }
@@ -918,7 +872,7 @@ switch ($operation) {
 
 
         $isHaveChatBox = $db->getColumnData("SELECT ChatboxID FROM chatbox
-                                            WHERE (MessageFromID = ?AND MessageToID = ?) OR (MessageFromID = ? AND MessageToID = ?)", array($memberid, $personID, $persnoID, $memberid));
+                                            WHERE (MessageFromID = ? AND MessageToID = ?) OR (MessageFromID = ? AND MessageToID = ?)", array($memberid, $personID, $personID, $memberid));
 
         if ($isHaveChatBox) {
           $db->Update("UPDATE chatbox
@@ -982,7 +936,7 @@ switch ($operation) {
                                               <div class="row" id="chatpersontime_' . $personID . '"><small>' . messageTime($messagetime) . '</small></div>
                                             </div>
                                           </div>
-                                        </a>';
+                                        <hr class="my-3"></A>';
         } else {
           $result["conversationtrue"] = '<a class="text-dark text-decoration-none" id="person_' . $personID . '" href="http://localhost/aybu/socialmedia/' . $translates['messages'] . '/' . $personID . '" style=\'background:rgba(255, 255, 255, 0.2)\'>
                                           <div class="row my-2 justify-content-center align-items-center">
@@ -1002,7 +956,7 @@ switch ($operation) {
                                               <div class="row" id="chatpersontime_' . $personID . '"><small>' . messageTime($messagetime) . '</small></div>
                                             </div>
                                           </div>
-                                        </a>';
+                                        <hr class="my-3"></A>';
         }
       }
     }
@@ -1084,9 +1038,89 @@ switch ($operation) {
                                             </div>
                                           </div>
                                         </div>
-                                      </a>';
+                                      <hr class="my-3"></A>';
       }
     }
+    echo json_encode($result);
+    break;
+
+  case 'deleteControl':
+    $GroupID = security("GroupID");
+    $personID = security("personID");
+    $len = 0;
+    if ($personID != $translates["group"]) {
+      //Person 
+      $deletedmessages = $db->getDatas("SELECT * FROM messages WHERE MessageStatus = ? AND ((MessageFromID = ? AND MessageToID = ?) OR (MessageFromID = ? AND MessageToID = ?))", array(0, $memberid, $personID, $personID, $memberid));
+      foreach ($deletedmessages as $deletedMsg) {
+        $result["MessageID"] .= $deletedMsg->MessageID . " ";
+        $len++;
+      }
+      $lastmessage = $db->getData("SELECT * FROM messages WHERE MessageStatus = ? AND ((MessageFromID = ? AND MessageToID = ?) OR (MessageFromID = ? AND MessageToID = ?)) ORDER BY MessageAddTime DESC", array(1, $memberid, $personID, $personID, $memberid));
+      $messagetime = $lastmessage->MessageAddTime;
+      $messagetime = "<small>" . messageTime($messagetime) . "</small>";
+      $result["messagetime"] = $messagetime;
+      if ($lastmessage->MessageFromID == $memberid) {
+        $messageHasSeen = $lastmessage->MessageHasSeen;
+        $messageText = $lastmessage->MessageText;
+        $lastmsgimg = $lastmessage->MessageImg;
+        if ($lastmsgimg) {
+          $messageText = '<i class="fas fa-camera"></i> ' . $translates["photo"];
+        }
+        $result["lastcontent"] = $translates["you"] . ": " . $messageText;
+      } else {
+        $MemberName = $db->getColumnData("SELECT MemberName FROM members WHERE MemberID = ?", array($lastmessage->MessageFromID));
+        $messageText = $lastmessage->MessageText;
+        $lastmsgimg = $lastmessage->MessageImg;
+        if ($lastmsgimg) {
+          $messageText = '<i class="fas fa-camera"></i> ' . $translates["photo"];
+        }
+        $result["lastcontent"] = $MemberName . ": " . $messageText;
+      }
+      if (!$lastmessage) {
+        $result["nomessage"] = "nomsg";
+        $db->Update("UPDATE chatbox SET MessageStatus = ? WHERE (MessageFromID = ? AND MessageToID = ?) OR (MessageFromID = ? AND MessageToID = ?)", array(0, $memberid, $personID, $personID, $memberid));
+      }
+      $result["personID"] = $personID;
+      $result["len"] = $len;
+    } else {
+      //Group
+      $deletedmessages = $db->getDatas("SELECT * FROM messages_group WHERE MessageStatus = ? AND GroupID = ?", array(0, $GroupID));
+      foreach ($deletedmessages as $deletedMsg) {
+        $result["MessageID"] .= $deletedMsg->MessageID . " ";
+        $len++;
+      }
+      $lastmessage = $db->getData("SELECT * FROM messages_group WHERE MessageStatus = ? AND GroupID = ? ORDER BY MessageID DESC", array(1, $GroupID));
+      $messagetime = $db->GetColumnData("SELECT MessageAddTime FROM messages_group WHERE MessageID = ?", array($lastmessage->MessageID));
+      $messagetime = "<small>" . messageTime($messagetime) . "</small>";
+      $result["messagetime"] = $messagetime;
+      if ($lastmessage->MessageFromID == $memberid) {
+        $messageHasSeen = $db->getColumnData("SELECT MessageHasSeen FROM messages_group WHERE MessageID = ?", array($lastmessage->MessageID));
+        $messageText = $lastmessage->MessageText;
+        $lastmsgimg = $lastmessage->MessageImg;
+        if ($lastmsgimg) {
+          $messageText = '<i class="fas fa-camera"></i> ' . $translates["photo"];
+        }
+        $result["lastcontent"] = $translates["you"] . ": " . $messageText;
+      } else {
+        $MemberName = $db->getColumnData("SELECT MemberName FROM members WHERE MemberID = ?", array($lastmessage->MessageFromID));
+        $messageText = $lastmessage->MessageText;
+        $lastmsgimg = $lastmessage->MessageImg;
+        if ($lastmsgimg) {
+          $messageText = '<i class="fas fa-camera"></i> ' . $translates["photo"];
+        }
+        $result["lastcontent"] = $MemberName . ": " . $messageText;
+      }
+      if (!$lastmessage) {
+        $groupCreatorID = $db->getColumnData("SELECT GroupCreator FROM all_groups WHERE GroupID = ?", array($GroupID));
+        $CreatorName = $db->getColumnData("SELECT MemberName FROM members WHERE MemberID = ?", array($groupCreatorID));
+        $result["lastcontent"] = $CreatorName . " " . $translates["personcreatedgroup"];
+      }
+      $result["personID"] = $GroupID;
+      $result["len"] = $len;
+    }
+
+
+
     echo json_encode($result);
     break;
 
@@ -1097,8 +1131,7 @@ switch ($operation) {
 
     $personID = $db->getColumnData("SELECT MessageToID FROM messages WHERE MessageID = ?", array($messageID));
 
-    $anyMessageLeft = $db->getColumnData("SELECT MessageID FROM messages WHERE MessageStatus = ? AND ((MessageFromID = ? AND MessageToID = ?) OR (MessageFromID = ? AND MessageToID = ?))", array(1, $memberid, $persnoID, $persnoID, $memberid));
-
+    $anyMessageLeft = $db->getData("SELECT * FROM messages WHERE MessageStatus = ? AND ((MessageFromID = ? AND MessageToID = ?) OR (MessageFromID = ? AND MessageToID = ?))", array(1, $memberid, $personID, $personID, $memberid));
     if (!$anyMessageLeft) {
       $result["nomessage"] = "nomsg";
       $result["personID"] = $personID;
@@ -1107,12 +1140,12 @@ switch ($operation) {
       $name = $db->getColumnData("SELECT MemberName FROM members WHERE MemberID = ?", array($personID));
       $name_lastname =  $db->getColumnData("SELECT MemberNames FROM members WHERE MemberID = ?", array($personID));
       $newmessageID = $db->GetColumnData("SELECT MessageID FROM messages
-                                          WHERE MessageStatus = ? AND ((MessageFromID = ? AND MessageToID = ?) OR (MessageFromID = ? AND MessageToID = ?))
-                                          ORDER BY MessageAddTime DESC",array(1,$memberid,$personID,$personID,$memberid));
+                                            WHERE MessageStatus = ? AND ((MessageFromID = ? AND MessageToID = ?) OR (MessageFromID = ? AND MessageToID = ?))
+                                            ORDER BY MessageAddTime DESC", array(1, $memberid, $personID, $personID, $memberid));
 
       $hasRead =  $db->GetColumnData("SELECT MessageHasRead FROM messages WHERE MessageID = ?", array($newmessageID));
       $db->Update("UPDATE chatbox SET MessageHasRead = ? 
-                  WHERE ((MessageFromID = ? AND MessageToID = ?) OR (MessageFromID = ? AND MessageToID = ?))", array($hasRead,$memberid,$personID,$personID,$memberid));
+                    WHERE ((MessageFromID = ? AND MessageToID = ?) OR (MessageFromID = ? AND MessageToID = ?))", array($hasRead, $memberid, $personID, $personID, $memberid));
 
       $messageText = $db->getColumnData("SELECT MessageText FROM messages WHERE MessageID = ?", array($newmessageID));
       $messageImg = $db->getColumnData("SELECT MessageImg FROM messages WHERE MessageID = ?", array($newmessageID));
@@ -1120,7 +1153,7 @@ switch ($operation) {
 
 
       $messagetime = $db->GetColumnData("SELECT MessageAddTime FROM messages
-                                              WHERE MessageID = ?", array($newmessageID));
+                                                WHERE MessageID = ?", array($newmessageID));
       $messagetime = messageTime($messagetime);
 
       if ($whosemessage == $memberid) {
@@ -1173,6 +1206,13 @@ switch ($operation) {
       $result["personabs"] = ($whosemessage == $memberid  ? $translates["you"] : $personName) . ": " . $messageText;
     }
     $result["personID"] = $groupID;
+
+    if (!$newmessage) {
+      $groupCreatorID = $db->getColumnData("SELECT GroupCreator FROM all_groups WHERE GroupID = ?", array($groupID));
+      $CreatorName = $db->getColumnData("SELECT MemberName FROM members WHERE MemberID = ?", array($groupCreatorID));
+      $result["personabs"] = $CreatorName . " " . $translates["personcreatedgroup"];
+      $db->Update("UPDATE chatbox SET MessageFromID = ? WHERE GroupID = ?", array(NULL, $groupID));
+    }
 
     echo json_encode($result);
     break;
@@ -1345,7 +1385,7 @@ switch ($operation) {
                                       <div class="col-2 text-center d-flex flex-column justify-content-between">
                                       </div>
                                     </div>
-                                  </a>';
+                                  <hr class="my-3"></A>';
       }
     }
     echo json_encode($result);

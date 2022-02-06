@@ -17,7 +17,7 @@
 
           $chatpersons = $db->getDatas("SELECT * FROM chatbox
                     WHERE MessageStatus = ? AND (MessageFromID = ? OR MessageToID = ? OR GroupMembers LIKE '%$memberid%')
-                    ORDER BY LastTime DESC",array(1,$memberid,$memberid));
+                    ORDER BY LastTime DESC", array(1, $memberid, $memberid));
           ?>
           <div class="col-12 text-center mt-0 mb-2">
             <input class="form-control w-100 mx-auto srchfriend" autocomplete="off" type="text" id="srchformsg" name="srchformsg" placeholder="<?= $translates["searchformessage"] ?>">
@@ -73,7 +73,7 @@
               <a class="text-dark text-decoration-none" id="person_<?= $groupID ?>" href="http://localhost/aybu/socialmedia/<?= $translates['messages'] ?>/<?= $translates["group"] ?>/<?= $groupID ?>" <?php echo ($groupID == $part ? "style='background:rgba(255, 255, 255, 0.2)'" : "style=''") ?>>
                 <div class="row my-2 justify-content-center align-items-center">
                   <div class="col-2 text-center">
-                    <img src="group_images/<?= $groupimg ?>" class="rounded-circle" width="60" height="60" id="groupImage_<?=$groupID?>">
+                    <img src="group_images/<?= $groupimg ?>" class="rounded-circle" width="60" height="60" id="groupImage_<?= $groupID ?>">
                   </div>
                   <div class="col-10 px-3 ps-4 ps-md-5 ps-lg-4 ps-xl-5">
                     <div class="row fs-5">
@@ -92,7 +92,9 @@
                     </div>
                   </div>
                 </div>
+                <hr class="my-3">
               </a>
+
 
             <?php } else {
               if ($info->MessageFromID == $memberid) {
@@ -189,6 +191,7 @@
                     </div>
                   </div>
                 </div>
+                <hr class="my-3">
               </a>
           <?php }
           } ?>
