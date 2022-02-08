@@ -363,7 +363,6 @@ switch ($operation) {
           $newVal = $isreadmessage . $memberid . ":";
           $readMessage = $db->Update("UPDATE chatbox SET MessageHasRead = ? WHERE GroupID = ?", array($newVal, $GroupID));
         }
-
       }
     }
     echo json_encode($result);
@@ -1266,6 +1265,30 @@ switch ($operation) {
         }
       }
     }
+    echo json_encode($result);
+    break;
+
+  case 'searchMessage':
+    $searched_key = security("searchedKey");
+    $personID = security("personID");
+    $groupID = security("GroupID");
+    $len = 0;
+
+    if ($personID != $translates["group"]) {
+      //Person 
+      $messages = $db->getData("SELECT * FROM messages WHERE MessageText LIKE '$searched_key%' AND MessageStatus = ? AND ((MessageFromID = ? AND MessageToID = ?) OR (MessageFromID = ? AND MessageToID = ?)) ORDER BY MessageID DESC", array(1, $memberid, $personID, $personID, $memberid));
+      // foreach ($messages as $message) {
+      //   $result["messageID"] .= $message->MessageID . " ";
+      //   $len++;
+      // }
+      $result["messageID"] = $messages->MessageID;
+      $result["text"] = $messages->MessageText;
+    } else {
+      //Group
+
+    }
+
+    $result["len"] = $len;
     echo json_encode($result);
     break;
 

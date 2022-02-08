@@ -970,7 +970,6 @@
               $("#each_message_" + msgArr[i]).css("opacity", "0");
               $("#each_message_" + msgArr[i]).remove();
               if (!result.nomsg) {
-                console.log(result.lastcontent);
                 $("#content_" + result.personID).html(result.lastcontent);
               }
               $("#chatpersontime_" + result.personID).html(result.messagetime);
@@ -1079,7 +1078,38 @@
         }
       });
     }
+
+    $("#searchMessage").on("keyup", function() {
+      var searchedKey = $(this).val();
+      if (searchedKey != "") {
+        var Datas = {
+          "searchedKey": searchedKey,
+          "personID": Part,
+          "GroupID": GroupID
+        };
+        $.ajax({
+          type: "post",
+          url: SITE_URL + "/socialmedia/ajaxmessages.php?operation=searchMessage",
+          data: Datas,
+          dataType: 'json',
+          success: function(result) {
+            // $(".list-group-item").removeClass("shadow");
+            // var allMessages = result.messageID.split(" ");
+            // $("#each_message_" + result.messageID).addClass("shadow");
+            var oldVal = $("#textContent_" + result.messageID).html();
+            $("#textContent_" + result.messageID).html("<mark>" + oldVal + "</mark>");
+            // $('#messages_container').animate({
+            //   scrollTop: $("#each_message_" + result.messageID).position().top
+            // }, 1000);
+            // for (var i = 0; i < result.len; i++) {
+            //   $("#each_message_" + allMessages[i]).html("sa");
+            // }
+          }
+        });
+      }
+    });
   });
+
   <?php if ($page == $translates["messages"]) { ?>
     setInterval('$.ajaxloadmessages()', 1000);
     setInterval('$.ajaxdeleteControl()', 1000);
