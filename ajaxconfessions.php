@@ -50,4 +50,11 @@ switch ($operation) {
                                             ConfessionVisibility = ? WHERE ConfessionID = ? ", array($text, $topic, $visibility, $CnfnID));
         echo json_encode($result);
         break;
+
+    case 'deleteConfesssion':
+        $CnfnID = security("CnfnID");
+        $db->Update("UPDATE confessions SET ConfessionActive = ? WHERE ConfessionID = ?", array(0, $CnfnID));
+        $result["id"] = $CnfnID;
+        echo json_encode($result);
+        break;
 }

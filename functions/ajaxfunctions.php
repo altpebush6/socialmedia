@@ -572,6 +572,21 @@
     });
   }
 
+  $(".delConfession").on("click", function() {
+    var CnfnID = $(this).attr("cnfnid");
+    $.ajax({
+      type: "post",
+      url: SITE_URL + "/socialmedia/ajaxconfessions.php?operation=deleteConfesssion",
+      data: {
+        "CnfnID": CnfnID
+      },
+      dataType: "json",
+      success: function(result) {
+        $("#" + CnfnID).remove();
+      }
+    });
+  });
+
   function SendFormPass(FormID, Operation, SendURL = "") {
     $("#pass_spinner").html('<i class="fas fa-spinner fa-spin"></i>');
     $("#submitpassword").prop("disabled", true);
@@ -1093,17 +1108,18 @@
           data: Datas,
           dataType: 'json',
           success: function(result) {
-            // $(".list-group-item").removeClass("shadow");
-            // var allMessages = result.messageID.split(" ");
-            // $("#each_message_" + result.messageID).addClass("shadow");
-            var oldVal = $("#textContent_" + result.messageID).html();
-            $("#textContent_" + result.messageID).html("<mark>" + oldVal + "</mark>");
-            // $('#messages_container').animate({
-            //   scrollTop: $("#each_message_" + result.messageID).position().top
-            // }, 1000);
-            // for (var i = 0; i < result.len; i++) {
-            //   $("#each_message_" + allMessages[i]).html("sa");
-            // }
+            var sumOfHeights = 0;
+            for (var i = 0; i < result.count; i++) {
+              sumOfHeights += $("#each_message_" + result.beforeIDs[i]).height();
+            }
+            scrollVal = sumOfHeights;
+            $('#messages_container').animate({
+              scrollTop: scrollVal
+            }, 10);
+            $(".list-group-item").removeClass("bg-light");
+            $(".list-group-item").addClass("bg-transparent");
+            $("#each_message_" + result.messageID).removeClass("bg-transparent");
+            $("#each_message_" + result.messageID).addClass("bg-light");
           }
         });
       }
@@ -1742,6 +1758,15 @@
     $("#cityofEvent").slideToggle();
     $("#placeofEvent").slideToggle();
   });
+  $("#free").on("click", function() {
+    if ($(this).is(":checked")) {
+      $("#pricing").val("");
+      $("#pricing").attr("disabled", true);
+    } else {
+      $("#pricing").attr("disabled", false);
+    }
+
+  });
 
   $("#form_createEvent").on("submit", function(e) {
     e.preventDefault();
@@ -1760,6 +1785,7 @@
     Datas.append("emailAddress", $("#emailAddress").val());
     Datas.append("phoneNum", $("#phoneNum").val());
     Datas.append("pricing", $("#pricing").val());
+    Datas.append("free", $("#free").is(":checked"));
     Datas.append("eventID", $("#createEvent_btn").attr("eventid"));
 
     var imagePath = $("#eventImg").val();

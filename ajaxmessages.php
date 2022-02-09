@@ -1277,15 +1277,31 @@ switch ($operation) {
     if ($personID != $translates["group"]) {
       //Person 
       $messages = $db->getData("SELECT * FROM messages WHERE MessageText LIKE '$searched_key%' AND MessageStatus = ? AND ((MessageFromID = ? AND MessageToID = ?) OR (MessageFromID = ? AND MessageToID = ?)) ORDER BY MessageID DESC", array(1, $memberid, $personID, $personID, $memberid));
-      // foreach ($messages as $message) {
-      //   $result["messageID"] .= $message->MessageID . " ";
-      //   $len++;
-      // }
-      $result["messageID"] = $messages->MessageID;
-      $result["text"] = $messages->MessageText;
+      $messageID = $messages->MessageID;
+      $beforeMessages = $db->getDatas("SELECT * FROM messages WHERE MessageID < $messageID AND MessageStatus = ? AND ((MessageFromID = ? AND MessageToID = ?) OR (MessageFromID = ? AND MessageToID = ?)) ORDER BY MessageID DESC", array(1, $memberid, $personID, $personID, $memberid));
+      $count = 0;
+      $IDs = array();
+      foreach ($beforeMessages as $eachMessage) {
+        $count++;
+        array_push($IDs, $eachMessage->MessageID);
+      }
+      $result["messageID"] = $messageID;
+      $result["count"] = $count;
+      $result["beforeIDs"] = $IDs;
     } else {
       //Group
-
+      $messages = $db->getData("SELECT * FROM messages_group WHERE MessageText LIKE '$searched_key%' AND MessageStatus = ? AND GroupID = ? ORDER BY MessageID DESC", array(1, $groupID));
+      $messageID = $messages->MessageID;
+      $beforeMessages = $db->getDatas("SELECT * FROM messages_group WHERE MessageID < $messageID AND MessageStatus = ? AND GroupID = ? ORDER BY MessageID DESC", array(1, $groupID));
+      $count = 0;
+      $IDs = array();
+      foreach ($beforeMessages as $eachMessage) {
+        $count++;
+        array_push($IDs, $eachMessage->MessageID);
+      }
+      $result["messageID"] = $messageID;
+      $result["count"] = $count;
+      $result["beforeIDs"] = $IDs;
     }
 
     $result["len"] = $len;

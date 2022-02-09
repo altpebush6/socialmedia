@@ -154,7 +154,7 @@
                                     <div class="dropdown-content" style="width:220px;">
                                         <?php if ($item->MemberID == $memberid) { ?>
                                             <a href="javascript:void(0)" onClick="OpenEditConfession('<?= $cnfnID ?>','<?= $item->ConfessionText ?>')"><i class="far fa-edit"></i> <?= $translates["editcnfn"] ?></a>
-                                            <a href="javascript:void(0)" onClick="DeleteConfession('deleteconfession','<?= $memberid ?>','<?= $cnfnID ?>')"><i class="far fa-trash-alt"> <?= $translates["deletecnfn"] ?></i></a>
+                                            <a href="javascript:void(0)" class="delConfession" cnfnid="<?=$cnfnID?>"><i class="far fa-trash-alt"> <?= $translates["deletecnfn"] ?></i></a>
                                             <?php
                                         } else {
                                             $diduRep = $db->getData("SELECT * FROM reports_cnfn WHERE ReporterID = ? AND ReportedID = ?", array($memberid, $cnfnID));

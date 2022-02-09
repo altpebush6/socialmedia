@@ -433,5 +433,6 @@ $translates = array(
     "withyourprofile" => "Profilin ile",
     "selecttopic" => "Konuyu Seçiniz",
     "editcnfn" => "İtirafı Düzenle",
-    "deletecnfn" => "İtirafı Sil"
+    "deletecnfn" => "İtirafı Sil",
+    "selectforfree" => "Ücretsiz etkinlikler için işaretleyiniz."
 );

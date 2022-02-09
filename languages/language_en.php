@@ -430,5 +430,6 @@ $translates = array(
     "withyourprofile" => "With Your Profile",
     "selecttopic" => "Select Topic",
     "editcnfn" => "Edit Confession",
-    "deletecnfn" => "Delete Confession"
+    "deletecnfn" => "Delete Confession",
+    "selectforfree" => "Select for free events"
 );

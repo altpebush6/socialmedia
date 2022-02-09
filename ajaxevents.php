@@ -92,6 +92,7 @@ switch ($operation) {
         $emailAddress = security("emailAddress");
         $phoneNum = security("phoneNum");
         $pricing = security("pricing");
+        $free = security("free");
         $eventID = security("eventID");
         $eventImage = $_FILES['eventImg']['name'];
 
@@ -109,11 +110,22 @@ switch ($operation) {
             }
         }
 
+        if ($free == "true") {
+            $pricing = "0";
+            $pricingStatus = "notempty";
+        } else {
+            if (empty($pricing)) {
+                $pricingStatus = "itsempty";
+            } else {
+                $pricingStatus = "notempty";
+            }
+        }
 
-        if (empty($eventHeader) or empty($eventImage) or empty($eventCategory) or empty($eventDate) or empty($emailAddress) or empty($phoneNum) or empty($pricing)) {
+
+        if (empty($eventHeader) or empty($eventImage) or empty($eventCategory) or empty($eventDate) or empty($emailAddress) or empty($phoneNum)) {
             $result["error"] = $translates["emptyareas"];
         } else {
-            if ($status == "itsempty") {
+            if ($status == "itsempty" || $pricingStatus == "itsempty") {
                 $result["error"] = $translates["emptyareas"];
             } else {
                 $emailpattern = "/^[a-zA-Z0-9\.\-\_]+@[a-z]+([a-zA-Z0-9\.]+)?\.([a-z]{2,})([a-zA-Z0-9\.]+)?$/";

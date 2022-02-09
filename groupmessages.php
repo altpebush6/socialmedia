@@ -19,8 +19,8 @@ if (is_null($groupImage)) {
   $groupImage = "noneimage.png";
 }
 ?>
-<div class="row justify-content-center ps-3 pe-1">
-  <div class="row align-items-center justify-content-between py-2 px-0 messenger-top shadow" data-bs-toggle="modal" data-bs-target="#groupinfo">
+<div class="row justify-content-end ps-3 pe-1">
+  <div class="row mx-auto align-items-center justify-content-between py-2 px-0 messenger-top shadow" data-bs-toggle="modal" data-bs-target="#groupinfo">
     <div class="col-8 mx-auto text-center">
       <img src="group_images/<?= $groupImage ?>" class="rounded-circle" width="60" height="60" id="chatpersonimg">
       <a class="text-dark text-decoration-none fs-5" id="chatgroupname"><?= $group_name ? $group_name : $translates["anonymousgrp"] ?></a>
@@ -52,6 +52,9 @@ if (is_null($groupImage)) {
       }
       ?>
     </div>
+  </div>
+  <div class="col-4 text-end form-group mt-2 position-absolute">
+    <input type="text" class="form-control form-control-sm w-33 ms-auto" id="searchMessage" name="searchMessage" placeholder="<?= $translates["searchinmessages"] ?>">
   </div>
   <div class="row m-0 p-0 pb-2 messenger-middle d-flex flex-column justify-content-betweeen" id="messages">
     <ul class="list-group px-0 m-0 pb-2" id="messages_container" style="height:43vh;overflow-y:auto">

@@ -381,7 +381,10 @@
                                         <input type="text" class="form-control" maxlength="6" id="pricing" name="pricing" placeholder="<?= $translates["enterprice"] ?>">
                                         <div class="input-group-text">₺</div>
                                     </div>
-                                    <div class="form-text"><?= $translates["pricenote"] ?></div>
+                                </div>
+                                <div class="col-12 mt-1">
+                                    <input type="checkbox" class="form-check-input" id="free" name="free" style="cursor: pointer;">
+                                    <label for="free" class="form-check-label" style="cursor: pointer;"><?=$translates["selectforfree"]?></label>
                                 </div>
                             </div>
                         </div>

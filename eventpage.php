@@ -106,10 +106,10 @@ if ($myEvent->EventOrganizerID == $memberid) {
                 <?php if ($isOrganizer) {
                     if ($myEvent->EventPremium) { ?>
                         <div class="col-12 my-3 mb-2 ms-0 ps-1 pe-4 mx-auto">
-                            <button type="button" class="btn ms-2 w-100 rounded-3 proBtn shadow text-dark"><?=$translates["preevent"]?> <i class="fas fa-check"></i></button>
+                            <button type="button" class="btn ms-2 w-100 rounded-3 proBtn shadow text-dark"><?= $translates["preevent"] ?> <i class="fas fa-check"></i></button>
                         </div> <?php } else { ?>
                         <div class="col-12 my-3 mb-2 ms-0 ps-1 pe-4 mx-auto">
-                            <button type="button" class="btn ms-2 w-100 rounded-3 proBtn shadow text-dark" id="getPremium" eventid="<?= $myEvent->EventID ?>"><?=$translates["getpre"]?> <i class="far fa-star"></i><span class="spinner" id="spinnerProEvent"></span></button>
+                            <button type="button" class="btn ms-2 w-100 rounded-3 proBtn shadow text-dark" id="getPremium" eventid="<?= $myEvent->EventID ?>"><?= $translates["getpre"] ?> <i class="far fa-star"></i><span class="spinner" id="spinnerProEvent"></span></button>
                         </div>
                 <?php }
                         } ?>
@@ -258,7 +258,10 @@ if ($myEvent->EventOrganizerID == $memberid) {
                                     <input type="text" class="form-control" value="<?= $myEvent->EventPrice ?>" maxlength="6" id="pricing" name="pricing" placeholder="<?= $translates["enterprice"] ?>">
                                     <div class="input-group-text">₺</div>
                                 </div>
-                                <div class="form-text"><?= $translates["pricenote"] ?></div>
+                            </div>
+                            <div class="col-12 mt-1">
+                                <input type="checkbox" class="form-check-input" id="free" name="free" style="cursor: pointer;">
+                                <label for="free" class="form-check-label" style="cursor: pointer;"><?=$translates["selectforfree"]?></label>
                             </div>
                         </div>
                     </div>
