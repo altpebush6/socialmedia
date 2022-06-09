@@ -4,6 +4,8 @@ if (!isset($_SESSION)) {
 }
 require_once "classes/AllClasses.php";
 
+error_reporting(0);
+
 $SS = new aybu\session\session();
 $page = $_GET['page'];
 
